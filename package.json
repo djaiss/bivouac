@@ -3,7 +3,10 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "pretest": "DB_CONNECTION=testing php artisan migrate:fresh",
+        "posttest": "./vendor/bin/duster fix",
+        "test": "vendor/bin/phpunit"
     },
     "devDependencies": {
         "axios": "^1.1.2",
