@@ -3,13 +3,13 @@ APP_NAME=Laravel
 APP_ENV=testing
 APP_KEY=base64:NTrXToqFZJlv48dgPc+kNpc3SBt333TfDnF1mDShsBg=
 APP_DEBUG=true
-APP_URL=https://opengrind.test
+APP_URL=https://bivouac.test
 
 DB_CONNECTION=pgsql
 DB_HOST=127.0.0.1
 DB_PORT=5432
-DB_DATABASE=opengrind
-DB_USERNAME=opengrind
+DB_DATABASE=bivouac
+DB_USERNAME=bivouac
 DB_PASSWORD=secret
 
 BROADCAST_DRIVER=log
