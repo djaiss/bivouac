@@ -12,7 +12,7 @@ class CreateAccount extends BaseService
     private User $user;
 
     /**
-     * @var array<string, string> $data
+     * @var array<string, string>
      */
     private array $data;
 
@@ -35,7 +35,7 @@ class CreateAccount extends BaseService
     /**
      * Create an account for the user.
      *
-     * @param array<string, string> $data
+     * @param  array<string, string>  $data
      */
     public function execute(array $data): User
     {
