@@ -8,7 +8,7 @@ parameters:
     level: 5
     ignoreErrors:
         # larastan needs to manage ->pivot properties
-        - '#Access to an undefined property App\\Models\\[^:]*::\$pivot\.#'
+        #- '#Access to an undefined property App\\Models\\[^:]*::\$pivot\.#'
 #
 #    excludePaths:
 #        - ./*/*/FileToBeExcluded.php
