@@ -1,0 +1,16 @@
+includes:
+    - ./vendor/nunomaduro/larastan/extension.neon
+
+parameters:
+    paths:
+        - app/
+    # Level 9 is the highest level
+    level: 5
+    ignoreErrors:
+        # larastan needs to manage ->pivot properties
+        - '#Access to an undefined property App\\Models\\[^:]*::\$pivot\.#'
+#
+#    excludePaths:
+#        - ./*/*/FileToBeExcluded.php
+#
+#    checkMissingIterableValueType: false
