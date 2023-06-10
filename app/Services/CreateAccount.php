@@ -28,7 +28,7 @@ class CreateAccount extends BaseService
 
     /**
      * Create an account for the user.
-    */
+     */
     public function execute(array $data): User
     {
         $this->data = $data;
