@@ -21,6 +21,7 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
-        "sass": "^1.63.3"
+        "sass": "^1.63.3",
+        "tiny-emitter": "^2.1.0"
     }
 }
