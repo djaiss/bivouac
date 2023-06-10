@@ -12,11 +12,6 @@ class Organization extends Model
 
     protected $table = 'organizations';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<string>
-     */
     protected $fillable = [
         'name',
     ];

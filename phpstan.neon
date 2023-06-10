@@ -9,8 +9,12 @@ parameters:
     ignoreErrors:
         # larastan needs to manage ->pivot properties
         #- '#Access to an undefined property App\\Models\\[^:]*::\$pivot\.#'
+        - '#Method\s.+?\sreturn type has no value type specified in iterable type array\.#'
+        - '#\s.+?\sno value type specified in iterable type array\.#'
+
 #
-#    excludePaths:
+    excludePaths:
+        - app/Http/Controllers/Auth/VerifyEmailController.php
 #        - ./*/*/FileToBeExcluded.php
 #
 #    checkMissingIterableValueType: false

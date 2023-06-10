@@ -11,16 +11,10 @@ class CreateAccount extends BaseService
 {
     private User $user;
 
-    /**
-     * @var array<string, string>
-     */
     private array $data;
 
     private Organization $organization;
 
-    /**
-     * @return array<string, string>
-     */
     public function rules(): array
     {
         return [
@@ -34,9 +28,7 @@ class CreateAccount extends BaseService
 
     /**
      * Create an account for the user.
-     *
-     * @param  array<string, string>  $data
-     */
+    */
     public function execute(array $data): User
     {
         $this->data = $data;
