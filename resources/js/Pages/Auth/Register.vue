@@ -31,8 +31,8 @@ const submit = () => {
       <div class="mb-4">
         <img src="img/logo-login.png" alt="logo" class="text-center mx-auto mb-4 block w-28" />
 
-        <h2 class="font-bold text-center mb-2">Welcome to Bivouac</h2>
-        <h3 class="text-sm text-gray-700 mb-4 text-center">Create your account now for free.</h3>
+        <h2 class="font-bold text-center mb-2">{{ $t('Welcome to Bivouac') }}</h2>
+        <h3 class="text-sm text-gray-700 mb-4 text-center">{{ $t('Create your account now for free.') }}</h3>
       </div>
 
       <!-- first name and last name -->

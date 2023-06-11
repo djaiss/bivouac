@@ -38,6 +38,13 @@ const submit = () => {
     </div>
 
     <form @submit.prevent="submit">
+      <div class="mb-4">
+        <img src="img/logo-register.png" alt="logo" class="text-center mx-auto mb-4 block w-28" />
+
+        <h2 class="font-bold text-center mb-2">Welcome back to Bivouac</h2>
+        <h3 class="text-sm text-gray-700 mb-4 text-center">Hope you are having a great day.</h3>
+      </div>
+
       <div>
         <InputLabel for="email" value="Email" />
 
