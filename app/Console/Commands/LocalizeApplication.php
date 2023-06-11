@@ -33,7 +33,7 @@ class LocalizeApplication extends Command
     }
 
     /**
-     * Heavily inspired by https://stevensteel.com/blog/automatically-find-translate-and-save-missing-translation-keys
+     * Heavily inspired by https://stevensteel.com/blog/automatically-find-translate-and-save-missing-translation-keys.
      */
     private function loadTranslations(array $locales): void
     {
@@ -45,7 +45,7 @@ class LocalizeApplication extends Command
         foreach ($finder as $file) {
             $locale = $file->getFilenameWithoutExtension();
 
-            if (!in_array($locale, $locales)) {
+            if (! in_array($locale, $locales)) {
                 continue;
             }
 
@@ -57,7 +57,7 @@ class LocalizeApplication extends Command
         }
     }
 
-    private function translateStrings(string $locale, array $strings)
+    private function translateStrings(string $locale, array $strings): void
     {
         foreach ($strings as $index => $value) {
             if ($value === '') {
