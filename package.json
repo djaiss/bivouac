@@ -21,6 +21,7 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
+        "laravel-vue-i18n": "^2.5.1",
         "sass": "^1.63.3",
         "tiny-emitter": "^2.1.0"
     }
