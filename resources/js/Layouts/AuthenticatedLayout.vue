@@ -1,151 +1,119 @@
 <script setup>
-import { ref } from 'vue';
-import Dropdown from '@/Components/Dropdown.vue';
-import DropdownLink from '@/Components/DropdownLink.vue';
-import NavLink from '@/Components/NavLink.vue';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
 import Toaster from '@/Components/Toaster.vue';
-
-const showingNavigationDropdown = ref(false);
+import { HomeIcon } from '@heroicons/vue/24/solid';
+import { BuildingOffice2Icon } from '@heroicons/vue/24/solid';
+import { MagnifyingGlassIcon } from '@heroicons/vue/24/solid';
+import { BellIcon } from '@heroicons/vue/24/solid';
+import { QuestionMarkCircleIcon } from '@heroicons/vue/24/solid';
+import { BriefcaseIcon } from '@heroicons/vue/24/solid';
+import { Cog8ToothIcon } from '@heroicons/vue/24/solid';
+import { ArrowLeftOnRectangleIcon } from '@heroicons/vue/24/solid';
+import { ComputerDesktopIcon } from '@heroicons/vue/24/solid';
 </script>
 
 <template>
-    <div>
-        <div class="min-h-screen bg-gray-100">
-            <nav class="bg-white border-b border-gray-100">
-                <!-- Primary Navigation Menu -->
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="flex justify-between h-16">
-                        <div class="flex">
-                            <!-- Logo -->
-                            <div class="shrink-0 flex items-center">
-                                <Link :href="route('dashboard')">
-                                  dfdss
-                                </Link>
-                            </div>
+  <div>
+    <div class="min-h-screen flex flex-col">
+      <div class="flex-1 flex flex-col sm:flex-row">
 
-                            <!-- Navigation Links -->
-                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
-                                </NavLink>
-                            </div>
-                        </div>
+        <!-- main content -->
+        <main class="flex-1 bg-slate-100">
+          <slot />
+        </main>
 
-                        <div class="hidden sm:flex sm:items-center sm:ml-6">
-                            <!-- Settings Dropdown -->
-                            <div class="ml-3 relative">
-                                <Dropdown align="right" width="48">
-                                    <template #trigger>
-                                        <span class="inline-flex rounded-md">
-                                            <button
-                                                type="button"
-                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
-                                            >
-                                                {{ $page.props.auth.user.name }}
+        <!-- sidebar -->
+        <nav class="order-first sm:w-60 bg-slate-800 flex flex-col">
 
-                                                <svg
-                                                    class="ml-2 -mr-0.5 h-4 w-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                >
-                                                    <path
-                                                        fill-rule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clip-rule="evenodd"
-                                                    />
-                                                </svg>
-                                            </button>
-                                        </span>
-                                    </template>
+          <div class="flex-1">
+            <!-- Bivouac logo -->
+            <div class="bg-slate-900 px-8 py-4 mb-6">
+              <div class="flex items-center justify-center">
+                <img src="img/logo.svg" class="h-6 w-6 fill-current text-white mr-4" alt="Bivouac logo" />
+                <p class="app-name text-white text-xl">Bivouac</p>
+              </div>
+            </div>
 
-                                    <template #content>
-                                        <DropdownLink :href="route('profile.edit')"> Profile </DropdownLink>
-                                        <DropdownLink :href="route('logout')" method="post" as="button">
-                                            Log Out
-                                        </DropdownLink>
-                                    </template>
-                                </Dropdown>
-                            </div>
-                        </div>
+            <!-- search and notifications -->
+            <ul class="text-slate-400 pb-4 mb-4 border-b border-slate-700">
+              <li class="px-4 py-2 group hover:bg-slate-900 hover:text-white flex items-center">
+                <MagnifyingGlassIcon class="h-4 w-4 group-hover:fill-current group-hover:text-blue-500 transition ease-in-out" />
+                <span class="ml-2">{{ $t('Search') }}</span>
+              </li>
 
-                        <!-- Hamburger -->
-                        <div class="-mr-2 flex items-center sm:hidden">
-                            <button
-                                @click="showingNavigationDropdown = !showingNavigationDropdown"
-                                class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
-                            >
-                                <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                                    <path
-                                        :class="{
-                                            hidden: showingNavigationDropdown,
-                                            'inline-flex': !showingNavigationDropdown,
-                                        }"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M4 6h16M4 12h16M4 18h16"
-                                    />
-                                    <path
-                                        :class="{
-                                            hidden: !showingNavigationDropdown,
-                                            'inline-flex': showingNavigationDropdown,
-                                        }"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+              <li class="px-4 py-2 group hover:bg-slate-900 hover:text-white flex items-center">
+                <BellIcon class="h-4 w-4 group-hover:fill-current group-hover:text-blue-500 transition ease-in-out" />
+                <span class="ml-2">{{ $t('Notifications') }}</span>
+              </li>
+            </ul>
 
-                <!-- Responsive Navigation Menu -->
-                <div
-                    :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }"
-                    class="sm:hidden"
-                >
-                    <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                            Dashboard
-                        </ResponsiveNavLink>
-                    </div>
+            <!-- general menu -->
+            <ul class="text-slate-400">
+              <!-- dashboard -->
+              <li class="px-4 py-2 group hover:bg-slate-900 hover:text-white flex items-center">
+                <HomeIcon class="h-4 w-4 group-hover:fill-current group-hover:text-blue-500 transition ease-in-out" />
+                <span class="ml-2">{{ $t('Home') }}</span>
+              </li>
 
-                    <!-- Responsive Settings Options -->
-                    <div class="pt-4 pb-1 border-t border-gray-200">
-                        <div class="px-4">
-                            <div class="font-medium text-base text-gray-800">
-                                {{ $page.props.auth.user.name }}
-                            </div>
-                            <div class="font-medium text-sm text-gray-500">{{ $page.props.auth.user.email }}</div>
-                        </div>
+              <!-- company -->
+              <li class="px-4 py-2 group hover:bg-slate-900 hover:text-white flex items-center">
+                <BuildingOffice2Icon class="h-4 w-4 group-hover:fill-current group-hover:text-blue-500 transition ease-in-out" />
+                <span class="ml-2">Basecamp</span>
+              </li>
 
-                        <div class="mt-3 space-y-1">
-                            <ResponsiveNavLink :href="route('profile.edit')"> Profile </ResponsiveNavLink>
-                            <ResponsiveNavLink :href="route('logout')" method="post" as="button">
-                                Log Out
-                            </ResponsiveNavLink>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+              <!-- projects -->
+              <li class="px-4 py-2 group hover:bg-slate-900 hover:text-white flex items-center">
+                <BriefcaseIcon class="h-4 w-4 group-hover:fill-current group-hover:text-blue-500 transition ease-in-out" />
+                <span class="ml-2">{{ $t('Projects') }}</span>
+              </li>
 
-            <!-- Page Heading -->
-            <header class="bg-white shadow" v-if="$slots.header">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    <slot name="header" />
-                </div>
-            </header>
+              <!-- asset management -->
+              <li class="px-4 py-2 group hover:bg-slate-900 hover:text-white flex items-center">
+                <ComputerDesktopIcon class="h-4 w-4 group-hover:fill-current group-hover:text-blue-500 transition ease-in-out" />
+                <span class="ml-2">{{ $t('Asset management') }}</span>
+              </li>
 
-            <!-- Page Content -->
-            <main>
-                <slot />
-            </main>
-        </div>
-        <Toaster />
+              <!-- settings -->
+              <li class="px-4 py-2 group hover:bg-slate-900 hover:text-white flex items-center">
+                <Cog8ToothIcon class="h-4 w-4 group-hover:fill-current group-hover:text-blue-500 transition ease-in-out" />
+                <span class="ml-2">{{ $t('Account settings') }}</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- help and user -->
+          <div class="text-slate-400">
+            <ul class="text-slate-400 pb-2 mb-2 border-b border-slate-700">
+              <li class="px-4 py-2 group hover:bg-slate-900 hover:text-white flex items-center">
+                <QuestionMarkCircleIcon class="h-4 w-4 group-hover:fill-current group-hover:text-blue-500 transition ease-in-out" />
+                <span class="ml-2">{{ $t('Help') }}</span>
+              </li>
+
+              <li class="px-4 py-2 group hover:bg-slate-900 hover:text-white flex items-center">
+                <ArrowLeftOnRectangleIcon class="h-4 w-4 group-hover:fill-current group-hover:text-blue-500 transition ease-in-out" />
+                <span class="ml-2"><Link :href="route('logout')" method="post">{{ $t('Logout') }}</Link></span>
+              </li>
+            </ul>
+
+            <!-- user -->
+            <ul class="text-slate-400 mb-4">
+              <li class="px-4 py-2 group hover:bg-slate-900 hover:text-white flex items-center">
+                <img src="https://pbs.twimg.com/profile_images/1638147187119931394/sg8c4mRW_x96.png" class="h-7 w-7 rounded mr-2" alt="">
+                <span class="ml-2">Regis</span>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
     </div>
+
+    <!-- toaster, applied on all the pages -->
+    <Toaster />
+  </div>
 </template>
+
+<style lang="scss" scoped>
+.app-name {
+  font-family: 'Song Myung', serif;
+}
+</style>
