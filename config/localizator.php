@@ -17,13 +17,13 @@ return [
          * Translations strings as key.
          * They are stored in JSON file for each locale.
          */
-        'json'    => true,
+        'json' => true,
     ],
 
     /**
      * Search criteria for files.
      */
-    'search'   => [
+    'search' => [
         /**
          * Directories which should be looked inside.
          */
@@ -54,5 +54,5 @@ return [
     /**
      * Should the localize command sort extracted strings alphabetically?
      */
-    'sort'     => true,
+    'sort' => true,
 ];

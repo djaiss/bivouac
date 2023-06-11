@@ -38,9 +38,9 @@ class LocalizeApplication extends Command
     private function loadTranslations(array $locales): void
     {
         $path = lang_path();
-        $finder = new Finder();
+        $finder = new Finder;
         $finder->in($path)->name(['*.json'])->files();
-        $this->googleTranslate = new GoogleTranslate();
+        $this->googleTranslate = new GoogleTranslate;
 
         foreach ($finder as $file) {
             $locale = $file->getFilenameWithoutExtension();
