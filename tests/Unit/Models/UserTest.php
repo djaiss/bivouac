@@ -24,6 +24,35 @@ class UserTest extends TestCase
     }
 
     /** @test */
+    public function it_gets_the_name(): void
+    {
+        $user = User::factory()->create([
+            'first_name' => null,
+            'last_name' => null,
+            'email' => 'dwight@dundermifflin.com',
+        ]);
+
+        $this->assertEquals(
+            $user->name,
+            'dwight@dundermifflin.com'
+        );
+
+        $user->first_name = 'Dwight';
+
+        $this->assertEquals(
+            $user->name,
+            'Dwight'
+        );
+
+        $user->last_name = 'Schrute';
+
+        $this->assertEquals(
+            $user->name,
+            'Dwight Schrute'
+        );
+    }
+
+    /** @test */
     public function it_gets_the_age(): void
     {
         Carbon::setTestNow(Carbon::create(2018, 1, 1));

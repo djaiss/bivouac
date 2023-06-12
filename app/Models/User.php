@@ -55,6 +55,25 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(Organization::class);
     }
 
+    protected function name(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value, $attributes) {
+                if (is_null($attributes['first_name'])) {
+                    return $attributes['email'];
+                }
+
+                $completeName = $attributes['first_name'];
+
+                if (! is_null($attributes['last_name'])) {
+                    $completeName = $completeName . ' ' . $attributes['last_name'];
+                }
+
+                return $completeName;
+            }
+        );
+    }
+
     protected function age(): Attribute
     {
         return Attribute::make(
