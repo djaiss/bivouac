@@ -20,14 +20,14 @@ class MultiAvatar
 
     public array $ver;
 
-    public function __invoke($avatarId, $sansEnv, $ver)
+    public function __invoke($avatarId, $sansEnv, $ver): string
     {
         $svgCode = $this->generate(strval($avatarId), $sansEnv, $ver);
 
         return $svgCode;
     }
 
-    public function getFinal($part, $partV, $theme, $themes, $sP)
+    public function getFinal($part, $partV, $theme, $themes, $sP): string
     {
         $colors = $themes[$partV][$theme][$part];
         $svgString = $sP[$partV][$part];
@@ -48,7 +48,7 @@ class MultiAvatar
         return $resultFinal;
     }
 
-    public function generate($avatarId, $sansEnv, $ver)
+    public function generate($avatarId, $sansEnv, $ver): string
     {
         $themes = [];
 
