@@ -21,10 +21,15 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public const AGE_FULL = 'full';
 
+    public const AVATAR_TYPE_SVG = 'svg';
+
+    public const AVATAR_TYPE_URL = 'url';
+
     protected $fillable = [
         'first_name',
         'last_name',
         'organization_id',
+        'name_for_avatar',
         'email',
         'email_verified_at',
         'locale',
@@ -69,6 +74,27 @@ class User extends Authenticatable implements MustVerifyEmail
                 }
 
                 return $date->isoFormat(trans('format.year_month_day')) . ' (' . $date->age . ')';
+            }
+        );
+    }
+
+    protected function avatar(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                $type = self::AVATAR_TYPE_SVG;
+                $multiavatar = new MultiAvatar;
+                $avatar = $multiavatar($this->name_for_avatar, null, null);
+
+                // if ($this->file) {
+                //     $type = self::AVATAR_TYPE_URL;
+                //     $content = 'https://ucarecdn.com/' . $this->file->uuid . '/-/scale_crop/300x300/smart/-/format/auto/-/quality/smart_retina/';
+                // }
+
+                return [
+                    'type' => $type,
+                    'content' => $avatar,
+                ];
             }
         );
     }
