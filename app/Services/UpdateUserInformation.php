@@ -61,7 +61,7 @@ class UpdateUserInformation extends BaseService
             $this->user->email = $this->data['email'];
             $this->user->save();
 
-            event(new Registered($this->user instanceOf MustVerifyEmail));
+            event(new Registered($this->user instanceof MustVerifyEmail));
         }
     }
 }
