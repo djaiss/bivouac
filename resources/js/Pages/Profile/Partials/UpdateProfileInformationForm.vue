@@ -1,97 +1,110 @@
 <script setup>
-import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { Link, useForm, usePage } from '@inertiajs/vue3';
+import Error from '@/Components/Error.vue';
+import HelpInput from '@/Components/HelpInput.vue';
+import { flash } from '@/methods.js';
+import { trans } from 'laravel-vue-i18n';
+import { ref, reactive } from 'vue';
 
-defineProps({
-    mustVerifyEmail: {
-        type: Boolean,
-    },
-    status: {
-        type: String,
-    },
+const props = defineProps({
+  data: {
+    type: Array,
+  },
 });
 
-const user = usePage().props.auth.user;
-
-const form = useForm({
-    name: user.name,
-    email: user.email,
+const loadingState = ref(false);
+const form = reactive({
+  first_name: props.data.user.first_name,
+  last_name: props.data.user.last_name,
+  email: props.data.user.email,
+  errors: null,
 });
+
+const update = () => {
+  loadingState.value = true;
+
+  axios
+    .put(props.data.url.update, form)
+    .then(() => {
+      flash(trans('Changes saved'));
+      loadingState.value = false;
+      form.errors = null;
+    })
+    .catch((error) => {
+      loadingState.value = false;
+      form.errors = error.response.data;
+    });
+};
 </script>
 
 <template>
-    <section>
-        <header>
-            <h2 class="text-lg font-medium text-gray-900">Profile Information</h2>
+  <section>
+    <header class="w-full">
+      <h2 class="px-4 py-2 border-b border-gray-200 text-lg font-medium text-gray-900">
+        {{ $t('Profile information') }}
+      </h2>
+    </header>
 
-            <p class="mt-1 text-sm text-gray-600">
-                Update your account's profile information and email address.
-            </p>
-        </header>
+    <div class="flex">
+      <!-- instructions -->
+      <div class="text-sm p-4 w-96 mr-8">
+        {{ $t('This information is publicly available within the organization. Everyone can read it.') }}
+      </div>
 
-        <form @submit.prevent="form.patch(route('profile.update'))" class="mt-6 space-y-6">
-            <div>
-                <InputLabel for="name" value="Name" />
+      <div class="p-4">
+        <Error :errors="form.errors" />
 
-                <TextInput
-                    id="name"
-                    type="text"
-                    class="mt-1 block w-full"
-                    v-model="form.name"
-                    required
-                    autofocus
-                    autocomplete="name"
-                />
+        <form @submit.prevent="update" class="space-y-6 max-w-3xl">
+          <div class="flex">
+            <!-- first name -->
+            <div class="mr-4 w-full">
+              <InputLabel for="first_name" :value="$t('First name')" />
 
-                <InputError class="mt-2" :message="form.errors.name" />
+              <TextInput
+                id="first_name"
+                type="text"
+                class="mt-1 block w-full"
+                v-model="form.first_name"
+                required
+                autofocus
+                autocomplete="first_name" />
             </div>
 
-            <div>
-                <InputLabel for="email" value="Email" />
+            <!-- last name -->
+            <div class="w-full">
+              <InputLabel for="last_name" :value="$t('Last name')" />
 
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autocomplete="username"
-                />
-
-                <InputError class="mt-2" :message="form.errors.email" />
+              <TextInput
+                id="last_name"
+                type="text"
+                class="mt-1 block w-full"
+                v-model="form.last_name"
+                required
+                autocomplete="last_name" />
             </div>
+          </div>
 
-            <div v-if="mustVerifyEmail && user.email_verified_at === null">
-                <p class="text-sm mt-2 text-gray-800">
-                    Your email address is unverified.
-                    <Link
-                        :href="route('verification.send')"
-                        method="post"
-                        as="button"
-                        class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                        Click here to re-send the verification email.
-                    </Link>
-                </p>
+          <!-- email -->
+          <div>
+            <InputLabel for="email" :value="$t('Email')" />
 
-                <div
-                    v-show="status === 'verification-link-sent'"
-                    class="mt-2 font-medium text-sm text-green-600"
-                >
-                    A new verification link has been sent to your email address.
-                </div>
-            </div>
+            <TextInput
+              id="email"
+              type="email"
+              class="mt-1 block w-full"
+              v-model="form.email"
+              required
+              autocomplete="email" />
 
-            <div class="flex items-center gap-4">
-                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
+            <HelpInput
+              :value="$t('We will send you a verification email to confirm that you own the email address.')" />
+          </div>
 
-                <Transition enter-from-class="opacity-0" leave-to-class="opacity-0" class="transition ease-in-out">
-                    <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Saved.</p>
-                </Transition>
-            </div>
+          <PrimaryButton :loading="loadingState" :disabled="loadingState">{{ $t('Save') }}</PrimaryButton>
         </form>
-    </section>
+      </div>
+    </div>
+  </section>
 </template>

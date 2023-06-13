@@ -8,7 +8,7 @@ defineProps({
 </script>
 
 <template>
-  <p v-if="value" class="mb-3 mt-1 text-xs">
+  <p v-if="value" class="mt-1 text-xs">
     {{ value }}
   </p>
 </template>

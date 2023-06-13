@@ -50,6 +50,7 @@ class CreateAccountTest extends TestCase
             'id' => $user->id,
             'first_name' => 'johnny',
             'last_name' => 'depp',
+            'name_for_avatar' => 'johnny',
             'email' => 'john@email.com',
             'organization_id' => $user->organization_id,
         ]);
