@@ -52,8 +52,7 @@ const update = () => {
     <div class="flex">
       <!-- instructions -->
       <div class="text-sm p-4 w-96 mr-8">
-        Only your nickname will be visible to everyone. Your name will stay private unless you make it public within an
-        organization – in that case, it will be visible within that organization.
+        {{ $t('bla.') }}
       </div>
 
       <div class="p-4">
