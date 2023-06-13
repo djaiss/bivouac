@@ -50,7 +50,7 @@ const update = () => {
     <div class="flex">
       <!-- instructions -->
       <div class="text-sm p-4 w-96 mr-8">
-        {{ $t('bla.') }}
+        {{ $t('This information is publicly available within the organization. Everyone can read it.') }}
       </div>
 
       <div class="p-4">

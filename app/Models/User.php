@@ -55,6 +55,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(Organization::class);
     }
 
+    /**
+     * @return Attribute<string,never>
+     */
     protected function name(): Attribute
     {
         return Attribute::make(
