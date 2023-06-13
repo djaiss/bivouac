@@ -28,7 +28,7 @@ class ProfileController extends Controller
      */
     public function update(Request $request): JsonResponse
     {
-        (new UpdateUserInformation())->execute([
+        (new UpdateUserInformation)->execute([
             'author_id' => auth()->user()->id,
             'user_id' => auth()->user()->id,
             'first_name' => $request->input('first_name'),
