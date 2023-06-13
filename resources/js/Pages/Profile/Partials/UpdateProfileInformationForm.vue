@@ -26,12 +26,12 @@ const form = reactive({
 
 const update = () => {
   loadingState.value = true;
-form.last_name = null;
+  form.last_name = null;
   axios
     .put(props.data.url.update, form)
     .then(() => {
       loadingState.value = false;
-      flash(trans('Changes saved'))
+      flash(trans('Changes saved'));
     })
     .catch((error) => {
       loadingState.value = false;
@@ -43,13 +43,16 @@ form.last_name = null;
 <template>
   <section>
     <header class="w-full">
-      <h2 class="px-4 py-2 border-b border-gray-200 text-lg font-medium text-gray-900">{{ $t('Profile information') }}</h2>
+      <h2 class="px-4 py-2 border-b border-gray-200 text-lg font-medium text-gray-900">
+        {{ $t('Profile information') }}
+      </h2>
     </header>
 
     <div class="flex">
       <!-- instructions -->
       <div class="text-sm p-4 w-96 mr-8">
-        Only your nickname will be visible to everyone. Your name will stay private unless you make it public within an organization – in that case, it will be visible within that organization.
+        Only your nickname will be visible to everyone. Your name will stay private unless you make it public within an
+        organization – in that case, it will be visible within that organization.
       </div>
 
       <div>
@@ -68,8 +71,7 @@ form.last_name = null;
                 v-model="form.first_name"
                 required
                 autofocus
-                autocomplete="first_name"
-              />
+                autocomplete="first_name" />
             </div>
 
             <!-- last name -->
@@ -82,8 +84,7 @@ form.last_name = null;
                 class="mt-1 block w-full"
                 v-model="form.last_name"
                 required
-                autocomplete="last_name"
-              />
+                autocomplete="last_name" />
             </div>
           </div>
 
@@ -92,15 +93,15 @@ form.last_name = null;
             <InputLabel for="email" :value="$t('Email')" />
 
             <TextInput
-                id="email"
-                type="email"
-                class="mt-1 block w-full"
-                v-model="form.email"
-                required
-                autocomplete="email"
-            />
+              id="email"
+              type="email"
+              class="mt-1 block w-full"
+              v-model="form.email"
+              required
+              autocomplete="email" />
 
-            <HelpInput :value="$t('We will send you a verification email to confirm that you own the email address.')" />
+            <HelpInput
+              :value="$t('We will send you a verification email to confirm that you own the email address.')" />
           </div>
 
           <PrimaryButton :loading="loadingState" :disabled="loadingState">{{ $t('Save') }}</PrimaryButton>

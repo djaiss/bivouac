@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers\Profile;
 
-use App\Models\Contact;
-use App\Models\Group;
 use App\Models\User;
-use Illuminate\Support\Collection;
 
 class ProfileViewModel
 {

@@ -47,8 +47,7 @@ const submit = () => {
             v-model="form.first_name"
             required
             autofocus
-            autocomplete="first_name"
-          />
+            autocomplete="first_name" />
 
           <InputError class="mt-2" :message="form.errors.first_name" />
         </div>
@@ -62,8 +61,7 @@ const submit = () => {
             class="mt-1 block w-full"
             v-model="form.last_name"
             required
-            autocomplete="last_name"
-          />
+            autocomplete="last_name" />
 
           <InputError class="mt-2" :message="form.errors.last_name" />
         </div>
@@ -78,8 +76,7 @@ const submit = () => {
           class="mt-1 block w-full"
           v-model="form.email"
           required
-          autocomplete="username"
-        />
+          autocomplete="username" />
 
         <HelpInput value="We will send you a verification email, and won't spam you." />
 
@@ -95,8 +92,7 @@ const submit = () => {
           class="mt-1 block w-full"
           v-model="form.password"
           required
-          autocomplete="new-password"
-        />
+          autocomplete="new-password" />
 
         <HelpInput value="Minimum 8 characters." />
 
@@ -104,28 +100,25 @@ const submit = () => {
       </div>
 
       <div class="mt-4">
-          <InputLabel for="organization" value="Your organization's name" />
+        <InputLabel for="organization" value="Your organization's name" />
 
-          <TextInput
-            id="organization"
-            type="text"
-            class="mt-1 block w-full"
-            v-model="form.organization_name"
-            required
-          />
+        <TextInput id="organization" type="text" class="mt-1 block w-full" v-model="form.organization_name" required />
 
-          <InputError class="mt-2" :message="form.errors.organization_name" />
-        </div>
+        <InputError class="mt-2" :message="form.errors.organization_name" />
+      </div>
 
       <div class="flex items-center justify-end mt-4">
         <Link
           :href="route('login')"
-          class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
+          class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
           Already registered?
         </Link>
 
-        <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :loading="form.processing" :disabled="form.processing">
+        <PrimaryButton
+          class="ml-4"
+          :class="{ 'opacity-25': form.processing }"
+          :loading="form.processing"
+          :disabled="form.processing">
           Register
         </PrimaryButton>
       </div>

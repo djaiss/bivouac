@@ -20,7 +20,6 @@ const user = computed(() => page.props.auth.user);
 <template>
   <div>
     <div class="min-h-screen flex-1 flex flex-col sm:flex-row">
-
       <!-- main content -->
       <main class="flex-1 bg-slate-100">
         <slot />
@@ -28,7 +27,6 @@ const user = computed(() => page.props.auth.user);
 
       <!-- sidebar -->
       <nav class="order-first sm:w-60 bg-slate-800">
-
         <div class="flex-1">
           <!-- Bivouac logo -->
           <div class="bg-slate-900 px-8 py-4 mb-6">
@@ -41,7 +39,8 @@ const user = computed(() => page.props.auth.user);
           <!-- search and notifications -->
           <ul class="text-slate-400 pb-4 mb-4 border-b border-slate-700">
             <li class="px-4 py-2 group hover:bg-slate-900 hover:text-white flex items-center">
-              <MagnifyingGlassIcon class="h-4 w-4 group-hover:fill-current group-hover:text-blue-500 transition ease-in-out" />
+              <MagnifyingGlassIcon
+                class="h-4 w-4 group-hover:fill-current group-hover:text-blue-500 transition ease-in-out" />
               <span class="ml-2">{{ $t('Search') }}</span>
             </li>
 
@@ -61,25 +60,29 @@ const user = computed(() => page.props.auth.user);
 
             <!-- company -->
             <li class="px-4 py-2 group hover:bg-slate-900 hover:text-white flex items-center">
-              <BuildingOffice2Icon class="h-4 w-4 group-hover:fill-current group-hover:text-blue-500 transition ease-in-out" />
+              <BuildingOffice2Icon
+                class="h-4 w-4 group-hover:fill-current group-hover:text-blue-500 transition ease-in-out" />
               <span class="ml-2">Basecamp</span>
             </li>
 
             <!-- projects -->
             <li class="px-4 py-2 group hover:bg-slate-900 hover:text-white flex items-center">
-              <BriefcaseIcon class="h-4 w-4 group-hover:fill-current group-hover:text-blue-500 transition ease-in-out" />
+              <BriefcaseIcon
+                class="h-4 w-4 group-hover:fill-current group-hover:text-blue-500 transition ease-in-out" />
               <span class="ml-2">{{ $t('Projects') }}</span>
             </li>
 
             <!-- asset management -->
             <li class="px-4 py-2 group hover:bg-slate-900 hover:text-white flex items-center">
-              <ComputerDesktopIcon class="h-4 w-4 group-hover:fill-current group-hover:text-blue-500 transition ease-in-out" />
+              <ComputerDesktopIcon
+                class="h-4 w-4 group-hover:fill-current group-hover:text-blue-500 transition ease-in-out" />
               <span class="ml-2">{{ $t('Asset management') }}</span>
             </li>
 
             <!-- settings -->
             <li class="px-4 py-2 group hover:bg-slate-900 hover:text-white flex items-center">
-              <Cog8ToothIcon class="h-4 w-4 group-hover:fill-current group-hover:text-blue-500 transition ease-in-out" />
+              <Cog8ToothIcon
+                class="h-4 w-4 group-hover:fill-current group-hover:text-blue-500 transition ease-in-out" />
               <span class="ml-2">{{ $t('Account settings') }}</span>
             </li>
           </ul>
@@ -87,20 +90,27 @@ const user = computed(() => page.props.auth.user);
           <!-- help and user -->
           <ul class="text-slate-400 pb-4 mb-4 border-b border-slate-700">
             <li class="px-4 py-2 group hover:bg-slate-900 hover:text-white flex items-center">
-              <QuestionMarkCircleIcon class="h-4 w-4 group-hover:fill-current group-hover:text-blue-500 transition ease-in-out" />
+              <QuestionMarkCircleIcon
+                class="h-4 w-4 group-hover:fill-current group-hover:text-blue-500 transition ease-in-out" />
               <span class="ml-2">{{ $t('Help') }}</span>
             </li>
 
             <li class="px-4 py-2 group hover:bg-slate-900 hover:text-white flex items-center">
-              <ArrowLeftOnRectangleIcon class="h-4 w-4 group-hover:fill-current group-hover:text-blue-500 transition ease-in-out" />
-              <span class="ml-2"><Link :href="route('logout')" method="post">{{ $t('Logout') }}</Link></span>
+              <ArrowLeftOnRectangleIcon
+                class="h-4 w-4 group-hover:fill-current group-hover:text-blue-500 transition ease-in-out" />
+              <span class="ml-2"
+                ><Link :href="route('logout')" method="post">{{ $t('Logout') }}</Link></span
+              >
             </li>
           </ul>
 
           <!-- user -->
           <ul class="text-slate-400 mb-4">
             <li class="px-4 py-2 group hover:bg-slate-900 hover:text-white flex items-center">
-              <img src="https://pbs.twimg.com/profile_images/1638147187119931394/sg8c4mRW_x96.png" class="h-7 w-7 rounded mr-2" alt="">
+              <img
+                src="https://pbs.twimg.com/profile_images/1638147187119931394/sg8c4mRW_x96.png"
+                class="h-7 w-7 rounded mr-2"
+                alt="" />
               <span class="ml-2">{{ user.name }}</span>
             </li>
           </ul>

@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ProfileUpdateRequest;
 use App\Services\UpdateUserInformation;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -30,7 +28,7 @@ class ProfileController extends Controller
      */
     public function update(Request $request): JsonResponse
     {
-        (new UpdateUserInformation())->execute([
+        (new UpdateUserInformation)->execute([
             'author_id' => auth()->user()->id,
             'user_id' => auth()->user()->id,
             'first_name' => $request->input('first_name'),

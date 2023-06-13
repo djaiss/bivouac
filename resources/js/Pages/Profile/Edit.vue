@@ -26,7 +26,10 @@ defineProps({
         <!-- avatar, name, description -->
         <div class="flex border-b border-gray-200 p-4 sm:p-8">
           <!-- avatar -->
-          <img src="https://pbs.twimg.com/profile_images/1638147187119931394/sg8c4mRW_x96.png" class="w-30 h-30 rounded mr-6" alt="profile picture">
+          <img
+            src="https://pbs.twimg.com/profile_images/1638147187119931394/sg8c4mRW_x96.png"
+            class="w-30 h-30 rounded mr-6"
+            alt="profile picture" />
 
           <div>
             <h1 class="font-bold text-xl">Regis Freyd</h1>
@@ -38,19 +41,39 @@ defineProps({
           <div class="font-medium text-center text-gray-500 dark:text-gray-400">
             <ul class="flex flex-wrap -mb-px">
               <li class="mr-2">
-                <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-blue-600 hover:border-blue-300 dark:hover:text-gray-300">{{ $t('Presentation') }}</a>
+                <a
+                  href="#"
+                  class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-blue-600 hover:border-blue-300 dark:hover:text-gray-300"
+                  >{{ $t('Presentation') }}</a
+                >
               </li>
               <li class="mr-2">
-                <a href="#" class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500">{{ $t('Work') }}</a>
+                <a
+                  href="#"
+                  class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500"
+                  >{{ $t('Work') }}</a
+                >
               </li>
               <li class="mr-2">
-                <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-blue-600 hover:border-blue-300 dark:hover:text-gray-300">{{ $t('Performance') }}</a>
+                <a
+                  href="#"
+                  class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-blue-600 hover:border-blue-300 dark:hover:text-gray-300"
+                  >{{ $t('Performance') }}</a
+                >
               </li>
               <li class="mr-2">
-                <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-blue-600 hover:border-blue-300 dark:hover:text-gray-300">{{ $t('Administration') }}</a>
+                <a
+                  href="#"
+                  class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-blue-600 hover:border-blue-300 dark:hover:text-gray-300"
+                  >{{ $t('Administration') }}</a
+                >
               </li>
               <li class="mr-2">
-                <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-blue-600 hover:border-blue-300 dark:hover:text-gray-300">{{ $t('Settings') }}</a>
+                <a
+                  href="#"
+                  class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-blue-600 hover:border-blue-300 dark:hover:text-gray-300"
+                  >{{ $t('Settings') }}</a
+                >
               </li>
             </ul>
           </div>
@@ -62,9 +85,7 @@ defineProps({
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex">
         <div class="space-y-6 w-full">
           <div class="bg-white shadow sm:rounded-lg">
-            <UpdateProfileInformationForm
-              :data="data"
-            />
+            <UpdateProfileInformationForm :data="data" />
           </div>
 
           <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
