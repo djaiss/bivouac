@@ -1,7 +1,7 @@
 <script setup>
 defineProps({
   loading: {
-    type: String,
+    type: Boolean,
   },
 });
 </script>

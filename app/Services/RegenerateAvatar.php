@@ -26,9 +26,7 @@ class RegenerateAvatar extends BaseService
     {
         $this->data = $data;
         $this->validate();
-
-        $this->user->name_for_avatar = fake()->name;
-        $this->user->save();
+        $this->generate();
 
         return $this->user;
     }
@@ -38,5 +36,11 @@ class RegenerateAvatar extends BaseService
         $this->validateRules($this->data);
 
         $this->user = User::findOrFail($this->data['user_id']);
+    }
+
+    private function generate(): void
+    {
+        $this->user->name_for_avatar = fake()->name;
+        $this->user->save();
     }
 }
