@@ -6,8 +6,8 @@ use Exception;
 
 class NotEnoughPermissionException extends Exception
 {
-    public function __construct($message = 'You do not have enough permissions to perform this action.')
+    public function __construct()
     {
-        parent::__construct($message);
+        parent::__construct(trans('You do not have enough permissions to perform this action.'));
     }
 }

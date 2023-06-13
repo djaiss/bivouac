@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Exceptions\NotEnoughPermissionException;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class UpdateUserInformation extends BaseService
 {
@@ -53,13 +54,14 @@ class UpdateUserInformation extends BaseService
     {
         $this->user->first_name = $this->data['first_name'];
         $this->user->last_name = $this->data['last_name'];
+        $this->user->save();
 
         if ($this->user->email !== $this->data['email']) {
             $this->user->email_verified_at = null;
             $this->user->email = $this->data['email'];
-            dd('is the probleme here god damn it');
-            event(new Registered($this->user));
+            $this->user->save();
+
+            event(new Registered($this->user instanceOf MustVerifyEmail));
         }
-        $this->user->save();
     }
 }

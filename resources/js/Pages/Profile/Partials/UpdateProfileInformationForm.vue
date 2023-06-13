@@ -26,12 +26,13 @@ const form = reactive({
 
 const update = () => {
   loadingState.value = true;
-  form.last_name = null;
+
   axios
     .put(props.data.url.update, form)
     .then(() => {
-      loadingState.value = false;
       flash(trans('Changes saved'));
+      loadingState.value = false;
+      form.errors = null;
     })
     .catch((error) => {
       loadingState.value = false;
@@ -55,10 +56,10 @@ const update = () => {
         organization – in that case, it will be visible within that organization.
       </div>
 
-      <div>
+      <div class="p-4">
         <Error :errors="form.errors" />
 
-        <form @submit.prevent="update" class="space-y-6 max-w-3xl p-4">
+        <form @submit.prevent="update" class="space-y-6 max-w-3xl">
           <div class="flex">
             <!-- first name -->
             <div class="mr-4 w-full">
