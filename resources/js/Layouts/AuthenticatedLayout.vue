@@ -11,10 +11,18 @@ import { Cog8ToothIcon } from '@heroicons/vue/24/solid';
 import { ArrowLeftOnRectangleIcon } from '@heroicons/vue/24/solid';
 import { ComputerDesktopIcon } from '@heroicons/vue/24/solid';
 import { usePage } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { onMounted, computed } from 'vue';
+import { flash } from '@/methods.js';
 
 const page = usePage();
 const user = computed(() => page.props.auth.user);
+
+onMounted(() => {
+  if (localStorage.success) {
+    flash(localStorage.success, 'success');
+    localStorage.removeItem('success');
+  }
+});
 </script>
 
 <template>
@@ -107,10 +115,7 @@ const user = computed(() => page.props.auth.user);
           <!-- user -->
           <ul class="text-slate-400 mb-4">
             <li class="px-4 py-2 group hover:bg-slate-900 hover:text-white flex items-center">
-              <img
-                src="https://pbs.twimg.com/profile_images/1638147187119931394/sg8c4mRW_x96.png"
-                class="h-7 w-7 rounded mr-2"
-                alt="" />
+              <div v-html="user.avatar.content" class="h-7 w-7 rounded mr-2" />
               <span class="ml-2">{{ user.name }}</span>
             </li>
           </ul>

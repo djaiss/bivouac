@@ -3,6 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import DeleteUserForm from './Partials/DeleteUserForm.vue';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
+import UpdateAvatarForm from './Partials/UpdateAvatarForm.vue';
 import { Head } from '@inertiajs/vue3';
 
 defineProps({
@@ -24,20 +25,17 @@ defineProps({
     <div class="px-12 pt-6 max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 mb-6">
       <div class="bg-white shadow sm:rounded-lg">
         <!-- avatar, name, description -->
-        <div class="flex border-b border-gray-200 p-4 sm:p-8">
+        <div class="flex border-b border-gray-200 p-4">
           <!-- avatar -->
-          <img
-            src="https://pbs.twimg.com/profile_images/1638147187119931394/sg8c4mRW_x96.png"
-            class="w-30 h-30 rounded mr-6"
-            alt="profile picture" />
+          <div v-html="data.user.avatar.content" class="w-24 h-24 rounded mr-4" />
 
-          <div>
+          <div class="w-full">
             <h1 class="font-bold text-xl">Regis Freyd</h1>
           </div>
         </div>
 
         <!-- menu -->
-        <div class="px-5">
+        <div class="px-4">
           <div class="font-medium text-center text-gray-500 dark:text-gray-400">
             <ul class="flex flex-wrap -mb-px">
               <li class="mr-2">
@@ -86,6 +84,10 @@ defineProps({
         <div class="space-y-6 w-full">
           <div class="bg-white shadow sm:rounded-lg">
             <UpdateProfileInformationForm :data="data" />
+          </div>
+
+          <div class="bg-white shadow sm:rounded-lg">
+            <UpdateAvatarForm :data="data" />
           </div>
 
           <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">

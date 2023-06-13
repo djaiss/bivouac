@@ -14,9 +14,11 @@ class ProfileViewModel
                 'first_name' => $user->first_name,
                 'last_name' => $user->last_name,
                 'email' => $user->email,
+                'avatar' => $user->avatar,
             ],
             'url' => [
                 'update' => route('profile.update'),
+                'avatar_update' => route('profile.avatar.update'),
             ],
         ];
     }

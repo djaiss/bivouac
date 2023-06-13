@@ -100,6 +100,9 @@ class User extends Authenticatable implements MustVerifyEmail
         );
     }
 
+    /**
+     * @return Attribute<string,never>
+     */
     protected function avatar(): Attribute
     {
         return Attribute::make(

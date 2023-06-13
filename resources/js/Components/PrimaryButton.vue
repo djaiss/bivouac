@@ -10,7 +10,7 @@ defineProps({
 <template>
   <button
     class="rounded-md bg-indigo-500 px-3 py-1.5 font-semibold text-white shadow-sm ring-1 ring-inset ring-indigo-600 hover:bg-indigo-700 flex">
-    <span v-if="loading" class="mr-4">
+    <span v-if="loading" class="mr-2">
       <div class="lds-ring">
         <div></div>
         <div></div>
@@ -26,16 +26,16 @@ defineProps({
 .lds-ring {
   display: inline-block;
   position: relative;
-  width: 20px;
-  height: 20px;
+  width: 13px;
+  height: 13px;
 }
 .lds-ring div {
   box-sizing: border-box;
   display: block;
   position: absolute;
-  width: 20px;
-  height: 20px;
-  margin: 2px;
+  width: 16px;
+  height: 16px;
+  margin: 0;
   border: 2px solid #fff;
   border-radius: 50%;
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
