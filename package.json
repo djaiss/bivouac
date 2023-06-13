@@ -5,8 +5,9 @@
         "dev": "vite",
         "build": "vite build",
         "format": "prettier --write '**/*.{js,vue,css,scss}'",
+        "lint": "eslint --ext .js,.vue *.js resources",
         "pretest": "DB_CONNECTION=testing php artisan migrate:fresh",
-        "posttest": "./vendor/bin/duster fix && yarn format",
+        "posttest": "./vendor/bin/duster fix && yarn format && yarn lint",
         "test": "vendor/bin/phpunit"
     },
     "devDependencies": {
@@ -24,6 +25,9 @@
     },
     "dependencies": {
         "@heroicons/vue": "^2.0.18",
+        "eslint": "^8.42.0",
+        "eslint-config-prettier": "^8.8.0",
+        "eslint-plugin-vue": "^9.14.1",
         "laravel-vue-i18n": "^2.5.1",
         "sass": "^1.63.3",
         "tiny-emitter": "^2.1.0"

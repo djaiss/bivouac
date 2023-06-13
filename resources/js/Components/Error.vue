@@ -8,10 +8,10 @@ defineProps({
 
 <template>
   <div v-if="errors" class="flex items-center border-red p-3 border rounded mb-3">
-    <img src="img/error.png" class="w-24 h-2w-24" alt="lumberjack being embarrassed">
+    <img src="img/error.png" class="w-24 h-2w-24" alt="lumberjack being embarrassed" />
 
     <div class="mb-3">
-      <p class="text-sm mb-4">{{ $t('We\'ve found some errors.Sorry about that.') }}</p>
+      <p class="text-sm mb-4">{{ $t("We've found some errors. Sorry about that.") }}</p>
       <p>{{ errors.message }}</p>
     </div>
   </div>

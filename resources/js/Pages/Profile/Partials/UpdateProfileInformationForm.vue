@@ -1,10 +1,8 @@
 <script setup>
-import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import Error from '@/Components/Error.vue';
-import { useForm } from '@inertiajs/vue3';
 import HelpInput from '@/Components/HelpInput.vue';
 import { flash } from '@/methods.js';
 import { trans } from 'laravel-vue-i18n';
