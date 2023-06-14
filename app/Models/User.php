@@ -25,11 +25,16 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public const AVATAR_TYPE_URL = 'url';
 
+    public const ROLE_ADMINISTRATOR = 'administrator';
+    public const ROLE_ACCOUNT_MANAGER = 'account_manager';
+    public const ROLE_USER = 'user';
+
     protected $fillable = [
         'first_name',
         'last_name',
         'organization_id',
         'name_for_avatar',
+        'permissions',
         'email',
         'email_verified_at',
         'locale',
