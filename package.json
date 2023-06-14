@@ -25,11 +25,13 @@
     },
     "dependencies": {
         "@heroicons/vue": "^2.0.18",
+        "@popperjs/core": "^2.11.8",
         "eslint": "^8.42.0",
         "eslint-config-prettier": "^8.8.0",
         "eslint-plugin-vue": "^9.14.1",
         "laravel-vue-i18n": "^2.5.1",
         "sass": "^1.63.3",
-        "tiny-emitter": "^2.1.0"
+        "tiny-emitter": "^2.1.0",
+        "v-calendar": "^3.0.3"
     }
 }

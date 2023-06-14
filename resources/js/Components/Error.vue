@@ -2,6 +2,7 @@
 defineProps({
   errors: {
     type: Object,
+    default: null,
   },
 });
 </script>

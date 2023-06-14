@@ -5,11 +5,10 @@ namespace App\Http\Controllers\Profile;
 use App\Http\Controllers\Controller;
 use App\Services\RegenerateAvatar;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class ProfileAvatarController extends Controller
 {
-    public function update(Request $request): JsonResponse
+    public function update(): JsonResponse
     {
         (new RegenerateAvatar)->execute([
             'user_id' => auth()->user()->id,
