@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Profile\ProfileAvatarController;
+use App\Http\Controllers\Profile\ProfileBirthdateController;
 use App\Http\Controllers\Profile\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +24,7 @@ Route::middleware('auth', 'verified')->group(function (): void {
     Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('profile/avatar', [ProfileAvatarController::class, 'update'])->name('profile.avatar.update');
+    Route::put('profile/birthdate', [ProfileBirthdateController::class, 'update'])->name('profile.birthdate.update');
     Route::delete('profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 

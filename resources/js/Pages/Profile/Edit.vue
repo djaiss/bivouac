@@ -4,6 +4,7 @@ import DeleteUserForm from './Partials/DeleteUserForm.vue';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
 import UpdateAvatarForm from './Partials/UpdateAvatarForm.vue';
+import UpdateDateOfBirthForm from './Partials/UpdateDateOfBirthForm.vue';
 import { Head } from '@inertiajs/vue3';
 
 defineProps({
@@ -88,6 +89,10 @@ defineProps({
 
           <div class="bg-white shadow sm:rounded-lg">
             <UpdateAvatarForm :data="data" />
+          </div>
+
+          <div class="bg-white shadow sm:rounded-lg">
+            <UpdateDateOfBirthForm :data="data" />
           </div>
 
           <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
