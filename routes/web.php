@@ -28,7 +28,7 @@ Route::middleware('auth', 'verified')->group(function (): void {
     Route::put('profile/birthdate', [ProfileBirthdateController::class, 'update'])->name('profile.birthdate.update');
     Route::delete('profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::middleware(['administrator'])->prefix('settings')->group(function () {
+    Route::middleware(['administrator'])->prefix('settings')->group(function (): void {
         Route::get('personalize', [PersonalizeController::class, 'index'])->name('settings.personalize.index');
     });
 });
