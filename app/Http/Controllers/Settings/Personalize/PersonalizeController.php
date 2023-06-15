@@ -12,7 +12,7 @@ class PersonalizeController extends Controller
     public function index(): Response
     {
         return Inertia::render('Settings/Personalize/Index', [
-            'data' => ProfileViewModel::data(auth()->user()),
+            'data' => PersonalizeViewModel::data(),
         ]);
     }
 }

@@ -30,6 +30,7 @@ Route::middleware('auth', 'verified')->group(function (): void {
 
     Route::middleware(['administrator'])->prefix('settings')->group(function (): void {
         Route::get('personalize', [PersonalizeController::class, 'index'])->name('settings.personalize.index');
+        Route::get('personalize/users', [PersonalizeUserController::class, 'index'])->name('settings.personalize.user.index');
     });
 });
 

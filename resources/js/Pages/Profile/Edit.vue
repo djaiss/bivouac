@@ -15,7 +15,7 @@ defineProps({
 </script>
 
 <template>
-  <Head :title="$t('Company settings')" />
+  <Head :title="$t('Profile')" />
 
   <AuthenticatedLayout>
     <!-- header -->
