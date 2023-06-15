@@ -38,6 +38,12 @@ class HandleInertiaRequests extends Middleware
                     'avatar' => $request->user()?->avatar,
                 ],
             ],
+            'url' => [
+                'profile' => route('profile.edit'),
+                'settings' => [
+                    'personalize' => route('settings.personalize.index'),
+                ],
+            ],
             'ziggy' => function () use ($request) {
                 return array_merge((new Ziggy)->toArray(), [
                     'location' => $request->url(),
