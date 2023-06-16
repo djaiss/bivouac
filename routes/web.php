@@ -4,6 +4,7 @@ use App\Http\Controllers\Profile\ProfileAvatarController;
 use App\Http\Controllers\Profile\ProfileBirthdateController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeController;
+use App\Http\Controllers\Settings\Personalize\PersonalizeUserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
