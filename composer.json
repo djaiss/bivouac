@@ -17,6 +17,7 @@
     },
     "require-dev": {
         "amirami/localizator": "^0.12.1@alpha",
+        "barryvdh/laravel-debugbar": "^3.8",
         "fakerphp/faker": "^1.9.1",
         "laravel/breeze": "^1.21",
         "laravel/pint": "^1.0",
