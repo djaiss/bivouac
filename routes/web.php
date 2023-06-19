@@ -22,7 +22,7 @@ Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth', 'verified')->group(function (): void {
+Route::middleware('auth', 'verified', 'last_activity')->group(function (): void {
     Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('profile/avatar', [ProfileAvatarController::class, 'update'])->name('profile.avatar.update');

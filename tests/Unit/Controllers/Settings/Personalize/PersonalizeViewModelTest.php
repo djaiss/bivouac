@@ -18,6 +18,10 @@ class PersonalizeViewModelTest extends TestCase
         $this->assertEquals(
             [
                 'url' => [
+                    'breadcrumb' => [
+                        'home' => env('APP_URL') . '/profile',
+                        'settings' => env('APP_URL') . '/settings/personalize',
+                    ],
                     'users' => env('APP_URL') . '/settings/personalize/users',
                 ],
             ],

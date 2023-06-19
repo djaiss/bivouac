@@ -8,6 +8,10 @@ class PersonalizeViewModel
     {
         return [
             'url' => [
+                'breadcrumb' => [
+                    'home' => route('profile.edit'),
+                    'settings' => route('settings.personalize.index'),
+                ],
                 'users' => route('settings.personalize.user.index'),
             ],
         ];

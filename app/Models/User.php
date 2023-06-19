@@ -44,6 +44,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'born_at',
         'age_preferences',
         'password',
+        'last_active_at',
     ];
 
     protected $hidden = [
@@ -55,6 +56,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'born_at' => 'datetime',
         'password' => 'hashed',
+        'last_active_at' => 'datetime',
     ];
 
     public function organization(): BelongsTo

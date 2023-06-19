@@ -2,12 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckAdministratorRole
+class UpdateLastActivityDate
 {
     /**
      * Handle an incoming request.
@@ -16,11 +15,16 @@ class CheckAdministratorRole
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->user()->permissions === User::ROLE_ADMINISTRATOR ||
-            $request->user()->permissions === User::ROLE_ACCOUNT_MANAGER) {
+        if (! $request->user()) {
             return $next($request);
         }
 
-        abort(401);
+        if (! $request->user()->last_active_at || $request->user()->last_active_at->isPast()) {
+            $request->user()->update([
+                'last_active_at' => now(),
+            ]);
+        }
+
+        return $next($request);
     }
 }

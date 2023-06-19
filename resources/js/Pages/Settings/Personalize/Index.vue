@@ -11,7 +11,7 @@ defineProps({
 </script>
 
 <template>
-  <Head :title="$t('Company settings')" />
+  <Head :title="$t('Account settings')" />
 
   <AuthenticatedLayout>
     <!-- header -->
@@ -19,7 +19,7 @@ defineProps({
       <div class="bg-white shadow sm:rounded-lg px-4 flex justify-center">
         <div class="text-center flex items-center">
           <img src="/img/settings.png" class="w-24 h-24 mr-6" alt="settings" />
-          <p class="text-lg font-bold">{{ $t('Company settings') }}</p>
+          <p class="text-lg font-bold">{{ $t('Account settings') }}</p>
         </div>
       </div>
     </div>
@@ -31,9 +31,11 @@ defineProps({
             <ul>
               <li class="flex items-center border-b border-gray-200 px-4 py-2 hover:bg-slate-50 hover:rounded-t-lg">
                 <img src="/img/users.png" class="h-16 w-16 mr-2" alt="" />
-                <Link :href="data.url.users" class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline">{{
-                  $t('Add or remove users')
-                }}</Link>
+                <Link
+                  :href="data.url.users"
+                  class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                  >{{ $t('Add or remove users') }}</Link
+                >
               </li>
               <li class="flex items-center border-b border-gray-200 px-4 py-2 hover:bg-slate-50">
                 <img src="/img/skyscraper.png" class="h-16 w-16 mr-2" alt="" />
