@@ -5,9 +5,11 @@ namespace App\Mail;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\URL;
 
 class UserInvited extends Mailable
 {
@@ -23,7 +25,11 @@ class UserInvited extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'User Invited',
+            from: new Address('hello@bivouac.com', 'Regis from Bivouac'),
+            replyTo: [
+                new Address('hello@bivouac.com', 'Regis from Bivouac'),
+            ],
+            subject: trans('You are invited to Bivouac'),
         );
     }
 
@@ -32,8 +38,16 @@ class UserInvited extends Mailable
      */
     public function content(): Content
     {
+        $url = URL::temporarySignedRoute('invitation.validate.store', now()->addDays(3), [
+            'code' => $this->invitedUser->invitation_code,
+        ]);
+
         return new Content(
-            view: 'emails.user.invitation',
+            markdown: 'emails.user.invitation',
+            with: [
+                'userName' => $this->user->name,
+                'url' => $url,
+            ],
         );
     }
 }

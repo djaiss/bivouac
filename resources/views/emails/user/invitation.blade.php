@@ -1,4 +1,4 @@
-@component('mail::message')
+<x-mail::message>
 # @lang('Please join Bivouac')
 
 @lang(':userName invites you to join Bivouac, a great way to manage projects.', ['userName' => $userName])
@@ -9,4 +9,4 @@
 
 @lang('Thanks,')<br>
 {{ config('app.name') }}
-@endcomponent
+</x-mail::message>

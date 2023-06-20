@@ -54,6 +54,7 @@ class CreateAccountTest extends TestCase
             'name_for_avatar' => 'johnny',
             'email' => 'john@email.com',
             'organization_id' => $user->organization_id,
+            'invitation_code' => $user->invitation_code,
         ]);
 
         $this->assertDatabaseHas('organizations', [

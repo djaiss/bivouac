@@ -6,6 +6,7 @@ use App\Exceptions\NotEnoughPermissionException;
 use App\Mail\UserInvited;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class InviteUser extends BaseService
 {
@@ -53,6 +54,7 @@ class InviteUser extends BaseService
             'permissions' => User::ROLE_USER,
             'name_for_avatar' => fake()->name,
             'organization_id' => $this->author->organization_id,
+            'invitation_code' => (string) Str::uuid(),
         ]);
     }
 

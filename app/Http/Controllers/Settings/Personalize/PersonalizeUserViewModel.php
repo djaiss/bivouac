@@ -6,18 +6,21 @@ use App\Models\User;
 
 class PersonalizeUserViewModel
 {
-    public static function data(): array
+    public static function data(User $user): array
     {
-        $users = User::where('organization_id', auth()->user()->organization_id)
+        $users = User::where('organization_id', $user->organization_id)
             ->get()
             ->map(fn (User $user) => self::dtoUser($user));
 
         return [
             'users' => $users,
             'url' => [
+                'invite' => route('settings.personalize.user.create'),
+                'invite_store' => route('settings.personalize.user.store'),
                 'breadcrumb' => [
                     'home' => route('profile.edit'),
                     'settings' => route('settings.personalize.index'),
+                    'users' => route('settings.personalize.user.index'),
                 ],
             ],
         ];

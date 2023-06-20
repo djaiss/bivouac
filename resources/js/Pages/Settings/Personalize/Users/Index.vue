@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
+import PrimaryLinkButton from '@/Components/PrimaryLinkButton.vue';
 import { Head } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
 import { ChevronRightIcon } from '@heroicons/vue/24/solid';
@@ -66,7 +66,7 @@ defineProps({
               </h2>
 
               <div>
-                <PrimaryButton :loading="loadingState" :disabled="loadingState">{{ $t('Invite user') }}</PrimaryButton>
+                <PrimaryLinkButton :href="data.url.invite">{{ $t('Invite user') }}</PrimaryLinkButton>
               </div>
             </div>
 

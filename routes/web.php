@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\ValidateInvitationController;
 use App\Http\Controllers\Profile\ProfileAvatarController;
 use App\Http\Controllers\Profile\ProfileBirthdateController;
 use App\Http\Controllers\Profile\ProfileController;
@@ -18,6 +19,8 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('invitation/{code}', [ValidateInvitationController::class, 'store'])->name('invitation.validate.store');
+
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -32,6 +35,8 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
     Route::middleware(['administrator'])->prefix('settings')->group(function (): void {
         Route::get('personalize', [PersonalizeController::class, 'index'])->name('settings.personalize.index');
         Route::get('personalize/users', [PersonalizeUserController::class, 'index'])->name('settings.personalize.user.index');
+        Route::get('personalize/users/invite', [PersonalizeUserController::class, 'create'])->name('settings.personalize.user.create');
+        Route::post('personalize/users/invite', [PersonalizeUserController::class, 'store'])->name('settings.personalize.user.store');
     });
 });
 
