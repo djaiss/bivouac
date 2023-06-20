@@ -25,9 +25,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public const AVATAR_TYPE_URL = 'url';
 
-    public const ROLE_ADMINISTRATOR = 'administrator';
-
     public const ROLE_ACCOUNT_MANAGER = 'account_manager';
+
+    public const ROLE_ADMINISTRATOR = 'administrator';
 
     public const ROLE_USER = 'user';
 

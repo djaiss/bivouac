@@ -10,7 +10,7 @@ class PersonalizeUserViewModel
     {
         $users = User::where('organization_id', $user->organization_id)
             ->get()
-            ->map(fn (User $user) => self::dtoUser($user));
+            ->map(fn (User $otherUser) => self::dtoUser($user, $otherUser));
 
         return [
             'users' => $users,
@@ -26,14 +26,22 @@ class PersonalizeUserViewModel
         ];
     }
 
-    public static function dtoUser(User $user): array
+    public static function dtoUser(User $loggedUser, User $otherUser): array
     {
+        $permission = match ($otherUser->permissions) {
+            User::ROLE_ACCOUNT_MANAGER => trans('Account manager'),
+            User::ROLE_ADMINISTRATOR => trans('Administrator'),
+            User::ROLE_USER => trans('User'),
+        };
+
         return [
-            'id' => $user->id,
-            'name' => $user->name,
-            'avatar' => $user->avatar,
-            'email' => $user->email,
-            'verified' => $user->email_verified_at !== null,
+            'id' => $otherUser->id,
+            'name' => $otherUser->name,
+            'avatar' => $otherUser->avatar,
+            'email' => $otherUser->email,
+            'verified' => $otherUser->email_verified_at !== null,
+            'can_delete' => $loggedUser->id !== $otherUser->id,
+            'permissions' => $permission,
         ];
     }
 }

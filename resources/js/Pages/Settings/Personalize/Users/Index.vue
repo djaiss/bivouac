@@ -70,6 +70,7 @@ defineProps({
               </div>
             </div>
 
+            <!-- list of users -->
             <div class="flex">
               <ul class="w-full">
                 <li
@@ -80,19 +81,22 @@ defineProps({
                   <div class="flex items-center">
                     <div v-html="user.avatar.content" class="h-7 w-7 rounded mr-4" />
 
-                    <div class="flex flex-col mr-4">
+                    <div class="flex flex-col mr-6">
                       <span class="font-bold">{{ user.name }}</span>
-                      <span class="text-sm">{{ user.email }}</span>
+                      <ul>
+                        <li class="text-sm inline mr-2">{{ user.email }}</li>
+                        <li class="text-sm inline">{{ user.permissions }}</li>
+                      </ul>
                     </div>
 
-                    <span class="flex items-center bg-yellow-50 px-2 py-1 rounded-lg text-sm">
+                    <span v-if="!user.verified" class="flex items-center bg-yellow-50 px-2 py-1 rounded-lg text-sm">
                       <EnvelopeIcon class="w-4 h-4 text-yellow-400 mr-2" />
                       <span class="text-yellow-600">{{ $t('invited') }}</span>
                     </span>
                   </div>
 
                   <!-- menu -->
-                  <div class="">
+                  <div v-if="user.can_delete">
                     <Menu as="div" class="text-left">
                       <MenuButton class="">
                         <EllipsisVerticalIcon class="h-5 w-5 hover:text-gray-500 cursor-pointer" />

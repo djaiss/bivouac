@@ -127,7 +127,7 @@ const submit = () => {
               <p>
                 {{
                   $t(
-                    'The person will receive an email with instructions on how to begin. The invitation will remain valid for three days.',
+                    'The person will receive an email with instructions to setup the account. The invitation will remain valid for three days.',
                   )
                 }}
               </p>
