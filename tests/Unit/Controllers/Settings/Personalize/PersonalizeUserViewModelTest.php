@@ -46,7 +46,7 @@ class PersonalizeUserViewModelTest extends TestCase
         ]);
         $array = PersonalizeUserViewModel::dtoUser($user, $user);
 
-        $this->assertCount(7, $array);
+        $this->assertCount(8, $array);
         $this->assertEquals(
             [
                 'id' => $user->id,
@@ -59,6 +59,9 @@ class PersonalizeUserViewModelTest extends TestCase
                 'verified' => true,
                 'can_delete' => false,
                 'permissions' => 'User',
+                'url' => [
+                    'destroy' => env('APP_URL') . '/settings/personalize/users/'.$user->id,
+                ],
             ],
             $array
         );

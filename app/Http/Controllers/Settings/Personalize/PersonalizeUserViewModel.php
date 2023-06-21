@@ -43,6 +43,11 @@ class PersonalizeUserViewModel
             'verified' => $otherUser->email_verified_at !== null,
             'can_delete' => $loggedUser->id !== $otherUser->id,
             'permissions' => $permission,
+            'url' => [
+                'destroy' => route('settings.personalize.user.destroy', [
+                    'user' => $otherUser->id,
+                ]),
+            ],
         ];
     }
 }

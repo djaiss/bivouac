@@ -3,17 +3,39 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import PrimaryLinkButton from '@/Components/PrimaryLinkButton.vue';
 import { Head } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
+import { onMounted, ref } from 'vue';
 import { ChevronRightIcon } from '@heroicons/vue/24/solid';
 import { KeyIcon } from '@heroicons/vue/24/solid';
 import { EnvelopeIcon } from '@heroicons/vue/24/outline';
 import { EllipsisVerticalIcon } from '@heroicons/vue/24/outline';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue';
+import { trans } from 'laravel-vue-i18n';
+import { flash } from '@/methods.js';
 
-defineProps({
+const props = defineProps({
   data: {
     type: Array,
   },
 });
+
+const localUsers = ref([]);
+
+onMounted(() => {
+  localUsers.value = props.data.users;
+});
+
+const destroy = (user) => {
+  if (confirm(trans('Are you sure? This action cannot be undone.'))) {
+    axios
+      .delete(user.url.destroy)
+      .then(() => {
+        flash(trans('The user has been deleted'), 'success');
+        let id = localUsers.value.findIndex((x) => x.id === user.id);
+        localUsers.value.splice(id, 1);
+      })
+      .catch(() => { });
+  }
+};
 </script>
 
 <template>
@@ -75,7 +97,7 @@ defineProps({
             <div class="flex">
               <ul class="w-full">
                 <li
-                  v-for="user in data.users"
+                  v-for="user in localUsers"
                   :key="user.id"
                   class="group flex items-center justify-between px-6 py-4 hover:bg-slate-50">
                   <!-- user information -->
@@ -131,6 +153,16 @@ defineProps({
                                   'group flex w-full items-center rounded-md px-2 py-2 text-sm',
                                 ]">
                                 {{ $t('Edit') }}
+                              </button>
+                            </MenuItem>
+                            <MenuItem v-slot="{ active }">
+                              <button
+                                @click="destroy(user)"
+                                :class="[
+                                  active ? 'bg-violet-500 text-white' : 'text-gray-900',
+                                  'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                                ]">
+                                {{ $t('Delete') }}
                               </button>
                             </MenuItem>
                           </div>
