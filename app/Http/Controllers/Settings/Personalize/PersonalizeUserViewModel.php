@@ -32,6 +32,7 @@ class PersonalizeUserViewModel
             User::ROLE_ACCOUNT_MANAGER => trans('Account manager'),
             User::ROLE_ADMINISTRATOR => trans('Administrator'),
             User::ROLE_USER => trans('User'),
+            default => trans('User'),
         };
 
         return [
