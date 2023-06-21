@@ -44,9 +44,9 @@ class PersonalizeUserViewModelTest extends TestCase
             'email' => 'ross.geller@gmail.com',
             'email_verified_at' => '2021-01-01 00:00:00',
         ]);
-        $array = PersonalizeUserViewModel::dtoUser($user);
+        $array = PersonalizeUserViewModel::dtoUser($user, $user);
 
-        $this->assertCount(5, $array);
+        $this->assertCount(7, $array);
         $this->assertEquals(
             [
                 'id' => $user->id,
@@ -57,6 +57,8 @@ class PersonalizeUserViewModelTest extends TestCase
                 ],
                 'email' => 'ross.geller@gmail.com',
                 'verified' => true,
+                'can_delete' => false,
+                'permissions' => 'User',
             ],
             $array
         );

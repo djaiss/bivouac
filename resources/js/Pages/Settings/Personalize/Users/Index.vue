@@ -4,6 +4,7 @@ import PrimaryLinkButton from '@/Components/PrimaryLinkButton.vue';
 import { Head } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
 import { ChevronRightIcon } from '@heroicons/vue/24/solid';
+import { KeyIcon } from '@heroicons/vue/24/solid';
 import { EnvelopeIcon } from '@heroicons/vue/24/outline';
 import { EllipsisVerticalIcon } from '@heroicons/vue/24/outline';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue';
@@ -83,14 +84,25 @@ defineProps({
 
                     <div class="flex flex-col mr-6">
                       <span class="font-bold">{{ user.name }}</span>
-                      <ul>
-                        <li class="text-sm inline mr-2">{{ user.email }}</li>
-                        <li class="text-sm inline">{{ user.permissions }}</li>
-                      </ul>
+                      <div class="flex">
+                        <div class="text-sm inline mr-4">
+                          <span class="flex items-center">
+                            <EnvelopeIcon class="w-3 h-3 mr-2 text-gray-400" />
+                            <span>{{ user.email }}</span>
+                          </span>
+                        </div>
+                        <div class="text-sm inline">
+                          <span class="flex items-center">
+                            <KeyIcon class="w-3 h-3 mr-2 text-gray-400" />
+                            {{ user.permissions }}
+                          </span>
+                        </div>
+                      </div>
                     </div>
 
-                    <span v-if="!user.verified" class="flex items-center bg-yellow-50 px-2 py-1 rounded-lg text-sm">
-                      <EnvelopeIcon class="w-4 h-4 text-yellow-400 mr-2" />
+                    <span
+                      v-if="!user.verified"
+                      class="flex items-center bg-yellow-50 border-yellow-300 border px-2 py-1 rounded-lg text-xs">
                       <span class="text-yellow-600">{{ $t('invited') }}</span>
                     </span>
                   </div>

@@ -75,6 +75,7 @@ class InviteUserTest extends TestCase
             'email' => $newUser->email,
             'permissions' => User::ROLE_USER,
             'organization_id' => $author->organization_id,
+            'invitation_code' => $newUser->invitation_code,
         ]);
 
         Mail::assertQueued(UserInvited::class, function ($mail) use ($newUser) {
