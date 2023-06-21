@@ -33,7 +33,7 @@ const destroy = (user) => {
         let id = localUsers.value.findIndex((x) => x.id === user.id);
         localUsers.value.splice(id, 1);
       })
-      .catch(() => { });
+      .catch(() => {});
   }
 };
 </script>
