@@ -11,7 +11,7 @@ class OfficeTest extends TestCase
     use DatabaseTransactions;
 
     /** @test */
-    public function it_belongs_to_one_organization()
+    public function it_belongs_to_one_organization(): void
     {
         $office = Office::factory()->create();
 
