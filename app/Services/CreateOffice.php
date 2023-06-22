@@ -10,8 +10,6 @@ class CreateOffice extends BaseService
 {
     private Office $office;
 
-    private Organization $organization;
-
     private User $user;
 
     private array $data;
