@@ -38,7 +38,7 @@ class UserInvited extends Mailable
      */
     public function content(): Content
     {
-        $url = URL::temporarySignedRoute('invitation.validate.store', now()->addDays(3), [
+        $url = URL::temporarySignedRoute('invitation.validate.show', now()->addDays(3), [
             'code' => $this->invitedUser->invitation_code,
         ]);
 

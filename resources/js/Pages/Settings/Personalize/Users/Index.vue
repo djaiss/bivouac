@@ -99,7 +99,7 @@ const destroy = (user) => {
                 <li
                   v-for="user in localUsers"
                   :key="user.id"
-                  class="group flex items-center justify-between px-6 py-4 hover:bg-slate-50">
+                  class="group flex items-center justify-between px-6 py-4 hover:bg-slate-50 last:hover:rounded-b-lg">
                   <!-- user information -->
                   <div class="flex items-center">
                     <div v-html="user.avatar.content" class="h-7 w-7 rounded mr-4" />

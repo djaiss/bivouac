@@ -70,6 +70,11 @@ class InviteUserTest extends TestCase
 
         $newUser = (new InviteUser)->execute($request);
 
+        $this->assertInstanceOf(
+            User::class,
+            $newUser
+        );
+
         $this->assertDatabaseHas('users', [
             'id' => $newUser->id,
             'email' => $newUser->email,

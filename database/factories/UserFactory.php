@@ -31,6 +31,7 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'age_preferences' => User::AGE_HIDDEN,
             'born_at' => null,
+            'invitation_code' => Str::random(10),
         ];
     }
 

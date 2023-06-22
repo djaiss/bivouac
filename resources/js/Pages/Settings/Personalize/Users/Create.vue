@@ -98,9 +98,8 @@ const submit = () => {
       <div class="mx-auto max-w-lg bg-white dark:bg-gray-800 shadow-md overflow-hidden rounded-lg">
         <form @submit.prevent="submit">
           <div class="px-6 py-4 relative border-b">
-            <div
-              class="mx-auto mb-4 relative w-24 h-24 overflow-hidden rounded-full ring-2 ring-gray-500 dark:ring-gray-500 dark:bg-gray-600">
-              <img src="/img/invite.png" alt="logo" class="text-center mx-auto mb-4 block w-28" />
+            <div class="mx-auto mb-4 relative w-32 h-3w-32 overflow-hidden rounded-full">
+              <img src="/img/invite.png" alt="logo" class="text-center mx-auto block" />
             </div>
             <h1 class="font-bold text-lg text-center mb-2">{{ $t('Invite a new user') }}</h1>
             <h3 class="text-sm text-gray-700 mb-4 text-center">{{ $t("We'll email this person an invitation.") }}</h3>

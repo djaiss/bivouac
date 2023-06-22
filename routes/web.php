@@ -19,7 +19,8 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('invitation/{code}', [ValidateInvitationController::class, 'store'])->name('invitation.validate.store');
+Route::get('invitation/{code}', [ValidateInvitationController::class, 'show'])->name('invitation.validate.show');
+Route::put('invitation/{code}', [ValidateInvitationController::class, 'update'])->name('invitation.validate.update');
 
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
