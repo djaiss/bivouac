@@ -60,6 +60,7 @@ class PersonalizeUserViewModelTest extends TestCase
                 'can_delete' => false,
                 'permissions' => 'User',
                 'url' => [
+                    'edit' => env('APP_URL') . '/settings/personalize/users/' . $user->id . '/edit',
                     'destroy' => env('APP_URL') . '/settings/personalize/users/' . $user->id,
                 ],
             ],

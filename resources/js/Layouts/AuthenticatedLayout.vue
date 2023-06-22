@@ -1,6 +1,4 @@
 <script setup>
-import { Link } from '@inertiajs/vue3';
-import Toaster from '@/Components/Toaster.vue';
 import { HomeIcon } from '@heroicons/vue/24/solid';
 import { BuildingOffice2Icon } from '@heroicons/vue/24/solid';
 import { MagnifyingGlassIcon } from '@heroicons/vue/24/solid';
@@ -10,8 +8,11 @@ import { BriefcaseIcon } from '@heroicons/vue/24/solid';
 import { Cog8ToothIcon } from '@heroicons/vue/24/solid';
 import { ArrowLeftOnRectangleIcon } from '@heroicons/vue/24/solid';
 import { ComputerDesktopIcon } from '@heroicons/vue/24/solid';
+import { Link } from '@inertiajs/vue3';
 import { usePage } from '@inertiajs/vue3';
-import { onMounted, computed } from 'vue';
+import { computed, onMounted } from 'vue';
+
+import Toaster from '@/Components/Toaster.vue';
 import { flash } from '@/methods.js';
 
 const page = usePage();

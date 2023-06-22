@@ -1,13 +1,14 @@
 <script setup>
-import GuestLayout from '@/Layouts/GuestLayout.vue';
+import { Head, router } from '@inertiajs/vue3';
+import { trans } from 'laravel-vue-i18n';
+import { reactive, ref } from 'vue';
+
+import Error from '@/Components/Error.vue';
+import HelpInput from '@/Components/HelpInput.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import HelpInput from '@/Components/HelpInput.vue';
-import { Head, router } from '@inertiajs/vue3';
-import Error from '@/Components/Error.vue';
-import { ref, reactive } from 'vue';
-import { trans } from 'laravel-vue-i18n';
+import GuestLayout from '@/Layouts/GuestLayout.vue';
 
 const props = defineProps({
   data: {

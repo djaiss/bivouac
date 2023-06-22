@@ -39,6 +39,13 @@ class PersonalizeUserController extends Controller
         ], 201);
     }
 
+    public function edit(Request $request, User $user): Response
+    {
+        return Inertia::render('Settings/Personalize/Users/Edit', [
+            'data' => PersonalizeUserViewModel::edit($user),
+        ]);
+    }
+
     public function destroy(Request $request, User $user): JsonResponse
     {
         (new DestroyUser)->execute([

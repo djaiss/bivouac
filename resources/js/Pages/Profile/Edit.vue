@@ -1,11 +1,13 @@
 <script setup>
+import { Head } from '@inertiajs/vue3';
+
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+
 import DeleteUserForm from './Partials/DeleteUserForm.vue';
-import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
-import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
 import UpdateAvatarForm from './Partials/UpdateAvatarForm.vue';
 import UpdateDateOfBirthForm from './Partials/UpdateDateOfBirthForm.vue';
-import { Head } from '@inertiajs/vue3';
+import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
+import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
 
 defineProps({
   data: {

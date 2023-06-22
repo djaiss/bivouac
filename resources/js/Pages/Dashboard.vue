@@ -1,7 +1,8 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import { onMounted } from 'vue';
+
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { flash } from '@/methods.js';
 
 onMounted(() => {

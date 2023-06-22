@@ -6,11 +6,9 @@ import { router } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
 import { reactive, ref } from 'vue';
 
-import Error from '@/Components/Error.vue';
-import HelpInput from '@/Components/HelpInput.vue';
+import Avatar from '@/Components/Avatar.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
 const props = defineProps({
@@ -22,7 +20,7 @@ const props = defineProps({
 const loadingState = ref(false);
 
 const form = reactive({
-  email: '',
+  permission: '',
   errors: '',
 });
 
@@ -84,9 +82,7 @@ const submit = () => {
               <li>
                 <div class="flex items-center">
                   <ChevronRightIcon class="w-4 h-4 text-gray-400" />
-                  <span class="ml-1 text-sm text-gray-500 md:ml-2 dark:text-gray-400">{{
-                    $t('Invite a new user')
-                  }}</span>
+                  <span class="ml-1 text-sm text-gray-500 md:ml-2 dark:text-gray-400">{{ $t('Edit user') }}</span>
                 </div>
               </li>
             </ol>
@@ -99,38 +95,51 @@ const submit = () => {
       <div class="mx-auto max-w-lg bg-white dark:bg-gray-800 shadow-md overflow-hidden rounded-lg">
         <form @submit.prevent="submit">
           <div class="px-6 py-4 relative border-b">
-            <div class="mx-auto mb-4 relative w-32 h-3w-32 overflow-hidden rounded-full">
-              <img src="/img/invite.png" alt="logo" class="text-center mx-auto block" />
+            <div class="mx-auto mb-4 relative w-32 h-32 overflow-hidden rounded-full">
+              <Avatar :data="props.data.avatar" class="w-32" />
             </div>
-            <h1 class="font-bold text-lg text-center mb-2">{{ $t('Invite a new user') }}</h1>
-            <h3 class="text-sm text-gray-700 mb-4 text-center">{{ $t("We'll email this person an invitation.") }}</h3>
+            <h1 class="font-bold text-lg text-center mb-2">{{ props.data.name }}</h1>
           </div>
 
           <div class="px-6 py-4 relative border-b">
-            <!-- Name -->
-            <div class="mb-4">
-              <InputLabel
-                for="email"
-                :value="$t('What is the email address of the person you would like to invite?')" />
-
-              <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" autofocus required />
-
-              <HelpInput :value="$t('This should be a valid email address.')" />
-            </div>
-
-            <Error :errors="form.errors" />
-          </div>
-
-          <div class="px-6 py-4 relative">
+            <InputLabel :value="$t('What permissions should this person have?')" class="mb-3" />
             <div class="space-y-2">
-              <p class="font-bold mb-2 text-sm">{{ $t('What happens next?') }}</p>
-              <p>
-                {{
-                  $t(
-                    'The person will receive an email with instructions to setup the account. The invitation will remain valid for three days.',
-                  )
-                }}
-              </p>
+              <div class="flex items-center gap-x-2">
+                <input
+                  id="hidden"
+                  v-model="form.age_preferences"
+                  value="hidden"
+                  name="date-birth"
+                  type="radio"
+                  class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
+                <label for="hidden" class="block text-sm font-medium leading-6 text-gray-900">{{
+                  $t('Never display the date of birth to anyone')
+                }}</label>
+              </div>
+              <div class="flex items-center gap-x-2">
+                <input
+                  id="month_day"
+                  v-model="form.age_preferences"
+                  value="month_day"
+                  name="date-birth"
+                  type="radio"
+                  class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
+                <label for="month_day" class="block text-sm font-medium leading-6 text-gray-900">{{
+                  $t('Only show the day and the month')
+                }}</label>
+              </div>
+              <div class="flex items-center gap-x-2">
+                <input
+                  id="full"
+                  v-model="form.age_preferences"
+                  value="full"
+                  name="date-birth"
+                  type="radio"
+                  class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
+                <label for="full" class="block text-sm font-medium leading-6 text-gray-900">{{
+                  $t('Display the full date of birth')
+                }}</label>
+              </div>
             </div>
           </div>
 
