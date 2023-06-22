@@ -1,13 +1,15 @@
 <script setup>
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import Error from '@/Components/Error.vue';
-import { trans } from 'laravel-vue-i18n';
-import { ref, reactive } from 'vue';
-import { DatePicker } from 'v-calendar';
-import { onMounted } from 'vue';
-import { flash } from '@/methods.js';
 import 'v-calendar/style.css';
+
+import { trans } from 'laravel-vue-i18n';
+import { DatePicker } from 'v-calendar';
+import { reactive, ref } from 'vue';
+import { onMounted } from 'vue';
+
+import Error from '@/Components/Error.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import { flash } from '@/methods.js';
 
 const props = defineProps({
   data: {

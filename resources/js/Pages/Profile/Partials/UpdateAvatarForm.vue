@@ -1,9 +1,10 @@
 <script setup>
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import Error from '@/Components/Error.vue';
-import { trans } from 'laravel-vue-i18n';
-import { ref, reactive } from 'vue';
 import { router } from '@inertiajs/vue3';
+import { trans } from 'laravel-vue-i18n';
+import { reactive, ref } from 'vue';
+
+import Error from '@/Components/Error.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
 
 const props = defineProps({
   data: {

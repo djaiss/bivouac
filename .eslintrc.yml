@@ -10,6 +10,7 @@ parserOptions:
   sourceType: module
 plugins:
   - vue
+  - simple-import-sort
 rules:
   array-bracket-spacing:
     - error
@@ -35,6 +36,8 @@ rules:
   semi-style:
     - error
     - last
+  simple-import-sort/imports:
+    - error
   vue/component-name-in-template-casing: 0
   vue/html-end-tags: error
   vue/html-self-closing: 0

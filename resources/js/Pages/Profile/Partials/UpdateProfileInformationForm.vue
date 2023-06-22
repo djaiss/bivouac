@@ -1,12 +1,13 @@
 <script setup>
+import { trans } from 'laravel-vue-i18n';
+import { reactive, ref } from 'vue';
+
+import Error from '@/Components/Error.vue';
+import HelpInput from '@/Components/HelpInput.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import Error from '@/Components/Error.vue';
-import HelpInput from '@/Components/HelpInput.vue';
 import { flash } from '@/methods.js';
-import { trans } from 'laravel-vue-i18n';
-import { ref, reactive } from 'vue';
 
 const props = defineProps({
   data: {

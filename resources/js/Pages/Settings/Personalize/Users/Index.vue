@@ -1,15 +1,17 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import PrimaryLinkButton from '@/Components/PrimaryLinkButton.vue';
-import { Head } from '@inertiajs/vue3';
-import { Link } from '@inertiajs/vue3';
-import { onMounted, ref } from 'vue';
-import { ChevronRightIcon } from '@heroicons/vue/24/solid';
-import { KeyIcon } from '@heroicons/vue/24/solid';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
 import { EnvelopeIcon } from '@heroicons/vue/24/outline';
 import { EllipsisVerticalIcon } from '@heroicons/vue/24/outline';
-import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue';
+import { ChevronRightIcon } from '@heroicons/vue/24/solid';
+import { KeyIcon } from '@heroicons/vue/24/solid';
+import { Head } from '@inertiajs/vue3';
+import { Link } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
+import { onMounted, ref } from 'vue';
+
+import Avatar from '@/Components/Avatar.vue';
+import PrimaryLinkButton from '@/Components/PrimaryLinkButton.vue';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { flash } from '@/methods.js';
 
 const props = defineProps({
@@ -102,7 +104,7 @@ const destroy = (user) => {
                   class="group flex items-center justify-between px-6 py-4 hover:bg-slate-50 last:hover:rounded-b-lg">
                   <!-- user information -->
                   <div class="flex items-center">
-                    <div v-html="user.avatar.content" class="h-7 w-7 rounded mr-4" />
+                    <Avatar :data="user.avatar" class="h-8 w-8 rounded mr-4" />
 
                     <div class="flex flex-col mr-6">
                       <span class="font-bold">{{ user.name }}</span>
@@ -147,13 +149,14 @@ const destroy = (user) => {
                           class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                           <div class="px-1 py-1">
                             <MenuItem v-slot="{ active }">
-                              <button
+                              <Link
+                                :href="user.url.edit"
                                 :class="[
                                   active ? 'bg-violet-500 text-white' : 'text-gray-900',
                                   'group flex w-full items-center rounded-md px-2 py-2 text-sm',
                                 ]">
                                 {{ $t('Edit') }}
-                              </button>
+                              </Link>
                             </MenuItem>
                             <MenuItem v-slot="{ active }">
                               <button

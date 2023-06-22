@@ -44,8 +44,31 @@ class PersonalizeUserViewModel
             'can_delete' => $loggedUser->id !== $otherUser->id,
             'permissions' => $permission,
             'url' => [
+                'edit' => route('settings.personalize.user.edit', [
+                    'user' => $otherUser->id,
+                ]),
                 'destroy' => route('settings.personalize.user.destroy', [
                     'user' => $otherUser->id,
+                ]),
+            ],
+        ];
+    }
+
+    public static function edit(User $user): array
+    {
+        return [
+            'id' => $user->id,
+            'name' => $user->name,
+            'avatar' => $user->avatar,
+            'permissions' => $user->permissions,
+            'url' => [
+                'breadcrumb' => [
+                    'home' => route('profile.edit'),
+                    'settings' => route('settings.personalize.index'),
+                    'users' => route('settings.personalize.user.index'),
+                ],
+                'update' => route('settings.personalize.user.update', [
+                    'user' => $user->id,
                 ]),
             ],
         ];
