@@ -50,5 +50,7 @@ class ValidateInvitationController extends Controller
                 'data' => route('dashboard'),
             ], 200);
         }
+
+        throw new \Exception('Something went wrong.');
     }
 }
