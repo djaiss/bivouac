@@ -39,7 +39,7 @@ onMounted(() => {
           <!-- Bivouac logo -->
           <div class="bg-slate-900 px-8 py-4 mb-6">
             <div class="flex items-center justify-center">
-              <img src="img/logo.svg" class="h-6 w-6 fill-current text-white mr-4" alt="Bivouac logo" />
+              <img src="/img/logo.svg" class="h-6 w-6 fill-current text-white mr-4" alt="Bivouac logo" />
               <p class="app-name text-white text-xl">Bivouac</p>
             </div>
           </div>
@@ -91,7 +91,9 @@ onMounted(() => {
             <li class="px-4 py-2 group hover:bg-slate-900 hover:text-white flex items-center">
               <Cog8ToothIcon
                 class="h-4 w-4 group-hover:fill-current group-hover:text-blue-500 transition ease-in-out" />
-              <span class="ml-2">{{ $t('Account settings') }}</span>
+              <span class="ml-2">
+                <Link :href="page.props.url.settings.personalize">{{ $t('Account settings') }}</Link>
+              </span>
             </li>
           </ul>
 
@@ -106,9 +108,9 @@ onMounted(() => {
             <li class="px-4 py-2 group hover:bg-slate-900 hover:text-white flex items-center">
               <ArrowLeftOnRectangleIcon
                 class="h-4 w-4 group-hover:fill-current group-hover:text-blue-500 transition ease-in-out" />
-              <span class="ml-2"
-                ><Link :href="route('logout')" method="post">{{ $t('Logout') }}</Link></span
-              >
+              <span class="ml-2">
+                <Link :href="route('logout')" method="post">{{ $t('Logout') }}</Link>
+              </span>
             </li>
           </ul>
 
@@ -116,7 +118,9 @@ onMounted(() => {
           <ul class="text-slate-400 mb-4">
             <li class="px-4 py-2 group hover:bg-slate-900 hover:text-white flex items-center">
               <div v-html="user.avatar.content" class="h-7 w-7 rounded mr-2" />
-              <span class="ml-2">{{ user.name }}</span>
+              <span class="ml-2">
+                <Link :href="page.props.url.profile">{{ user.name }}</Link>
+              </span>
             </li>
           </ul>
         </div>

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class CreateAccount extends BaseService
 {
@@ -50,9 +51,11 @@ class CreateAccount extends BaseService
             'first_name' => $this->data['first_name'],
             'last_name' => $this->data['last_name'],
             'email' => $this->data['email'],
+            'permissions' => User::ROLE_ACCOUNT_MANAGER,
             'name_for_avatar' => $this->data['first_name'],
             'password' => Hash::make($this->data['password']),
             'organization_id' => $this->organization->id,
+            'invitation_code' => (string) Str::uuid(),
         ]);
     }
 
