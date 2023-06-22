@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\ActivateUserAccount;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -51,6 +52,6 @@ class ValidateInvitationController extends Controller
             ], 200);
         }
 
-        throw new \Exception('Something went wrong.');
+        throw new Exception('Something went wrong.');
     }
 }
