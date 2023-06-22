@@ -4,7 +4,7 @@ import { Head } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
 import { router } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
-import { reactive, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 
 import Avatar from '@/Components/Avatar.vue';
 import InputLabel from '@/Components/InputLabel.vue';
@@ -20,21 +20,24 @@ const props = defineProps({
 const loadingState = ref(false);
 
 const form = reactive({
-  permission: '',
+  permissions: '',
   errors: '',
+});
+
+onMounted(() => {
+  form.permissions = props.data.permissions;
 });
 
 const submit = () => {
   loadingState.value = true;
 
   axios
-    .post(props.data.url.invite_store, form)
+    .put(props.data.url.update, form)
     .then((response) => {
-      localStorage.success = trans('The user has been invited');
+      localStorage.success = trans('Changes saved');
       router.visit(response.data.data);
     })
     .catch((error) => {
-      console.log(error);
       loadingState.value = false;
       form.errors = error.response.data;
     });
@@ -106,39 +109,37 @@ const submit = () => {
             <div class="space-y-2">
               <div class="flex items-center gap-x-2">
                 <input
-                  id="hidden"
-                  v-model="form.age_preferences"
-                  value="hidden"
-                  name="date-birth"
+                  id="account_manager"
+                  v-model="form.permissions"
+                  value="account_manager"
+                  name="permissions"
                   type="radio"
                   class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
-                <label for="hidden" class="block text-sm font-medium leading-6 text-gray-900">{{
-                  $t('Never display the date of birth to anyone')
+                <label for="account_manager" class="block text-sm font-medium leading-6 text-gray-900">{{
+                  $t('Account manager')
                 }}</label>
               </div>
               <div class="flex items-center gap-x-2">
                 <input
-                  id="month_day"
-                  v-model="form.age_preferences"
-                  value="month_day"
-                  name="date-birth"
+                  id="administrator"
+                  v-model="form.permissions"
+                  value="administrator"
+                  name="permissions"
                   type="radio"
                   class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
-                <label for="month_day" class="block text-sm font-medium leading-6 text-gray-900">{{
-                  $t('Only show the day and the month')
+                <label for="administrator" class="block text-sm font-medium leading-6 text-gray-900">{{
+                  $t('Administrator')
                 }}</label>
               </div>
               <div class="flex items-center gap-x-2">
                 <input
-                  id="full"
-                  v-model="form.age_preferences"
-                  value="full"
-                  name="date-birth"
+                  id="user"
+                  v-model="form.permissions"
+                  value="user"
+                  name="permissions"
                   type="radio"
                   class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
-                <label for="full" class="block text-sm font-medium leading-6 text-gray-900">{{
-                  $t('Display the full date of birth')
-                }}</label>
+                <label for="user" class="block text-sm font-medium leading-6 text-gray-900">{{ $t('User') }}</label>
               </div>
             </div>
           </div>
@@ -151,7 +152,7 @@ const submit = () => {
             >
 
             <PrimaryButton class="ml-4" :loading="loadingState" :disabled="loadingState">
-              {{ $t('Send') }}
+              {{ $t('Save') }}
             </PrimaryButton>
           </div>
         </form>

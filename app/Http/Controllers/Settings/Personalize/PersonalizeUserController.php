@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\DestroyUser;
 use App\Services\InviteUser;
+use App\Services\UpdateUserPermission;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -44,6 +45,19 @@ class PersonalizeUserController extends Controller
         return Inertia::render('Settings/Personalize/Users/Edit', [
             'data' => PersonalizeUserViewModel::edit($user),
         ]);
+    }
+
+    public function update(Request $request, User $user): JsonResponse
+    {
+        (new UpdateUserPermission)->execute([
+            'author_id' => auth()->user()->id,
+            'user_id' => $user->id,
+            'permissions' => $request->input('permissions'),
+        ]);
+
+        return response()->json([
+            'data' => route('settings.personalize.user.index'),
+        ], 200);
     }
 
     public function destroy(Request $request, User $user): JsonResponse

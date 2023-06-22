@@ -60,14 +60,14 @@ class PersonalizeUserViewModel
             'id' => $user->id,
             'name' => $user->name,
             'avatar' => $user->avatar,
-            'permissions' => $user->permission,
+            'permissions' => $user->permissions,
             'url' => [
                 'breadcrumb' => [
                     'home' => route('profile.edit'),
                     'settings' => route('settings.personalize.index'),
                     'users' => route('settings.personalize.user.index'),
                 ],
-                'update' => route('settings.personalize.user.edit', [
+                'update' => route('settings.personalize.user.update', [
                     'user' => $user->id,
                 ]),
             ],

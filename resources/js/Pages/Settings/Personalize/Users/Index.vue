@@ -9,6 +9,7 @@ import { Link } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
 import { onMounted, ref } from 'vue';
 
+import Avatar from '@/Components/Avatar.vue';
 import PrimaryLinkButton from '@/Components/PrimaryLinkButton.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { flash } from '@/methods.js';
@@ -103,7 +104,7 @@ const destroy = (user) => {
                   class="group flex items-center justify-between px-6 py-4 hover:bg-slate-50 last:hover:rounded-b-lg">
                   <!-- user information -->
                   <div class="flex items-center">
-                    <div v-html="user.avatar.content" class="h-7 w-7 rounded mr-4" />
+                    <Avatar :data="user.avatar" class="h-8 w-8 rounded mr-4" />
 
                     <div class="flex flex-col mr-6">
                       <span class="font-bold">{{ user.name }}</span>

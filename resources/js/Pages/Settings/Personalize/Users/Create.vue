@@ -36,7 +36,6 @@ const submit = () => {
       router.visit(response.data.data);
     })
     .catch((error) => {
-      console.log(error);
       loadingState.value = false;
       form.errors = error.response.data;
     });
