@@ -1,15 +1,12 @@
 <script setup>
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
-import { EnvelopeIcon } from '@heroicons/vue/24/outline';
 import { EllipsisVerticalIcon } from '@heroicons/vue/24/outline';
 import { ChevronRightIcon } from '@heroicons/vue/24/solid';
-import { KeyIcon } from '@heroicons/vue/24/solid';
 import { Head } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
 import { onMounted, ref } from 'vue';
 
-import Avatar from '@/Components/Avatar.vue';
 import PrimaryLinkButton from '@/Components/PrimaryLinkButton.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { flash } from '@/methods.js';
@@ -26,16 +23,16 @@ onMounted(() => {
   localOffices.value = props.data.offices;
 });
 
-const destroy = (user) => {
+const destroy = (office) => {
   if (confirm(trans('Are you sure? This action cannot be undone.'))) {
     axios
-      .delete(user.url.destroy)
+      .delete(office.url.destroy)
       .then(() => {
-        flash(trans('The user has been deleted'), 'success');
-        let id = localOffices.value.findIndex((x) => x.id === user.id);
+        flash(trans('The office has been deleted'), 'success');
+        let id = localOffices.value.findIndex((x) => x.id === office.id);
         localOffices.value.splice(id, 1);
       })
-      .catch(() => { });
+      .catch(() => {});
   }
 };
 </script>
@@ -52,16 +49,20 @@ const destroy = (user) => {
           <nav class="flex py-3 text-gray-700">
             <ol class="inline-flex items-center space-x-1 md:space-x-3">
               <li class="inline-flex items-center">
-                <Link :href="data.url.breadcrumb.home"
-                  class="text-sm text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline">{{
-                    $t('Home') }}</Link>
+                <Link
+                  :href="data.url.breadcrumb.home"
+                  class="text-sm text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                  >{{ $t('Home') }}</Link
+                >
               </li>
               <li>
                 <div class="flex items-center">
                   <ChevronRightIcon class="w-4 h-4 text-gray-400 mr-2" />
-                  <Link :href="data.url.breadcrumb.settings"
-                    class="text-sm text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline">{{
-                      $t('Account settings') }}</Link>
+                  <Link
+                    :href="data.url.breadcrumb.settings"
+                    class="text-sm text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                    >{{ $t('Account settings') }}</Link
+                  >
                 </div>
               </li>
               <li>
@@ -87,72 +88,64 @@ const destroy = (user) => {
               </h2>
 
               <div>
-                <PrimaryLinkButton :href="data.url.invite">{{ $t('Add an office') }}</PrimaryLinkButton>
+                <PrimaryLinkButton :href="data.url.create">{{ $t('Add an office') }}</PrimaryLinkButton>
               </div>
             </div>
 
             <!-- list of offices -->
             <div v-if="localOffices.length > 0" class="flex">
               <ul class="w-full">
-                <li v-for="user in localOffices" :key="user.id"
+                <li
+                  v-for="office in localOffices"
+                  :key="office.id"
                   class="group flex items-center justify-between px-6 py-4 hover:bg-slate-50 last:hover:rounded-b-lg">
                   <!-- user information -->
                   <div class="flex items-center">
-                    <Avatar :data="user.avatar" class="h-8 w-8 rounded mr-4" />
+                    <span class="mr-3">{{ office.name }}</span>
 
-                    <div class="flex flex-col mr-6">
-                      <span class="font-bold">{{ user.name }}</span>
-                      <div class="flex">
-                        <div class="text-sm inline mr-4">
-                          <span class="flex items-center">
-                            <EnvelopeIcon class="w-3 h-3 mr-2 text-gray-400" />
-                            <span>{{ user.email }}</span>
-                          </span>
-                        </div>
-                        <div class="text-sm inline">
-                          <span class="flex items-center">
-                            <KeyIcon class="w-3 h-3 mr-2 text-gray-400" />
-                            {{ user.permissions }}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <span v-if="!user.verified"
-                      class="flex items-center bg-yellow-50 border-yellow-300 border px-2 py-1 rounded-lg text-xs">
-                      <span class="text-yellow-600">{{ $t('invited') }}</span>
+                    <span
+                      v-if="office.is_main_office"
+                      class="flex items-center bg-lime-50 border-lime-300 border px-2 py-1 rounded-lg text-xs">
+                      <span class="text-lime-600">{{ $t('main office') }}</span>
                     </span>
                   </div>
 
                   <!-- menu -->
-                  <div v-if="user.can_delete">
-                    <Menu as="div" class="text-left">
+                  <div>
+                    <Menu as="div" class="text-left relative">
                       <MenuButton class="">
                         <EllipsisVerticalIcon class="h-5 w-5 hover:text-gray-500 cursor-pointer" />
                       </MenuButton>
 
-                      <transition enter-active-class="transition duration-100 ease-out"
-                        enter-from-class="transform scale-95 opacity-0" enter-to-class="transform scale-100 opacity-100"
+                      <transition
+                        enter-active-class="transition duration-100 ease-out"
+                        enter-from-class="transform scale-95 opacity-0"
+                        enter-to-class="transform scale-100 opacity-100"
                         leave-active-class="transition duration-75 ease-in"
-                        leave-from-class="transform scale-100 opacity-100" leave-to-class="transform scale-95 opacity-0">
+                        leave-from-class="transform scale-100 opacity-100"
+                        leave-to-class="transform scale-95 opacity-0">
                         <MenuItems
                           class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                           <div class="px-1 py-1">
                             <MenuItem v-slot="{ active }">
-                            <Link :href="user.url.edit" :class="[
-                              active ? 'bg-violet-500 text-white' : 'text-gray-900',
-                              'group flex w-full items-center rounded-md px-2 py-2 text-sm',
-                            ]">
-                            {{ $t('Edit') }}
-                            </Link>
+                              <Link
+                                :href="office.url.edit"
+                                :class="[
+                                  active ? 'bg-violet-500 text-white' : 'text-gray-900',
+                                  'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                                ]">
+                                {{ $t('Edit') }}
+                              </Link>
                             </MenuItem>
                             <MenuItem v-slot="{ active }">
-                            <button @click="destroy(user)" :class="[
-                              active ? 'bg-violet-500 text-white' : 'text-gray-900',
-                              'group flex w-full items-center rounded-md px-2 py-2 text-sm',
-                            ]">
-                              {{ $t('Delete') }}
-                            </button>
+                              <button
+                                @click="destroy(office)"
+                                :class="[
+                                  active ? 'bg-violet-500 text-white' : 'text-gray-900',
+                                  'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                                ]">
+                                {{ $t('Delete') }}
+                              </button>
                             </MenuItem>
                           </div>
                         </MenuItems>

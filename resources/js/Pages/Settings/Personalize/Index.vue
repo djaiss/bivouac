@@ -31,7 +31,7 @@ defineProps({
           <div class="bg-white shadow sm:rounded-lg">
             <ul>
               <li class="flex items-center border-b border-gray-200 px-4 py-2 hover:bg-slate-50 hover:rounded-t-lg">
-                <img src="/img/users.png" class="h-20 w-20 mr-2" alt="" />
+                <img src="/img/users.png" class="h-20 w-20 mr-4" alt="" />
                 <Link
                   :href="data.url.users"
                   class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
@@ -39,25 +39,27 @@ defineProps({
                 >
               </li>
               <li class="flex items-center border-b border-gray-200 px-4 py-2 hover:bg-slate-50">
-                <img src="/img/skyscraper.png" class="h-20 w-20 mr-2" alt="" />
+                <img src="/img/skyscraper.png" class="h-20 w-20 mr-4" alt="" />
                 <Link class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline">{{
                   $t("Update organization's name and description")
                 }}</Link>
               </li>
               <li class="flex items-center border-b border-gray-200 px-4 py-2 hover:bg-slate-50">
-                <img src="/img/offices.png" class="h-20 w-20 mr-2" alt="" />
-                <Link :href="data.url.offices" class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline">{{
-                  $t('Manage offices')
-                }}</Link>
+                <img src="/img/offices.png" class="h-20 w-20 mr-4" alt="" />
+                <Link
+                  :href="data.url.offices"
+                  class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                  >{{ $t('Manage offices') }}</Link
+                >
               </li>
               <li class="flex items-center border-b border-gray-200 px-4 py-2 hover:bg-slate-50">
-                <img src="/img/genders.png" class="h-20 w-20 mr-2" alt="" />
+                <img src="/img/genders.png" class="h-20 w-20 mr-4" alt="" />
                 <Link class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline">{{
                   $t('Manage genders and pronouns')
                 }}</Link>
               </li>
               <li class="flex items-center px-4 py-2 hover:bg-slate-50 hover:rounded-b-lg">
-                <img src="/img/cancel.png" class="h-20 w-20 mr-2" alt="" />
+                <img src="/img/cancel.png" class="h-20 w-20 mr-4" alt="" />
                 <Link class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline">{{
                   $t('Delete organization')
                 }}</Link>

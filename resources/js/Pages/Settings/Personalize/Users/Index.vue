@@ -132,8 +132,8 @@ const destroy = (user) => {
                   </div>
 
                   <!-- menu -->
-                  <div v-if="user.can_delete">
-                    <Menu as="div" class="text-left">
+                  <div v-if="user.can_delete" class="">
+                    <Menu as="div" class="text-left relative">
                       <MenuButton class="">
                         <EllipsisVerticalIcon class="h-5 w-5 hover:text-gray-500 cursor-pointer" />
                       </MenuButton>

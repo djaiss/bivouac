@@ -17,21 +17,35 @@ class PersonalizeOfficeController extends Controller
     public function index(): Response
     {
         return Inertia::render('Settings/Personalize/Offices/Index', [
-            'data' => PersonalizeOfficeViewModel::data(auth()->user()->organization),
+            'data' => PersonalizeOfficeViewModel::index(auth()->user()->organization),
+        ]);
+    }
+
+    public function create(): Response
+    {
+        return Inertia::render('Settings/Personalize/Offices/Create', [
+            'data' => PersonalizeOfficeViewModel::create(),
         ]);
     }
 
     public function store(Request $request): JsonResponse
     {
-        $office = (new CreateOffice)->execute([
-            'author_id' => auth()->user()->id,
+        (new CreateOffice)->execute([
+            'user_id' => auth()->user()->id,
             'name' => $request->input('name'),
             'is_main_office' => $request->input('is_main_office'),
         ]);
 
         return response()->json([
-            'data' => PersonalizeOfficeViewModel::dto($office),
+            'data' => route('settings.personalize.office.index'),
         ], 201);
+    }
+
+    public function edit(Request $request, Office $office): Response
+    {
+        return Inertia::render('Settings/Personalize/Offices/Edit', [
+            'data' => PersonalizeOfficeViewModel::edit($office),
+        ]);
     }
 
     public function update(Request $request, Office $office): JsonResponse
@@ -44,7 +58,7 @@ class PersonalizeOfficeController extends Controller
         ]);
 
         return response()->json([
-            'data' => PersonalizeOfficeViewModel::dto($office),
+            'data' => route('settings.personalize.office.index'),
         ], 200);
     }
 
