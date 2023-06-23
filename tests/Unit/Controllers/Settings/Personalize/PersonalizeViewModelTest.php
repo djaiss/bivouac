@@ -23,6 +23,7 @@ class PersonalizeViewModelTest extends TestCase
                         'settings' => env('APP_URL') . '/settings/personalize',
                     ],
                     'users' => env('APP_URL') . '/settings/personalize/users',
+                    'offices' => env('APP_URL') . '/settings/personalize/offices',
                 ],
             ],
             $array

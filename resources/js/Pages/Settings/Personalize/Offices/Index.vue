@@ -1,15 +1,12 @@
 <script setup>
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
-import { EnvelopeIcon } from '@heroicons/vue/24/outline';
 import { EllipsisVerticalIcon } from '@heroicons/vue/24/outline';
 import { ChevronRightIcon } from '@heroicons/vue/24/solid';
-import { KeyIcon } from '@heroicons/vue/24/solid';
 import { Head } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
 import { onMounted, ref } from 'vue';
 
-import Avatar from '@/Components/Avatar.vue';
 import PrimaryLinkButton from '@/Components/PrimaryLinkButton.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { flash } from '@/methods.js';
@@ -20,20 +17,20 @@ const props = defineProps({
   },
 });
 
-const localUsers = ref([]);
+const localOffices = ref([]);
 
 onMounted(() => {
-  localUsers.value = props.data.users;
+  localOffices.value = props.data.offices;
 });
 
-const destroy = (user) => {
+const destroy = (office) => {
   if (confirm(trans('Are you sure? This action cannot be undone.'))) {
     axios
-      .delete(user.url.destroy)
+      .delete(office.url.destroy)
       .then(() => {
-        flash(trans('The user has been deleted'), 'success');
-        let id = localUsers.value.findIndex((x) => x.id === user.id);
-        localUsers.value.splice(id, 1);
+        flash(trans('The office has been deleted'), 'success');
+        let id = localOffices.value.findIndex((x) => x.id === office.id);
+        localOffices.value.splice(id, 1);
       })
       .catch(() => {});
   }
@@ -71,7 +68,7 @@ const destroy = (user) => {
               <li>
                 <div class="flex items-center">
                   <ChevronRightIcon class="w-4 h-4 text-gray-400" />
-                  <span class="ml-1 text-sm text-gray-500 md:ml-2 dark:text-gray-400">{{ $t('Manage users') }}</span>
+                  <span class="ml-1 text-sm text-gray-500 md:ml-2 dark:text-gray-400">{{ $t('Manage offices') }}</span>
                 </div>
               </li>
             </ol>
@@ -87,52 +84,34 @@ const destroy = (user) => {
             <!-- title -->
             <div class="px-4 py-2 flex justify-between items-center border-b border-gray-200">
               <h2 class="text-lg font-medium text-gray-900">
-                {{ $t('All the users who have access to this account') }}
+                {{ $t("All the organization's offices") }}
               </h2>
 
               <div>
-                <PrimaryLinkButton :href="data.url.invite">{{ $t('Invite user') }}</PrimaryLinkButton>
+                <PrimaryLinkButton :href="data.url.create">{{ $t('Add an office') }}</PrimaryLinkButton>
               </div>
             </div>
 
-            <!-- list of users -->
-            <div class="flex">
+            <!-- list of offices -->
+            <div v-if="localOffices.length > 0" class="flex">
               <ul class="w-full">
                 <li
-                  v-for="user in localUsers"
-                  :key="user.id"
+                  v-for="office in localOffices"
+                  :key="office.id"
                   class="group flex items-center justify-between px-6 py-4 hover:bg-slate-50 last:hover:rounded-b-lg">
                   <!-- user information -->
                   <div class="flex items-center">
-                    <Avatar :data="user.avatar" class="h-8 w-8 rounded mr-4" />
-
-                    <div class="flex flex-col mr-6">
-                      <span class="font-bold">{{ user.name }}</span>
-                      <div class="flex">
-                        <div class="text-sm inline mr-4">
-                          <span class="flex items-center">
-                            <EnvelopeIcon class="w-3 h-3 mr-2 text-gray-400" />
-                            <span>{{ user.email }}</span>
-                          </span>
-                        </div>
-                        <div class="text-sm inline">
-                          <span class="flex items-center">
-                            <KeyIcon class="w-3 h-3 mr-2 text-gray-400" />
-                            {{ user.permissions }}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+                    <span class="mr-3">{{ office.name }}</span>
 
                     <span
-                      v-if="!user.verified"
-                      class="flex items-center bg-yellow-50 border-yellow-300 border px-2 py-1 rounded-lg text-xs">
-                      <span class="text-yellow-600">{{ $t('invited') }}</span>
+                      v-if="office.is_main_office"
+                      class="flex items-center bg-lime-50 border-lime-300 border px-2 py-1 rounded-lg text-xs">
+                      <span class="text-lime-600">{{ $t('main office') }}</span>
                     </span>
                   </div>
 
                   <!-- menu -->
-                  <div v-if="user.can_delete" class="">
+                  <div>
                     <Menu as="div" class="text-left relative">
                       <MenuButton class="">
                         <EllipsisVerticalIcon class="h-5 w-5 hover:text-gray-500 cursor-pointer" />
@@ -150,7 +129,7 @@ const destroy = (user) => {
                           <div class="px-1 py-1">
                             <MenuItem v-slot="{ active }">
                               <Link
-                                :href="user.url.edit"
+                                :href="office.url.edit"
                                 :class="[
                                   active ? 'bg-violet-500 text-white' : 'text-gray-900',
                                   'group flex w-full items-center rounded-md px-2 py-2 text-sm',
@@ -160,7 +139,7 @@ const destroy = (user) => {
                             </MenuItem>
                             <MenuItem v-slot="{ active }">
                               <button
-                                @click="destroy(user)"
+                                @click="destroy(office)"
                                 :class="[
                                   active ? 'bg-violet-500 text-white' : 'text-gray-900',
                                   'group flex w-full items-center rounded-md px-2 py-2 text-sm',
@@ -175,6 +154,15 @@ const destroy = (user) => {
                   </div>
                 </li>
               </ul>
+            </div>
+
+            <!-- blank state -->
+            <div v-else>
+              <div class="px-4 py-6 text-center">
+                <h3 class="text-gray-900 font-medium text-lg mb-2">{{ $t("You haven't set an office yet.") }}</h3>
+                <p class="mb-20 text-gray-500">{{ $t('Get started by adding your first office.') }}</p>
+                <img src="/img/offices.png" class="h-60 w-60 block mx-auto" alt="" />
+              </div>
             </div>
           </div>
         </div>

@@ -13,6 +13,7 @@ class PersonalizeViewModel
                     'settings' => route('settings.personalize.index'),
                 ],
                 'users' => route('settings.personalize.user.index'),
+                'offices' => route('settings.personalize.office.index'),
             ],
         ];
     }

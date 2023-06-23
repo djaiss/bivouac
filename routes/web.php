@@ -5,6 +5,7 @@ use App\Http\Controllers\Profile\ProfileAvatarController;
 use App\Http\Controllers\Profile\ProfileBirthdateController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeController;
+use App\Http\Controllers\Settings\Personalize\PersonalizeOfficeController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeUserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -35,12 +36,22 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
 
     Route::middleware(['administrator'])->prefix('settings')->group(function (): void {
         Route::get('personalize', [PersonalizeController::class, 'index'])->name('settings.personalize.index');
+
+        // user management
         Route::get('personalize/users', [PersonalizeUserController::class, 'index'])->name('settings.personalize.user.index');
         Route::get('personalize/users/invite', [PersonalizeUserController::class, 'create'])->name('settings.personalize.user.create');
         Route::post('personalize/users/invite', [PersonalizeUserController::class, 'store'])->name('settings.personalize.user.store');
         Route::get('personalize/users/{user}/edit', [PersonalizeUserController::class, 'edit'])->name('settings.personalize.user.edit');
         Route::put('personalize/users/{user}', [PersonalizeUserController::class, 'update'])->name('settings.personalize.user.update');
         Route::delete('personalize/users/{user}', [PersonalizeUserController::class, 'destroy'])->name('settings.personalize.user.destroy');
+
+        // office management
+        Route::get('personalize/offices', [PersonalizeOfficeController::class, 'index'])->name('settings.personalize.office.index');
+        Route::get('personalize/offices/create', [PersonalizeOfficeController::class, 'create'])->name('settings.personalize.office.create');
+        Route::post('personalize/offices', [PersonalizeOfficeController::class, 'store'])->name('settings.personalize.office.store');
+        Route::get('personalize/offices/{office}/edit', [PersonalizeOfficeController::class, 'edit'])->name('settings.personalize.office.edit');
+        Route::put('personalize/offices/{office}', [PersonalizeOfficeController::class, 'update'])->name('settings.personalize.office.update');
+        Route::delete('personalize/offices/{office}', [PersonalizeOfficeController::class, 'destroy'])->name('settings.personalize.office.destroy');
     });
 });
 
