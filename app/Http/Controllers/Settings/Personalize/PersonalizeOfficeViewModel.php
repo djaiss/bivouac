@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Settings\Personalize;
 
 use App\Models\Office;
 use App\Models\Organization;
-use App\Models\User;
 
 class PersonalizeOfficeViewModel
 {
