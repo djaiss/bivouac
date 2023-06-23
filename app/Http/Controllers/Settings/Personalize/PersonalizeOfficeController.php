@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Settings\Personalize;
 
 use App\Http\Controllers\Controller;
+use App\Models\Office;
 use App\Models\User;
+use App\Services\CreateOffice;
+use App\Services\DestroyOffice;
 use App\Services\DestroyUser;
 use App\Services\InviteUser;
+use App\Services\UpdateOffice;
 use App\Services\UpdateUserPermission;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -16,55 +20,43 @@ class PersonalizeOfficeController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('Settings/Personalize/Office/Index', [
-            'data' => PersonalizeUserViewModel::data(auth()->user()),
-        ]);
-    }
-
-    public function create(): Response
-    {
-        return Inertia::render('Settings/Personalize/Office/Create', [
-            'data' => PersonalizeUserViewModel::data(auth()->user()),
+        return Inertia::render('Settings/Personalize/Offices/Index', [
+            'data' => PersonalizeOfficeViewModel::data(auth()->user()->organization),
         ]);
     }
 
     public function store(Request $request): JsonResponse
     {
-        (new InviteUser)->execute([
+        $office = (new CreateOffice)->execute([
             'author_id' => auth()->user()->id,
-            'email' => $request->input('email'),
+            'name' => $request->input('name'),
+            'is_main_office' => $request->input('is_main_office'),
         ]);
 
         return response()->json([
-            'data' => route('settings.personalize.user.index'),
+            'data' => PersonalizeOfficeViewModel::dto($office),
         ], 201);
     }
 
-    public function edit(Request $request, User $user): Response
+    public function update(Request $request, Office $office): JsonResponse
     {
-        return Inertia::render('Settings/Personalize/Office/Edit', [
-            'data' => PersonalizeUserViewModel::edit($user),
-        ]);
-    }
-
-    public function update(Request $request, User $user): JsonResponse
-    {
-        (new UpdateUserPermission)->execute([
-            'author_id' => auth()->user()->id,
-            'user_id' => $user->id,
-            'permissions' => $request->input('permissions'),
+        $office = (new UpdateOffice)->execute([
+            'user_id' => auth()->user()->id,
+            'office_id' => $office->id,
+            'name' => $request->input('name'),
+            'is_main_office' => $request->input('is_main_office'),
         ]);
 
         return response()->json([
-            'data' => route('settings.personalize.user.index'),
+            'data' => PersonalizeOfficeViewModel::dto($office),
         ], 200);
     }
 
-    public function destroy(Request $request, User $user): JsonResponse
+    public function destroy(Request $request, Office $office): JsonResponse
     {
-        (new DestroyUser)->execute([
-            'author_id' => auth()->user()->id,
-            'user_id' => $user->id,
+        (new DestroyOffice)->execute([
+            'user_id' => auth()->user()->id,
+            'office_id' => $office->id,
         ]);
 
         return response()->json([
