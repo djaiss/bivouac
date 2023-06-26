@@ -6,6 +6,7 @@ use App\Http\Controllers\Profile\ProfileBirthdateController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeOfficeController;
+use App\Http\Controllers\Settings\Personalize\PersonalizeTeamTypeController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeUserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +53,14 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
         Route::get('personalize/offices/{office}/edit', [PersonalizeOfficeController::class, 'edit'])->name('settings.personalize.office.edit');
         Route::put('personalize/offices/{office}', [PersonalizeOfficeController::class, 'update'])->name('settings.personalize.office.update');
         Route::delete('personalize/offices/{office}', [PersonalizeOfficeController::class, 'destroy'])->name('settings.personalize.office.destroy');
+
+        // team type management
+        Route::get('personalize/teamTypes', [PersonalizeTeamTypeController::class, 'index'])->name('settings.personalize.team_type.index');
+        Route::get('personalize/teamTypes/create', [PersonalizeTeamTypeController::class, 'create'])->name('settings.personalize.team_type.create');
+        Route::post('personalize/teamTypes', [PersonalizeTeamTypeController::class, 'store'])->name('settings.personalize.team_type.store');
+        Route::get('personalize/teamTypes/{teamType}/edit', [PersonalizeTeamTypeController::class, 'edit'])->name('settings.personalize.team_type.edit');
+        Route::put('personalize/teamTypes/{teamType}', [PersonalizeTeamTypeController::class, 'update'])->name('settings.personalize.team_type.update');
+        Route::delete('personalize/teamTypes/{teamType}', [PersonalizeTeamTypeController::class, 'destroy'])->name('settings.personalize.team_type.destroy');
     });
 });
 

@@ -6,7 +6,6 @@ import { router } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
 import { reactive, ref } from 'vue';
 
-import Checkbox from '@/Components/Checkbox.vue';
 import Error from '@/Components/Error.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
@@ -22,8 +21,7 @@ const props = defineProps({
 const loadingState = ref(false);
 
 const form = reactive({
-  name: '',
-  is_main_office: false,
+  label: '',
   errors: '',
 });
 
@@ -33,7 +31,7 @@ const submit = () => {
   axios
     .post(props.data.url.store, form)
     .then((response) => {
-      localStorage.success = trans('The office has been created');
+      localStorage.success = trans('The team type has been created');
       router.visit(response.data.data);
     })
     .catch((error) => {
@@ -44,7 +42,7 @@ const submit = () => {
 </script>
 
 <template>
-  <Head :title="$t('Manage offices')" />
+  <Head :title="$t('Manage team types')" />
 
   <AuthenticatedLayout>
     <!-- header -->
@@ -85,7 +83,7 @@ const submit = () => {
                 <div class="flex items-center">
                   <ChevronRightIcon class="w-4 h-4 text-gray-400" />
                   <span class="ml-1 text-sm text-gray-500 md:ml-2 dark:text-gray-400">{{
-                    $t('Add a new office')
+                    $t('Add a new team type')
                   }}</span>
                 </div>
               </li>
@@ -100,9 +98,9 @@ const submit = () => {
         <form @submit.prevent="submit">
           <div class="px-6 py-4 relative border-b">
             <div class="mx-auto mb-4 relative w-32 h-3w-32 overflow-hidden rounded-full">
-              <img src="/img/office_create.png" alt="logo" class="text-center mx-auto block" height="140" />
+              <img src="/img/team_create.png" alt="logo" class="text-center mx-auto block" height="140" />
             </div>
-            <h1 class="font-bold text-lg text-center">{{ $t('Add an office') }}</h1>
+            <h1 class="font-bold text-lg text-center">{{ $t('Add a team type') }}</h1>
           </div>
 
           <Error :errors="form.errors" />
@@ -110,34 +108,22 @@ const submit = () => {
           <div class="px-6 py-4 relative border-b">
             <!-- Name -->
             <div class="mb-4">
-              <InputLabel
-                for="office-name"
-                :value="
-                  $t(
-                    'What is the name of the office? It can be the name of the city, the street or whatever defines this office.',
-                  )
-                " />
+              <InputLabel for="label" :value="$t('What is the name of the team type?')" />
 
               <TextInput
-                id="office-name"
+                id="label"
                 type="text"
                 autocomplete="off"
                 class="mt-2 block w-full"
-                v-model="form.name"
+                v-model="form.label"
                 autofocus
                 required />
-            </div>
-
-            <!-- main office -->
-            <div class="flex items-center">
-              <Checkbox id="main-office" class="mr-2" v-model="form.is_main_office" />
-              <InputLabel for="main-office" :value="$t('Designate this office as the main office')" />
             </div>
           </div>
 
           <div class="flex items-center justify-between px-6 py-4 bg-gray-50">
             <Link
-              :href="data.url.breadcrumb.offices"
+              :href="data.url.breadcrumb.team_types"
               class="text-sm font-medium text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
               >{{ $t('Back') }}</Link
             >
