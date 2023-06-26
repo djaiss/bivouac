@@ -14,6 +14,7 @@ class PersonalizeViewModel
                 ],
                 'users' => route('settings.personalize.user.index'),
                 'offices' => route('settings.personalize.office.index'),
+                'team_types' => route('settings.personalize.team_type.index'),
             ],
         ];
     }

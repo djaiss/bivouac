@@ -1,6 +1,7 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
+import { UserGroupIcon } from '@heroicons/vue/24/outline';
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
@@ -50,6 +51,16 @@ defineProps({
                   :href="data.url.offices"
                   class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
                   >{{ $t('Manage offices') }}</Link
+                >
+              </li>
+              <li class="flex items-center border-b border-gray-200 px-4 py-2 hover:bg-slate-50">
+                <div class="bg-blue-300 p-2 rounded-lg mr-3">
+                  <UserGroupIcon class="h-5 w-5" />
+                </div>
+                <Link
+                  :href="data.url.team_types"
+                  class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                  >{{ $t('Manage team types') }}</Link
                 >
               </li>
               <li class="flex items-center border-b border-gray-200 px-4 py-2 hover:bg-slate-50">

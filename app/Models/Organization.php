@@ -25,4 +25,9 @@ class Organization extends Model
     {
         return $this->hasMany(Office::class);
     }
+
+    public function teamTypes(): HasMany
+    {
+        return $this->hasMany(TeamType::class);
+    }
 }
