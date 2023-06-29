@@ -32,6 +32,16 @@ class UserTest extends TestCase
             'created_by_user_id' => $user->id,
         ]);
 
+        $this->assertTrue($user->projectsAsCreator()->exists());
+    }
+
+    /** @test */
+    public function it_belongs_to_many_projects(): void
+    {
+        $user = User::factory()->create();
+        $project = Project::factory()->create();
+        $user->projects()->attach($user);
+
         $this->assertTrue($user->projects()->exists());
     }
 

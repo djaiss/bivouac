@@ -29,4 +29,14 @@ class ProjectTest extends TestCase
 
         $this->assertTrue($project->creator()->exists());
     }
+
+    /** @test */
+    public function it_belongs_to_many_users(): void
+    {
+        $user = User::factory()->create();
+        $project = Project::factory()->create();
+        $project->users()->attach($user);
+
+        $this->assertTrue($project->users()->exists());
+    }
 }
