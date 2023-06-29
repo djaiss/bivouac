@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Projects;
 use App\Models\Office;
 use App\Models\Organization;
 
-class PersonalizeOfficeViewModel
+class ProjectViewModel
 {
     public static function index(Organization $organization): array
     {
