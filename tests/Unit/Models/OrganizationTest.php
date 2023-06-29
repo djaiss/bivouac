@@ -4,6 +4,7 @@ namespace Tests\Unit\Models;
 
 use App\Models\Office;
 use App\Models\Organization;
+use App\Models\Project;
 use App\Models\TeamType;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -40,5 +41,14 @@ class OrganizationTest extends TestCase
         TeamType::factory()->create(['organization_id' => $organization->id]);
 
         $this->assertTrue($organization->teamTypes()->exists());
+    }
+
+    /** @test */
+    public function it_has_many_projects(): void
+    {
+        $organization = Organization::factory()->create();
+        Project::factory()->create(['organization_id' => $organization->id]);
+
+        $this->assertTrue($organization->projects()->exists());
     }
 }

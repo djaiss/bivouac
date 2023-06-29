@@ -1,7 +1,7 @@
 <script setup>
+import { UserGroupIcon } from '@heroicons/vue/24/outline';
 import { Head } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
-import { UserGroupIcon } from '@heroicons/vue/24/outline';
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 

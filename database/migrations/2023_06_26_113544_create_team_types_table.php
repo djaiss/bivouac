@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('label_translation_key')->nullable();
             $table->integer('position')->default(1);
             $table->timestamps();
+            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
         });
     }
 };

@@ -3,6 +3,7 @@
 namespace Tests\Unit\Models;
 
 use App\Models\Organization;
+use App\Models\Project;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -21,6 +22,17 @@ class UserTest extends TestCase
         ]);
 
         $this->assertTrue($user->organization()->exists());
+    }
+
+    /** @test */
+    public function it_has_many_projects(): void
+    {
+        $user = User::factory()->create();
+        Project::factory()->create([
+            'created_by_user_id' => $user->id,
+        ]);
+
+        $this->assertTrue($user->projects()->exists());
     }
 
     /** @test */
