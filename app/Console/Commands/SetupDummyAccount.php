@@ -133,7 +133,7 @@ class SetupDummyAccount extends Command
         $this->info('☐ Create projects');
 
         for ($i = 0; $i < rand(3, 5); $i++) {
-            (new CreateProject())->execute([
+            (new CreateProject)->execute([
                 'user_id' => $this->user->id,
                 'name' => $this->faker->firstName,
                 'description' => rand(1, 2) == 1 ? $this->faker->sentence() : null,
