@@ -47,7 +47,7 @@ class SetupScout extends Command
      */
     protected function scoutConfigure(): void
     {
-        if (config('scout.driver') === 'meilisearch' && (config('scout.meilisearch.host')) !== '') {
+        if (config('scout.driver') === 'meilisearch' && config('scout.meilisearch.host') !== '') {
             $this->artisan('☐ Updating indexes on Meilisearch', 'scout:sync-index-settings', ['--verbose' => true]);
         }
     }
@@ -82,7 +82,7 @@ class SetupScout extends Command
         }
     }
 
-    private function artisan(string $message, string $command, array $options = [])
+    private function artisan(string $message, string $command, array $options = []): void
     {
         $this->info($message);
         $this->getOutput()->getOutput()->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE
