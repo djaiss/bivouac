@@ -53,7 +53,7 @@ class ProjectController extends Controller
     public function edit(Request $request, Project $project): Response
     {
         return Inertia::render('Projects/Edit', [
-            'data' => ProjectViewModel::edit($office),
+            'data' => ProjectViewModel::edit($project),
         ]);
     }
 
