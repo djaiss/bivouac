@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\ValidateInvitationController;
 use App\Http\Controllers\Profile\ProfileAvatarController;
 use App\Http\Controllers\Profile\ProfileBirthdateController;
 use App\Http\Controllers\Profile\ProfileController;
+use App\Http\Controllers\Projects\ProjectController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeOfficeController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeTeamTypeController;
@@ -37,6 +38,16 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
 
     // projects
     Route::get('projects', [ProjectController::class, 'index'])->name('projects.index');
+    Route::get('projects/create', [ProjectController::class, 'create'])->name('projects.create');
+    Route::post('projects', [ProjectController::class, 'store'])->name('projects.store');
+    Route::middleware(['administrator'])->group(function (): void {
+        Route::get('projects/{project}', [ProjectController::class, 'show'])->name('projects.show');
+        Route::get('projects/{project}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
+        Route::put('projects/{project}', [ProjectController::class, 'update'])->name('projects.update');
+    });
+
+    // users
+    Route::get('users/{user}', [UserController::class, 'show'])->name('users.show');
 
     Route::middleware(['administrator'])->prefix('settings')->group(function (): void {
         Route::get('personalize', [PersonalizeController::class, 'index'])->name('settings.personalize.index');

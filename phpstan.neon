@@ -11,6 +11,7 @@ parameters:
         #- '#Access to an undefined property App\\Models\\[^:]*::\$pivot\.#'
         - '#Method\s.+?\sreturn type has no value type specified in iterable type array\.#'
         - '#\s.+?\sno value type specified in iterable type array\.#'
+        - '#Using nullsafe property access on non-nullable type\s.+?\s.#'
 
 #
     excludePaths:

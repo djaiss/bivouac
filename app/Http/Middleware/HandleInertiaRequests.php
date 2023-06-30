@@ -40,6 +40,7 @@ class HandleInertiaRequests extends Middleware
                 ],
             ],
             'url' => [
+                'projects' => route('projects.index'),
                 'profile' => route('profile.edit'),
                 'settings' => [
                     'personalize' => route('settings.personalize.index'),

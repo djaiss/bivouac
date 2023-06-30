@@ -54,5 +54,10 @@ class CreateProjectTest extends TestCase
             'description' => 'this is a description',
             'is_public' => true,
         ]);
+
+        $this->assertDatabaseHas('project_user', [
+            'project_id' => $project->id,
+            'user_id' => $user->id,
+        ]);
     }
 }

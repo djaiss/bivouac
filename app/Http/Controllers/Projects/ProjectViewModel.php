@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers\Projects;
 
-use App\Models\Office;
 use App\Models\Organization;
+use App\Models\Project;
+use App\Models\User;
 
 class ProjectViewModel
 {
     public static function index(Organization $organization): array
     {
-        $offices = $organization->offices()
+        $projects = $organization->projects()
             ->get()
-            ->map(fn (Office $office) => self::dto($office));
+            ->map(fn (Project $project) => self::dto($project));
 
         return [
-            'offices' => $offices,
+            'projects' => $projects,
             'url' => [
-                'create' => route('settings.personalize.office.create'),
+                'create' => route('projects.create'),
                 'breadcrumb' => [
                     'home' => route('profile.edit'),
-                    'settings' => route('settings.personalize.index'),
                 ],
             ],
         ];
@@ -29,47 +29,87 @@ class ProjectViewModel
     {
         return [
             'url' => [
-                'store' => route('settings.personalize.office.store'),
+                'store' => route('projects.store'),
                 'breadcrumb' => [
-                    'home' => route('profile.edit'),
-                    'settings' => route('settings.personalize.index'),
-                    'offices' => route('settings.personalize.office.index'),
+                    'projects' => route('projects.index'),
                 ],
             ],
         ];
     }
 
-    public static function edit(Office $office): array
+    public static function show(Project $project): array
     {
         return [
-            'id' => $office->id,
-            'name' => $office->name,
-            'is_main_office' => $office->is_main_office,
+            'project' => self::dto($project),
             'url' => [
-                'update' => route('settings.personalize.office.update', [
-                    'office' => $office->id,
-                ]),
+                'store' => route('projects.store'),
                 'breadcrumb' => [
-                    'home' => route('profile.edit'),
-                    'settings' => route('settings.personalize.index'),
-                    'offices' => route('settings.personalize.office.index'),
+                    'projects' => route('projects.index'),
                 ],
             ],
         ];
     }
 
-    public static function dto(Office $office): array
+    public static function edit(Project $project): array
     {
         return [
-            'id' => $office->id,
-            'name' => $office->name,
-            'is_main_office' => $office->is_main_office,
+            'id' => $project->id,
+            'author' => [
+                'name' => $project->author,
+                'avatar' => $project?->creator->avatar,
+            ],
+            'name' => $project->name,
+            'description' => $project->description,
+            'is_public' => $project->is_public,
             'url' => [
-                'edit' => route('settings.personalize.office.edit', [
-                    'office' => $office->id,
+                'update' => route('projects.update', [
+                    'project' => $project->id,
                 ]),
-                'destroy' => route('settings.personalize.office.destroy', [
-                    'office' => $office->id,
+                'breadcrumb' => [
+                    'home' => route('profile.edit'),
+                    'projects' => route('projects.index'),
+                    'project' => route('projects.show', [
+                        'project' => $project->id,
+                    ]),
+                ],
+            ],
+        ];
+    }
+
+    public static function dto(Project $project): array
+    {
+        $totalNumberOfUsers = $project->users->count();
+        $members = $project->users->random($project->users->count() > 4 ? 4 : $project->users->count())
+            ->map(fn (User $user) => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'avatar' => $user->avatar,
+                'url' => [
+                    'show' => route('users.show', [
+                        'user' => $user->id,
+                    ]),
+                ],
+            ]);
+
+        return [
+            'id' => $project->id,
+            'author' => [
+                'name' => $project->author,
+                'avatar' => $project?->creator->avatar,
+            ],
+            'name' => $project->name,
+            'description' => $project->description,
+            'is_public' => $project->is_public,
+            'members' => [
+                'remaining' => $totalNumberOfUsers - $members->count(),
+                'list' => $members,
+            ],
+            'url' => [
+                'show' => route('projects.show', [
+                    'project' => $project->id,
+                ]),
+                'edit' => route('projects.edit', [
+                    'project' => $project->id,
                 ]),
             ],
         ];

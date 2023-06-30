@@ -28,6 +28,7 @@ class CreateProject extends BaseService
         $this->data = $data;
         $this->validate();
         $this->create();
+        $this->associateUser();
 
         return $this->project;
     }
@@ -49,5 +50,10 @@ class CreateProject extends BaseService
             'description' => $this->valueOrNull($this->data, 'description'),
             'is_public' => $this->data['is_public'],
         ]);
+    }
+
+    private function associateUser(): void
+    {
+        $this->project->users()->syncWithoutDetaching($this->user);
     }
 }
