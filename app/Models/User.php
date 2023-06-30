@@ -12,10 +12,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Scout\Attributes\SearchUsingFullText;
+use Laravel\Scout\Attributes\SearchUsingPrefix;
+use Laravel\Scout\Searchable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Searchable;
 
     public const AGE_HIDDEN = 'hidden';
 
@@ -61,6 +64,18 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
         'last_active_at' => 'datetime',
     ];
+
+    #[SearchUsingPrefix(['id', 'organization_id'])]
+    #[SearchUsingFullText(['first_name', 'last_name'])]
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => (int) $this->id,
+            'organization_id' => (int) $this->organization_id,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+        ];
+    }
 
     public function organization(): BelongsTo
     {

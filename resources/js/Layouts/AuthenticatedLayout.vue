@@ -50,7 +50,9 @@ onMounted(() => {
             <li class="px-4 py-2 group hover:bg-slate-900 hover:text-white flex items-center">
               <MagnifyingGlassIcon
                 class="h-4 w-4 group-hover:fill-current group-hover:text-blue-500 transition ease-in-out" />
-              <span class="ml-2">{{ $t('Search') }}</span>
+              <span class="ml-2">
+                <Link :href="page.props.url.search">{{ $t('Search') }}</Link>
+              </span>
             </li>
 
             <li class="px-4 py-2 group hover:bg-slate-900 hover:text-white flex items-center">

@@ -7,10 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Laravel\Scout\Attributes\SearchUsingFullText;
+use Laravel\Scout\Attributes\SearchUsingPrefix;
+use Laravel\Scout\Searchable;
 
 class Project extends Model
 {
-    use HasFactory;
+    use HasFactory, Searchable;
 
     protected $table = 'projects';
 
@@ -26,6 +29,18 @@ class Project extends Model
     protected $casts = [
         'is_public' => 'boolean',
     ];
+
+    #[SearchUsingPrefix(['id', 'organization_id'])]
+    #[SearchUsingFullText(['name', 'description'])]
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => (int) $this->id,
+            'organization_id' => (int) $this->organization_id,
+            'name' => $this->name,
+            'description' => $this->description,
+        ];
+    }
 
     public function organization(): BelongsTo
     {

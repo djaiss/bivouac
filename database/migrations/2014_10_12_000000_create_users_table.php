@@ -28,6 +28,11 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
+
+            if (config('scout.driver') === 'database' && in_array(DB::connection()->getDriverName(), ['mysql', 'pgsql'])) {
+                $table->fullText('first_name');
+                $table->fullText('last_name');
+            }
         });
     }
 };

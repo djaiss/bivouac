@@ -35,7 +35,7 @@ class ProjectController extends Controller
             'user_id' => auth()->user()->id,
             'name' => $request->input('name'),
             'description' => $request->input('description'),
-            'is_public' => $request->input('is_public') === 'true' ? true : false,
+            'is_public' => $request->input('is_public') === 'true',
         ]);
 
         return response()->json([
