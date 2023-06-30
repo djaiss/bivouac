@@ -6,10 +6,6 @@ import { router } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
 import { reactive, ref } from 'vue';
 
-import Error from '@/Components/Error.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
 const props = defineProps({
@@ -66,9 +62,7 @@ const submit = () => {
               <li>
                 <div class="flex items-center">
                   <ChevronRightIcon class="w-4 h-4 text-gray-400" />
-                  <span class="ml-1 text-sm text-gray-500 md:ml-2 dark:text-gray-400">{{
-                    data.project.name
-                  }}</span>
+                  <span class="ml-1 text-sm text-gray-500 md:ml-2 dark:text-gray-400">{{ data.project.name }}</span>
                 </div>
               </li>
             </ol>
@@ -146,14 +140,10 @@ const submit = () => {
       <!-- body -->
       <div class="grid grid-cols-[2fr_1fr] gap-4">
         <!-- left -->
-        <div class="bg-white shadow sm:rounded-lg">
-
-        </div>
+        <div class="bg-white shadow sm:rounded-lg"></div>
 
         <!-- right -->
-        <div class="bg-white shadow sm:rounded-lg">
-
-        </div>
+        <div class="bg-white shadow sm:rounded-lg"></div>
       </div>
     </div>
   </AuthenticatedLayout>
