@@ -2,16 +2,10 @@
 
 namespace App\Http\Controllers\Search;
 
-use App\Helpers\DateHelper;
-use App\Models\Contact;
-use App\Models\Group;
-use App\Models\Note;
 use App\Models\Organization;
 use App\Models\Project;
 use App\Models\User;
-use App\Models\Vault;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 
 class SearchViewModel
 {
