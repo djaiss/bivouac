@@ -40,7 +40,7 @@ class UserTest extends TestCase
     {
         $user = User::factory()->create();
         $project = Project::factory()->create();
-        $user->projects()->attach($user);
+        $user->projects()->attach($project);
 
         $this->assertTrue($user->projects()->exists());
     }

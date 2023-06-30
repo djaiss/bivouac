@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Projects;
 
 use App\Http\Controllers\Controller;
 use App\Models\Office;
-use App\Services\CreateOffice;
+use App\Models\Project;
+use App\Services\CreateProject;
 use App\Services\DestroyOffice;
 use App\Services\UpdateOffice;
 use Illuminate\Http\JsonResponse;
@@ -16,35 +17,43 @@ class ProjectController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('Settings/Personalize/Offices/Index', [
-            'data' => PersonalizeOfficeViewModel::index(auth()->user()->organization),
+        return Inertia::render('Projects/Index', [
+            'data' => ProjectViewModel::index(auth()->user()->organization),
         ]);
     }
 
     public function create(): Response
     {
-        return Inertia::render('Settings/Personalize/Offices/Create', [
-            'data' => PersonalizeOfficeViewModel::create(),
+        return Inertia::render('Projects/Create', [
+            'data' => ProjectViewModel::create(),
         ]);
     }
 
     public function store(Request $request): JsonResponse
     {
-        (new CreateOffice)->execute([
+        (new CreateProject)->execute([
             'user_id' => auth()->user()->id,
             'name' => $request->input('name'),
-            'is_main_office' => $request->input('is_main_office'),
+            'description' => $request->input('description'),
+            'is_public' => $request->input('is_public') === 'true' ? true : false,
         ]);
 
         return response()->json([
-            'data' => route('settings.personalize.office.index'),
+            'data' => route('projects.index'),
         ], 201);
     }
 
-    public function edit(Request $request, Office $office): Response
+    public function show(Request $request, Project $project): Response
     {
-        return Inertia::render('Settings/Personalize/Offices/Edit', [
-            'data' => PersonalizeOfficeViewModel::edit($office),
+        return Inertia::render('Projects/Show', [
+            'data' => ProjectViewModel::show($project),
+        ]);
+    }
+
+    public function edit(Request $request, Project $project): Response
+    {
+        return Inertia::render('Projects/Edit', [
+            'data' => ProjectViewModel::edit($office),
         ]);
     }
 

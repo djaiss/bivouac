@@ -39,4 +39,30 @@ class ProjectTest extends TestCase
 
         $this->assertTrue($project->users()->exists());
     }
+
+    /** @test */
+    public function it_gets_the_author(): void
+    {
+        $user = User::factory()->create([
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+        ]);
+        $project = Project::factory()->create([
+            'created_by_user_id' => null,
+            'created_by_user_name' => 'Henri Troyat',
+        ]);
+
+        $this->assertEquals(
+            'Henri Troyat',
+            $project->author
+        );
+
+        $project->created_by_user_id = $user->id;
+        $project->save();
+
+        $this->assertEquals(
+            'John Doe',
+            $project->author
+        );
+    }
 }
