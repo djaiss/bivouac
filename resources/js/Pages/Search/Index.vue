@@ -1,26 +1,43 @@
 <script setup>
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
 import { Head } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
 
 import Avatar from '@/Components/Avatar.vue';
-import HelpInput from '@/Components/HelpInput.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { reactive, ref } from 'vue';
-import Error from '@/Components/Error.vue';
+
+const props = defineProps({
+  data: {
+    type: Array,
+  },
+});
 
 const form = reactive({
   term: '',
-  last_name: '',
-  password: '',
   errors: null,
 });
 
+const results = ref([]);
 const loadingState = ref(false);
+
+const submit = () => {
+  if (form.term != '' && form.term.length >= 3) {
+    loadingState.value = true;
+
+    axios
+      .post(props.data.url.search, form)
+      .then((response) => {
+        results.value = response.data.data;
+        loadingState.value = false;
+      })
+      .catch((error) => {
+        loadingState.value = false;
+        form.errors = error.response.data;
+      });
+  }
+};
 </script>
 
 <template>
@@ -30,19 +47,70 @@ const loadingState = ref(false);
     <div class="mt-8 pb-12">
       <div class="max-w-3xl mx-auto sm:px-6 lg:px-8 flex">
         <div class="w-full">
-          <div class="bg-white shadow sm:rounded-lg">
-            <div class="p-3 flex items-center justify-between">
+          <!-- search box -->
+          <div class="bg-white shadow rounded-lg mb-10">
+            <form @submit.prevent="submit" class="p-3 flex items-center justify-between">
               <TextInput
                 id="term"
                 type="text"
                 :placeholder="$t('Search anything')"
-                class="block w-full mr-3"
+                class="w-full mr-3"
                 v-model="form.term"
                 autofocus
                 required />
 
               <PrimaryButton :loading="loadingState" :disabled="loadingState">{{ $t('Search') }}</PrimaryButton>
-            </div>
+            </form>
+          </div>
+
+          <!-- search results -->
+          <div class="">
+
+            <!-- users -->
+            <ul class="bg-white shadow rounded-lg w-full">
+              <li
+                v-for="user in results.users"
+                :key="user.id"
+                class="group flex items-center justify-between px-6 py-4 hover:bg-slate-50 first:hover:rounded-t-lg last:hover:rounded-b-lg">
+                <!-- user information -->
+                <div class="flex items-center">
+                  <Avatar :data="user.avatar" class="w-10 mr-4" />
+
+                  <div class="flex flex-col mr-6">
+                    <div>
+                      <Link
+                        :href="user.url.show"
+                        class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                        >{{ user.name }}</Link
+                      >
+                    </div>
+                    <div class="flex">
+                      <div class="text-sm inline">
+                        <span class="flex items-center">
+                          <span>{{ user.email }}</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+
+            <!-- projects -->
+            <ul class="bg-white shadow rounded-lg w-full mt-10">
+              <li
+                v-for="project in results.projects"
+                :key="project.id"
+                class="group flex items-center justify-between px-6 py-4 hover:bg-slate-50 first:hover:rounded-t-lg last:hover:rounded-b-lg">
+                <div class="flex items-center">
+
+                    <div>
+                      {{ project.name }}
+                    </div>
+
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>

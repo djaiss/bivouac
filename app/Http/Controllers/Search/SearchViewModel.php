@@ -14,6 +14,9 @@ class SearchViewModel
         return [
             'users' => $term ? self::users($organization, $term) : [],
             'projects' => $term ? self::projects($organization, $term) : [],
+            'url' => [
+                'search' => route('search.show'),
+            ],
         ];
     }
 
@@ -27,6 +30,11 @@ class SearchViewModel
         return $users->map(fn (User $user) => [
             'id' => $user->id,
             'name' => $user->name,
+            'email' => $user->email,
+            'avatar' => $user->avatar,
+            'url' => [
+                'show' => route('users.show', $user),
+            ],
         ]);
     }
 

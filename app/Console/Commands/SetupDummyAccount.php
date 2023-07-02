@@ -49,6 +49,8 @@ class SetupDummyAccount extends Command
         $this->createFirstUser();
         $this->createOtherUsers();
         $this->createProjects();
+
+        $this->createSecondOrganization();
         $this->stop();
     }
 
@@ -140,6 +142,21 @@ class SetupDummyAccount extends Command
                 'is_public' => rand(1, 2) == 1,
             ]);
         }
+    }
+
+    private function createSecondOrganization(): void
+    {
+        $this->info('☐ Create first user of the account');
+
+        $user = (new CreateAccount)->execute([
+            'email' => 'blank@blank.com',
+            'password' => 'blank123',
+            'first_name' => 'Dwight',
+            'last_name' => 'Schrute',
+            'organization_name' => 'Github',
+        ]);
+        $user->email_verified_at = Carbon::now();
+        $user->save();
     }
 
     private function artisan(string $message, string $command, array $arguments = []): void

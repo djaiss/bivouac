@@ -66,7 +66,7 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     #[SearchUsingPrefix(['id', 'organization_id'])]
-    #[SearchUsingFullText(['first_name', 'last_name'])]
+    #[SearchUsingFullText(['first_name', 'last_name', 'email'])]
     public function toSearchableArray(): array
     {
         return [
@@ -74,6 +74,7 @@ class User extends Authenticatable implements MustVerifyEmail
             'organization_id' => (int) $this->organization_id,
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
+            'email' => $this->email,
         ];
     }
 

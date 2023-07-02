@@ -12,7 +12,9 @@ class SearchController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('Search/Index');
+        return Inertia::render('Search/Index', [
+            'data' => SearchViewModel::data(auth()->user()->organization),
+        ]);
     }
 
     public function show(Request $request): JsonResponse
