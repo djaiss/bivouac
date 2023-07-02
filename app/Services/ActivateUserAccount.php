@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Hash;
 class ActivateUserAccount extends BaseService
 {
     private array $data;
-
     private User $author;
 
     public function rules(): array

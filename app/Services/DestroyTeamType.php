@@ -8,7 +8,6 @@ use App\Models\User;
 class DestroyTeamType extends BaseService
 {
     private TeamType $teamType;
-
     private array $data;
 
     public function rules(): array

@@ -8,9 +8,7 @@ use App\Models\User;
 class UpdateOffice extends BaseService
 {
     private Office $office;
-
     private User $user;
-
     private array $data;
 
     public function rules(): array

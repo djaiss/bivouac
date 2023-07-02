@@ -8,9 +8,7 @@ use App\Models\User;
 class UpdateTeamType extends BaseService
 {
     private TeamType $teamType;
-
     private User $user;
-
     private array $data;
 
     public function rules(): array

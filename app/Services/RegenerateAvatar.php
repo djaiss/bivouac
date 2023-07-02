@@ -7,7 +7,6 @@ use App\Models\User;
 class RegenerateAvatar extends BaseService
 {
     private array $data;
-
     private User $user;
 
     public function rules(): array

@@ -8,7 +8,6 @@ use App\Models\User;
 class UpdateUserDateOfBirth extends BaseService
 {
     private array $data;
-
     private User $user;
     private User $author;
 

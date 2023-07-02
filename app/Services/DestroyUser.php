@@ -9,7 +9,6 @@ use App\Models\User;
 class DestroyUser extends BaseService
 {
     private array $data;
-
     private User $user;
     private User $author;
 

@@ -8,9 +8,7 @@ use App\Models\User;
 class CreateProject extends BaseService
 {
     private Project $project;
-
     private User $user;
-
     private array $data;
 
     public function rules(): array

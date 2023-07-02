@@ -2,7 +2,6 @@
 import { Head } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
 
-import Avatar from '@/Components/Avatar.vue';
 import PrimaryLinkButton from '@/Components/PrimaryLinkButton.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
