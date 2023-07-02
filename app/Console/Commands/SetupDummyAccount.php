@@ -2,7 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Project;
 use App\Models\User;
+use App\Services\AddProjectMember;
 use App\Services\CreateAccount;
 use App\Services\CreateProject;
 use Carbon\Carbon;
@@ -135,13 +137,28 @@ class SetupDummyAccount extends Command
         $this->info('☐ Create projects');
 
         for ($i = 0; $i < rand(3, 5); $i++) {
-            (new CreateProject)->execute([
+            $project = (new CreateProject)->execute([
                 'user_id' => $this->user->id,
                 'name' => $this->faker->firstName,
                 'description' => rand(1, 2) == 1 ? $this->faker->sentence() : null,
                 'is_public' => rand(1, 2) == 1,
             ]);
+
+            $this->addMembersToProject($project);
         }
+    }
+
+    private function addMembersToProject(Project $project): void
+    {
+        $this->info('☐ Add members to project ' . $project->name);
+
+        User::inRandomOrder()
+            ->limit(rand(1, 5))
+            ->get()
+            ->map(fn (User $user) => (new AddProjectMember)->execute([
+                'user_id' => $user->id,
+                'project_id' => $project->id,
+            ]));
     }
 
     private function createSecondOrganization(): void

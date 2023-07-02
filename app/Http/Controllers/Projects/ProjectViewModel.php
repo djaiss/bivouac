@@ -11,6 +11,8 @@ class ProjectViewModel
     public static function index(Organization $organization): array
     {
         $projects = $organization->projects()
+            ->with('creator')
+            ->with('users')
             ->get()
             ->map(fn (Project $project) => self::dto($project));
 
@@ -79,7 +81,7 @@ class ProjectViewModel
     public static function dto(Project $project): array
     {
         $totalNumberOfUsers = $project->users->count();
-        $members = $project->users->random($project->users->count() > 4 ? 4 : $project->users->count())
+        $members = $project->users->random(min($totalNumberOfUsers, 4))
             ->map(fn (User $user) => [
                 'id' => $user->id,
                 'name' => $user->name,

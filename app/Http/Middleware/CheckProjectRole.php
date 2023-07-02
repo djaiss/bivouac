@@ -17,11 +17,15 @@ class CheckProjectRole
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $requestedProjectId = $request->route()->parameter('project');
+        $requestedProject = $request->route()->parameter('project');
 
         try {
             $project = Project::where('organization_id', $request->user()->organization_id)
-                ->findOrFail($requestedProjectId);
+                ->findOrFail($requestedProject->id);
+
+            if ($project->users()->where('user_id', $request->user()->id)->doesntExist()) {
+                throw new ModelNotFoundException;
+            }
 
             $request->attributes->add(['project' => $project]);
 
