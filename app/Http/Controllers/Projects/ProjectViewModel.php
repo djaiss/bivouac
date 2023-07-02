@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Projects;
 
 use App\Models\Organization;
 use App\Models\Project;
-use App\Models\User;
 
 class ProjectViewModel
 {
@@ -80,19 +79,6 @@ class ProjectViewModel
 
     public static function dto(Project $project): array
     {
-        $totalNumberOfUsers = $project->users->count();
-        $members = $project->users->random(min($totalNumberOfUsers, 4))
-            ->map(fn (User $user) => [
-                'id' => $user->id,
-                'name' => $user->name,
-                'avatar' => $user->avatar,
-                'url' => [
-                    'show' => route('users.show', [
-                        'user' => $user->id,
-                    ]),
-                ],
-            ]);
-
         return [
             'id' => $project->id,
             'author' => [
@@ -102,10 +88,6 @@ class ProjectViewModel
             'name' => $project->name,
             'description' => $project->description,
             'is_public' => $project->is_public,
-            'members' => [
-                'remaining' => $totalNumberOfUsers - $members->count(),
-                'list' => $members,
-            ],
             'url' => [
                 'show' => route('projects.show', [
                     'project' => $project->id,

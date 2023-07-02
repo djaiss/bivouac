@@ -64,7 +64,7 @@ const props = defineProps({
                 <li
                   v-for="project in props.data.projects"
                   :key="project.id"
-                  class="group flex items-center justify-between px-6 py-4 hover:bg-slate-50 first:hover:rounded-t-lg last:hover:rounded-b-lg">
+                  class="flex items-center justify-between px-6 py-4 hover:bg-slate-50 first:hover:rounded-t-lg last:hover:rounded-b-lg">
                   <!-- project information -->
                   <div class="flex items-center">
                     <div class="flex flex-col mr-6">
@@ -79,17 +79,6 @@ const props = defineProps({
 
                       <!-- description -->
                       <p v-if="project.description" class="text-sm text-gray-600">{{ project.description }}</p>
-                    </div>
-                  </div>
-
-                  <!-- members -->
-                  <div class="flex items-center">
-                    <div class="flex -space-x-4">
-                      <Avatar
-                        v-for="member in project.members.list"
-                        :key="member.id"
-                        :data="member.avatar"
-                        class="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800" />
                     </div>
                   </div>
                 </li>
