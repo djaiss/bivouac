@@ -1,13 +1,13 @@
 <script setup>
+import { BriefcaseIcon, CircleStackIcon } from '@heroicons/vue/24/outline';
 import { Head } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
+import { reactive, ref } from 'vue';
 
 import Avatar from '@/Components/Avatar.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { reactive, ref } from 'vue';
-import { BriefcaseIcon, CircleStackIcon } from '@heroicons/vue/24/outline';
 
 const props = defineProps({
   data: {
@@ -119,7 +119,8 @@ const submit = () => {
                     <Link
                       :href="project.url.show"
                       class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
-                      >{{ project.name }}</Link>
+                      >{{ project.name }}</Link
+                    >
                   </div>
                 </div>
               </li>

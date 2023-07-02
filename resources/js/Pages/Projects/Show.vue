@@ -2,41 +2,14 @@
 import { ChevronRightIcon } from '@heroicons/vue/24/solid';
 import { Head } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
-import { router } from '@inertiajs/vue3';
-import { trans } from 'laravel-vue-i18n';
-import { reactive, ref } from 'vue';
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
-const props = defineProps({
+defineProps({
   data: {
     type: Array,
   },
 });
-
-const loadingState = ref(false);
-
-const form = reactive({
-  name: '',
-  description: '',
-  is_public: true,
-  errors: '',
-});
-
-const submit = () => {
-  loadingState.value = true;
-
-  axios
-    .post(props.data.url.store, form)
-    .then((response) => {
-      localStorage.success = trans('The project has been created');
-      router.visit(response.data.data);
-    })
-    .catch((error) => {
-      loadingState.value = false;
-      form.errors = error.response.data;
-    });
-};
 </script>
 
 <template>
