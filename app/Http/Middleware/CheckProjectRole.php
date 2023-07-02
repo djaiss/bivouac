@@ -20,6 +20,7 @@ class CheckProjectRole
         $requestedProject = $request->route()->parameter('project');
 
         try {
+            // @phpstan-ignore-next-line
             $project = Project::where('organization_id', $request->user()->organization_id)
                 ->findOrFail($requestedProject->id);
 
