@@ -49,6 +49,9 @@ class SearchViewModel
             'id' => $project->id,
             'name' => $project->name,
             'description' => $project->description,
+            'url' => [
+                'show' => route('projects.show', $project),
+            ],
         ]);
     }
 }

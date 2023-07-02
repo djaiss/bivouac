@@ -7,6 +7,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { reactive, ref } from 'vue';
+import { BriefcaseIcon, CircleStackIcon } from '@heroicons/vue/24/outline';
 
 const props = defineProps({
   data: {
@@ -64,10 +65,13 @@ const submit = () => {
           </div>
 
           <!-- search results -->
-          <div class="">
-
+          <div v-if="results.length !== 0">
             <!-- users -->
-            <ul class="bg-white shadow rounded-lg w-full">
+            <div class="flex items-center mb-2">
+              <BriefcaseIcon class="h-4 w-4" />
+              <span class="ml-2 font-bold">{{ $t('Users') }}</span>
+            </div>
+            <ul v-if="results.users.length > 0" class="bg-white shadow rounded-lg w-full">
               <li
                 v-for="user in results.users"
                 :key="user.id"
@@ -95,22 +99,35 @@ const submit = () => {
                 </div>
               </li>
             </ul>
+            <div v-else class="bg-white shadow rounded-lg w-full p-6 flex items-center justify-center text-gray-600">
+              <CircleStackIcon class="h-4 w-4 mr-4" />
+              <span>{{ $t('No users match the given criteria.') }}</span>
+            </div>
 
             <!-- projects -->
-            <ul class="bg-white shadow rounded-lg w-full mt-10">
+            <div class="flex items-center mt-10 mb-2">
+              <BriefcaseIcon class="h-4 w-4" />
+              <span class="ml-2 font-bold">{{ $t('Projects') }}</span>
+            </div>
+            <ul v-if="results.projects.length > 0" class="bg-white shadow rounded-lg w-full">
               <li
                 v-for="project in results.projects"
                 :key="project.id"
                 class="group flex items-center justify-between px-6 py-4 hover:bg-slate-50 first:hover:rounded-t-lg last:hover:rounded-b-lg">
                 <div class="flex items-center">
-
-                    <div>
-                      {{ project.name }}
-                    </div>
-
+                  <div>
+                    <Link
+                      :href="project.url.show"
+                      class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                      >{{ project.name }}</Link>
+                  </div>
                 </div>
               </li>
             </ul>
+            <div v-else class="bg-white shadow rounded-lg w-full p-6 flex items-center justify-center text-gray-600">
+              <CircleStackIcon class="h-4 w-4 mr-4" />
+              <span>{{ $t('No projects match the given criteria.') }}</span>
+            </div>
           </div>
         </div>
       </div>
