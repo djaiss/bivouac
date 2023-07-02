@@ -21,10 +21,9 @@ class UpdateLastActivityDate
         }
 
         if (! $request->user()->last_active_at || $request->user()->last_active_at->isPast()) {
-
             // this is a workaround to make sure we don't trigger the search
             // indexing feature on the User model when updating the last active date
-            User::withoutSyncingToSearch(function () use ($request) {
+            User::withoutSyncingToSearch(function () use ($request): void {
                 $request->user()->update([
                     'last_active_at' => now(),
                 ]);
