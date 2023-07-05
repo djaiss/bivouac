@@ -43,7 +43,6 @@ class ProjectViewModel
         return [
             'project' => self::dto($project),
             'url' => [
-                'store' => route('projects.store'),
                 'breadcrumb' => [
                     'projects' => route('projects.index'),
                 ],
@@ -54,14 +53,16 @@ class ProjectViewModel
     public static function edit(Project $project): array
     {
         return [
-            'id' => $project->id,
-            'author' => [
-                'name' => $project->author,
-                'avatar' => $project?->creator->avatar,
+            'project' => [
+                'id' => $project->id,
+                'author' => [
+                    'name' => $project->author,
+                    'avatar' => $project?->creator->avatar,
+                ],
+                'name' => $project->name,
+                'description' => $project->description,
+                'is_public' => $project->is_public,
             ],
-            'name' => $project->name,
-            'description' => $project->description,
-            'is_public' => $project->is_public,
             'url' => [
                 'update' => route('projects.update', [
                     'project' => $project->id,
@@ -93,6 +94,17 @@ class ProjectViewModel
                     'project' => $project->id,
                 ]),
                 'edit' => route('projects.edit', [
+                    'project' => $project->id,
+                ]),
+            ],
+        ];
+    }
+
+    public static function menu(Project $project): array
+    {
+        return [
+            'url' => [
+                'settings' => route('projects.edit', [
                     'project' => $project->id,
                 ]),
             ],

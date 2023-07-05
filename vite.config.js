@@ -8,7 +8,7 @@ export default defineConfig({
     laravel({
       input: 'resources/js/app.js',
       refresh: true,
-      valetTls: 'bivouac.test',
+      valetTls: 'bivouac2.test',
     }),
     vue({
       template: {

@@ -47,6 +47,7 @@ class ProjectController extends Controller
     {
         return Inertia::render('Projects/Show', [
             'data' => ProjectViewModel::show($project),
+            'menu' => ProjectViewModel::menu($project),
         ]);
     }
 
@@ -54,6 +55,7 @@ class ProjectController extends Controller
     {
         return Inertia::render('Projects/Edit', [
             'data' => ProjectViewModel::edit($project),
+            'menu' => ProjectViewModel::menu($project),
         ]);
     }
 
