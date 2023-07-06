@@ -104,7 +104,7 @@ const submit = () => {
             <h1 class="font-bold text-lg text-center mb-2">{{ props.data.name }}</h1>
           </div>
 
-          <div class="px-6 py-4 relative border-b">
+          <div class="px-6 py-4 relative">
             <InputLabel :value="$t('What permissions should this person have?')" class="mb-3" />
             <div class="space-y-2">
               <div class="flex items-center gap-x-2">

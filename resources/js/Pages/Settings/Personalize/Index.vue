@@ -32,7 +32,7 @@ defineProps({
           <div class="bg-white shadow sm:rounded-lg">
             <ul>
               <li class="flex items-center border-b border-gray-200 px-4 py-2 hover:bg-slate-50 hover:rounded-t-lg">
-                <img src="/img/users.png" class="h-20 w-20 mr-4" alt="" />
+                <span class="mr-4 bg-yellow-100 px-1 border rounded border-yellow-400">👥</span>
                 <Link
                   :href="data.url.users"
                   class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
@@ -40,9 +40,15 @@ defineProps({
                 >
               </li>
               <li class="flex items-center border-b border-gray-200 px-4 py-2 hover:bg-slate-50">
-                <img src="/img/skyscraper.png" class="h-20 w-20 mr-4" alt="" />
+                <span class="mr-4 bg-yellow-100 px-1 border rounded border-yellow-400">🏢</span>
                 <Link class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline">{{
                   $t("Update organization's name and description")
+                }}</Link>
+              </li>
+              <li class="flex items-center border-b border-gray-200 px-4 py-2 hover:bg-slate-50">
+                <span class="mr-4 bg-yellow-100 px-1 border rounded border-yellow-400">👮‍♂️</span>
+                <Link class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline">{{
+                  $t('Manage roles')
                 }}</Link>
               </li>
               <li class="flex items-center border-b border-gray-200 px-4 py-2 hover:bg-slate-50">
