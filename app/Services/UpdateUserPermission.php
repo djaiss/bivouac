@@ -8,9 +8,7 @@ use App\Models\User;
 class UpdateUserPermission extends BaseService
 {
     private array $data;
-
     private User $user;
-
     private User $author;
 
     public function rules(): array

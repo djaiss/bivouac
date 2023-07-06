@@ -10,9 +10,7 @@ use Illuminate\Support\Str;
 class CreateAccount extends BaseService
 {
     private User $user;
-
     private array $data;
-
     private Organization $organization;
 
     public function rules(): array

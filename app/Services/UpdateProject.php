@@ -8,9 +8,7 @@ use App\Models\User;
 class UpdateProject extends BaseService
 {
     private Project $project;
-
     private User $user;
-
     private array $data;
 
     public function rules(): array

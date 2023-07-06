@@ -11,7 +11,6 @@ use Illuminate\Support\Str;
 class InviteUser extends BaseService
 {
     private array $data;
-
     private User $user;
     private User $author;
 

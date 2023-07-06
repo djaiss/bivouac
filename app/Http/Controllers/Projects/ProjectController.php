@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Projects;
 
 use App\Http\Controllers\Controller;
-use App\Models\Office;
 use App\Models\Project;
 use App\Services\CreateProject;
-use App\Services\DestroyOffice;
-use App\Services\UpdateOffice;
+use App\Services\DestroyProject;
+use App\Services\UpdateProject;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -31,15 +30,15 @@ class ProjectController extends Controller
 
     public function store(Request $request): JsonResponse
     {
-        (new CreateProject)->execute([
+        $project = (new CreateProject)->execute([
             'user_id' => auth()->user()->id,
             'name' => $request->input('name'),
             'description' => $request->input('description'),
-            'is_public' => $request->input('is_public') === 'true' ? true : false,
+            'is_public' => $request->input('is_public') === 'true',
         ]);
 
         return response()->json([
-            'data' => route('projects.index'),
+            'data' => route('projects.show', $project),
         ], 201);
     }
 
@@ -47,6 +46,7 @@ class ProjectController extends Controller
     {
         return Inertia::render('Projects/Show', [
             'data' => ProjectViewModel::show($project),
+            'menu' => ProjectViewModel::menu($project),
         ]);
     }
 
@@ -54,32 +54,34 @@ class ProjectController extends Controller
     {
         return Inertia::render('Projects/Edit', [
             'data' => ProjectViewModel::edit($project),
+            'menu' => ProjectViewModel::menu($project),
         ]);
     }
 
-    public function update(Request $request, Office $office): JsonResponse
+    public function update(Request $request, Project $project): JsonResponse
     {
-        $office = (new UpdateOffice)->execute([
+        $project = (new UpdateProject)->execute([
             'user_id' => auth()->user()->id,
-            'office_id' => $office->id,
+            'project_id' => $project->id,
             'name' => $request->input('name'),
-            'is_main_office' => $request->input('is_main_office'),
-        ]);
-
-        return response()->json([
-            'data' => route('settings.personalize.office.index'),
-        ], 200);
-    }
-
-    public function destroy(Request $request, Office $office): JsonResponse
-    {
-        (new DestroyOffice)->execute([
-            'user_id' => auth()->user()->id,
-            'office_id' => $office->id,
+            'description' => $request->input('description'),
+            'is_public' => $request->input('is_public') === 'true',
         ]);
 
         return response()->json([
             'data' => true,
+        ], 200);
+    }
+
+    public function destroy(Request $request, Project $project): JsonResponse
+    {
+        (new DestroyProject)->execute([
+            'user_id' => auth()->user()->id,
+            'project_id' => $project->id,
+        ]);
+
+        return response()->json([
+            'data' => route('projects.index'),
         ], 200);
     }
 }

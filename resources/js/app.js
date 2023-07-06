@@ -7,6 +7,7 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import { i18nVue } from 'laravel-vue-i18n';
 import { setupCalendar } from 'v-calendar';
+import FloatingVue from 'floating-vue';
 import methods from './methods';
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
@@ -19,6 +20,7 @@ createInertiaApp({
       .use(plugin)
       .use(ZiggyVue, Ziggy)
       .use(setupCalendar, {})
+      .use(FloatingVue)
       .use(i18nVue, {
         resolve: (lang) => resolvePageComponent(`../../lang/${lang}.json`, import.meta.glob('../../lang/*.json')),
       })

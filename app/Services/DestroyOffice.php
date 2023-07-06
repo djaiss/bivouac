@@ -8,7 +8,6 @@ use App\Models\User;
 class DestroyOffice extends BaseService
 {
     private Office $office;
-
     private array $data;
 
     public function rules(): array

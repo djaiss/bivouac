@@ -5,6 +5,7 @@ use App\Http\Controllers\Profile\ProfileAvatarController;
 use App\Http\Controllers\Profile\ProfileBirthdateController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Projects\ProjectController;
+use App\Http\Controllers\Search\SearchController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeOfficeController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeTeamTypeController;
@@ -30,6 +31,9 @@ Route::get('dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth', 'verified', 'last_activity')->group(function (): void {
+    Route::get('search', [SearchController::class, 'index'])->name('search.index');
+    Route::post('search', [SearchController::class, 'show'])->name('search.show');
+
     Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('profile/avatar', [ProfileAvatarController::class, 'update'])->name('profile.avatar.update');
@@ -40,10 +44,11 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
     Route::get('projects', [ProjectController::class, 'index'])->name('projects.index');
     Route::get('projects/create', [ProjectController::class, 'create'])->name('projects.create');
     Route::post('projects', [ProjectController::class, 'store'])->name('projects.store');
-    Route::middleware(['administrator'])->group(function (): void {
+    Route::middleware(['project'])->group(function (): void {
         Route::get('projects/{project}', [ProjectController::class, 'show'])->name('projects.show');
         Route::get('projects/{project}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
         Route::put('projects/{project}', [ProjectController::class, 'update'])->name('projects.update');
+        Route::delete('projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
     });
 
     // users

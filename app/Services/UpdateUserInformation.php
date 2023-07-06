@@ -10,9 +10,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 class UpdateUserInformation extends BaseService
 {
     private array $data;
-
     private User $user;
-
     private User $author;
 
     public function rules(): array

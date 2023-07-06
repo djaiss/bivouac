@@ -8,7 +8,6 @@ use App\Models\User;
 class DestroyProject extends BaseService
 {
     private Project $project;
-
     private array $data;
 
     public function rules(): array

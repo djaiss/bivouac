@@ -9,6 +9,7 @@ import { reactive, ref } from 'vue';
 import Error from '@/Components/Error.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import TextArea from '@/Components/TextArea.vue';
 import TextInput from '@/Components/TextInput.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
@@ -93,9 +94,20 @@ const submit = () => {
           <div class="px-6 py-4 relative border-b">
             <!-- Title -->
             <div class="mb-4">
-              <InputLabel for="title" :value="$t('What is the name of the project?')" />
+              <InputLabel for="title" :value="$t('What is the name of the project?')" class="mb-1" />
 
-              <TextInput id="title" type="text" class="mt-1 block w-full" v-model="form.name" autofocus required />
+              <TextInput id="title" type="text" class="block w-full" v-model="form.name" autofocus required />
+            </div>
+
+            <!-- Description -->
+            <div class="mb-4">
+              <InputLabel
+                for="description"
+                :value="$t('Provide a description for this project.')"
+                :required="false"
+                class="mb-1" />
+
+              <TextArea id="description" type="text" class="block w-full" v-model="form.description" />
             </div>
 
             <Error :errors="form.errors" />

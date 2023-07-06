@@ -4,7 +4,9 @@ import { Head } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import DestroyProjectForm from '@/Pages/Projects/Partials/DestroyProjectForm.vue';
 import ProjectHeader from '@/Pages/Projects/Partials/ProjectHeader.vue';
+import UpdateProjectForm from '@/Pages/Projects/Partials/UpdateProjectForm.vue';
 
 defineProps({
   data: {
@@ -51,13 +53,12 @@ defineProps({
     <div class="px-12 max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 mb-6">
       <ProjectHeader :data="data" :menu="menu" />
 
-      <!-- body -->
-      <div class="grid grid-cols-[2fr_1fr] gap-4">
-        <!-- left -->
-        <div class="bg-white shadow sm:rounded-lg"></div>
+      <div class="bg-white shadow sm:rounded-lg">
+        <UpdateProjectForm :data="data" />
+      </div>
 
-        <!-- right -->
-        <div class="bg-white shadow sm:rounded-lg"></div>
+      <div class="bg-white shadow sm:rounded-lg">
+        <DestroyProjectForm :data="data" />
       </div>
     </div>
   </AuthenticatedLayout>
