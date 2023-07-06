@@ -67,6 +67,9 @@ class ProjectViewModel
                 'update' => route('projects.update', [
                     'project' => $project->id,
                 ]),
+                'destroy' => route('projects.destroy', [
+                    'project' => $project->id,
+                ]),
                 'breadcrumb' => [
                     'home' => route('profile.edit'),
                     'projects' => route('projects.index'),

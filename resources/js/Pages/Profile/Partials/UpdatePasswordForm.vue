@@ -36,61 +36,72 @@ const updatePassword = () => {
 
 <template>
   <section>
-    <header>
-      <h2 class="text-lg font-medium text-gray-900">Update Password</h2>
-
-      <p class="mt-1 text-sm text-gray-600">Ensure your account is using a long, random password to stay secure.</p>
+    <header class="w-full">
+      <h2 class="px-4 py-2 border-b border-gray-200 text-lg font-medium text-gray-900">
+        {{ $t('Update Password') }}
+      </h2>
     </header>
 
-    <form @submit.prevent="updatePassword" class="mt-6 space-y-6">
-      <div>
-        <InputLabel for="current_password" value="Current Password" />
-
-        <TextInput
-          id="current_password"
-          ref="currentPasswordInput"
-          v-model="form.current_password"
-          type="password"
-          class="mt-1 block w-full"
-          autocomplete="current-password" />
-
-        <InputError :message="form.errors.current_password" class="mt-2" />
+    <div class="flex">
+      <!-- instructions -->
+      <div class="text-sm p-4 w-96 mr-8">
+        {{ $t('Ensure your account is using a long, random password to stay secure.') }}
       </div>
 
-      <div>
-        <InputLabel for="password" value="New Password" />
+      <div class="p-4">
+        <Error :errors="form.errors" />
 
-        <TextInput
-          id="password"
-          ref="passwordInput"
-          v-model="form.password"
-          type="password"
-          class="mt-1 block w-full"
-          autocomplete="new-password" />
+        <form @submit.prevent="updatePassword" class="space-y-6 max-w-3xl">
+          <div>
+            <InputLabel for="current_password" value="Current Password" />
 
-        <InputError :message="form.errors.password" class="mt-2" />
+            <TextInput
+              id="current_password"
+              ref="currentPasswordInput"
+              v-model="form.current_password"
+              type="password"
+              class="mt-1 block w-full"
+              autocomplete="current-password" />
+
+            <InputError :message="form.errors.current_password" class="mt-2" />
+          </div>
+
+          <div>
+            <InputLabel for="password" value="New Password" />
+
+            <TextInput
+              id="password"
+              ref="passwordInput"
+              v-model="form.password"
+              type="password"
+              class="mt-1 block w-full"
+              autocomplete="new-password" />
+
+            <InputError :message="form.errors.password" class="mt-2" />
+          </div>
+
+          <div>
+            <InputLabel for="password_confirmation" value="Confirm Password" />
+
+            <TextInput
+              id="password_confirmation"
+              v-model="form.password_confirmation"
+              type="password"
+              class="mt-1 block w-full"
+              autocomplete="new-password" />
+
+            <InputError :message="form.errors.password_confirmation" class="mt-2" />
+          </div>
+
+          <div class="flex items-center gap-4">
+            <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
+
+            <Transition enter-from-class="opacity-0" leave-to-class="opacity-0" class="transition ease-in-out">
+              <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Saved.</p>
+            </Transition>
+          </div>
+        </form>
       </div>
-
-      <div>
-        <InputLabel for="password_confirmation" value="Confirm Password" />
-
-        <TextInput
-          id="password_confirmation"
-          v-model="form.password_confirmation"
-          type="password"
-          class="mt-1 block w-full"
-          autocomplete="new-password" />
-
-        <InputError :message="form.errors.password_confirmation" class="mt-2" />
-      </div>
-
-      <div class="flex items-center gap-4">
-        <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
-
-        <Transition enter-from-class="opacity-0" leave-to-class="opacity-0" class="transition ease-in-out">
-          <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Saved.</p>
-        </Transition>
-      </div>
-    </form>
+    </div>
   </section>
 </template>

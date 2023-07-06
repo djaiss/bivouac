@@ -93,11 +93,11 @@ defineProps({
             <UpdateDateOfBirthForm :data="data" />
           </div>
 
-          <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-            <UpdatePasswordForm class="max-w-xl" />
+          <div class="bg-white shadow sm:rounded-lg">
+            <UpdatePasswordForm />
           </div>
 
-          <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+          <div class="bg-white shadow sm:rounded-lg">
             <DeleteUserForm class="max-w-xl" />
           </div>
         </div>

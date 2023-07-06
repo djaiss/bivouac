@@ -1,4 +1,5 @@
 <script setup>
+import { LockClosedIcon } from '@heroicons/vue/24/solid';
 import { Link } from '@inertiajs/vue3';
 
 defineProps({
@@ -14,7 +15,8 @@ defineProps({
 <template>
   <div class="bg-white shadow sm:rounded-lg">
     <div class="flex border-b border-gray-200 p-4">
-      <div class="w-full">
+      <div class="w-full flex items-center">
+        <span><LockClosedIcon class="w-4 h-4 mr-2 text-blue-500" /></span>
         <h1 class="font-bold text-xl">{{ data.project.name }}</h1>
       </div>
     </div>
@@ -31,14 +33,14 @@ defineProps({
             >
           </li>
           <li class="mr-2">
-            <a href="#" class="inline-block p-3 rounded-t-lg active dark:text-blue-500 dark:border-blue-500">{{
+            <a href="#" class="inline-block p-3 rounded-t-lg dark:text-blue-500 dark:border-blue-500">{{
               $t('Messages')
             }}</a>
           </li>
           <li class="mr-2">
             <a
               href="#"
-              class="inline-block p-3 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500"
+              class="inline-block p-3 border-b-2 border-transparent rounded-t-lg hover:text-blue-600 hover:border-blue-300 dark:hover:text-gray-300"
               >{{ $t('Decisions') }}</a
             >
           </li>
@@ -66,9 +68,9 @@ defineProps({
           <li class="mr-2">
             <Link
               :href="menu.url.settings"
-              class="inline-block p-3 border-b-2 border-transparent rounded-t-lg hover:text-blue-600 hover:border-blue-300 dark:hover:text-gray-300"
+              class="inline-block p-3 border-b-2 rounded-t-lg hover:text-blue-600 hover:border-blue-300 dark:hover:text-gray-300"
               :class="{
-                'text-blue-600 border-b-2 border-blue-600': $page.component.startsWith('Projects/Partials/Settings'),
+                'text-blue-600 border-blue-600': $page.component.startsWith('Projects/Edit'),
               }">
               {{ $t('Settings') }}</Link
             >

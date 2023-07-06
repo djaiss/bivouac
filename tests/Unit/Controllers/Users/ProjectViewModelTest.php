@@ -116,6 +116,7 @@ class ProjectViewModelTest extends TestCase
                 ],
                 'url' => [
                     'update' => env('APP_URL') . '/projects/' . $project->id,
+                    'destroy' => env('APP_URL') . '/projects/' . $project->id,
                     'breadcrumb' => [
                         'home' => env('APP_URL') . '/profile',
                         'projects' => env('APP_URL') . '/projects',

@@ -58,7 +58,7 @@ const props = defineProps({
         <div class="w-full">
           <div class="bg-white shadow sm:rounded-lg">
             <!-- list of projects -->
-            <div class="flex">
+            <div v-if="props.data.projects.length > 0" class="flex">
               <ul class="w-full">
                 <li
                   v-for="project in props.data.projects"
@@ -82,6 +82,15 @@ const props = defineProps({
                   </div>
                 </li>
               </ul>
+            </div>
+
+            <!-- blank state -->
+            <div v-else>
+              <div class="px-4 py-6 text-center">
+                <h3 class="text-gray-900 font-medium text-lg mb-2">{{ $t("You haven't started a project yet.") }}</h3>
+                <p class="mb-10 text-gray-500">{{ $t('Get started by adding your first project.') }}</p>
+                <img src="/img/projects.png" class="h-60 w-60 block mx-auto" alt="projects" />
+              </div>
             </div>
           </div>
         </div>
