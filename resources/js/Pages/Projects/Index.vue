@@ -2,6 +2,7 @@
 import { Head } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
 
+import { LockClosedIcon } from '@heroicons/vue/24/solid';
 import PrimaryLinkButton from '@/Components/PrimaryLinkButton.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
@@ -68,7 +69,8 @@ const props = defineProps({
                   <div class="flex items-center">
                     <div class="flex flex-col mr-6">
                       <!-- project name -->
-                      <div>
+                      <div class="flex items-center">
+                        <span v-if="!project.is_public" v-tooltip="$t('This project is private')"><LockClosedIcon class="w-4 h-4 mr-2 text-blue-500" /></span>
                         <Link
                           :href="project.url.show"
                           class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"

@@ -17,7 +17,7 @@ parameters:
     excludePaths:
         - app/Http/Controllers/Auth/VerifyEmailController.php
         - app/Services/UpdateUserInformation.php
-        - app/Http/Middleware/CheckProjectRole.php
+        - app/Http/Middleware/CheckProject.php
 #        - ./*/*/FileToBeExcluded.php
 #
 #    checkMissingIterableValueType: false

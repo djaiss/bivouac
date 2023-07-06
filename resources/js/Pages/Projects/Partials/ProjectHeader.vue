@@ -16,7 +16,7 @@ defineProps({
   <div class="bg-white shadow sm:rounded-lg">
     <div class="flex border-b border-gray-200 p-4">
       <div class="w-full flex items-center">
-        <span><LockClosedIcon class="w-4 h-4 mr-2 text-blue-500" /></span>
+        <span v-if="!data.project.is_public" v-tooltip="$t('This project is private')"><LockClosedIcon class="w-4 h-4 mr-2 text-blue-500" /></span>
         <h1 class="font-bold text-xl">{{ data.project.name }}</h1>
       </div>
     </div>

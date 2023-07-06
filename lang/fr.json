@@ -45,6 +45,7 @@
     "Forbidden": "Interdit",
     "Generate new avatar": "Générer un nouvel avatar",
     "Get started by adding your first office.": "Commencez par ajouter votre premier bureau.",
+    "Get started by adding your first project.": "Commencez par ajouter votre premier projet.",
     "Get started by creating your first office.": "Commencez par créer votre premier bureau.",
     "Have a great day nonetheless.": "Bonne journée quand même.",
     "Help": "Aide",
@@ -110,6 +111,7 @@
     "The user has been invited": "L'utilisateur a été invité",
     "This action is not authorized.": "Cette action n'est pas autorisée.",
     "This information is publicly available within the organization. Everyone can read it.": "Ces informations sont accessibles au public au sein de l'organisation. Tout le monde peut le lire.",
+    "This project is private": "Ce projet est privé",
     "This should be a valid email address.": "Il doit s'agir d'une adresse e-mail valide.",
     "Too Many Requests": "Trop de demandes",
     "Update organization's name and description": "Mettre à jour le nom et la description de l'organisation",
@@ -133,6 +135,7 @@
     "You can not delete yourself.": "Vous ne pouvez pas vous supprimer.",
     "You do not have enough permissions to perform this action.": "Vous ne disposez pas des autorisations suffisantes pour effectuer cette action.",
     "You haven't set an office yet.": "Vous n'avez pas encore défini de bureau.",
+    "You haven't started a project yet.": "Vous n'avez pas encore démarré de projet.",
     "Your email address is unverified.": "Votre adresse e-mail n'est pas vérifiée.",
     "Your projects": "Vos projets"
 }
