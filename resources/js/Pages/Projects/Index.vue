@@ -70,7 +70,9 @@ const props = defineProps({
                     <div class="flex flex-col mr-6">
                       <!-- project name -->
                       <div class="flex items-center">
-                        <span v-if="!project.is_public" v-tooltip="$t('This project is private')"><LockClosedIcon class="w-4 h-4 mr-2 text-blue-500" /></span>
+                        <span v-if="!project.is_public" v-tooltip="$t('This project is private')"
+                          ><LockClosedIcon class="w-4 h-4 mr-2 text-blue-500"
+                        /></span>
                         <Link
                           :href="project.url.show"
                           class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
