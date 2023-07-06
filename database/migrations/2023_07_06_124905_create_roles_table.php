@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table): void {
             $table->id();
             $table->unsignedBigInteger('organization_id');
             $table->string('label')->nullable();
@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
         });
 
-        Schema::create('levels', function (Blueprint $table) {
+        Schema::create('levels', function (Blueprint $table): void {
             $table->id();
             $table->unsignedBigInteger('organization_id');
             $table->string('name');
@@ -27,7 +27,7 @@ return new class extends Migration
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
         });
 
-        Schema::create('steps', function (Blueprint $table) {
+        Schema::create('steps', function (Blueprint $table): void {
             $table->id();
             $table->unsignedBigInteger('organization_id');
             $table->string('name');
