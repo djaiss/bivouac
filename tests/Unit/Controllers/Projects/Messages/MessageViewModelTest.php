@@ -4,9 +4,7 @@ namespace Tests\Unit\Controllers\Projects;
 
 use App\Http\Controllers\Projects\Messages\MessageViewModel;
 use App\Models\Message;
-use App\Models\Organization;
 use App\Models\Project;
-use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
@@ -62,7 +60,7 @@ class MessageViewModelTest extends TestCase
                     'name' => 'Dunder',
                 ],
                 'url' => [
-                    'store' => env('APP_URL') . '/projects/'.$project->id.'/messages',
+                    'store' => env('APP_URL') . '/projects/' . $project->id . '/messages',
                     'breadcrumb' => [
                         'projects' => env('APP_URL') . '/projects',
                         'project' => env('APP_URL') . '/projects/' . $project->id,
