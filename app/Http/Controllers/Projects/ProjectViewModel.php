@@ -70,13 +70,6 @@ class ProjectViewModel
                 'destroy' => route('projects.destroy', [
                     'project' => $project->id,
                 ]),
-                'breadcrumb' => [
-                    'home' => route('profile.edit'),
-                    'projects' => route('projects.index'),
-                    'project' => route('projects.show', [
-                        'project' => $project->id,
-                    ]),
-                ],
             ],
         ];
     }
@@ -107,6 +100,9 @@ class ProjectViewModel
     {
         return [
             'url' => [
+                'messages' => route('messages.index', [
+                    'project' => $project->id,
+                ]),
                 'settings' => route('projects.edit', [
                     'project' => $project->id,
                 ]),

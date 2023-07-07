@@ -35,9 +35,15 @@ defineProps({
             >
           </li>
           <li class="mr-2">
-            <a href="#" class="inline-block p-3 rounded-t-lg dark:text-blue-500 dark:border-blue-500">{{
-              $t('Messages')
-            }}</a>
+            <Link
+              :href="menu.url.messages"
+              class="inline-block p-3 border-b-2 rounded-t-lg hover:text-blue-600 hover:border-blue-300 dark:hover:text-gray-300"
+              :class="{
+                'text-blue-600 border-blue-600': $page.component.startsWith('Projects/Messages'),
+                'border-transparent': !$page.component.startsWith('Projects/Messages'),
+              }">
+              {{ $t('Messages') }}</Link
+            >
           </li>
           <li class="mr-2">
             <a
@@ -73,6 +79,7 @@ defineProps({
               class="inline-block p-3 border-b-2 rounded-t-lg hover:text-blue-600 hover:border-blue-300 dark:hover:text-gray-300"
               :class="{
                 'text-blue-600 border-blue-600': $page.component.startsWith('Projects/Edit'),
+                'border-transparent': !$page.component.startsWith('Projects/Edit'),
               }">
               {{ $t('Settings') }}</Link
             >
