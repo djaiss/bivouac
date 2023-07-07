@@ -17,11 +17,15 @@ class CheckProject
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $requestedProject = $request->route()->parameter('project');
+        if (is_string($request->route()->parameter('project'))) {
+            $id = (int) $request->route()->parameter('project');
+        } else {
+            $id = $request->route()->parameter('project')->id;
+        }
 
         try {
             $project = Project::where('organization_id', $request->user()->organization_id)
-                ->findOrFail($requestedProject->id);
+                ->findOrFail($id);
 
             if ($project->users()->where('user_id', $request->user()->id)->doesntExist()) {
                 throw new ModelNotFoundException;

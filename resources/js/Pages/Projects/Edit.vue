@@ -1,7 +1,5 @@
 <script setup>
-import { ChevronRightIcon } from '@heroicons/vue/24/solid';
 import { Head } from '@inertiajs/vue3';
-import { Link } from '@inertiajs/vue3';
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import DestroyProjectForm from '@/Pages/Projects/Partials/DestroyProjectForm.vue';

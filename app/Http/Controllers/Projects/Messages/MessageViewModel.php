@@ -39,12 +39,18 @@ class MessageViewModel
                 'name' => $project->name,
             ],
             'url' => [
+                'preview' => route('messages.preview.store', [
+                    'project' => $project->id,
+                ]),
                 'store' => route('messages.store', [
                     'project' => $project->id,
                 ]),
                 'breadcrumb' => [
                     'projects' => route('projects.index'),
                     'project' => route('projects.show', [
+                        'project' => $project->id,
+                    ]),
+                    'messages' => route('messages.index', [
                         'project' => $project->id,
                     ]),
                 ],

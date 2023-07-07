@@ -35,7 +35,7 @@ class MessageViewModelTest extends TestCase
         );
         $this->assertEquals(
             [
-                'create' => env('APP_URL') . '/projects/messages/create',
+                'create' => env('APP_URL') . '/projects/' . $project->id . '/messages/create',
                 'breadcrumb' => [
                     'home' => env('APP_URL') . '/profile',
                 ],
@@ -60,10 +60,12 @@ class MessageViewModelTest extends TestCase
                     'name' => 'Dunder',
                 ],
                 'url' => [
+                    'preview' => env('APP_URL') . '/projects/' . $project->id . '/messages/preview',
                     'store' => env('APP_URL') . '/projects/' . $project->id . '/messages',
                     'breadcrumb' => [
                         'projects' => env('APP_URL') . '/projects',
                         'project' => env('APP_URL') . '/projects/' . $project->id,
+                        'messages' => env('APP_URL') . '/projects/' . $project->id . '/messages',
                     ],
                 ],
             ],

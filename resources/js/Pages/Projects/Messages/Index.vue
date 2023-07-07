@@ -1,11 +1,11 @@
 <script setup>
-import { ChevronRightIcon } from '@heroicons/vue/24/solid';
 import { Head } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
 
+import Avatar from '@/Components/Avatar.vue';
+import PrimaryLinkButton from '@/Components/PrimaryLinkButton.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import ProjectHeader from '@/Pages/Projects/Partials/ProjectHeader.vue';
-import PrimaryLinkButton from '@/Components/PrimaryLinkButton.vue';
 
 defineProps({
   data: {
@@ -36,8 +36,26 @@ defineProps({
           </div>
         </div>
 
+        <!-- list of messages -->
+        <ul v-if="data.messages.length > 0" class="w-full">
+          <li
+            v-for="message in data.messages"
+            :key="message.id"
+            class="px-6 py-4 hover:bg-slate-50 last:hover:rounded-b-lg">
+            <Link
+              :href="message.url.show"
+              class="inline-block mb-2 text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+              >{{ message.title }}</Link
+            >
+            <div class="flex items-center text-sm">
+              <Avatar :data="message.author.avatar" class="h-4 w-4 rounded mr-1" />
+              <p class="text-gray-600">{{ message.author.name }}</p>
+            </div>
+          </li>
+        </ul>
+
         <!-- blank state -->
-        <div class="px-4 py-6 text-center">
+        <div v-else class="px-4 py-6 text-center">
           <h3 class="text-gray-900 font-medium text-lg mb-2">{{ $t("You haven't written a message yet.") }}</h3>
           <p class="mb-5 text-gray-500">{{ $t('Get started by adding your first message.') }}</p>
           <img src="/img/messages.png" class="h-60 w-60 block mx-auto" alt="" />

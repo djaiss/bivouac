@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Projects\Messages;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Projects\ProjectViewModel;
+use App\Models\Message;
 use App\Models\Project;
-use App\Services\CreateProject;
+use App\Services\CreateMessage;
 use App\Services\DestroyProject;
 use App\Services\UpdateProject;
 use Illuminate\Http\JsonResponse;
@@ -30,23 +31,26 @@ class MessageController extends Controller
         ]);
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(Request $request, Project $project): JsonResponse
     {
-        $project = (new CreateProject)->execute([
+        $message = (new CreateMessage)->execute([
             'user_id' => auth()->user()->id,
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
-            'is_public' => $request->input('is_public') === 'true',
+            'project_id' => $project->id,
+            'title' => $request->input('title'),
+            'body' => $request->input('body'),
         ]);
 
         return response()->json([
-            'data' => route('projects.show', $project),
+            'data' => route('messages.show', [
+                'project' => $project->id,
+                'message' => $message->id,
+            ]),
         ], 201);
     }
 
-    public function show(Request $request, Project $project): Response
+    public function show(Request $request, Project $project, Message $message): Response
     {
-        return Inertia::render('Projects/Show', [
+        return Inertia::render('Projects/Messages/Show', [
             'data' => ProjectViewModel::show($project),
             'menu' => ProjectViewModel::menu($project),
         ]);
