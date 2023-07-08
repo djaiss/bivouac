@@ -8,7 +8,7 @@ use App\Models\Message;
 use App\Models\Project;
 use App\Services\CreateMessage;
 use App\Services\DestroyProject;
-use App\Services\UpdateProject;
+use App\Services\UpdateMessage;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -51,31 +51,33 @@ class MessageController extends Controller
     public function show(Request $request, Project $project, Message $message): Response
     {
         return Inertia::render('Projects/Messages/Show', [
-            'data' => ProjectViewModel::show($project),
+            'data' => MessageViewModel::show($message),
             'menu' => ProjectViewModel::menu($project),
         ]);
     }
 
-    public function edit(Request $request, Project $project): Response
+    public function edit(Request $request, Project $project, Message $message): Response
     {
-        return Inertia::render('Projects/Edit', [
-            'data' => ProjectViewModel::edit($project),
+        return Inertia::render('Projects/Messages/Edit', [
+            'data' => MessageViewModel::edit($message),
             'menu' => ProjectViewModel::menu($project),
         ]);
     }
 
-    public function update(Request $request, Project $project): JsonResponse
+    public function update(Request $request, Project $project, Message $message): JsonResponse
     {
-        $project = (new UpdateProject)->execute([
+        (new UpdateMessage)->execute([
             'user_id' => auth()->user()->id,
-            'project_id' => $project->id,
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
-            'is_public' => $request->input('is_public') === 'true',
+            'message_id' => $message->id,
+            'title' => $request->input('title'),
+            'body' => $request->input('body'),
         ]);
 
         return response()->json([
-            'data' => true,
+            'data' => route('messages.show', [
+                'project' => $project->id,
+                'message' => $message->id,
+            ]),
         ], 200);
     }
 

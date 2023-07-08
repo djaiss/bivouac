@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Projects\Messages;
 
+use App\Helpers\StringHelper;
 use App\Models\Message;
 use App\Models\Project;
 
@@ -62,40 +63,50 @@ class MessageViewModel
     public static function show(Message $message): array
     {
         return [
+            'project' => [
+                'name' => $message->project->name,
+            ],
             'message' => self::dto($message),
             'url' => [
                 'breadcrumb' => [
                     'projects' => route('projects.index'),
+                    'project' => route('projects.show', [
+                        'project' => $message->project_id,
+                    ]),
+                    'messages' => route('messages.index', [
+                        'project' => $message->project_id,
+                    ]),
                 ],
             ],
         ];
     }
 
-    public static function edit(Project $project): array
+    public static function edit(Message $message): array
     {
         return [
             'project' => [
-                'id' => $project->id,
-                'author' => [
-                    'name' => $project->author,
-                    'avatar' => $project?->creator->avatar,
-                ],
-                'name' => $project->name,
-                'description' => $project->description,
-                'is_public' => $project->is_public,
+                'name' => $message->project->name,
             ],
+            'message' => self::dto($message),
             'url' => [
-                'update' => route('projects.update', [
-                    'project' => $project->id,
+                'preview' => route('messages.preview.store', [
+                    'project' => $message->project_id,
                 ]),
-                'destroy' => route('projects.destroy', [
-                    'project' => $project->id,
+                'update' => route('messages.update', [
+                    'project' => $message->project_id,
+                    'message' => $message->id,
+                ]),
+                'destroy' => route('messages.destroy', [
+                    'project' => $message->project_id,
+                    'message' => $message->id,
                 ]),
                 'breadcrumb' => [
-                    'home' => route('profile.edit'),
                     'projects' => route('projects.index'),
                     'project' => route('projects.show', [
-                        'project' => $project->id,
+                        'project' => $message->project_id,
+                    ]),
+                    'messages' => route('messages.index', [
+                        'project' => $message->project_id,
                     ]),
                 ],
             ],
@@ -107,11 +118,14 @@ class MessageViewModel
         return [
             'id' => $message->id,
             'author' => [
-                'name' => $message->author,
+                'name' => $message->authorName,
                 'avatar' => $message?->creator->avatar,
+                'url' => $message->creator ? route('users.show', $message->creator) : null,
             ],
             'title' => $message->title,
-            'body' => $message->body,
+            'body' => StringHelper::parse($message->body),
+            'body_raw' => $message->body,
+            'created_at' => $message->created_at->format('Y-m-d'),
             'url' => [
                 'show' => route('messages.show', [
                     'project' => $message->project_id,

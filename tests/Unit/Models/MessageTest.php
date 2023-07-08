@@ -44,7 +44,7 @@ class MessageTest extends TestCase
 
         $this->assertEquals(
             'Henri Troyat',
-            $message->author
+            $message->authorName
         );
 
         $message->created_by_user_id = $user->id;
@@ -52,7 +52,7 @@ class MessageTest extends TestCase
 
         $this->assertEquals(
             'John Doe',
-            $message->author
+            $message->authorName
         );
     }
 }

@@ -73,4 +73,35 @@ class MessageViewModelTest extends TestCase
             $array
         );
     }
+
+    /** @test */
+    public function it_gets_the_data_needed_for_the_show_view(): void
+    {
+        $project = Project::factory()->create(['name' => 'Dunder']);
+        $message = Message::factory()->create([
+            'project_id' => $project->id,
+        ]);
+        $array = MessageViewModel::show($message);
+
+        $this->assertCount(3, $array);
+        $this->assertArrayHasKey('project', $array);
+        $this->assertArrayHasKey('message', $array);
+        $this->assertArrayHasKey('url', $array);
+        $this->assertEquals(
+            [
+                'name' => 'Dunder',
+            ],
+            $array['project']
+        );
+        $this->assertEquals(
+            [
+                'breadcrumb' => [
+                    'projects' => env('APP_URL') . '/projects',
+                    'project' => env('APP_URL') . '/projects/' . $project->id,
+                    'messages' => env('APP_URL') . '/projects/' . $project->id . '/messages',
+                ],
+            ],
+            $array['url']
+        );
+    }
 }

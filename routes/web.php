@@ -57,8 +57,13 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
         Route::get('projects/{project}/messages/create', [MessageController::class, 'create'])->name('messages.create');
         Route::post('projects/{project}/messages', [MessageController::class, 'store'])->name('messages.store');
         Route::post('projects/{project}/messages/preview', [MessagePreviewController::class, 'store'])->name('messages.preview.store');
-        Route::get('projects/{project}/messages/{message}', [MessageController::class, 'show'])->name('messages.show');
-        Route::get('projects/{project}/messages/{message}/edit', [MessageController::class, 'edit'])->name('messages.edit');
+
+        Route::middleware(['message'])->group(function (): void {
+            Route::get('projects/{project}/messages/{message}', [MessageController::class, 'show'])->name('messages.show');
+            Route::get('projects/{project}/messages/{message}/edit', [MessageController::class, 'edit'])->name('messages.edit');
+            Route::put('projects/{project}/messages/{message}/edit', [MessageController::class, 'update'])->name('messages.update');
+            Route::delete('projects/{project}/messages/{message}', [MessageController::class, 'destroy'])->name('messages.destroy');
+        });
     });
 
     // users

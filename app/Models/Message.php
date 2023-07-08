@@ -24,6 +24,10 @@ class Message extends Model
         'body',
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime',
+    ];
+
     #[SearchUsingPrefix(['id', 'project_id'])]
     #[SearchUsingFullText(['title', 'body'])]
     public function toSearchableArray(): array
@@ -49,7 +53,7 @@ class Message extends Model
     /**
      * @return Attribute<string,never>
      */
-    protected function author(): Attribute
+    protected function authorName(): Attribute
     {
         return Attribute::make(
             get: function ($value, $attributes) {

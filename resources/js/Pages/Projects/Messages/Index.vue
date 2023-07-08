@@ -47,9 +47,11 @@ defineProps({
               class="inline-block mb-2 text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
               >{{ message.title }}</Link
             >
+
+            <!-- user name -->
             <div class="flex items-center text-sm">
-              <Avatar :data="message.author.avatar" class="h-4 w-4 rounded mr-1" />
-              <p class="text-gray-600">{{ message.author.name }}</p>
+              <Avatar :data="message.author.avatar" :url="message.author.url" class="h-4 w-4 rounded mr-2" />
+              <Link :href="message.author.url" class="text-gray-600">{{ message.author.name }}</Link>
             </div>
           </li>
         </ul>
