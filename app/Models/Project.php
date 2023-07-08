@@ -20,8 +20,8 @@ class Project extends Model
 
     protected $fillable = [
         'organization_id',
-        'created_by_user_id',
-        'created_by_user_name',
+        'author_id',
+        'author_name',
         'name',
         'description',
         'is_public',
@@ -50,7 +50,7 @@ class Project extends Model
 
     public function creator(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'created_by_user_id');
+        return $this->belongsTo(User::class, 'author_id');
     }
 
     public function users(): BelongsToMany
@@ -70,8 +70,8 @@ class Project extends Model
     {
         return Attribute::make(
             get: function ($value, $attributes) {
-                if (is_null($attributes['created_by_user_id'])) {
-                    return $attributes['created_by_user_name'];
+                if (is_null($attributes['author_id'])) {
+                    return $attributes['author_name'];
                 }
 
                 return $this->creator->name;

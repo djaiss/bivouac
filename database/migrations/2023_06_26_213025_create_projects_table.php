@@ -12,14 +12,14 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table): void {
             $table->id();
             $table->unsignedBigInteger('organization_id');
-            $table->unsignedBigInteger('created_by_user_id')->nullable();
-            $table->string('created_by_user_name')->nullable();
+            $table->unsignedBigInteger('author_id')->nullable();
+            $table->string('author_name')->nullable();
             $table->string('name');
             $table->text('description')->nullable();
             $table->boolean('is_public')->default(true);
             $table->timestamps();
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
-            $table->foreign('created_by_user_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('author_id')->references('id')->on('users')->onDelete('set null');
 
             if (config('scout.driver') === 'database' && in_array(DB::connection()->getDriverName(), ['mysql', 'pgsql'])) {
                 $table->fullText('name');

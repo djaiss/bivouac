@@ -20,8 +20,8 @@ class ProjectFactory extends Factory
     {
         return [
             'organization_id' => Organization::factory(),
-            'created_by_user_id' => User::factory(),
-            'created_by_user_name' => fake()->name(),
+            'author_id' => User::factory(),
+            'author_name' => fake()->name(),
             'name' => fake()->name(),
             'description' => fake()->paragraph(),
             'is_public' => true,

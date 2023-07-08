@@ -18,8 +18,8 @@ class Message extends Model
 
     protected $fillable = [
         'project_id',
-        'created_by_user_id',
-        'created_by_user_name',
+        'author_id',
+        'author_name',
         'title',
         'body',
     ];
@@ -47,7 +47,7 @@ class Message extends Model
 
     public function creator(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'created_by_user_id');
+        return $this->belongsTo(User::class, 'author_id');
     }
 
     /**
@@ -57,8 +57,8 @@ class Message extends Model
     {
         return Attribute::make(
             get: function ($value, $attributes) {
-                if (is_null($attributes['created_by_user_id'])) {
-                    return $attributes['created_by_user_name'];
+                if (is_null($attributes['author_id'])) {
+                    return $attributes['author_name'];
                 }
 
                 return $this->creator->name;

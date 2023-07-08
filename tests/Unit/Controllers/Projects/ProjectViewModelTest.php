@@ -64,7 +64,7 @@ class ProjectViewModelTest extends TestCase
             'name_for_avatar' => 'Michael Scott',
         ]);
         $project = Project::factory()->create([
-            'created_by_user_id' => $user->id,
+            'author_id' => $user->id,
             'name' => 'Dunder',
             'description' => 'Dunder Mifflin',
             'is_public' => true,
@@ -93,7 +93,7 @@ class ProjectViewModelTest extends TestCase
             'name_for_avatar' => 'Michael Scott',
         ]);
         $project = Project::factory()->create([
-            'created_by_user_id' => $user->id,
+            'author_id' => $user->id,
             'name' => 'Dunder',
             'description' => 'Dunder Mifflin',
             'is_public' => true,
@@ -133,7 +133,7 @@ class ProjectViewModelTest extends TestCase
             'last_name' => 'Scott',
         ]);
         $project = Project::factory()->create([
-            'created_by_user_id' => $user->id,
+            'author_id' => $user->id,
             'name' => 'Dunder',
             'description' => 'Dunder Mifflin',
             'is_public' => true,

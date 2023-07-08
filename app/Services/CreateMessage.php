@@ -49,8 +49,8 @@ class CreateMessage extends BaseService
     {
         $this->message = Message::create([
             'project_id' => $this->data['project_id'],
-            'created_by_user_id' => $this->user->id,
-            'created_by_user_name' => $this->user->name,
+            'author_id' => $this->user->id,
+            'author_name' => $this->user->name,
             'title' => $this->data['title'],
             'body' => $this->valueOrNull($this->data, 'body'),
         ]);

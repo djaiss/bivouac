@@ -12,13 +12,13 @@ return new class extends Migration
         Schema::create('messages', function (Blueprint $table): void {
             $table->id();
             $table->unsignedBigInteger('project_id');
-            $table->unsignedBigInteger('created_by_user_id')->nullable();
-            $table->string('created_by_user_name');
+            $table->unsignedBigInteger('author_id')->nullable();
+            $table->string('author_name');
             $table->string('title');
             $table->text('body')->nullable();
             $table->timestamps();
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
-            $table->foreign('created_by_user_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('author_id')->references('id')->on('users')->onDelete('set null');
 
             if (config('scout.driver') === 'database' && in_array(DB::connection()->getDriverName(), ['mysql', 'pgsql'])) {
                 $table->fullText('title');

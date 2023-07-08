@@ -24,7 +24,7 @@ class MessageTest extends TestCase
     {
         $user = User::factory()->create();
         $message = Message::factory()->create([
-            'created_by_user_id' => $user->id,
+            'author_id' => $user->id,
         ]);
 
         $this->assertTrue($message->creator()->exists());
@@ -38,8 +38,8 @@ class MessageTest extends TestCase
             'last_name' => 'Doe',
         ]);
         $message = Message::factory()->create([
-            'created_by_user_id' => null,
-            'created_by_user_name' => 'Henri Troyat',
+            'author_id' => null,
+            'author_name' => 'Henri Troyat',
         ]);
 
         $this->assertEquals(
@@ -47,7 +47,7 @@ class MessageTest extends TestCase
             $message->authorName
         );
 
-        $message->created_by_user_id = $user->id;
+        $message->author_id = $user->id;
         $message->save();
 
         $this->assertEquals(
