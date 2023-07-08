@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Search;
 
+use App\Models\Message;
 use App\Models\Organization;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class SearchViewModel
 {
@@ -14,6 +16,7 @@ class SearchViewModel
         return [
             'users' => $term ? self::users($organization, $term) : [],
             'projects' => $term ? self::projects($organization, $term) : [],
+            'messages' => $term ? self::messages($organization, $term) : [],
             'url' => [
                 'search' => route('search.show'),
             ],
@@ -51,6 +54,32 @@ class SearchViewModel
             'description' => $project->description,
             'url' => [
                 'show' => route('projects.show', $project),
+            ],
+        ]);
+    }
+
+    private static function messages(Organization $organization, string $term): Collection
+    {
+        $projectsIds = DB::table('projects')->select('id')
+            ->where('organization_id', $organization->id)
+            ->get()
+            ->pluck('id')
+            ->toArray();
+
+        /** @var Collection<int, Project> */
+        $messages = Message::search($term)
+            ->whereIn('project_id', $projectsIds)
+            ->get();
+
+        return $messages->map(fn (Message $message) => [
+            'id' => $message->id,
+            'title' => $message->title,
+            'body' => $message->body,
+            'url' => [
+                'show' => route('messages.show', [
+                    'project' => $message->project_id,
+                    'message' => $message,
+                ]),
             ],
         ]);
     }

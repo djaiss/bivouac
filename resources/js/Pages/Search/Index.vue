@@ -129,6 +129,32 @@ const submit = () => {
               <CircleStackIcon class="h-4 w-4 mr-4" />
               <span>{{ $t('No projects match the given criteria.') }}</span>
             </div>
+
+            <!-- messages -->
+            <div class="flex items-center mt-10 mb-2">
+              <BriefcaseIcon class="h-4 w-4" />
+              <span class="ml-2 font-bold">{{ $t('Messages') }}</span>
+            </div>
+            <ul v-if="results.messages.length > 0" class="bg-white shadow rounded-lg w-full">
+              <li
+                v-for="message in results.messages"
+                :key="message.id"
+                class="group flex items-center justify-between px-6 py-4 hover:bg-slate-50 first:hover:rounded-t-lg last:hover:rounded-b-lg">
+                <div class="flex items-center">
+                  <div>
+                    <Link
+                      :href="message.url.show"
+                      class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                      >{{ message.title }}</Link
+                    >
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <div v-else class="bg-white shadow rounded-lg w-full p-6 flex items-center justify-center text-gray-600">
+              <CircleStackIcon class="h-4 w-4 mr-4" />
+              <span>{{ $t('No messages match the given criteria.') }}</span>
+            </div>
           </div>
         </div>
       </div>

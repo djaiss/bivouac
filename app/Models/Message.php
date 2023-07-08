@@ -31,8 +31,8 @@ class Message extends Model
         return [
             'id' => (int) $this->id,
             'project_id' => (int) $this->project_id,
-            'name' => $this->name,
-            'description' => $this->description,
+            'title' => $this->title,
+            'body' => $this->body,
         ];
     }
 
