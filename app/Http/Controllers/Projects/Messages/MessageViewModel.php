@@ -115,7 +115,7 @@ class MessageViewModel
             'id' => $message->id,
             'author' => [
                 'name' => $message->authorName,
-                'avatar' => $message?->creator->avatar,
+                'avatar' => $message?->creator?->avatar,
                 'url' => $message->creator ? route('users.show', $message->creator) : null,
             ],
             'title' => $message->title,

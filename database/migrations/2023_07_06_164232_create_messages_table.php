@@ -13,7 +13,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('project_id');
             $table->unsignedBigInteger('created_by_user_id')->nullable();
-            $table->string('created_by_user_name')->nullable();
+            $table->string('created_by_user_name');
             $table->string('title');
             $table->text('body')->nullable();
             $table->timestamps();
