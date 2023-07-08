@@ -62,11 +62,10 @@ class SearchViewModel
     {
         $projectsIds = DB::table('projects')->select('id')
             ->where('organization_id', $organization->id)
-            ->get()
             ->pluck('id')
             ->toArray();
 
-        /** @var Collection<int, Project> */
+        /** @var Collection<int, Message> */
         $messages = Message::search($term)
             ->whereIn('project_id', $projectsIds)
             ->get();
