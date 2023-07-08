@@ -7,7 +7,7 @@ use App\Http\Controllers\Projects\ProjectViewModel;
 use App\Models\Message;
 use App\Models\Project;
 use App\Services\CreateMessage;
-use App\Services\DestroyProject;
+use App\Services\DestroyMessage;
 use App\Services\UpdateMessage;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -81,15 +81,17 @@ class MessageController extends Controller
         ], 200);
     }
 
-    public function destroy(Request $request, Project $project): JsonResponse
+    public function destroy(Request $request, Project $project, Message $message): JsonResponse
     {
-        (new DestroyProject)->execute([
+        (new DestroyMessage)->execute([
             'user_id' => auth()->user()->id,
-            'project_id' => $project->id,
+            'message_id' => $message->id,
         ]);
 
         return response()->json([
-            'data' => route('projects.index'),
+            'data' => route('messages.index', [
+                'project' => $project->id,
+            ]),
         ], 200);
     }
 }

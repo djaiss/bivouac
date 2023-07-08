@@ -96,10 +96,6 @@ class MessageViewModel
                     'project' => $message->project_id,
                     'message' => $message->id,
                 ]),
-                'destroy' => route('messages.destroy', [
-                    'project' => $message->project_id,
-                    'message' => $message->id,
-                ]),
                 'breadcrumb' => [
                     'projects' => route('projects.index'),
                     'project' => route('projects.show', [
@@ -132,6 +128,10 @@ class MessageViewModel
                     'message' => $message->id,
                 ]),
                 'edit' => route('messages.edit', [
+                    'project' => $message->project_id,
+                    'message' => $message->id,
+                ]),
+                'destroy' => route('messages.destroy', [
                     'project' => $message->project_id,
                     'message' => $message->id,
                 ]),

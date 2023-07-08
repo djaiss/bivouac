@@ -77,9 +77,7 @@ onMounted(() => {
             </li>
 
             <!-- projects -->
-            <li
-              v-if="user.permissions !== 'user'"
-              class="px-4 py-2 group hover:bg-slate-900 hover:text-white flex items-center">
+            <li class="px-4 py-2 group hover:bg-slate-900 hover:text-white flex items-center">
               <BriefcaseIcon
                 class="h-4 w-4 group-hover:fill-current group-hover:text-blue-500 transition ease-in-out" />
               <span class="ml-2">

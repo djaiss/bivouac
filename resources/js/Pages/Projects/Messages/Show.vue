@@ -2,19 +2,30 @@
 import { ChevronRightIcon } from '@heroicons/vue/24/solid';
 import { Head } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
+import { router } from '@inertiajs/vue3';
+import { trans } from 'laravel-vue-i18n';
 
 import Avatar from '@/Components/Avatar.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
-defineProps({
+const props = defineProps({
   data: {
     type: Array,
   },
 });
+
+const destroy = () => {
+  if (confirm(trans('Are you sure? This action cannot be undone.'))) {
+    axios.delete(props.data.message.url.destroy).then((response) => {
+      localStorage.success = trans('The message has been deleted');
+      router.visit(response.data.data);
+    });
+  }
+};
 </script>
 
 <template>
-  <Head :title="$t('Create a project')" />
+  <Head :title="$t('Show message')" />
 
   <AuthenticatedLayout>
     <!-- header -->
@@ -105,18 +116,11 @@ defineProps({
 
               <!-- markdown help -->
               <div class="bg-gray-50 rounded-b-lg px-6 py-4 prose text-sm">
-                <p>{{ $t('We support Markdown, which lets you add formatting to your message.') }}</p>
-                <p>{{ $t('Quick reference:') }}</p>
-                <ul>
-                  <li><code># H1</code></li>
-                  <li><code>## H2</code></li>
-                  <li>
-                    <code>**{{ $t('bold text') }}**</code>
-                  </li>
-                  <li>
-                    <code>*{{ $t('italicized text') }}*</code>
-                  </li>
-                </ul>
+                <span
+                  @click="destroy()"
+                  class="font-medium text-red-700 cursor-pointer hover:bg-red-700 hover:text-white hover:rounded-sm underline"
+                  >{{ $t('Delete') }}</span
+                >
               </div>
             </div>
           </div>

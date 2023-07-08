@@ -17,10 +17,12 @@ class ProjectViewModelTest extends TestCase
     public function it_gets_the_data_needed_for_the_index_view(): void
     {
         $organization = Organization::factory()->create();
-        Project::factory()->create([
+        $project = Project::factory()->create([
             'organization_id' => $organization->id,
         ]);
-        $array = ProjectViewModel::index($organization);
+        $user = User::factory()->create();
+        $project->users()->attach($user->id);
+        $array = ProjectViewModel::index($organization, $user);
 
         $this->assertCount(2, $array);
         $this->assertArrayHasKey('projects', $array);

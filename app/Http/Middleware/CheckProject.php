@@ -27,7 +27,7 @@ class CheckProject
             $project = Project::where('organization_id', $request->user()->organization_id)
                 ->findOrFail($id);
 
-            if ($project->users()->where('user_id', $request->user()->id)->doesntExist()) {
+            if ($project->users()->where('user_id', $request->user()->id)->doesntExist() && ! $project->is_public) {
                 throw new ModelNotFoundException;
             }
 

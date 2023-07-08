@@ -63,7 +63,7 @@ const submit = () => {
 </script>
 
 <template>
-  <Head :title="$t('Create a project')" />
+  <Head :title="$t('Create message')" />
 
   <AuthenticatedLayout>
     <!-- header -->

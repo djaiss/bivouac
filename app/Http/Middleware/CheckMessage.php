@@ -23,8 +23,14 @@ class CheckMessage
             $id = $request->route()->parameter('message')->id;
         }
 
+        if (is_string($request->route()->parameter('project'))) {
+            $projectId = (int) $request->route()->parameter('project');
+        } else {
+            $projectId = $request->route()->parameter('project')->id;
+        }
+
         try {
-            $message = Message::where('project_id', $request->route()->parameter('project')->id)
+            $message = Message::where('project_id', $projectId)
                 ->findOrFail($id);
 
             $request->attributes->add(['project' => $message]);

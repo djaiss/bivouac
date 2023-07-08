@@ -15,7 +15,7 @@ defineProps({
 </script>
 
 <template>
-  <Head :title="$t('Create a project')" />
+  <Head :title="$t('View project')" />
 
   <AuthenticatedLayout>
     <div class="mt-8 px-12 max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 mb-6">

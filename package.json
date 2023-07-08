@@ -7,7 +7,7 @@
         "format": "prettier --write '**/*.{js,vue,css,scss}'",
         "lint": "eslint --ext .js,.vue *.js resources",
         "pretest": "DB_CONNECTION=testing php artisan migrate:fresh",
-        "posttest": "./vendor/bin/duster fix && yarn format && yarn lint",
+        "posttest": "yarn lint --fix && ./vendor/bin/duster fix && yarn format && yarn lint",
         "test": "vendor/bin/phpunit"
     },
     "devDependencies": {
