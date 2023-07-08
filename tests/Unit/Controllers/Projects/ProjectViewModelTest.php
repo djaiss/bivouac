@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Controllers\Users;
+namespace Tests\Unit\Controllers\Projects;
 
 use App\Http\Controllers\Projects\ProjectViewModel;
 use App\Models\Organization;
@@ -17,10 +17,12 @@ class ProjectViewModelTest extends TestCase
     public function it_gets_the_data_needed_for_the_index_view(): void
     {
         $organization = Organization::factory()->create();
-        Project::factory()->create([
+        $project = Project::factory()->create([
             'organization_id' => $organization->id,
         ]);
-        $array = ProjectViewModel::index($organization);
+        $user = User::factory()->create();
+        $project->users()->attach($user->id);
+        $array = ProjectViewModel::index($organization, $user);
 
         $this->assertCount(2, $array);
         $this->assertArrayHasKey('projects', $array);
@@ -117,11 +119,6 @@ class ProjectViewModelTest extends TestCase
                 'url' => [
                     'update' => env('APP_URL') . '/projects/' . $project->id,
                     'destroy' => env('APP_URL') . '/projects/' . $project->id,
-                    'breadcrumb' => [
-                        'home' => env('APP_URL') . '/profile',
-                        'projects' => env('APP_URL') . '/projects',
-                        'project' => env('APP_URL') . '/projects/' . $project->id,
-                    ],
                 ],
             ],
             $array
@@ -161,23 +158,14 @@ class ProjectViewModelTest extends TestCase
     /** @test */
     public function it_gets_the_data_for_the_menu(): void
     {
-        $user = User::factory()->create([
-            'first_name' => 'Michael',
-            'last_name' => 'Scott',
-            'name_for_avatar' => 'Michael Scott',
-        ]);
-        $project = Project::factory()->create([
-            'created_by_user_id' => $user->id,
-            'name' => 'Dunder',
-            'description' => 'Dunder Mifflin',
-            'is_public' => true,
-        ]);
+        $project = Project::factory()->create();
         $array = ProjectViewModel::menu($project);
 
         $this->assertCount(1, $array);
         $this->assertArrayHasKey('url', $array);
         $this->assertEquals(
             [
+                'messages' => env('APP_URL') . '/projects/' . $project->id . '/messages',
                 'settings' => env('APP_URL') . '/projects/' . $project->id . '/edit',
             ],
             $array['url']

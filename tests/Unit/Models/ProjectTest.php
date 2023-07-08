@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Models;
 
+use App\Models\Message;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -38,6 +39,15 @@ class ProjectTest extends TestCase
         $project->users()->attach($user);
 
         $this->assertTrue($project->users()->exists());
+    }
+
+    /** @test */
+    public function it_has_many_messages(): void
+    {
+        $project = Project::factory()->create();
+        Message::factory()->create(['project_id' => $project->id]);
+
+        $this->assertTrue($project->messages()->exists());
     }
 
     /** @test */

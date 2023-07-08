@@ -4,6 +4,8 @@ use App\Http\Controllers\Auth\ValidateInvitationController;
 use App\Http\Controllers\Profile\ProfileAvatarController;
 use App\Http\Controllers\Profile\ProfileBirthdateController;
 use App\Http\Controllers\Profile\ProfileController;
+use App\Http\Controllers\Projects\Messages\MessageController;
+use App\Http\Controllers\Projects\Messages\MessagePreviewController;
 use App\Http\Controllers\Projects\ProjectController;
 use App\Http\Controllers\Search\SearchController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeController;
@@ -49,6 +51,19 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
         Route::get('projects/{project}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
         Route::put('projects/{project}', [ProjectController::class, 'update'])->name('projects.update');
         Route::delete('projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
+
+        // messages
+        Route::get('projects/{project}/messages', [MessageController::class, 'index'])->name('messages.index');
+        Route::get('projects/{project}/messages/create', [MessageController::class, 'create'])->name('messages.create');
+        Route::post('projects/{project}/messages', [MessageController::class, 'store'])->name('messages.store');
+        Route::post('projects/{project}/messages/preview', [MessagePreviewController::class, 'store'])->name('messages.preview.store');
+
+        Route::middleware(['message'])->group(function (): void {
+            Route::get('projects/{project}/messages/{message}', [MessageController::class, 'show'])->name('messages.show');
+            Route::get('projects/{project}/messages/{message}/edit', [MessageController::class, 'edit'])->name('messages.edit');
+            Route::put('projects/{project}/messages/{message}/edit', [MessageController::class, 'update'])->name('messages.update');
+            Route::delete('projects/{project}/messages/{message}', [MessageController::class, 'destroy'])->name('messages.destroy');
+        });
     });
 
     // users

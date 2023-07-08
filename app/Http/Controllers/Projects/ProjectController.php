@@ -17,7 +17,10 @@ class ProjectController extends Controller
     public function index(): Response
     {
         return Inertia::render('Projects/Index', [
-            'data' => ProjectViewModel::index(auth()->user()->organization),
+            'data' => ProjectViewModel::index(
+                organization: auth()->user()->organization,
+                user: auth()->user(),
+            ),
         ]);
     }
 

@@ -6,46 +6,43 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Scout\Attributes\SearchUsingFullText;
 use Laravel\Scout\Attributes\SearchUsingPrefix;
 use Laravel\Scout\Searchable;
 
-class Project extends Model
+class Message extends Model
 {
     use HasFactory, Searchable;
 
-    protected $table = 'projects';
+    protected $table = 'messages';
 
     protected $fillable = [
-        'organization_id',
+        'project_id',
         'created_by_user_id',
         'created_by_user_name',
-        'name',
-        'description',
-        'is_public',
+        'title',
+        'body',
     ];
 
     protected $casts = [
-        'is_public' => 'boolean',
+        'created_at' => 'datetime',
     ];
 
-    #[SearchUsingPrefix(['id', 'organization_id'])]
-    #[SearchUsingFullText(['name', 'description'])]
+    #[SearchUsingPrefix(['id', 'project_id'])]
+    #[SearchUsingFullText(['title', 'body'])]
     public function toSearchableArray(): array
     {
         return [
             'id' => (int) $this->id,
-            'organization_id' => (int) $this->organization_id,
-            'name' => $this->name,
-            'description' => $this->description,
+            'project_id' => (int) $this->project_id,
+            'title' => $this->title,
+            'body' => $this->body,
         ];
     }
 
-    public function organization(): BelongsTo
+    public function project(): BelongsTo
     {
-        return $this->belongsTo(Organization::class);
+        return $this->belongsTo(Project::class);
     }
 
     public function creator(): BelongsTo
@@ -53,20 +50,10 @@ class Project extends Model
         return $this->belongsTo(User::class, 'created_by_user_id');
     }
 
-    public function users(): BelongsToMany
-    {
-        return $this->BelongsToMany(User::class)->withTimestamps();
-    }
-
-    public function messages(): HasMany
-    {
-        return $this->hasMany(Message::class);
-    }
-
     /**
      * @return Attribute<string,never>
      */
-    protected function author(): Attribute
+    protected function authorName(): Attribute
     {
         return Attribute::make(
             get: function ($value, $attributes) {

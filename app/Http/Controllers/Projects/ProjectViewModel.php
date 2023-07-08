@@ -4,16 +4,23 @@ namespace App\Http\Controllers\Projects;
 
 use App\Models\Organization;
 use App\Models\Project;
+use App\Models\User;
 
 class ProjectViewModel
 {
-    public static function index(Organization $organization): array
+    public static function index(Organization $organization, User $user): array
     {
         $projects = $organization->projects()
             ->with('creator')
-            ->with('users')
+            ->orderBy('name')
             ->get()
-            ->map(fn (Project $project) => self::dto($project));
+            ->filter(function (Project $project) use ($user) {
+                $userBelongsToProject = $project->users()->where('user_id', $user->id)->exists();
+
+                return $project->is_public || (! $project->is_public && $userBelongsToProject);
+            })
+            ->map(fn (Project $project) => self::dto($project))
+            ->values()->all();
 
         return [
             'projects' => $projects,
@@ -70,13 +77,6 @@ class ProjectViewModel
                 'destroy' => route('projects.destroy', [
                     'project' => $project->id,
                 ]),
-                'breadcrumb' => [
-                    'home' => route('profile.edit'),
-                    'projects' => route('projects.index'),
-                    'project' => route('projects.show', [
-                        'project' => $project->id,
-                    ]),
-                ],
             ],
         ];
     }
@@ -107,6 +107,9 @@ class ProjectViewModel
     {
         return [
             'url' => [
+                'messages' => route('messages.index', [
+                    'project' => $project->id,
+                ]),
                 'settings' => route('projects.edit', [
                     'project' => $project->id,
                 ]),

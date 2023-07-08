@@ -3,6 +3,7 @@
 namespace Tests\Unit\Controllers\Profile;
 
 use App\Http\Controllers\Search\SearchViewModel;
+use App\Models\Message;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -29,12 +30,18 @@ class SearchViewModelTest extends TestCase
         Project::factory()->create([
             'name' => 'Project John',
         ]);
+        $message = Message::factory()->create([
+            'project_id' => $project->id,
+            'title' => 'Title',
+            'body' => 'Body John',
+        ]);
 
         $array = SearchViewModel::data($user->organization, 'john');
 
-        $this->assertCount(3, $array);
+        $this->assertCount(4, $array);
         $this->assertArrayHasKey('users', $array);
         $this->assertArrayHasKey('projects', $array);
+        $this->assertArrayHasKey('messages', $array);
         $this->assertArrayHasKey('url', $array);
 
         $this->assertEquals(
@@ -66,6 +73,19 @@ class SearchViewModelTest extends TestCase
                 ],
             ],
             $array['projects']->toArray()
+        );
+        $this->assertEquals(
+            [
+                0 => [
+                    'id' => $message->id,
+                    'title' => 'Title',
+                    'body' => 'Body John',
+                    'url' => [
+                        'show' => env('APP_URL') . '/projects/' . $project->id . '/messages/' . $message->id,
+                    ],
+                ],
+            ],
+            $array['messages']->toArray()
         );
         $this->assertEquals(
             [

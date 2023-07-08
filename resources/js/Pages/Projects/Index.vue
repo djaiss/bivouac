@@ -1,8 +1,8 @@
 <script setup>
+import { LockClosedIcon } from '@heroicons/vue/24/solid';
 import { Head } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
 
-import { LockClosedIcon } from '@heroicons/vue/24/solid';
 import PrimaryLinkButton from '@/Components/PrimaryLinkButton.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 

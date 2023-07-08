@@ -47,36 +47,34 @@ const destroy = (user) => {
     <!-- header -->
     <div class="mb-6">
       <div class="bg-white shadow px-4 py-2">
-        <div class="">
-          <!-- Breadcrumb -->
-          <nav class="flex py-3 text-gray-700">
-            <ol class="inline-flex items-center space-x-1 md:space-x-3">
-              <li class="inline-flex items-center">
+        <!-- Breadcrumb -->
+        <nav class="flex py-3 text-gray-700">
+          <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+              <Link
+                :href="data.url.breadcrumb.home"
+                class="text-sm text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                >{{ $t('Home') }}</Link
+              >
+            </li>
+            <li>
+              <div class="flex items-center">
+                <ChevronRightIcon class="w-4 h-4 text-gray-400 mr-2" />
                 <Link
-                  :href="data.url.breadcrumb.home"
+                  :href="data.url.breadcrumb.settings"
                   class="text-sm text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
-                  >{{ $t('Home') }}</Link
+                  >{{ $t('Account settings') }}</Link
                 >
-              </li>
-              <li>
-                <div class="flex items-center">
-                  <ChevronRightIcon class="w-4 h-4 text-gray-400 mr-2" />
-                  <Link
-                    :href="data.url.breadcrumb.settings"
-                    class="text-sm text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
-                    >{{ $t('Account settings') }}</Link
-                  >
-                </div>
-              </li>
-              <li>
-                <div class="flex items-center">
-                  <ChevronRightIcon class="w-4 h-4 text-gray-400" />
-                  <span class="ml-1 text-sm text-gray-500 md:ml-2 dark:text-gray-400">{{ $t('Manage users') }}</span>
-                </div>
-              </li>
-            </ol>
-          </nav>
-        </div>
+              </div>
+            </li>
+            <li>
+              <div class="flex items-center">
+                <ChevronRightIcon class="w-4 h-4 text-gray-400" />
+                <span class="ml-1 text-sm text-gray-500 md:ml-2 dark:text-gray-400">{{ $t('Manage users') }}</span>
+              </div>
+            </li>
+          </ol>
+        </nav>
       </div>
     </div>
 

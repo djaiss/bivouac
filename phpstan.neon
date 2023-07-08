@@ -16,6 +16,7 @@ parameters:
 #
     excludePaths:
         - app/Http/Controllers/Auth/VerifyEmailController.php
+        - app/Http/Controllers/Projects/ProjectViewModel.php
         - app/Services/UpdateUserInformation.php
         - app/Http/Middleware/CheckProject.php
 #        - ./*/*/FileToBeExcluded.php

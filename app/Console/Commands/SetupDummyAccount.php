@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Models\User;
 use App\Services\AddProjectMember;
 use App\Services\CreateAccount;
+use App\Services\CreateMessage;
 use App\Services\CreateProject;
 use Carbon\Carbon;
 use Faker\Factory as Faker;
@@ -145,6 +146,7 @@ class SetupDummyAccount extends Command
             ]);
 
             $this->addMembersToProject($project);
+            $this->addMessages($project);
         }
     }
 
@@ -159,6 +161,20 @@ class SetupDummyAccount extends Command
                 'user_id' => $user->id,
                 'project_id' => $project->id,
             ]));
+    }
+
+    private function addMessages(Project $project): void
+    {
+        $this->info('☐ Add messages to project ' . $project->name);
+
+        for ($i = 0; $i < rand(3, 5); $i++) {
+            (new CreateMessage)->execute([
+                'user_id' => $this->user->id,
+                'project_id' => $project->id,
+                'title' => $this->faker->sentence(),
+                'body' => $this->faker->paragraph(15),
+            ]);
+        }
     }
 
     private function createSecondOrganization(): void

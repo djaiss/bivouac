@@ -2,13 +2,13 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Project;
+use App\Models\Message;
 use Closure;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckProject
+class CheckMessage
 {
     /**
      * Handle an incoming request.
@@ -17,21 +17,23 @@ class CheckProject
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (is_string($request->route()->parameter('project'))) {
-            $id = (int) $request->route()->parameter('project');
+        if (is_string($request->route()->parameter('message'))) {
+            $id = (int) $request->route()->parameter('message');
         } else {
-            $id = $request->route()->parameter('project')->id;
+            $id = $request->route()->parameter('message')->id;
+        }
+
+        if (is_string($request->route()->parameter('project'))) {
+            $projectId = (int) $request->route()->parameter('project');
+        } else {
+            $projectId = $request->route()->parameter('project')->id;
         }
 
         try {
-            $project = Project::where('organization_id', $request->user()->organization_id)
+            $message = Message::where('project_id', $projectId)
                 ->findOrFail($id);
 
-            if ($project->users()->where('user_id', $request->user()->id)->doesntExist() && ! $project->is_public) {
-                throw new ModelNotFoundException;
-            }
-
-            $request->attributes->add(['project' => $project]);
+            $request->attributes->add(['project' => $message]);
 
             return $next($request);
         } catch (ModelNotFoundException) {
