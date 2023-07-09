@@ -5,7 +5,6 @@ import { Link } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
 import { reactive, ref } from 'vue';
 
-import Error from '@/Components/Error.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
@@ -20,6 +19,7 @@ const props = defineProps({
 
 const loadingState = ref(false);
 const isUpgraded = ref(props.data.upgraded);
+const hasError = ref(false);
 
 const form = reactive({
   licence_key: '',
@@ -36,10 +36,9 @@ const update = () => {
       loadingState.value = false;
       flash(trans('Account unlocked'));
     })
-    .catch((error) => {
-      console.log(error.data);
+    .catch(() => {
+      hasError.value = true;
       loadingState.value = false;
-      form.errors = error.data;
     });
 };
 </script>
@@ -159,13 +158,13 @@ const update = () => {
                   required />
               </div>
 
-              <div v-if="form.errors">
+              <div v-if="hasError">
                 <div class="flex items-center border-red p-3 border rounded mb-3">
                   <img src="/img/error.png" class="w-24 h-2w-24" alt="lumberjack being embarrassed" />
 
                   <div class="mb-3">
                     <p class="text-sm mb-4">{{ $t("We've found some errors. Sorry about that.") }}</p>
-                    <p>{{ form.errors.message }}</p>
+                    <p>{{ $t('Invalid licence key.') }}</p>
                   </div>
                 </div>
               </div>
