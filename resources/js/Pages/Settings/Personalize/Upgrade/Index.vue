@@ -5,6 +5,7 @@ import { Link } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
 import { reactive, ref } from 'vue';
 
+import Error from '@/Components/Error.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
@@ -36,8 +37,9 @@ const update = () => {
       flash(trans('Account unlocked'));
     })
     .catch((error) => {
+      console.log(error.data);
       loadingState.value = false;
-      form.errors = error.response.data;
+      form.errors = error.data;
     });
 };
 </script>
@@ -156,6 +158,18 @@ const update = () => {
                   autofocus
                   required />
               </div>
+
+              <div v-if="form.errors">
+                <div class="flex items-center border-red p-3 border rounded mb-3">
+                  <img src="/img/error.png" class="w-24 h-2w-24" alt="lumberjack being embarrassed" />
+
+                  <div class="mb-3">
+                    <p class="text-sm mb-4">{{ $t("We've found some errors. Sorry about that.") }}</p>
+                    <p>{{ form.errors.message }}</p>
+                  </div>
+                </div>
+              </div>
+
               <PrimaryButton :loading="loadingState" :disabled="loadingState">
                 {{ $t('Activate') }}
               </PrimaryButton>
@@ -202,8 +216,8 @@ const update = () => {
             </div>
           </div>
 
-          <div v-else>
-            <h1 class="text-center mt-20 text-3xl mb-4">{{ $t('Your account is unlocked.') }}</h1>
+          <div v-else class="bg-white rounded-lg shadow p-8">
+            <h1 class="text-center text-3xl mb-4">{{ $t('Your account is unlocked.') }}</h1>
             <p class="text-center mb-10">{{ $t('Enjoy unlimited projects, forever.') }}</p>
             <img src="/img/upgrade_success.png" class="w-80 mx-auto mb-10" alt="" />
             <p class="text-center max-w-md mx-auto font-semibold">
