@@ -75,6 +75,14 @@ defineProps({
                   $t('Manage genders and pronouns')
                 }}</Link>
               </li>
+              <li class="flex items-center border-b border-gray-200 px-4 py-2 hover:bg-slate-50 hover:rounded-t-lg">
+                <span class="mr-4 bg-yellow-100 px-1 border rounded border-yellow-400">🤑</span>
+                <Link
+                  :href="data.url.upgrade"
+                  class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                  >{{ $t('Unlock account') }}</Link
+                >
+              </li>
               <li class="flex items-center px-4 py-2 hover:bg-slate-50 hover:rounded-b-lg">
                 <img src="/img/cancel.png" class="h-20 w-20 mr-4" alt="" />
                 <Link class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline">{{
