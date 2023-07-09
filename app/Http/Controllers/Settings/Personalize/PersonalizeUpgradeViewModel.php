@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Settings\Personalize;
 
 use App\Models\Organization;
-use App\Models\User;
 
 class PersonalizeUpgradeViewModel
 {
