@@ -3,32 +3,32 @@
 namespace Tests\Unit\Models;
 
 use App\Models\Comment;
-use App\Models\Message;
+use App\Models\Project;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
-class MessageTest extends TestCase
+class CommentTest extends TestCase
 {
     use DatabaseTransactions;
 
     /** @test */
-    public function it_belongs_to_one_project(): void
+    public function it_belongs_to_one_organization(): void
     {
-        $message = Message::factory()->create();
+        $comment = Comment::factory()->create();
 
-        $this->assertTrue($message->project()->exists());
+        $this->assertTrue($comment->organization()->exists());
     }
 
     /** @test */
     public function it_belongs_to_one_creator(): void
     {
         $user = User::factory()->create();
-        $message = Message::factory()->create([
+        $comment = Comment::factory()->create([
             'author_id' => $user->id,
         ]);
 
-        $this->assertTrue($message->creator()->exists());
+        $this->assertTrue($comment->creator()->exists());
     }
 
     /** @test */
@@ -38,34 +38,37 @@ class MessageTest extends TestCase
             'first_name' => 'John',
             'last_name' => 'Doe',
         ]);
-        $message = Message::factory()->create([
+        $comment = Comment::factory()->create([
             'author_id' => null,
             'author_name' => 'Henri Troyat',
         ]);
 
         $this->assertEquals(
             'Henri Troyat',
-            $message->authorName
+            $comment->authorName
         );
 
-        $message->author_id = $user->id;
-        $message->save();
+        $comment->author_id = $user->id;
+        $comment->save();
 
         $this->assertEquals(
             'John Doe',
-            $message->authorName
+            $comment->authorName
         );
     }
 
     /** @test */
-    public function it_has_many_comments(): void
+    public function it_gets_the_object_the_comment_is_about(): void
     {
-        $message = Message::factory()->create();
-        Comment::factory()->create([
-            'commentable_id' => $message->id,
-            'commentable_type' => Message::class,
+        $comment = Comment::factory()->create([
+            'author_id' => null,
+            'author_name' => 'Henri Troyat',
         ]);
 
-        $this->assertTrue($message->comments()->exists());
+        $this->assertInstanceOf(
+            Project::class,
+            $comment->commentable
+        );
+
     }
 }

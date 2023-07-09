@@ -6,54 +6,50 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Laravel\Scout\Attributes\SearchUsingFullText;
 use Laravel\Scout\Attributes\SearchUsingPrefix;
 use Laravel\Scout\Searchable;
 
-class Message extends Model
+class Comment extends Model
 {
     use HasFactory, Searchable;
 
-    protected $table = 'messages';
+    protected $table = 'comments';
 
     protected $fillable = [
-        'project_id',
+        'organization_id',
         'author_id',
         'author_name',
-        'title',
-        'body',
+        'content',
+        'commentable_id',
+        'commentable_type',
     ];
 
-    protected $casts = [
-        'created_at' => 'datetime',
-    ];
-
-    #[SearchUsingPrefix(['id', 'project_id'])]
-    #[SearchUsingFullText(['title', 'body'])]
+    #[SearchUsingPrefix(['id', 'organization_id'])]
+    #[SearchUsingFullText(['content'])]
     public function toSearchableArray(): array
     {
         return [
             'id' => (int) $this->id,
-            'project_id' => (int) $this->project_id,
-            'title' => $this->title,
-            'body' => $this->body,
+            'organization_id' => (int) $this->organization_id,
+            'content' => $this->content,
         ];
     }
 
-    public function project(): BelongsTo
+    public function organization(): BelongsTo
     {
-        return $this->belongsTo(Project::class);
+        return $this->belongsTo(Organization::class);
+    }
+
+    public function commentable(): MorphTo
+    {
+        return $this->morphTo();
     }
 
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'author_id');
-    }
-
-    public function comments(): MorphMany
-    {
-        return $this->morphMany(Comment::class, 'commentable');
     }
 
     /**

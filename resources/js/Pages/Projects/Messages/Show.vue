@@ -6,6 +6,7 @@ import { router } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
 
 import Avatar from '@/Components/Avatar.vue';
+import Comments from '@/Components/Comments.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
 const props = defineProps({
@@ -79,7 +80,8 @@ const destroy = () => {
         <div class="grid grid-cols-[3fr_1fr] gap-4 px-4">
           <!-- left -->
           <div>
-            <div class="bg-white shadow sm:rounded-lg px-6 py-4 relative">
+            <!-- message -->
+            <div class="bg-white shadow sm:rounded-lg px-6 py-8 relative mb-8">
               <!-- message header -->
               <h1 class="text-center text-3xl mb-3">{{ data.message.title }}</h1>
 
@@ -99,8 +101,11 @@ const destroy = () => {
               </div>
 
               <!-- message body -->
-              <div v-html="data.message.body" class="prose"></div>
+              <div v-html="data.message.body" class="prose mx-auto"></div>
             </div>
+
+            <!-- comments -->
+            <Comments :comments="data.comments" :url="data.url" />
           </div>
 
           <!-- right -->

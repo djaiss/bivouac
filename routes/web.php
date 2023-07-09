@@ -1,11 +1,12 @@
 <?php
 
 use App\Http\Controllers\Auth\ValidateInvitationController;
+use App\Http\Controllers\PreviewController;
 use App\Http\Controllers\Profile\ProfileAvatarController;
 use App\Http\Controllers\Profile\ProfileBirthdateController;
 use App\Http\Controllers\Profile\ProfileController;
+use App\Http\Controllers\Projects\Messages\CommentController;
 use App\Http\Controllers\Projects\Messages\MessageController;
-use App\Http\Controllers\Projects\Messages\MessagePreviewController;
 use App\Http\Controllers\Projects\ProjectController;
 use App\Http\Controllers\Search\SearchController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeController;
@@ -42,6 +43,9 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
     Route::put('profile/birthdate', [ProfileBirthdateController::class, 'update'])->name('profile.birthdate.update');
     Route::delete('profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    // preview markdown
+    Route::post('preview', [PreviewController::class, 'store'])->name('preview.store');
+
     // projects
     Route::get('projects', [ProjectController::class, 'index'])->name('projects.index');
     Route::get('projects/create', [ProjectController::class, 'create'])->name('projects.create');
@@ -56,13 +60,17 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
         Route::get('projects/{project}/messages', [MessageController::class, 'index'])->name('messages.index');
         Route::get('projects/{project}/messages/create', [MessageController::class, 'create'])->name('messages.create');
         Route::post('projects/{project}/messages', [MessageController::class, 'store'])->name('messages.store');
-        Route::post('projects/{project}/messages/preview', [MessagePreviewController::class, 'store'])->name('messages.preview.store');
 
         Route::middleware(['message'])->group(function (): void {
             Route::get('projects/{project}/messages/{message}', [MessageController::class, 'show'])->name('messages.show');
             Route::get('projects/{project}/messages/{message}/edit', [MessageController::class, 'edit'])->name('messages.edit');
             Route::put('projects/{project}/messages/{message}/edit', [MessageController::class, 'update'])->name('messages.update');
             Route::delete('projects/{project}/messages/{message}', [MessageController::class, 'destroy'])->name('messages.destroy');
+
+            // comments
+            Route::post('projects/{project}/messages/{message}/comments', [CommentController::class, 'store'])->name('messages.comments.store');
+            Route::put('projects/{project}/messages/{message}/comments/{comment}', [CommentController::class, 'update'])->name('messages.comments.update');
+            Route::delete('projects/{project}/messages/{message}/comments/{comment}', [CommentController::class, 'destroy'])->name('messages.comments.destroy');
         });
     });
 
