@@ -204,7 +204,7 @@ class MessageViewModelTest extends TestCase
             'commentable_id' => $message->id,
             'commentable_type' => Message::class,
             'author_id' => $user->id,
-            'content' => 'Body John',
+            'body' => 'Body John',
         ]);
         $array = MessageViewModel::dtoComment($message, $comment);
 
@@ -220,9 +220,9 @@ class MessageViewModelTest extends TestCase
                     ],
                     'url' => env('APP_URL') . '/users/' . $user->id,
                 ],
-                'content' => '<p>Body John</p>
+                'body' => '<p>Body John</p>
 ',
-                'content_raw' => 'Body John',
+                'body_raw' => 'Body John',
                 'created_at' => '2018-01-01 00:00:00',
                 'url' => [
                     'update' => env('APP_URL') . '/projects/' . $message->project_id . '/messages/' . $message->id . '/comments/' . $comment->id,

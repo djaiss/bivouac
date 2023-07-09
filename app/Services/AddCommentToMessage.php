@@ -20,7 +20,7 @@ class AddCommentToMessage extends BaseService
         return [
             'user_id' => 'required|integer|exists:users,id',
             'message_id' => 'required|integer|exists:messages,id',
-            'content' => 'nullable|string|max:65535',
+            'body' => 'nullable|string|max:65535',
         ];
     }
 
@@ -57,7 +57,7 @@ class AddCommentToMessage extends BaseService
             'organization_id' => $this->user->organization_id,
             'author_id' => $this->user->id,
             'author_name' => $this->user->name,
-            'content' => $this->data['content'],
+            'body' => $this->data['body'],
         ]);
     }
 

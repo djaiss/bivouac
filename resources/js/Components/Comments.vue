@@ -21,12 +21,12 @@ const props = defineProps({
 
 const loadingState = ref(false);
 const localComments = ref(props.comments);
-const formattedContent = ref('');
+const formattedBody = ref('');
 const activeTab = ref('write');
 const editedComment = ref(null);
 
 const form = reactive({
-  content: '',
+  body: '',
   errors: '',
 });
 
@@ -38,12 +38,12 @@ const showPreviewTab = () => {
 
 const showWriteTab = () => {
   activeTab.value = 'write';
-  formattedContent.value = '';
+  formattedBody.value = '';
 };
 
 const preview = () => {
   axios.post(props.url.preview, form).then((response) => {
-    formattedContent.value = response.data.data;
+    formattedBody.value = response.data.data;
   });
 };
 
@@ -53,7 +53,7 @@ const submit = () => {
   axios
     .post(props.url.store, form)
     .then((response) => {
-      form.content = '';
+      form.body = '';
       loadingState.value = false;
       flash(trans('The comment has been posted'));
       localComments.value.push(response.data.data);
@@ -65,7 +65,7 @@ const submit = () => {
 };
 
 const edit = (comment) => {
-  form.content = comment.content_raw;
+  form.body = comment.body_raw;
   editedComment.value = comment;
 };
 
@@ -78,7 +78,7 @@ const update = (comment) => {
       localComments.value[localComments.value.findIndex((x) => x.id === comment.id)] = response.data.data;
       flash(trans('Changes saved'));
       editedComment.value = '';
-      form.content = '';
+      form.body = '';
       loadingState.value = false;
     })
     .catch((error) => {
@@ -103,7 +103,7 @@ const destroy = (comment) => {
     <!-- existing comments -->
     <div v-if="localComments">
       <div v-if="localComments.length > 0">
-        <ol class="relative border-l border-gray-200 dark:border-gray-700">
+        <ol class="relative border-l border-gray-200 dark:border-gray-700 mx-auto max-w-3xl">
           <li v-for="comment in localComments" :key="comment.id" class="mb-10 ml-4">
             <div
               class="absolute w-3 h-3 bg-gray-300 rounded-full mt-1.5 -left-1.5 border border-bg-900 dark:border-gray-900 dark:bg-gray-700"></div>
@@ -171,13 +171,13 @@ const destroy = (comment) => {
 
             <!-- comment -->
             <div v-if="editedComment != comment" class="bg-white rounded-lg shadow px-4 py-4">
-              <div v-html="comment.content" class="prose"></div>
+              <div v-html="comment.body" class="prose"></div>
             </div>
 
             <!-- edit comment -->
             <div v-else class="bg-white rounded-lg shadow px-4 py-4">
               <form @submit.prevent="update(comment)">
-                <ul v-if="form.content" class="mb-5 inline-block text-sm">
+                <ul v-if="form.body" class="mb-5 inline-block text-sm">
                   <li
                     @click="showWriteTab"
                     class="px-3 py-1 border rounded-l-md cursor-pointer inline pr-2"
@@ -200,9 +200,9 @@ const destroy = (comment) => {
                     class="block w-full"
                     required
                     autogrow
-                    v-model="form.content" />
+                    v-model="form.body" />
 
-                  <div v-if="form.content" class="flex justify-start mt-4">
+                  <div v-if="form.body" class="flex justify-start mt-4">
                     <PrimaryButton class="" :loading="loadingState" :disabled="loadingState">
                       {{ $t('Save') }}
                     </PrimaryButton>
@@ -217,7 +217,7 @@ const destroy = (comment) => {
 
                 <!-- preview mode -->
                 <div v-if="activeTab === 'preview'" class="border rounded-lg bg-gray-50 p-4 w-full">
-                  <div v-html="formattedContent" class="prose"></div>
+                  <div v-html="formattedBody" class="prose"></div>
                 </div>
               </form>
             </div>
@@ -230,7 +230,7 @@ const destroy = (comment) => {
     <div v-if="!editedComment" class="bg-white rounded-lg shadow px-4 py-4">
       <form @submit.prevent="submit()">
         <p class="mb-2 font-bold">{{ $t('Add a comment') }}</p>
-        <ul v-if="form.content" class="mb-5 inline-block text-sm">
+        <ul v-if="form.body" class="mb-5 inline-block text-sm">
           <li
             @click="showWriteTab"
             class="px-3 py-1 border rounded-l-md cursor-pointer inline pr-2"
@@ -248,14 +248,14 @@ const destroy = (comment) => {
         <!-- write mode -->
         <div v-if="activeTab === 'write'">
           <TextArea
-            @esc-key-pressed="form.content = ''"
+            @esc-key-pressed="form.body = ''"
             id="description"
             class="block w-full"
             :rows="'80px'"
             required
-            v-model="form.content" />
+            v-model="form.body" />
 
-          <div v-if="form.content" class="flex justify-start mt-4">
+          <div v-if="form.body" class="flex justify-start mt-4">
             <PrimaryButton class="" :loading="loadingState" :disabled="loadingState">
               {{ $t('Save') }}
             </PrimaryButton>
@@ -264,7 +264,7 @@ const destroy = (comment) => {
 
         <!-- preview mode -->
         <div v-if="activeTab === 'preview'" class="border rounded-lg bg-gray-50 p-4 w-full">
-          <div v-html="formattedContent" class="prose"></div>
+          <div v-html="formattedBody" class="prose"></div>
         </div>
       </form>
     </div>

@@ -157,8 +157,8 @@ class MessageViewModel
                 'avatar' => $comment?->creator?->avatar,
                 'url' => $comment->creator ? route('users.show', $comment->creator) : null,
             ],
-            'content' => StringHelper::parse($comment->content),
-            'content_raw' => $comment->content,
+            'body' => StringHelper::parse($comment->body),
+            'body_raw' => $comment->body,
             'created_at' => $comment->created_at->format('Y-m-d H:i:s'),
             'url' => [
                 'update' => route('messages.comments.update', [

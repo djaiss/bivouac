@@ -89,7 +89,7 @@ class AddCommentToMessageTest extends TestCase
         $request = [
             'user_id' => $user->id,
             'message_id' => $message->id,
-            'content' => 'Dunder',
+            'body' => 'Dunder',
         ];
 
         $comment = (new AddCommentToMessage)->execute($request);
@@ -102,7 +102,7 @@ class AddCommentToMessageTest extends TestCase
         $this->assertDatabaseHas('comments', [
             'id' => $comment->id,
             'organization_id' => $user->organization_id,
-            'content' => 'Dunder',
+            'body' => 'Dunder',
             'commentable_id' => $message->id,
             'commentable_type' => Message::class,
         ]);

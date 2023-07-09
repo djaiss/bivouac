@@ -23,7 +23,7 @@ class CommentFactory extends Factory
             'organization_id' => Organization::factory(),
             'author_id' => User::factory(),
             'author_name' => fake()->name(),
-            'content' => fake()->paragraph(),
+            'body' => fake()->paragraph(),
             'commentable_id' => Project::factory(),
             'commentable_type' => '\App\Models\Project',
         ];

@@ -21,7 +21,7 @@ class UpdateCommentOfMessage extends BaseService
             'user_id' => 'required|integer|exists:users,id',
             'message_id' => 'required|integer|exists:messages,id',
             'comment_id' => 'required|integer|exists:comments,id',
-            'content' => 'nullable|string|max:65535',
+            'body' => 'nullable|string|max:65535',
         ];
     }
 
@@ -56,7 +56,7 @@ class UpdateCommentOfMessage extends BaseService
 
     private function edit(): void
     {
-        $this->comment->content = $this->data['content'];
+        $this->comment->body = $this->data['body'];
         $this->comment->save();
     }
 }

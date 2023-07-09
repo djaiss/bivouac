@@ -2,8 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Message;
 use App\Models\Project;
 use App\Models\User;
+use App\Services\AddCommentToMessage;
 use App\Services\AddProjectMember;
 use App\Services\CreateAccount;
 use App\Services\CreateMessage;
@@ -155,7 +157,7 @@ class SetupDummyAccount extends Command
         $this->info('☐ Add members to project ' . $project->name);
 
         User::inRandomOrder()
-            ->limit(rand(1, 5))
+            ->limit(rand(2, 39))
             ->get()
             ->map(fn (User $user) => (new AddProjectMember)->execute([
                 'user_id' => $user->id,
@@ -168,10 +170,25 @@ class SetupDummyAccount extends Command
         $this->info('☐ Add messages to project ' . $project->name);
 
         for ($i = 0; $i < rand(3, 5); $i++) {
-            (new CreateMessage)->execute([
+            $message = (new CreateMessage)->execute([
                 'user_id' => $this->user->id,
                 'project_id' => $project->id,
                 'title' => $this->faker->sentence(),
+                'body' => $this->faker->paragraph(15),
+            ]);
+
+            $this->addComments($message);
+        }
+    }
+
+    private function addComments(Message $message): void
+    {
+        $this->info('☐ Add comments to message ' . $message->title);
+
+        for ($i = 0; $i < rand(3, 5); $i++) {
+            (new AddCommentToMessage)->execute([
+                'user_id' => User::inRandomOrder()->first()->id,
+                'message_id' => $message->id,
                 'body' => $this->faker->paragraph(15),
             ]);
         }

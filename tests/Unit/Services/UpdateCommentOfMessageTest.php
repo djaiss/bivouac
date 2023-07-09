@@ -129,7 +129,7 @@ class UpdateCommentOfMessageTest extends TestCase
             'user_id' => $user->id,
             'message_id' => $message->id,
             'comment_id' => $comment->id,
-            'content' => 'Dunder',
+            'body' => 'Dunder',
         ];
 
         $comment = (new UpdateCommentOfMessage)->execute($request);
@@ -142,7 +142,7 @@ class UpdateCommentOfMessageTest extends TestCase
         $this->assertDatabaseHas('comments', [
             'id' => $comment->id,
             'organization_id' => $user->organization_id,
-            'content' => 'Dunder',
+            'body' => 'Dunder',
             'commentable_id' => $message->id,
             'commentable_type' => Message::class,
         ]);

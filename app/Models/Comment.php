@@ -21,19 +21,19 @@ class Comment extends Model
         'organization_id',
         'author_id',
         'author_name',
-        'content',
+        'body',
         'commentable_id',
         'commentable_type',
     ];
 
     #[SearchUsingPrefix(['id', 'organization_id'])]
-    #[SearchUsingFullText(['content'])]
+    #[SearchUsingFullText(['body'])]
     public function toSearchableArray(): array
     {
         return [
             'id' => (int) $this->id,
             'organization_id' => (int) $this->organization_id,
-            'content' => $this->content,
+            'body' => $this->body,
         ];
     }
 

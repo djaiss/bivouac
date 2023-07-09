@@ -19,7 +19,7 @@ class CommentController extends Controller
         $comment = (new AddCommentToMessage)->execute([
             'user_id' => auth()->user()->id,
             'message_id' => $message->id,
-            'content' => $request->input('content'),
+            'body' => $request->input('body'),
         ]);
 
         return response()->json([
@@ -33,7 +33,7 @@ class CommentController extends Controller
             'user_id' => auth()->user()->id,
             'message_id' => $message->id,
             'comment_id' => $comment->id,
-            'content' => $request->input('content'),
+            'body' => $request->input('body'),
         ]);
 
         return response()->json([

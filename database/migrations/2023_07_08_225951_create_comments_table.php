@@ -14,7 +14,7 @@ return new class extends Migration
             $table->unsignedBigInteger('organization_id');
             $table->unsignedBigInteger('author_id')->nullable();
             $table->string('author_name');
-            $table->text('content');
+            $table->text('body');
             $table->unsignedBigInteger('commentable_id')->nullable();
             $table->string('commentable_type')->nullable();
             $table->timestamps();
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->foreign('author_id')->references('id')->on('users')->onDelete('set null');
 
             if (config('scout.driver') === 'database' && in_array(DB::connection()->getDriverName(), ['mysql', 'pgsql'])) {
-                $table->fullText('content');
+                $table->fullText('body');
             }
         });
     }
