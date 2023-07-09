@@ -75,7 +75,7 @@ defineProps({
                   $t('Manage genders and pronouns')
                 }}</Link>
               </li>
-              <li class="flex items-center border-b border-gray-200 px-4 py-2 hover:bg-slate-50 hover:rounded-t-lg">
+              <li v-if="data.upgradable" class="flex items-center border-b border-gray-200 px-4 py-2 hover:bg-slate-50 hover:rounded-t-lg">
                 <span class="mr-4 bg-yellow-100 px-1 border rounded border-yellow-400">🤑</span>
                 <Link
                   :href="data.url.upgrade"
