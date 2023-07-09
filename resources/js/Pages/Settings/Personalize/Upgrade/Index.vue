@@ -7,12 +7,16 @@ import { KeyIcon } from '@heroicons/vue/24/solid';
 import { Head } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, reactive } from 'vue';
 
 import Avatar from '@/Components/Avatar.vue';
 import PrimaryLinkButton from '@/Components/PrimaryLinkButton.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { flash } from '@/methods.js';
+import InputLabel from '@/Components/InputLabel.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import TextArea from '@/Components/TextArea.vue';
+import TextInput from '@/Components/TextInput.vue';
 
 const props = defineProps({
   data: {
@@ -20,24 +24,10 @@ const props = defineProps({
   },
 });
 
-const localUsers = ref([]);
-
-onMounted(() => {
-  localUsers.value = props.data.users;
+const form = reactive({
+  licence: '',
+  errors: '',
 });
-
-const destroy = (user) => {
-  if (confirm(trans('Are you sure? This action cannot be undone.'))) {
-    axios
-      .delete(user.url.destroy)
-      .then(() => {
-        flash(trans('The user has been deleted'), 'success');
-        let id = localUsers.value.findIndex((x) => x.id === user.id);
-        localUsers.value.splice(id, 1);
-      })
-      .catch(() => { });
-  }
-};
 </script>
 
 <template>
@@ -119,6 +109,17 @@ const destroy = (user) => {
                   <li class="inline">{{ $t('Free updates.') }}</li>
                 </ul>
               </div>
+            </div>
+
+            <div class="mb-14 rounded-lg shadow bg-white p-8 max-w-2xl mx-auto">
+              <div class="mb-4">
+                <InputLabel for="title" :value="$t('Grab a licence key above, and paste it here to unlock your account')" class="mb-1" />
+
+                <TextInput id="title" type="text" class="block w-full text-center" v-model="form.name" autofocus required />
+              </div>
+              <PrimaryButton :loading="loadingState" :disabled="loadingState">
+                {{ $t('Activate') }}
+              </PrimaryButton>
             </div>
 
             <div class="px-14">
