@@ -16,6 +16,7 @@ class ProjectViewModelTest extends TestCase
     /** @test */
     public function it_gets_the_data_needed_for_the_index_view(): void
     {
+        config(['app.store.activated' => true]);
         $organization = Organization::factory()->create([
             'licence_key' => null,
         ]);
