@@ -11,13 +11,13 @@ return new class extends Migration
         Schema::create('issues', function (Blueprint $table): void {
             $table->id();
             $table->unsignedBigInteger('project_id');
-            $table->unsignedBigInteger('created_by_user_id')->nullable();
-            $table->string('created_by_user_name')->nullable();
+            $table->unsignedBigInteger('author_id')->nullable();
+            $table->string('author_name')->nullable();
             $table->string('title');
             $table->text('body')->nullable();
             $table->timestamps();
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
-            $table->foreign('created_by_user_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('author_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 };

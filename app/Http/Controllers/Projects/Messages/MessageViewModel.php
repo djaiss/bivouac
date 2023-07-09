@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Projects\Messages;
 
 use App\Helpers\StringHelper;
+use App\Models\Comment;
 use App\Models\Message;
 use App\Models\Project;
 
@@ -41,9 +42,7 @@ class MessageViewModel
                 'name' => $project->name,
             ],
             'url' => [
-                'preview' => route('messages.preview.store', [
-                    'project' => $project->id,
-                ]),
+                'preview' => route('preview.store'),
                 'store' => route('messages.store', [
                     'project' => $project->id,
                 ]),
@@ -62,12 +61,24 @@ class MessageViewModel
 
     public static function show(Message $message): array
     {
+        $comments = $message->comments()
+            ->with('creator')
+            ->orderBy('created_at')
+            ->get()
+            ->map(fn (Comment $comment) => self::dtoComment($message, $comment));
+
         return [
             'project' => [
                 'name' => $message->project->name,
             ],
             'message' => self::dto($message),
+            'comments' => $comments,
             'url' => [
+                'preview' => route('preview.store'),
+                'store' => route('messages.comments.store', [
+                    'project' => $message->project_id,
+                    'message' => $message->id,
+                ]),
                 'breadcrumb' => [
                     'projects' => route('projects.index'),
                     'project' => route('projects.show', [
@@ -89,9 +100,7 @@ class MessageViewModel
             ],
             'message' => self::dto($message),
             'url' => [
-                'preview' => route('messages.preview.store', [
-                    'project' => $message->project_id,
-                ]),
+                'preview' => route('preview.store'),
                 'update' => route('messages.update', [
                     'project' => $message->project_id,
                     'message' => $message->id,
@@ -115,7 +124,7 @@ class MessageViewModel
             'id' => $message->id,
             'author' => [
                 'name' => $message->authorName,
-                'avatar' => $message?->creator->avatar,
+                'avatar' => $message?->creator?->avatar,
                 'url' => $message->creator ? route('users.show', $message->creator) : null,
             ],
             'title' => $message->title,
@@ -134,6 +143,33 @@ class MessageViewModel
                 'destroy' => route('messages.destroy', [
                     'project' => $message->project_id,
                     'message' => $message->id,
+                ]),
+            ],
+        ];
+    }
+
+    public static function dtoComment(Message $message, Comment $comment): array
+    {
+        return [
+            'id' => $comment->id,
+            'author' => [
+                'name' => $comment->authorName,
+                'avatar' => $comment?->creator?->avatar,
+                'url' => $comment->creator ? route('users.show', $comment->creator) : null,
+            ],
+            'body' => StringHelper::parse($comment->body),
+            'body_raw' => $comment->body,
+            'created_at' => $comment->created_at->format('Y-m-d H:i:s'),
+            'url' => [
+                'update' => route('messages.comments.update', [
+                    'project' => $message->project_id,
+                    'message' => $message->id,
+                    'comment' => $comment->id,
+                ]),
+                'destroy' => route('messages.comments.destroy', [
+                    'project' => $message->project_id,
+                    'message' => $message->id,
+                    'comment' => $comment->id,
                 ]),
             ],
         ];

@@ -9,19 +9,19 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('messages', function (Blueprint $table): void {
+        Schema::create('comments', function (Blueprint $table): void {
             $table->id();
-            $table->unsignedBigInteger('project_id');
+            $table->unsignedBigInteger('organization_id');
             $table->unsignedBigInteger('author_id')->nullable();
             $table->string('author_name');
-            $table->string('title');
-            $table->text('body')->nullable();
+            $table->text('body');
+            $table->unsignedBigInteger('commentable_id')->nullable();
+            $table->string('commentable_type')->nullable();
             $table->timestamps();
-            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
+            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
             $table->foreign('author_id')->references('id')->on('users')->onDelete('set null');
 
             if (config('scout.driver') === 'database' && in_array(DB::connection()->getDriverName(), ['mysql', 'pgsql'])) {
-                $table->fullText('title');
                 $table->fullText('body');
             }
         });

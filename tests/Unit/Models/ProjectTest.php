@@ -25,7 +25,7 @@ class ProjectTest extends TestCase
     {
         $user = User::factory()->create();
         $project = Project::factory()->create([
-            'created_by_user_id' => $user->id,
+            'author_id' => $user->id,
         ]);
 
         $this->assertTrue($project->creator()->exists());
@@ -58,8 +58,8 @@ class ProjectTest extends TestCase
             'last_name' => 'Doe',
         ]);
         $project = Project::factory()->create([
-            'created_by_user_id' => null,
-            'created_by_user_name' => 'Henri Troyat',
+            'author_id' => null,
+            'author_name' => 'Henri Troyat',
         ]);
 
         $this->assertEquals(
@@ -67,7 +67,7 @@ class ProjectTest extends TestCase
             $project->author
         );
 
-        $project->created_by_user_id = $user->id;
+        $project->author_id = $user->id;
         $project->save();
 
         $this->assertEquals(

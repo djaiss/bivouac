@@ -3,13 +3,14 @@
 namespace Database\Factories;
 
 use App\Models\Organization;
+use App\Models\Project;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Project>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Comment>
  */
-class ProjectFactory extends Factory
+class CommentFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -22,9 +23,9 @@ class ProjectFactory extends Factory
             'organization_id' => Organization::factory(),
             'author_id' => User::factory(),
             'author_name' => fake()->name(),
-            'name' => fake()->name(),
-            'description' => fake()->paragraph(),
-            'is_public' => true,
+            'body' => fake()->paragraph(),
+            'commentable_id' => Project::factory(),
+            'commentable_type' => '\App\Models\Project',
         ];
     }
 }

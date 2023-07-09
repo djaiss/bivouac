@@ -29,7 +29,7 @@ class UserTest extends TestCase
     {
         $user = User::factory()->create();
         Project::factory()->create([
-            'created_by_user_id' => $user->id,
+            'author_id' => $user->id,
         ]);
 
         $this->assertTrue($user->projectsAsCreator()->exists());

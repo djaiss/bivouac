@@ -64,7 +64,7 @@ class ProjectViewModel
                 'id' => $project->id,
                 'author' => [
                     'name' => $project->author,
-                    'avatar' => $project?->creator->avatar,
+                    'avatar' => $project?->creator?->avatar,
                 ],
                 'name' => $project->name,
                 'description' => $project->description,
@@ -87,7 +87,7 @@ class ProjectViewModel
             'id' => $project->id,
             'author' => [
                 'name' => $project->author,
-                'avatar' => $project?->creator->avatar,
+                'avatar' => $project?->creator?->avatar,
             ],
             'name' => $project->name,
             'description' => $project->description,

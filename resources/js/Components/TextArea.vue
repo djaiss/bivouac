@@ -16,7 +16,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['esc-key-pressed', 'update:modelValue']);
 
 const input = ref(null);
 
@@ -26,7 +26,15 @@ onMounted(() => {
   if (input.value.hasAttribute('autofocus')) {
     input.value.focus();
   }
+
+  if (input.value.hasAttribute('autogrow')) {
+    input.value.style.height = input.value.scrollHeight + 'px';
+  }
 });
+
+const sendEscKey = () => {
+  emit('esc-key-pressed');
+};
 
 const resize = (event) => {
   input.value.style.height = props.rows;
@@ -42,5 +50,6 @@ const resize = (event) => {
     :value="modelValue"
     :placeholder="placeholder"
     @input="resize($event)"
+    @keydown.esc="sendEscKey"
     ref="input" />
 </template>

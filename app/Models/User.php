@@ -85,7 +85,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function projectsAsCreator(): HasMany
     {
-        return $this->hasMany(Project::class, 'created_by_user_id');
+        return $this->hasMany(Project::class, 'author_id');
     }
 
     public function projects(): BelongsToMany
