@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Organization;
 use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\Http;
 
 class ActivateLicenceKey extends BaseService
@@ -38,7 +39,7 @@ class ActivateLicenceKey extends BaseService
         $this->organization = $user->organization;
 
         if ($this->organization->licence_key !== null) {
-            throw new \Exception(trans('Licence key already activated.'));
+            throw new Exception(trans('Licence key already activated.'));
         }
     }
 
@@ -52,7 +53,7 @@ class ActivateLicenceKey extends BaseService
         $jsonData = $response->json();
 
         if (! $jsonData->activated) {
-            throw new \Exception(trans('Invalid licence key.'));
+            throw new Exception(trans('Invalid licence key.'));
         }
     }
 
