@@ -17,6 +17,7 @@ class SearchViewModel
             'users' => $term ? self::users($organization, $term) : [],
             'projects' => $term ? self::projects($organization, $term) : [],
             'messages' => $term ? self::messages($organization, $term) : [],
+            'comments' => $term ? self::comments($organization, $term) : [],
             'url' => [
                 'search' => route('search.show'),
             ],
