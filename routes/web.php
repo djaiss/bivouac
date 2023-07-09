@@ -12,6 +12,7 @@ use App\Http\Controllers\Search\SearchController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeOfficeController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeTeamTypeController;
+use App\Http\Controllers\Settings\Personalize\PersonalizeUpgradeController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeUserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -103,6 +104,11 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
         Route::get('personalize/teamTypes/{teamType}/edit', [PersonalizeTeamTypeController::class, 'edit'])->name('settings.personalize.team_type.edit');
         Route::put('personalize/teamTypes/{teamType}', [PersonalizeTeamTypeController::class, 'update'])->name('settings.personalize.team_type.update');
         Route::delete('personalize/teamTypes/{teamType}', [PersonalizeTeamTypeController::class, 'destroy'])->name('settings.personalize.team_type.destroy');
+
+        Route::middleware(['account_manager'])->group(function (): void {
+            Route::get('personalize/upgrade', [PersonalizeUpgradeController::class, 'index'])->name('settings.personalize.upgrade.index');
+            Route::put('personalize/upgrade', [PersonalizeUpgradeController::class, 'update'])->name('settings.personalize.upgrade.update');
+        });
     });
 });
 

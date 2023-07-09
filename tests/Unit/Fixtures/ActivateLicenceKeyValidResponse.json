@@ -1,0 +1,31 @@
+{
+  "activated": true,
+  "error": null,
+  "license_key": {
+    "id": 159777,
+    "status": "active",
+    "key": "C9382352-16CA-4CD3-8A17-DA918C66CF5F",
+    "activation_limit": null,
+    "activation_usage": 4,
+    "created_at": "2023-07-09 03:52:58",
+    "expires_at": null,
+    "test_mode": true
+  },
+  "instance": {
+    "id": "b04c2b90-71f4-4bc9-b41c-f58abb279ada",
+    "name": "Test",
+    "created_at": "2023-07-09 05:16:03"
+  },
+  "meta": {
+    "store_id": 34909,
+    "order_id": 932808,
+    "order_item_id": 901051,
+    "product_id": 91632,
+    "product_name": "Lifetime account",
+    "variant_id": 98033,
+    "variant_name": "Default",
+    "customer_id": 899149,
+    "customer_name": "Regis",
+    "customer_email": "regis@fastmail.fm"
+  }
+}

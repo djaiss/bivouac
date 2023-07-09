@@ -46,8 +46,15 @@ const props = defineProps({
               </li>
             </ul>
 
-            <div>
+            <div v-if="!data.needs_upgrade">
               <PrimaryLinkButton :href="data.url.create">{{ $t('Create project') }}</PrimaryLinkButton>
+            </div>
+            <div v-else>
+              <span
+                v-tooltip="$t('Please upgrade your account to add another project')"
+                class="rounded-md cursor-not-allowed bg-indigo-500 px-3 py-1.5 font-semibold text-white shadow-sm ring-1 ring-inset ring-indigo-600 hover:bg-indigo-700 flex"
+                >{{ $t('Create project') }}</span
+              >
             </div>
           </div>
         </div>

@@ -11,6 +11,7 @@ return new class extends Migration
         Schema::create('organizations', function (Blueprint $table): void {
             $table->id();
             $table->string('name');
+            $table->string('licence_key')->nullable();
             $table->timestamps();
         });
     }

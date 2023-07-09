@@ -186,4 +186,21 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Store
+    |--------------------------------------------------------------------------
+    |
+    | This controls the store used to retrieved the license keys necessary
+    | to unlock the application.
+    |
+    */
+
+    'store' => [
+        'activated' => env('LEMON_SQUEEZY_ACTIVATE', false),
+        'url' => env('LEMON_SQUEEZY_URL', null),
+        'store_id' => env('LEMON_SQUEEZY_STORE_ID', null),
+        'product_id' => env('LEMON_SQUEEZY_PRODUCT_ID', null),
+    ],
+
 ];

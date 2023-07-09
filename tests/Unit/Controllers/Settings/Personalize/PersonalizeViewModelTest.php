@@ -13,10 +13,12 @@ class PersonalizeViewModelTest extends TestCase
     /** @test */
     public function it_gets_the_data_needed_for_the_view(): void
     {
+        config(['app.store.activated' => true]);
         $array = PersonalizeViewModel::data();
 
         $this->assertEquals(
             [
+                'upgradable' => true,
                 'url' => [
                     'breadcrumb' => [
                         'home' => env('APP_URL') . '/profile',
@@ -25,6 +27,7 @@ class PersonalizeViewModelTest extends TestCase
                     'users' => env('APP_URL') . '/settings/personalize/users',
                     'offices' => env('APP_URL') . '/settings/personalize/offices',
                     'team_types' => env('APP_URL') . '/settings/personalize/teamTypes',
+                    'upgrade' => env('APP_URL') . '/settings/personalize/upgrade',
                 ],
             ],
             $array
