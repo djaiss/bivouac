@@ -52,7 +52,7 @@ class ActivateLicenceKey extends BaseService
 
         $jsonData = $response->json();
 
-        if (! $jsonData->activated) {
+        if (! $jsonData['activated']) {
             throw new Exception(trans('Invalid licence key.'));
         }
     }

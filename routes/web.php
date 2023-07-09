@@ -105,8 +105,9 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
         Route::put('personalize/teamTypes/{teamType}', [PersonalizeTeamTypeController::class, 'update'])->name('settings.personalize.team_type.update');
         Route::delete('personalize/teamTypes/{teamType}', [PersonalizeTeamTypeController::class, 'destroy'])->name('settings.personalize.team_type.destroy');
 
-        Route::middleware(['administrator'])->group(function (): void {
+        Route::middleware(['account_manager'])->group(function (): void {
             Route::get('personalize/upgrade', [PersonalizeUpgradeController::class, 'index'])->name('settings.personalize.upgrade.index');
+            Route::put('personalize/upgrade', [PersonalizeUpgradeController::class, 'update'])->name('settings.personalize.upgrade.update');
         });
     });
 });
