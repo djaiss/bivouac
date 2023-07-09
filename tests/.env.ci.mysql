@@ -21,3 +21,6 @@ SESSION_DRIVER=file
 MAIL_MAILER=array
 
 SCOUT_DRIVER=collection
+
+LEMON_SQUEEZY_ACTIVATE=true
+LEMON_SQUEEZY_URL=https://bivouac.lemonsqueezy.com/
