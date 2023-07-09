@@ -138,6 +138,13 @@ const form = reactive({
               <p class="mb-6">{{ $t('If you\'re unhappy with your purchase for any reason, please send us an email within 30 days and we\'ll refund you in full. After those 30 days, we will not issue a refund.') }}</p>
             </div>
           </div>
+
+          <div v-else>
+            <h1 class="text-center mt-20 text-3xl mb-4">{{ $t('Your account is unlocked.') }}</h1>
+            <p class="text-center mb-10">{{ $t('Enjoy unlimited projects, forever.') }}</p>
+            <img src="/img/upgrade_success.png" class="w-80 mx-auto mb-10" alt="">
+            <p class="text-center max-w-md mx-auto font-semibold">{{ $t('We are truly grateful for your support. Without you, we wouldn\'t be where we are today.Thank you!') }}</p>
+          </div>
         </div>
       </div>
     </div>
