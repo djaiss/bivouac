@@ -26,6 +26,10 @@ onMounted(() => {
   if (input.value.hasAttribute('autofocus')) {
     input.value.focus();
   }
+
+  if (input.value.hasAttribute('autogrow')) {
+    input.value.style.height = input.value.scrollHeight + 'px';
+  }
 });
 
 const sendEscKey = () => {

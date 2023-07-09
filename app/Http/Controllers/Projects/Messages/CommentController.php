@@ -29,7 +29,7 @@ class CommentController extends Controller
 
     public function update(Request $request, Project $project, Message $message, Comment $comment): JsonResponse
     {
-        (new UpdateCommentOfMessage)->execute([
+        $comment = (new UpdateCommentOfMessage)->execute([
             'user_id' => auth()->user()->id,
             'message_id' => $message->id,
             'comment_id' => $comment->id,
