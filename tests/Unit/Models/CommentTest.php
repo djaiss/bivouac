@@ -69,6 +69,5 @@ class CommentTest extends TestCase
             Project::class,
             $comment->commentable
         );
-
     }
 }
