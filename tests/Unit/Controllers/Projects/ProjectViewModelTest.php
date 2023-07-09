@@ -16,7 +16,9 @@ class ProjectViewModelTest extends TestCase
     /** @test */
     public function it_gets_the_data_needed_for_the_index_view(): void
     {
-        $organization = Organization::factory()->create();
+        $organization = Organization::factory()->create([
+            'licence_key' => null,
+        ]);
         $project = Project::factory()->create([
             'organization_id' => $organization->id,
         ]);
@@ -24,9 +26,13 @@ class ProjectViewModelTest extends TestCase
         $project->users()->attach($user->id);
         $array = ProjectViewModel::index($organization, $user);
 
-        $this->assertCount(2, $array);
+        $this->assertCount(3, $array);
+        $this->assertArrayHasKey('needs_upgrade', $array);
         $this->assertArrayHasKey('projects', $array);
         $this->assertArrayHasKey('url', $array);
+        $this->assertTrue(
+            $array['needs_upgrade']
+        );
         $this->assertEquals(
             [
                 'create' => env('APP_URL') . '/projects/create',

@@ -23,6 +23,7 @@ class ProjectViewModel
             ->values()->all();
 
         return [
+            'needs_upgrade' => $organization->licence_key === null && count($projects) >= 1 && config('app.store.activated'),
             'projects' => $projects,
             'url' => [
                 'create' => route('projects.create'),

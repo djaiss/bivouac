@@ -1,22 +1,14 @@
 <script setup>
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
-import { EnvelopeIcon } from '@heroicons/vue/24/outline';
-import { EllipsisVerticalIcon } from '@heroicons/vue/24/outline';
 import { ChevronRightIcon } from '@heroicons/vue/24/solid';
-import { KeyIcon } from '@heroicons/vue/24/solid';
 import { Head } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
-import { trans } from 'laravel-vue-i18n';
-import { onMounted, ref, reactive } from 'vue';
+import { reactive } from 'vue';
 
-import Avatar from '@/Components/Avatar.vue';
-import PrimaryLinkButton from '@/Components/PrimaryLinkButton.vue';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { flash } from '@/methods.js';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextArea from '@/Components/TextArea.vue';
 import TextInput from '@/Components/TextInput.vue';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import { flash } from '@/methods.js';
 
 const props = defineProps({
   data: {
