@@ -21,8 +21,7 @@ class ReactionFactory extends Factory
     {
         return [
             'organization_id' => Organization::factory(),
-            'author_id' => User::factory(),
-            'author_name' => fake()->name(),
+            'user_id' => User::factory(),
             'emoji' => fake()->emoji(),
             'reactionable_id' => Project::factory(),
             'reactionable_type' => '\App\Models\Project',

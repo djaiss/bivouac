@@ -79,7 +79,7 @@ class MessageViewModel
             ->map(fn (Comment $comment) => self::dtoComment($message, $comment));
 
         $reactions = $message->reactions()
-            ->with('creator')
+            ->with('user')
             ->get()
             ->map(fn (Reaction $reaction) => ReactionViewModel::dto($reaction));
 
@@ -93,6 +93,10 @@ class MessageViewModel
             'url' => [
                 'preview' => route('preview.store'),
                 'store' => route('messages.comments.store', [
+                    'project' => $message->project_id,
+                    'message' => $message->id,
+                ]),
+                'store_reaction' => route('messages.reactions.store', [
                     'project' => $message->project_id,
                     'message' => $message->id,
                 ]),

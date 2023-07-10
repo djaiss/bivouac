@@ -76,9 +76,6 @@ class AddReactionToMessageTest extends TestCase
     public function it_fails_if_message_doesnt_belong_to_project(): void
     {
         $user = User::factory()->create();
-        $project = Project::factory()->create([
-            'organization_id' => $user->organization_id,
-        ]);
         $message = Message::factory()->create();
         $this->expectException(ModelNotFoundException::class);
 

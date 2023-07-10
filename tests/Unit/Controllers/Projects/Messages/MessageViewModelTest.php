@@ -101,10 +101,16 @@ class MessageViewModelTest extends TestCase
         $this->assertEquals(
             [
                 0 => [
+                    'id' => $reaction->id,
+                    'emoji' => $reaction->emoji,
                     'author' => [
-                        'name' => $reaction->authorName,
-                        'avatar' => $reaction?->creator?->avatar,
-                        'url' => env('APP_URL') . '/users/' . $reaction->creator->id,
+                        'id' => $reaction->user->id,
+                        'name' => $reaction->user->name,
+                        'avatar' => $reaction->user->avatar,
+                        'url' => env('APP_URL') . '/users/' . $reaction->user->id,
+                    ],
+                    'url' => [
+                        'destroy' => env('APP_URL') . '/reactions/' . $reaction->id,
                     ],
                 ],
             ],
@@ -120,6 +126,7 @@ class MessageViewModelTest extends TestCase
             [
                 'preview' => env('APP_URL') . '/preview',
                 'store' => env('APP_URL') . '/projects/' . $project->id . '/messages/' . $message->id . '/comments',
+                'store_reaction' => env('APP_URL') . '/projects/' . $project->id . '/messages/' . $message->id . '/reactions',
                 'breadcrumb' => [
                     'projects' => env('APP_URL') . '/projects',
                     'project' => env('APP_URL') . '/projects/' . $project->id,

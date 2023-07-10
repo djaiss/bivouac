@@ -19,7 +19,7 @@ class DestroyReactionTest extends TestCase
     {
         $user = User::factory()->create();
         $reaction = Reaction::factory()->create([
-            'author_id' => $user->id,
+            'user_id' => $user->id,
         ]);
         $this->executeService($user, $reaction);
     }

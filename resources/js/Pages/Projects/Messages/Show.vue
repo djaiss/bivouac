@@ -109,7 +109,7 @@ const destroy = () => {
 
               <!-- message footer -->
               <div class="p-3 bg-gray-50 rounded-b-lg">
-                <Reactions />
+                <Reactions :reactions="data.reactions" :url="data.url" />
               </div>
             </div>
 

@@ -9,10 +9,16 @@ class ReactionViewModel
     public static function dto(Reaction $reaction): array
     {
         return [
+            'id' => $reaction->id,
+            'emoji' => $reaction->emoji,
             'author' => [
-                'name' => $reaction->authorName,
-                'avatar' => $reaction?->creator?->avatar,
-                'url' => $reaction->creator ? route('users.show', $reaction->creator) : null,
+                'id' => $reaction->user->id,
+                'name' => $reaction->user->name,
+                'avatar' => $reaction->user->avatar,
+                'url' => route('users.show', $reaction->user),
+            ],
+            'url' => [
+                'destroy' => route('reactions.destroy', $reaction),
             ],
         ];
     }

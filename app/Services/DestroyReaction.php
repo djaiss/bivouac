@@ -2,14 +2,12 @@
 
 namespace App\Services;
 
-use App\Models\Message;
 use App\Models\Reaction;
 use App\Models\User;
 
 class DestroyReaction extends BaseService
 {
     private Reaction $reaction;
-    private Message $message;
     private User $user;
     private array $data;
 
@@ -35,7 +33,7 @@ class DestroyReaction extends BaseService
 
         $this->user = User::findOrFail($this->data['user_id']);
 
-        $this->reaction = Reaction::where('author_id', $this->user->id)
+        $this->reaction = Reaction::where('user_id', $this->user->id)
             ->findOrFail($this->data['reaction_id']);
     }
 

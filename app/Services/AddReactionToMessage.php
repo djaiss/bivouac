@@ -56,8 +56,7 @@ class AddReactionToMessage extends BaseService
         $this->reaction = Reaction::create([
             'message_id' => $this->data['message_id'],
             'organization_id' => $this->user->organization_id,
-            'author_id' => $this->user->id,
-            'author_name' => $this->user->name,
+            'user_id' => $this->user->id,
             'emoji' => $this->data['emoji'],
         ]);
     }
