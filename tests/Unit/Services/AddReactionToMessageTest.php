@@ -3,22 +3,22 @@
 namespace Tests\Unit\Services;
 
 use App\Exceptions\NotEnoughPermissionException;
-use App\Models\Comment;
 use App\Models\Message;
 use App\Models\Project;
+use App\Models\Reaction;
 use App\Models\User;
-use App\Services\AddCommentToMessage;
+use App\Services\AddReactionToMessage;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 
-class AddCommentToMessageTest extends TestCase
+class AddReactionToMessageTest extends TestCase
 {
     use DatabaseTransactions;
 
     /** @test */
-    public function it_creates_a_comment(): void
+    public function it_creates_a_reaction(): void
     {
         $user = User::factory()->create();
         $project = Project::factory()->create([
@@ -39,7 +39,7 @@ class AddCommentToMessageTest extends TestCase
         ];
 
         $this->expectException(ValidationException::class);
-        (new AddCommentToMessage)->execute($request);
+        (new AddReactionToMessage)->execute($request);
     }
 
     /** @test */
@@ -76,9 +76,6 @@ class AddCommentToMessageTest extends TestCase
     public function it_fails_if_message_doesnt_belong_to_project(): void
     {
         $user = User::factory()->create();
-        $project = Project::factory()->create([
-            'organization_id' => $user->organization_id,
-        ]);
         $message = Message::factory()->create();
         $this->expectException(ModelNotFoundException::class);
 
@@ -90,27 +87,22 @@ class AddCommentToMessageTest extends TestCase
         $request = [
             'user_id' => $user->id,
             'message_id' => $message->id,
-            'body' => 'Dunder',
+            'emoji' => '🥳',
         ];
 
-        $comment = (new AddCommentToMessage)->execute($request);
+        $reaction = (new AddReactionToMessage)->execute($request);
 
         $this->assertInstanceOf(
-            Comment::class,
-            $comment
+            Reaction::class,
+            $reaction
         );
 
-        $this->assertDatabaseHas('comments', [
-            'id' => $comment->id,
+        $this->assertDatabaseHas('reactions', [
+            'id' => $reaction->id,
             'organization_id' => $user->organization_id,
-            'body' => 'Dunder',
-            'commentable_id' => $message->id,
-            'commentable_type' => Message::class,
-        ]);
-
-        $this->assertDatabaseHas('message_read_status', [
-            'user_id' => $user->id,
-            'message_id' => $message->id,
+            'emoji' => '🥳',
+            'reactionable_id' => $message->id,
+            'reactionable_type' => Message::class,
         ]);
     }
 }

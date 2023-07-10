@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Projects\Messages;
 
 use App\Helpers\StringHelper;
+use App\Http\Controllers\Reactions\ReactionViewModel;
 use App\Models\Comment;
 use App\Models\Message;
 use App\Models\Project;
+use App\Models\Reaction;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -76,15 +78,25 @@ class MessageViewModel
             ->get()
             ->map(fn (Comment $comment) => self::dtoComment($message, $comment));
 
+        $reactions = $message->reactions()
+            ->with('user')
+            ->get()
+            ->map(fn (Reaction $reaction) => ReactionViewModel::dto($reaction));
+
         return [
             'project' => [
                 'name' => $message->project->name,
             ],
             'message' => self::dto($message),
             'comments' => $comments,
+            'reactions' => $reactions,
             'url' => [
                 'preview' => route('preview.store'),
                 'store' => route('messages.comments.store', [
+                    'project' => $message->project_id,
+                    'message' => $message->id,
+                ]),
+                'store_reaction' => route('messages.reactions.store', [
                     'project' => $message->project_id,
                     'message' => $message->id,
                 ]),

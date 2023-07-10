@@ -98,6 +98,7 @@ class DestroyCommentOfMessageTest extends TestCase
         $user = User::factory()->create();
         $project = Project::factory()->create([
             'organization_id' => $user->organization_id,
+            'is_public' => false,
         ]);
         $message = Message::factory()->create([
             'project_id' => $project->id,

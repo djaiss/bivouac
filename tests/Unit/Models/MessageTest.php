@@ -4,6 +4,7 @@ namespace Tests\Unit\Models;
 
 use App\Models\Comment;
 use App\Models\Message;
+use App\Models\Reaction;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -67,5 +68,17 @@ class MessageTest extends TestCase
         ]);
 
         $this->assertTrue($message->comments()->exists());
+    }
+
+    /** @test */
+    public function it_has_many_reactions(): void
+    {
+        $message = Message::factory()->create();
+        Reaction::factory()->create([
+            'reactionable_id' => $message->id,
+            'reactionable_type' => Message::class,
+        ]);
+
+        $this->assertTrue($message->reactions()->exists());
     }
 }

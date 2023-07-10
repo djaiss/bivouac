@@ -6,6 +6,7 @@ use App\Http\Controllers\Projects\Messages\MessageViewModel;
 use App\Models\Comment;
 use App\Models\Message;
 use App\Models\Project;
+use App\Models\Reaction;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -85,13 +86,36 @@ class MessageViewModelTest extends TestCase
         $message = Message::factory()->create([
             'project_id' => $project->id,
         ]);
+        $reaction = Reaction::factory()->create([
+            'reactionable_id' => $message->id,
+            'reactionable_type' => Message::class,
+        ]);
         $array = MessageViewModel::show($message);
 
-        $this->assertCount(4, $array);
+        $this->assertCount(5, $array);
         $this->assertArrayHasKey('project', $array);
         $this->assertArrayHasKey('message', $array);
+        $this->assertArrayHasKey('reactions', $array);
         $this->assertArrayHasKey('comments', $array);
         $this->assertArrayHasKey('url', $array);
+        $this->assertEquals(
+            [
+                0 => [
+                    'id' => $reaction->id,
+                    'emoji' => $reaction->emoji,
+                    'author' => [
+                        'id' => $reaction->user->id,
+                        'name' => $reaction->user->name,
+                        'avatar' => $reaction->user->avatar,
+                        'url' => env('APP_URL') . '/users/' . $reaction->user->id,
+                    ],
+                    'url' => [
+                        'destroy' => env('APP_URL') . '/reactions/' . $reaction->id,
+                    ],
+                ],
+            ],
+            $array['reactions']->toArray()
+        );
         $this->assertEquals(
             [
                 'name' => 'Dunder',
@@ -102,6 +126,7 @@ class MessageViewModelTest extends TestCase
             [
                 'preview' => env('APP_URL') . '/preview',
                 'store' => env('APP_URL') . '/projects/' . $project->id . '/messages/' . $message->id . '/comments',
+                'store_reaction' => env('APP_URL') . '/projects/' . $project->id . '/messages/' . $message->id . '/reactions',
                 'breadcrumb' => [
                     'projects' => env('APP_URL') . '/projects',
                     'project' => env('APP_URL') . '/projects/' . $project->id,

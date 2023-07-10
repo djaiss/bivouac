@@ -56,6 +56,11 @@ class Message extends Model
         return $this->morphMany(Comment::class, 'commentable');
     }
 
+    public function reactions(): MorphMany
+    {
+        return $this->morphMany(Reaction::class, 'reactionable');
+    }
+
     /**
      * @return Attribute<string,never>
      */

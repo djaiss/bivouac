@@ -7,7 +7,9 @@ use App\Http\Controllers\Profile\ProfileBirthdateController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Projects\Messages\CommentController;
 use App\Http\Controllers\Projects\Messages\MessageController;
+use App\Http\Controllers\Projects\Messages\MessageReactionController;
 use App\Http\Controllers\Projects\ProjectController;
+use App\Http\Controllers\Reactions\ReactionController;
 use App\Http\Controllers\Search\SearchController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeOfficeController;
@@ -47,6 +49,9 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
     // preview markdown
     Route::post('preview', [PreviewController::class, 'store'])->name('preview.store');
 
+    // delete reaction
+    Route::delete('reactions/{reaction}', [ReactionController::class, 'destroy'])->name('reactions.destroy');
+
     // projects
     Route::get('projects', [ProjectController::class, 'index'])->name('projects.index');
     Route::get('projects/create', [ProjectController::class, 'create'])->name('projects.create');
@@ -67,6 +72,9 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
             Route::get('projects/{project}/messages/{message}/edit', [MessageController::class, 'edit'])->name('messages.edit');
             Route::put('projects/{project}/messages/{message}/edit', [MessageController::class, 'update'])->name('messages.update');
             Route::delete('projects/{project}/messages/{message}', [MessageController::class, 'destroy'])->name('messages.destroy');
+
+            // add reaction
+            Route::post('projects/{project}/messages/{message}/reactions', [MessageReactionController::class, 'store'])->name('messages.reactions.store');
 
             // comments
             Route::post('projects/{project}/messages/{message}/comments', [CommentController::class, 'store'])->name('messages.comments.store');
