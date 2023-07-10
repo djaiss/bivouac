@@ -22,10 +22,6 @@ class DestroyTaskListTest extends TestCase
         $taskList = TaskList::factory()->create([
             'organization_id' => $user->organization_id,
         ]);
-        $user->projects()->attach($taskList->id);
-        $message = Message::factory()->create([
-            'project_id' => $taskList->id,
-        ]);
         $this->executeService($user, $taskList);
     }
 
