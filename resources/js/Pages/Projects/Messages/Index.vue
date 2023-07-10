@@ -1,4 +1,5 @@
 <script setup>
+import { ChatBubbleBottomCenterTextIcon } from '@heroicons/vue/24/outline';
 import { Head } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
 
@@ -52,10 +53,19 @@ defineProps({
                 >{{ message.title }}</Link
               >
 
-              <!-- user name -->
-              <div class="flex items-center text-sm">
-                <Avatar :data="message.author.avatar" :url="message.author.url" class="h-4 w-4 rounded mr-2" />
-                <Link :href="message.author.url" class="text-gray-600">{{ message.author.name }}</Link>
+              <!-- author + nb of comments -->
+              <div class="flex text-sm">
+                <!-- user name -->
+                <div class="flex items-center mr-4">
+                  <Avatar :data="message.author.avatar" :url="message.author.url" class="h-4 w-4 rounded mr-2" />
+                  <Link :href="message.author.url" class="text-gray-600">{{ message.author.name }}</Link>
+                </div>
+
+                <!-- comments -->
+                <div class="flex items-center text-gray-600">
+                  <ChatBubbleBottomCenterTextIcon class="w-3 h-3 mr-1" />
+                  <span>{{ message.comments_count }}</span>
+                </div>
               </div>
             </div>
           </li>
