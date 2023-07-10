@@ -52,18 +52,18 @@ const destroy = (reaction) => {
 <template>
   <div class="flex items-center">
     <VMenu placement="bottom-start" class="mr-2">
-      <div class="rounded-full p-1 bg-gray-200"><FaceSmileIcon class="w-4" /></div>
+      <div class="rounded-full bg-gray-200 p-1"><FaceSmileIcon class="w-4" /></div>
 
       <template #popper>
-        <div class="p-2 flex">
-          <div @click="submit('👍')" class="cursor-pointer px-2 py-1 bg-gray-200 rounded-lg mr-1">👍</div>
-          <div @click="submit('👎')" class="cursor-pointer px-2 py-1 bg-gray-200 rounded-lg mr-1">👎</div>
-          <div @click="submit('😁')" class="cursor-pointer px-2 py-1 bg-gray-200 rounded-lg mr-1">😁</div>
-          <div @click="submit('🎉')" class="cursor-pointer px-2 py-1 bg-gray-200 rounded-lg mr-1">🎉</div>
-          <div @click="submit('🫤')" class="cursor-pointer px-2 py-1 bg-gray-200 rounded-lg mr-1">🫤</div>
-          <div @click="submit('😭')" class="cursor-pointer px-2 py-1 bg-gray-200 rounded-lg mr-1">😭</div>
-          <div @click="submit('❤️')" class="cursor-pointer px-2 py-1 bg-gray-200 rounded-lg mr-1">❤️</div>
-          <div @click="submit('🚀')" class="cursor-pointer px-2 py-1 bg-gray-200 rounded-lg">🚀</div>
+        <div class="flex p-2">
+          <div @click="submit('👍')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 px-2 py-1">👍</div>
+          <div @click="submit('👎')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 px-2 py-1">👎</div>
+          <div @click="submit('😁')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 px-2 py-1">😁</div>
+          <div @click="submit('🎉')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 px-2 py-1">🎉</div>
+          <div @click="submit('🫤')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 px-2 py-1">🫤</div>
+          <div @click="submit('😭')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 px-2 py-1">😭</div>
+          <div @click="submit('❤️')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 px-2 py-1">❤️</div>
+          <div @click="submit('🚀')" class="cursor-pointer rounded-lg bg-gray-200 px-2 py-1">🚀</div>
         </div>
       </template>
     </VMenu>
@@ -73,13 +73,13 @@ const destroy = (reaction) => {
       <div
         v-for="reaction in localReactions"
         :key="reaction.id"
-        class="flex px-1 py-1 rounded-lg mr-2"
+        class="mr-2 flex rounded-lg px-1 py-1"
         :class="{
-          'bg-yellow-100 border border-yellow-200 cursor-pointer': $page.props.auth.user.id === reaction.author.id,
+          'cursor-pointer border border-yellow-200 bg-yellow-100': $page.props.auth.user.id === reaction.author.id,
           'border border-gray-300': $page.props.auth.user.id !== reaction.author.id,
         }"
         @click="destroy(reaction)">
-        <Avatar v-tooltip="reaction.author.name" :data="reaction.author.avatar" class="h-6 w-6 rounded mr-2" />
+        <Avatar v-tooltip="reaction.author.name" :data="reaction.author.avatar" class="mr-2 h-6 w-6 rounded" />
 
         <span>{{ reaction.emoji }}</span>
       </div>

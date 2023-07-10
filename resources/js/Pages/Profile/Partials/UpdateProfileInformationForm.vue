@@ -43,21 +43,21 @@ const update = () => {
 <template>
   <section>
     <header class="w-full">
-      <h2 class="px-4 py-2 border-b border-gray-200 text-lg font-medium text-gray-900">
+      <h2 class="border-b border-gray-200 px-4 py-2 text-lg font-medium text-gray-900">
         {{ $t('Profile information') }}
       </h2>
     </header>
 
     <div class="flex">
       <!-- instructions -->
-      <div class="text-sm p-4 w-96 mr-8">
+      <div class="mr-8 w-96 p-4 text-sm">
         {{ $t('This information is publicly available within the organization. Everyone can read it.') }}
       </div>
 
       <div class="p-4">
         <Error :errors="form.errors" />
 
-        <form @submit.prevent="update" class="space-y-6 max-w-3xl">
+        <form @submit.prevent="update" class="max-w-3xl space-y-6">
           <div class="flex">
             <!-- first name -->
             <div class="mr-4 w-full">

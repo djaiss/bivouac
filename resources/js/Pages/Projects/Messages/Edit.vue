@@ -73,7 +73,7 @@ const submit = () => {
   <AuthenticatedLayout>
     <!-- header -->
     <div class="mb-12">
-      <div class="bg-white shadow px-4 py-2">
+      <div class="bg-white px-4 py-2 shadow">
         <!-- Breadcrumb -->
         <nav class="flex py-3 text-gray-700">
           <ol class="inline-flex items-center space-x-1 md:space-x-3">
@@ -81,45 +81,45 @@ const submit = () => {
               <div class="flex items-center">
                 <Link
                   :href="data.url.breadcrumb.projects"
-                  class="text-sm text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
                   >{{ $t('Projects') }}</Link
                 >
               </div>
             </li>
             <li>
               <div class="flex items-center">
-                <ChevronRightIcon class="w-4 h-4 text-gray-400 mr-2" />
+                <ChevronRightIcon class="mr-2 h-4 w-4 text-gray-400" />
                 <Link
                   :href="data.url.breadcrumb.project"
-                  class="text-sm text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
                   >{{ data.project.name }}
                 </Link>
               </div>
             </li>
             <li>
               <div class="flex items-center">
-                <ChevronRightIcon class="w-4 h-4 text-gray-400 mr-2" />
+                <ChevronRightIcon class="mr-2 h-4 w-4 text-gray-400" />
                 <Link
                   :href="data.url.breadcrumb.messages"
-                  class="text-sm text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline">
+                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                   {{ $t('Messages') }}
                 </Link>
               </div>
             </li>
             <li>
               <div class="flex items-center">
-                <ChevronRightIcon class="w-4 h-4 text-gray-400 mr-2" />
+                <ChevronRightIcon class="mr-2 h-4 w-4 text-gray-400" />
                 <Link
                   :href="data.message.url.show"
-                  class="text-sm text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline">
+                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                   {{ data.message.title }}
                 </Link>
               </div>
             </li>
             <li>
               <div class="flex items-center">
-                <ChevronRightIcon class="w-4 h-4 text-gray-400" />
-                <span class="ml-1 text-sm text-gray-500 md:ml-2 dark:text-gray-400">{{ $t('Edit the message') }}</span>
+                <ChevronRightIcon class="h-4 w-4 text-gray-400" />
+                <span class="ml-1 text-sm text-gray-500 dark:text-gray-400 md:ml-2">{{ $t('Edit the message') }}</span>
               </div>
             </li>
           </ol>
@@ -132,7 +132,7 @@ const submit = () => {
         <form @submit.prevent="submit" class="grid grid-cols-[2fr_1fr] gap-4 px-4">
           <!-- left -->
           <div>
-            <div class="bg-white shadow sm:rounded-lg px-6 py-4 relative">
+            <div class="relative bg-white px-6 py-4 shadow sm:rounded-lg">
               <!-- Title -->
               <div class="mb-8">
                 <InputLabel for="title" :value="$t('Title of the message')" class="mb-1" />
@@ -145,14 +145,14 @@ const submit = () => {
                 <ul v-if="form.body" class="mb-5 inline-block text-sm">
                   <li
                     @click="showWriteTab"
-                    class="px-3 py-1 border rounded-l-md cursor-pointer inline pr-2"
-                    :class="{ 'text-blue-600 border-blue-600': activeTab === 'write' }">
+                    class="inline cursor-pointer rounded-l-md border px-3 py-1 pr-2"
+                    :class="{ 'border-blue-600 text-blue-600': activeTab === 'write' }">
                     {{ $t('Write') }}
                   </li>
                   <li
                     @click="showPreviewTab"
-                    class="px-3 py-1 border-t border-b border-r rounded-r-md cursor-pointer inline"
-                    :class="{ 'text-blue-600 border-blue-600 border-l': activeTab === 'preview' }">
+                    class="inline cursor-pointer rounded-r-md border-b border-r border-t px-3 py-1"
+                    :class="{ 'border-l border-blue-600 text-blue-600': activeTab === 'preview' }">
                     {{ $t('Preview') }}
                   </li>
                 </ul>
@@ -163,7 +163,7 @@ const submit = () => {
                 </div>
 
                 <!-- preview mode -->
-                <div v-if="activeTab === 'preview'" class="border rounded-lg bg-gray-50 p-4 w-full">
+                <div v-if="activeTab === 'preview'" class="w-full rounded-lg border bg-gray-50 p-4">
                   <div v-html="formattedBody" class="prose"></div>
                 </div>
               </div>
@@ -175,10 +175,10 @@ const submit = () => {
           <!-- right -->
           <div>
             <div class="rounded-lg shadow">
-              <div class="bg-white border-b flex items-center justify-between px-6 py-4 rounded-t-lg">
+              <div class="flex items-center justify-between rounded-t-lg border-b bg-white px-6 py-4">
                 <Link
                   :href="data.message.url.show"
-                  class="text-sm font-medium text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                  class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
                   >{{ $t('Back') }}</Link
                 >
 
@@ -188,7 +188,7 @@ const submit = () => {
               </div>
 
               <!-- markdown help -->
-              <div class="bg-gray-50 rounded-b-lg px-6 py-4 prose text-sm">
+              <div class="prose rounded-b-lg bg-gray-50 px-6 py-4 text-sm">
                 <p>{{ $t('We support Markdown, which lets you add formatting to your message.') }}</p>
                 <p>{{ $t('Quick reference:') }}</p>
                 <ul>

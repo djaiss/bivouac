@@ -43,14 +43,14 @@ const update = () => {
 <template>
   <section>
     <header class="w-full">
-      <h2 class="px-4 py-2 border-b border-gray-200 text-lg font-medium text-gray-900">
+      <h2 class="border-b border-gray-200 px-4 py-2 text-lg font-medium text-gray-900">
         {{ $t('Edit project') }}
       </h2>
     </header>
 
     <div class="flex">
       <!-- instructions -->
-      <div class="text-sm p-4 w-96 mr-8">
+      <div class="mr-8 w-96 p-4 text-sm">
         {{
           $t(
             "A project title is a concise phrase that identifies a project, providing a brief overview of its subject or purpose. A project description expands on the title and provides a more detailed explanation of the project's goals, objectives, scope, and expected outcomes.",
@@ -58,10 +58,10 @@ const update = () => {
         }}
       </div>
 
-      <div class="p-4 w-full">
+      <div class="w-full p-4">
         <Error :errors="form.errors" />
 
-        <form @submit.prevent="update" class="space-y-4 max-w-5xl">
+        <form @submit.prevent="update" class="max-w-5xl space-y-4">
           <!-- name -->
           <div>
             <InputLabel for="name" :value="$t('What is the name of the project?')" class="mb-1" />

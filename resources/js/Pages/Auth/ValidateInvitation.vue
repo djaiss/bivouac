@@ -47,10 +47,10 @@ const update = () => {
 
     <form @submit.prevent="update">
       <div class="mb-4">
-        <img src="/img/confirm-invite.png" alt="logo" class="text-center mx-auto mb-4 block w-28" />
+        <img src="/img/confirm-invite.png" alt="logo" class="mx-auto mb-4 block w-28 text-center" />
 
-        <h2 class="font-bold text-center mb-2">{{ $t('Welcome to Bivouac') }}</h2>
-        <h3 class="text-sm text-gray-700 mb-8 text-center">
+        <h2 class="mb-2 text-center font-bold">{{ $t('Welcome to Bivouac') }}</h2>
+        <h3 class="mb-8 text-center text-sm text-gray-700">
           {{ $t('Please fill in these fields to finalize your account.') }}
         </h3>
       </div>
@@ -99,7 +99,7 @@ const update = () => {
         <HelpInput value="Minimum 8 characters." />
       </div>
 
-      <div class="flex items-center justify-end mt-4">
+      <div class="mt-4 flex items-center justify-end">
         <PrimaryButton
           class="ml-4"
           :class="{ 'opacity-25': form.processing }"

@@ -30,10 +30,10 @@ const submit = () => {
 
     <form @submit.prevent="submit">
       <div class="mb-4">
-        <img src="img/logo-login.png" alt="logo" class="text-center mx-auto mb-4 block w-28" />
+        <img src="img/logo-login.png" alt="logo" class="mx-auto mb-4 block w-28 text-center" />
 
-        <h2 class="font-bold text-center mb-2">{{ $t('Welcome to Bivouac') }}</h2>
-        <h3 class="text-sm text-gray-700 mb-4 text-center">{{ $t('Create your account now for free.') }}</h3>
+        <h2 class="mb-2 text-center font-bold">{{ $t('Welcome to Bivouac') }}</h2>
+        <h3 class="mb-4 text-center text-sm text-gray-700">{{ $t('Create your account now for free.') }}</h3>
       </div>
 
       <!-- first name and last name -->
@@ -108,10 +108,10 @@ const submit = () => {
         <InputError class="mt-2" :message="form.errors.organization_name" />
       </div>
 
-      <div class="flex items-center justify-end mt-4">
+      <div class="mt-4 flex items-center justify-end">
         <Link
           :href="route('login')"
-          class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
           Already registered?
         </Link>
 
