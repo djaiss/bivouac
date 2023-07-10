@@ -17,6 +17,7 @@ class MessageViewModel
     {
         $messages = $project->messages()
             ->with('creator')
+            ->withCount('comments')
             ->orderByDesc('created_at')
             ->get();
 
@@ -153,6 +154,7 @@ class MessageViewModel
             'body_raw' => $message->body,
             'created_at' => $message->created_at->format('Y-m-d'),
             'read' => $isRead,
+            'comments_count' => $message->comments_count,
             'url' => [
                 'show' => route('messages.show', [
                     'project' => $message->project_id,
