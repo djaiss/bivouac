@@ -5,6 +5,7 @@ import { Link } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
 import { reactive, ref } from 'vue';
 
+import Reactions from '@/Components/Reactions.vue';
 import Avatar from '@/Components/Avatar.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextArea from '@/Components/TextArea.vue';
@@ -170,8 +171,15 @@ const destroy = (comment) => {
             </div>
 
             <!-- comment -->
-            <div v-if="editedComment != comment" class="bg-white rounded-lg shadow px-4 py-4">
-              <div v-html="comment.body" class="prose"></div>
+            <div v-if="editedComment != comment" class="bg-white rounded-lg shadow">
+              <div class="px-4 py-4 border-b">
+                <div v-html="comment.body" class="prose"></div>
+              </div>
+
+              <!-- message footer -->
+              <div class="p-3 bg-gray-50 rounded-b-lg">
+                <Reactions :reactions="comment.reactions" :url="comment.url" />
+              </div>
             </div>
 
             <!-- edit comment -->

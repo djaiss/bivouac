@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Laravel\Scout\Attributes\SearchUsingFullText;
 use Laravel\Scout\Attributes\SearchUsingPrefix;
@@ -50,6 +51,11 @@ class Comment extends Model
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'author_id');
+    }
+
+    public function reactions(): MorphMany
+    {
+        return $this->morphMany(Reaction::class, 'reactionable');
     }
 
     /**

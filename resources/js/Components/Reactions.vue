@@ -1,7 +1,7 @@
 <script setup>
 import { FaceSmileIcon } from '@heroicons/vue/24/outline';
-import { reactive, ref } from 'vue';
 import { usePage } from '@inertiajs/vue3';
+import { reactive, ref } from 'vue';
 
 import Avatar from '@/Components/Avatar.vue';
 
@@ -42,12 +42,10 @@ const destroy = (reaction) => {
     return;
   }
 
-  axios
-    .delete(reaction.url.destroy)
-    .then(() => {
-      let id = localReactions.value.findIndex((x) => x.id === reaction.id);
-      localReactions.value.splice(id, 1);
-    });
+  axios.delete(reaction.url.destroy).then(() => {
+    let id = localReactions.value.findIndex((x) => x.id === reaction.id);
+    localReactions.value.splice(id, 1);
+  });
 };
 </script>
 
@@ -72,12 +70,15 @@ const destroy = (reaction) => {
 
     <!-- list of existing reactions -->
     <div v-if="localReactions" class="flex items-center">
-      <div v-for="reaction in localReactions" key="reaction.id" class="flex px-1 py-1 rounded-lg mr-2"
-        :class="{ 'bg-yellow-100 border border-yellow-200 cursor-pointer': $page.props.auth.user.id === reaction.author.id,
-        'border border-gray-300': $page.props.auth.user.id !== reaction.author.id }"
-        @click="destroy(reaction)"
-      >
-
+      <div
+        v-for="reaction in localReactions"
+        :key="reaction.id"
+        class="flex px-1 py-1 rounded-lg mr-2"
+        :class="{
+          'bg-yellow-100 border border-yellow-200 cursor-pointer': $page.props.auth.user.id === reaction.author.id,
+          'border border-gray-300': $page.props.auth.user.id !== reaction.author.id,
+        }"
+        @click="destroy(reaction)">
         <Avatar v-tooltip="reaction.author.name" :data="reaction.author.avatar" class="h-6 w-6 rounded mr-2" />
 
         <span>{{ reaction.emoji }}</span>
