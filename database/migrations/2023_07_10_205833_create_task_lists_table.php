@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('task_lists', function (Blueprint $table): void {
@@ -16,7 +13,7 @@ return new class extends Migration
             $table->unsignedBigInteger('organization_id');
             $table->unsignedBigInteger('taskable_id')->nullable();
             $table->string('taskable_type')->nullable();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->timestamps();
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
         });
