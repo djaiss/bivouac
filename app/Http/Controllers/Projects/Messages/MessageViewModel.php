@@ -6,16 +6,25 @@ use App\Helpers\StringHelper;
 use App\Models\Comment;
 use App\Models\Message;
 use App\Models\Project;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class MessageViewModel
 {
-    public static function index(Project $project): array
+    public static function index(Project $project, User $user): array
     {
         $messages = $project->messages()
             ->with('creator')
             ->orderByDesc('created_at')
-            ->get()
-            ->map(fn (Message $message) => self::dto($message));
+            ->get();
+
+        $readStatuses = DB::table('message_read_status')
+            ->whereIn('message_id', $messages->pluck('id'))
+            ->get();
+
+        $messages = $messages->map(fn (Message $message) => self::dto($message, $readStatuses->contains(fn ($readStatus) => $readStatus->message_id === $message->id &&
+            $readStatus->user_id === $user->id
+        )));
 
         return [
             'project' => [
@@ -118,7 +127,7 @@ class MessageViewModel
         ];
     }
 
-    public static function dto(Message $message): array
+    public static function dto(Message $message, bool $isRead = false): array
     {
         return [
             'id' => $message->id,
@@ -131,6 +140,7 @@ class MessageViewModel
             'body' => StringHelper::parse($message->body),
             'body_raw' => $message->body,
             'created_at' => $message->created_at->format('Y-m-d'),
+            'read' => $isRead,
             'url' => [
                 'show' => route('messages.show', [
                     'project' => $message->project_id,

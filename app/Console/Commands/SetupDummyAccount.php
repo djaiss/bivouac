@@ -156,9 +156,7 @@ class SetupDummyAccount extends Command
     {
         $this->info('☐ Add members to project ' . $project->name);
 
-        User::inRandomOrder()
-            ->limit(rand(2, 39))
-            ->get()
+        User::get()
             ->map(fn (User $user) => (new AddProjectMember)->execute([
                 'user_id' => $user->id,
                 'project_id' => $project->id,

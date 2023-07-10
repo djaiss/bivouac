@@ -25,5 +25,13 @@ return new class extends Migration
                 $table->fullText('body');
             }
         });
+
+        Schema::create('message_read_status', function (Blueprint $table) {
+            $table->unsignedBigInteger('message_id');
+            $table->unsignedBigInteger('user_id');
+            $table->timestamps();
+            $table->foreign('message_id')->references('id')->on('messages')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        });
     }
 };

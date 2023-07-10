@@ -10,6 +10,7 @@ class ProjectViewModel
 {
     public static function index(Organization $organization, User $user): array
     {
+        // we make sure users can't see projects they don't belong to
         $projects = $organization->projects()
             ->with('creator')
             ->orderBy('name')

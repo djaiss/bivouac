@@ -28,6 +28,7 @@ class CreateMessage extends BaseService
         $this->data = $data;
         $this->validate();
         $this->create();
+        $this->markAsRead();
 
         return $this->message;
     }
@@ -53,6 +54,14 @@ class CreateMessage extends BaseService
             'author_name' => $this->user->name,
             'title' => $this->data['title'],
             'body' => $this->valueOrNull($this->data, 'body'),
+        ]);
+    }
+
+    private function markAsRead(): void
+    {
+        (new MarkMessageAsRead)->execute([
+            'user_id' => $this->user->id,
+            'message_id' => $this->message->id,
         ]);
     }
 }

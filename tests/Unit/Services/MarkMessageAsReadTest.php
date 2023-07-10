@@ -6,18 +6,18 @@ use App\Exceptions\NotEnoughPermissionException;
 use App\Models\Message;
 use App\Models\Project;
 use App\Models\User;
-use App\Services\UpdateMessage;
+use App\Services\MarkMessageAsRead;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 
-class UpdateMessageTest extends TestCase
+class MarkMessageAsReadTest extends TestCase
 {
     use DatabaseTransactions;
 
     /** @test */
-    public function it_updates_a_message(): void
+    public function it_updates_the_read_status_of_a_message(): void
     {
         $user = User::factory()->create();
         $project = Project::factory()->create([
@@ -27,7 +27,7 @@ class UpdateMessageTest extends TestCase
         $message = Message::factory()->create([
             'project_id' => $project->id,
         ]);
-        $this->executeService($user, $project, $message);
+        $this->executeService($user, $message);
     }
 
     /** @test */
@@ -40,7 +40,7 @@ class UpdateMessageTest extends TestCase
         ]);
 
         $this->expectException(ModelNotFoundException::class);
-        $this->executeService($user, $project, $message);
+        $this->executeService($user, $message);
     }
 
     /** @test */
@@ -53,22 +53,23 @@ class UpdateMessageTest extends TestCase
         ]);
 
         $this->expectException(ModelNotFoundException::class);
-        $this->executeService($user, $project, $message);
+        $this->executeService($user, $message);
     }
 
     /** @test */
-    public function it_fails_if_user_cant_access_the_project(): void
+    public function it_fails_if_user_cant_access_the_project_and_project_is_private(): void
     {
         $user = User::factory()->create();
         $project = Project::factory()->create([
             'organization_id' => $user->organization_id,
+            'is_public' => false,
         ]);
         $message = Message::factory()->create([
             'project_id' => $project->id,
         ]);
 
         $this->expectException(NotEnoughPermissionException::class);
-        $this->executeService($user, $project, $message);
+        $this->executeService($user, $message);
     }
 
     /** @test */
@@ -79,31 +80,17 @@ class UpdateMessageTest extends TestCase
         ];
 
         $this->expectException(ValidationException::class);
-        (new UpdateMessage)->execute($request);
+        (new MarkMessageAsRead)->execute($request);
     }
 
-    private function executeService(User $user, Project $project, Message $message): void
+    private function executeService(User $user, Message $message): void
     {
         $request = [
             'user_id' => $user->id,
             'message_id' => $message->id,
-            'title' => 'Dunder',
-            'body' => 'this is a description',
         ];
 
-        $message = (new UpdateMessage)->execute($request);
-
-        $this->assertInstanceOf(
-            Message::class,
-            $message
-        );
-
-        $this->assertDatabaseHas('messages', [
-            'id' => $message->id,
-            'project_id' => $project->id,
-            'title' => 'Dunder',
-            'body' => 'this is a description',
-        ]);
+        (new MarkMessageAsRead)->execute($request);
 
         $this->assertDatabaseHas('message_read_status', [
             'user_id' => $user->id,
