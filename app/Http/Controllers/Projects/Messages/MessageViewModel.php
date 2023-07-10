@@ -172,6 +172,11 @@ class MessageViewModel
 
     public static function dtoComment(Message $message, Comment $comment): array
     {
+        $reactions = $comment->reactions()
+            ->with('user')
+            ->get()
+            ->map(fn (Reaction $reaction) => ReactionViewModel::dto($reaction));
+
         return [
             'id' => $comment->id,
             'author' => [
@@ -182,7 +187,13 @@ class MessageViewModel
             'body' => StringHelper::parse($comment->body),
             'body_raw' => $comment->body,
             'created_at' => $comment->created_at->format('Y-m-d H:i:s'),
+            'reactions' => $reactions,
             'url' => [
+                'store_reaction' => route('messages.comments.reactions.store', [
+                    'project' => $message->project_id,
+                    'message' => $message->id,
+                    'comment' => $comment->id,
+                ]),
                 'update' => route('messages.comments.update', [
                     'project' => $message->project_id,
                     'message' => $message->id,

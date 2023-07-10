@@ -4,6 +4,7 @@ namespace Tests\Unit\Models;
 
 use App\Models\Comment;
 use App\Models\Project;
+use App\Models\Reaction;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -29,6 +30,18 @@ class CommentTest extends TestCase
         ]);
 
         $this->assertTrue($comment->creator()->exists());
+    }
+
+    /** @test */
+    public function it_has_many_reactions(): void
+    {
+        $comment = Comment::factory()->create();
+        Reaction::factory()->create([
+            'reactionable_id' => $comment->id,
+            'reactionable_type' => Comment::class,
+        ]);
+
+        $this->assertTrue($comment->reactions()->exists());
     }
 
     /** @test */

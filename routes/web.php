@@ -6,6 +6,7 @@ use App\Http\Controllers\Profile\ProfileAvatarController;
 use App\Http\Controllers\Profile\ProfileBirthdateController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Projects\Messages\CommentController;
+use App\Http\Controllers\Projects\Messages\CommentReactionController;
 use App\Http\Controllers\Projects\Messages\MessageController;
 use App\Http\Controllers\Projects\Messages\MessageReactionController;
 use App\Http\Controllers\Projects\ProjectController;
@@ -80,6 +81,9 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
             Route::post('projects/{project}/messages/{message}/comments', [CommentController::class, 'store'])->name('messages.comments.store');
             Route::put('projects/{project}/messages/{message}/comments/{comment}', [CommentController::class, 'update'])->name('messages.comments.update');
             Route::delete('projects/{project}/messages/{message}/comments/{comment}', [CommentController::class, 'destroy'])->name('messages.comments.destroy');
+
+            // add comment reaction
+            Route::post('projects/{project}/messages/{message}/comments/{comment}/reactions', [CommentReactionController::class, 'store'])->name('messages.comments.reactions.store');
         });
     });
 
