@@ -3,14 +3,14 @@
 namespace App\Services;
 
 use App\Exceptions\NotEnoughPermissionException;
-use App\Models\Comment;
 use App\Models\Message;
 use App\Models\Project;
+use App\Models\Reaction;
 use App\Models\User;
 
-class DestroyCommentOfMessage extends BaseService
+class AddReactionToMessage extends BaseService
 {
-    private Comment $comment;
+    private Reaction $reaction;
     private Message $message;
     private User $user;
     private array $data;
@@ -20,16 +20,19 @@ class DestroyCommentOfMessage extends BaseService
         return [
             'user_id' => 'required|integer|exists:users,id',
             'message_id' => 'required|integer|exists:messages,id',
-            'comment_id' => 'required|integer|exists:comments,id',
+            'emoji' => 'nullable|string|max:255',
         ];
     }
 
-    public function execute(array $data): void
+    public function execute(array $data): Reaction
     {
         $this->data = $data;
-        $this->validate();
 
-        $this->destroy();
+        $this->validate();
+        $this->create();
+        $this->associate();
+
+        return $this->reaction;
     }
 
     private function validate(): void
@@ -46,13 +49,21 @@ class DestroyCommentOfMessage extends BaseService
         if ($project->users()->where('user_id', $this->user->id)->doesntExist() && ! $project->is_public) {
             throw new NotEnoughPermissionException;
         }
-
-        $this->comment = Comment::where('commentable_id', $this->message->id)
-            ->findOrFail($this->data['comment_id']);
     }
 
-    private function destroy(): void
+    private function create(): void
     {
-        $this->comment->delete();
+        $this->reaction = Reaction::create([
+            'message_id' => $this->data['message_id'],
+            'organization_id' => $this->user->organization_id,
+            'author_id' => $this->user->id,
+            'author_name' => $this->user->name,
+            'emoji' => $this->data['emoji'],
+        ]);
+    }
+
+    private function associate(): void
+    {
+        $this->message->reactions()->save($this->reaction);
     }
 }

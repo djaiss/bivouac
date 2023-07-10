@@ -7,6 +7,7 @@ import { trans } from 'laravel-vue-i18n';
 
 import Avatar from '@/Components/Avatar.vue';
 import Comments from '@/Components/Comments.vue';
+import Reactions from '@/Components/Reactions.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
 const props = defineProps({
@@ -81,27 +82,35 @@ const destroy = () => {
           <!-- left -->
           <div>
             <!-- message -->
-            <div class="bg-white shadow sm:rounded-lg px-6 py-8 relative mb-8">
-              <!-- message header -->
-              <h1 class="text-center text-3xl mb-3">{{ data.message.title }}</h1>
+            <div class="bg-white shadow sm:rounded-lg relative mb-8">
+              <!-- message body -->
+              <div class="px-6 py-8 border-b">
+                <!-- message header -->
+                <h1 class="text-center text-3xl mb-3">{{ data.message.title }}</h1>
 
-              <!-- avatar + name -->
-              <div class="flex items-center justify-center mb-8 text-sm">
-                <Avatar
-                  v-if="data.message.author.avatar"
-                  :data="data.message.author.avatar"
-                  :url="data.message.author.url"
-                  class="w-5 mr-2" />
-                <Link
-                  :href="data.message.author.url"
-                  class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline mr-4"
-                  >{{ data.message.author.name }}</Link
-                >
-                <p>{{ data.message.created_at }}</p>
+                <!-- avatar + name -->
+                <div class="flex items-center justify-center mb-8 text-sm">
+                  <Avatar
+                    v-if="data.message.author.avatar"
+                    :data="data.message.author.avatar"
+                    :url="data.message.author.url"
+                    class="w-5 mr-2" />
+                  <Link
+                    :href="data.message.author.url"
+                    class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline mr-4"
+                    >{{ data.message.author.name }}</Link
+                  >
+                  <p>{{ data.message.created_at }}</p>
+                </div>
+
+                <!-- message body -->
+                <div v-html="data.message.body" class="prose mx-auto"></div>
               </div>
 
-              <!-- message body -->
-              <div v-html="data.message.body" class="prose mx-auto"></div>
+              <!-- message footer -->
+              <div class="p-3 bg-gray-50 rounded-b-lg">
+                <Reactions />
+              </div>
             </div>
 
             <!-- comments -->
