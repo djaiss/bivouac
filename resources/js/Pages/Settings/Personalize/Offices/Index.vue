@@ -43,7 +43,7 @@ const destroy = (office) => {
   <AuthenticatedLayout>
     <!-- header -->
     <div class="mb-6">
-      <div class="bg-white shadow px-4 py-2">
+      <div class="bg-white px-4 py-2 shadow">
         <div class="">
           <!-- Breadcrumb -->
           <nav class="flex py-3 text-gray-700">
@@ -51,24 +51,24 @@ const destroy = (office) => {
               <li class="inline-flex items-center">
                 <Link
                   :href="data.url.breadcrumb.home"
-                  class="text-sm text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
                   >{{ $t('Home') }}</Link
                 >
               </li>
               <li>
                 <div class="flex items-center">
-                  <ChevronRightIcon class="w-4 h-4 text-gray-400 mr-2" />
+                  <ChevronRightIcon class="mr-2 h-4 w-4 text-gray-400" />
                   <Link
                     :href="data.url.breadcrumb.settings"
-                    class="text-sm text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                    class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
                     >{{ $t('Account settings') }}</Link
                   >
                 </div>
               </li>
               <li>
                 <div class="flex items-center">
-                  <ChevronRightIcon class="w-4 h-4 text-gray-400" />
-                  <span class="ml-1 text-sm text-gray-500 md:ml-2 dark:text-gray-400">{{ $t('Manage offices') }}</span>
+                  <ChevronRightIcon class="h-4 w-4 text-gray-400" />
+                  <span class="ml-1 text-sm text-gray-500 dark:text-gray-400 md:ml-2">{{ $t('Manage offices') }}</span>
                 </div>
               </li>
             </ol>
@@ -78,11 +78,11 @@ const destroy = (office) => {
     </div>
 
     <div class="pb-12">
-      <div class="max-w-5xl mx-auto sm:px-6 lg:px-8 flex">
+      <div class="mx-auto flex max-w-5xl sm:px-6 lg:px-8">
         <div class="w-full">
           <div class="bg-white shadow sm:rounded-lg">
             <!-- title -->
-            <div class="px-4 py-2 flex justify-between items-center border-b border-gray-200">
+            <div class="flex items-center justify-between border-b border-gray-200 px-4 py-2">
               <h2 class="text-lg font-medium text-gray-900">
                 {{ $t("All the organization's offices") }}
               </h2>
@@ -105,16 +105,16 @@ const destroy = (office) => {
 
                     <span
                       v-if="office.is_main_office"
-                      class="flex items-center bg-lime-50 border-lime-300 border px-2 py-1 rounded-lg text-xs">
+                      class="flex items-center rounded-lg border border-lime-300 bg-lime-50 px-2 py-1 text-xs">
                       <span class="text-lime-600">{{ $t('main office') }}</span>
                     </span>
                   </div>
 
                   <!-- menu -->
                   <div>
-                    <Menu as="div" class="text-left relative">
+                    <Menu as="div" class="relative text-left">
                       <MenuButton class="">
-                        <EllipsisVerticalIcon class="h-5 w-5 hover:text-gray-500 cursor-pointer" />
+                        <EllipsisVerticalIcon class="h-5 w-5 cursor-pointer hover:text-gray-500" />
                       </MenuButton>
 
                       <transition
@@ -159,9 +159,9 @@ const destroy = (office) => {
             <!-- blank state -->
             <div v-else>
               <div class="px-4 py-6 text-center">
-                <h3 class="text-gray-900 font-medium text-lg mb-2">{{ $t("You haven't set an office yet.") }}</h3>
+                <h3 class="mb-2 text-lg font-medium text-gray-900">{{ $t("You haven't set an office yet.") }}</h3>
                 <p class="mb-20 text-gray-500">{{ $t('Get started by adding your first office.') }}</p>
-                <img src="/img/offices.png" class="h-60 w-60 block mx-auto" alt="" />
+                <img src="/img/offices.png" class="mx-auto block h-60 w-60" alt="" />
               </div>
             </div>
           </div>

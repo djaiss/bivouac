@@ -5,7 +5,6 @@ import { Link } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
 import { reactive, ref } from 'vue';
 
-import Reactions from '@/Components/Reactions.vue';
 import Avatar from '@/Components/Avatar.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextArea from '@/Components/TextArea.vue';
@@ -104,23 +103,23 @@ const destroy = (comment) => {
     <!-- existing comments -->
     <div v-if="localComments">
       <div v-if="localComments.length > 0">
-        <ol class="relative border-l border-gray-200 dark:border-gray-700 mx-auto max-w-3xl">
+        <ol class="relative mx-auto max-w-3xl border-l border-gray-200 dark:border-gray-700">
           <li v-for="comment in localComments" :key="comment.id" class="mb-10 ml-4">
             <div
-              class="absolute w-3 h-3 bg-gray-300 rounded-full mt-1.5 -left-1.5 border border-bg-900 dark:border-gray-900 dark:bg-gray-700"></div>
+              class="border-bg-900 absolute -left-1.5 mt-1.5 h-3 w-3 rounded-full border bg-gray-300 dark:border-gray-900 dark:bg-gray-700"></div>
 
             <!-- avatar + time -->
-            <div class="mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500 flex justify-between">
+            <div class="mb-2 flex justify-between text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
               <div class="flex">
-                <div class="flex mr-3">
+                <div class="mr-3 flex">
                   <Avatar
                     v-if="comment.author.avatar"
                     :data="comment.author.avatar"
                     :url="comment.author.url"
-                    class="w-5 mr-2" />
+                    class="mr-2 w-5" />
                   <Link
                     :href="comment.author.url"
-                    class="inline text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                    class="inline text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
                     >{{ comment.author.name }}</Link
                   >
                 </div>
@@ -129,9 +128,9 @@ const destroy = (comment) => {
               </div>
 
               <!-- actions -->
-              <Menu as="div" class="text-left relative">
+              <Menu as="div" class="relative text-left">
                 <MenuButton class="">
-                  <EllipsisHorizontalIcon class="h-5 w-5 hover:text-gray-500 cursor-pointer" />
+                  <EllipsisHorizontalIcon class="h-5 w-5 cursor-pointer hover:text-gray-500" />
                 </MenuButton>
 
                 <transition
@@ -171,31 +170,31 @@ const destroy = (comment) => {
             </div>
 
             <!-- comment -->
-            <div v-if="editedComment != comment" class="bg-white rounded-lg shadow">
-              <div class="px-4 py-4 border-b">
+            <div v-if="editedComment != comment" class="rounded-lg bg-white shadow">
+              <div class="border-b px-4 py-4">
                 <div v-html="comment.body" class="prose"></div>
               </div>
 
               <!-- message footer -->
-              <div class="p-3 bg-gray-50 rounded-b-lg">
+              <div class="rounded-b-lg bg-gray-50 p-3">
                 <Reactions :reactions="comment.reactions" :url="comment.url" />
               </div>
             </div>
 
             <!-- edit comment -->
-            <div v-else class="bg-white rounded-lg shadow px-4 py-4">
+            <div v-else class="rounded-lg bg-white px-4 py-4 shadow">
               <form @submit.prevent="update(comment)">
                 <ul v-if="form.body" class="mb-5 inline-block text-sm">
                   <li
                     @click="showWriteTab"
-                    class="px-3 py-1 border rounded-l-md cursor-pointer inline pr-2"
-                    :class="{ 'text-blue-600 border-blue-600': activeTab === 'write' }">
+                    class="inline cursor-pointer rounded-l-md border px-3 py-1 pr-2"
+                    :class="{ 'border-blue-600 text-blue-600': activeTab === 'write' }">
                     {{ $t('Write') }}
                   </li>
                   <li
                     @click="showPreviewTab"
-                    class="px-3 py-1 border-t border-b border-r rounded-r-md cursor-pointer inline"
-                    :class="{ 'text-blue-600 border-blue-600 border-l': activeTab === 'preview' }">
+                    class="inline cursor-pointer rounded-r-md border-b border-r border-t px-3 py-1"
+                    :class="{ 'border-l border-blue-600 text-blue-600': activeTab === 'preview' }">
                     {{ $t('Preview') }}
                   </li>
                 </ul>
@@ -210,21 +209,21 @@ const destroy = (comment) => {
                     autogrow
                     v-model="form.body" />
 
-                  <div v-if="form.body" class="flex justify-start mt-4">
+                  <div v-if="form.body" class="mt-4 flex justify-start">
                     <PrimaryButton class="" :loading="loadingState" :disabled="loadingState">
                       {{ $t('Save') }}
                     </PrimaryButton>
 
                     <span
                       @click="editedComment = ''"
-                      class="ml-2 inline-flex items-center px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-700 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 cursor-pointer">
+                      class="ml-2 inline-flex cursor-pointer items-center rounded-md border border-transparent bg-gray-100 px-3 py-1 text-sm font-medium leading-4 text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
                       {{ $t('Cancel') }}</span
                     >
                   </div>
                 </div>
 
                 <!-- preview mode -->
-                <div v-if="activeTab === 'preview'" class="border rounded-lg bg-gray-50 p-4 w-full">
+                <div v-if="activeTab === 'preview'" class="w-full rounded-lg border bg-gray-50 p-4">
                   <div v-html="formattedBody" class="prose"></div>
                 </div>
               </form>
@@ -235,20 +234,20 @@ const destroy = (comment) => {
     </div>
 
     <!-- post a comment box -->
-    <div v-if="!editedComment" class="bg-white rounded-lg shadow px-4 py-4">
+    <div v-if="!editedComment" class="rounded-lg bg-white px-4 py-4 shadow">
       <form @submit.prevent="submit()">
         <p class="mb-2 font-bold">{{ $t('Add a comment') }}</p>
         <ul v-if="form.body" class="mb-5 inline-block text-sm">
           <li
             @click="showWriteTab"
-            class="px-3 py-1 border rounded-l-md cursor-pointer inline pr-2"
-            :class="{ 'text-blue-600 border-blue-600': activeTab === 'write' }">
+            class="inline cursor-pointer rounded-l-md border px-3 py-1 pr-2"
+            :class="{ 'border-blue-600 text-blue-600': activeTab === 'write' }">
             {{ $t('Write') }}
           </li>
           <li
             @click="showPreviewTab"
-            class="px-3 py-1 border-t border-b border-r rounded-r-md cursor-pointer inline"
-            :class="{ 'text-blue-600 border-blue-600 border-l': activeTab === 'preview' }">
+            class="inline cursor-pointer rounded-r-md border-b border-r border-t px-3 py-1"
+            :class="{ 'border-l border-blue-600 text-blue-600': activeTab === 'preview' }">
             {{ $t('Preview') }}
           </li>
         </ul>
@@ -263,7 +262,7 @@ const destroy = (comment) => {
             required
             v-model="form.body" />
 
-          <div v-if="form.body" class="flex justify-start mt-4">
+          <div v-if="form.body" class="mt-4 flex justify-start">
             <PrimaryButton class="" :loading="loadingState" :disabled="loadingState">
               {{ $t('Save') }}
             </PrimaryButton>
@@ -271,7 +270,7 @@ const destroy = (comment) => {
         </div>
 
         <!-- preview mode -->
-        <div v-if="activeTab === 'preview'" class="border rounded-lg bg-gray-50 p-4 w-full">
+        <div v-if="activeTab === 'preview'" class="w-full rounded-lg border bg-gray-50 p-4">
           <div v-html="formattedBody" class="prose"></div>
         </div>
       </form>

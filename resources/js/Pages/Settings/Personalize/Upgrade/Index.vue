@@ -49,31 +49,31 @@ const update = () => {
   <AuthenticatedLayout>
     <!-- header -->
     <div class="mb-6">
-      <div class="bg-white shadow px-4 py-2">
+      <div class="bg-white px-4 py-2 shadow">
         <!-- Breadcrumb -->
         <nav class="flex py-3 text-gray-700">
           <ol class="inline-flex items-center space-x-1 md:space-x-3">
             <li class="inline-flex items-center">
               <Link
                 :href="data.url.breadcrumb.home"
-                class="text-sm text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
                 >{{ $t('Home') }}</Link
               >
             </li>
             <li>
               <div class="flex items-center">
-                <ChevronRightIcon class="w-4 h-4 text-gray-400 mr-2" />
+                <ChevronRightIcon class="mr-2 h-4 w-4 text-gray-400" />
                 <Link
                   :href="data.url.breadcrumb.settings"
-                  class="text-sm text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
                   >{{ $t('Account settings') }}</Link
                 >
               </div>
             </li>
             <li>
               <div class="flex items-center">
-                <ChevronRightIcon class="w-4 h-4 text-gray-400" />
-                <span class="ml-1 text-sm text-gray-500 md:ml-2 dark:text-gray-400">{{
+                <ChevronRightIcon class="h-4 w-4 text-gray-400" />
+                <span class="ml-1 text-sm text-gray-500 dark:text-gray-400 md:ml-2">{{
                   $t('Unlock your account')
                 }}</span>
               </div>
@@ -84,65 +84,65 @@ const update = () => {
     </div>
 
     <div class="pb-12">
-      <div class="max-w-5xl mx-auto sm:px-6 lg:px-8 flex">
+      <div class="mx-auto flex max-w-5xl sm:px-6 lg:px-8">
         <div class="w-full">
           <div v-if="!isUpgraded">
-            <h1 class="text-center mt-20 text-3xl mb-4">{{ $t('Unlock unlimited project management, forever.') }}</h1>
-            <p class="text-center mb-10">
+            <h1 class="mb-4 mt-20 text-center text-3xl">{{ $t('Unlock unlimited project management, forever.') }}</h1>
+            <p class="mb-10 text-center">
               {{ $t("Get everything we have right now, plus any new features we'll add in the future.") }}
             </p>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mb-14">
-              <div class="bg-white shadow sm:rounded-lg p-8">
-                <img src="/img/upgrade_individual.png" class="w-40 mx-auto mb-3" alt="" />
-                <p class="text-center text-xl font-bold mb-2">{{ $t('Personal') }}</p>
+            <div class="mb-14 grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
+              <div class="bg-white p-8 shadow sm:rounded-lg">
+                <img src="/img/upgrade_individual.png" class="mx-auto mb-3 w-40" alt="" />
+                <p class="mb-2 text-center text-xl font-bold">{{ $t('Personal') }}</p>
                 <p class="mb-6 text-center">{{ $t('For individuals and non-profits') }}</p>
-                <div class="flex flex-col bg-gray-100 border rounded-lg border-gray-100 text-center p-10 mb-6">
-                  <div class="flex items-center mb-4">
-                    <p class="text-4xl mr-4">CA$ 400</p>
+                <div class="mb-6 flex flex-col rounded-lg border border-gray-100 bg-gray-100 p-10 text-center">
+                  <div class="mb-4 flex items-center">
+                    <p class="mr-4 text-4xl">CA$ 400</p>
                     <p>{{ $t('one time payment') }}</p>
                   </div>
 
                   <a
                     :href="data.url.store"
                     target="_blank"
-                    class="rounded-md bg-indigo-500 px-3 py-1.5 font-semibold text-white shadow-sm ring-1 ring-inset ring-indigo-600 hover:bg-indigo-700 text-center"
+                    class="rounded-md bg-indigo-500 px-3 py-1.5 text-center font-semibold text-white shadow-sm ring-1 ring-inset ring-indigo-600 hover:bg-indigo-700"
                     >{{ $t('Unlock') }}</a
                   >
                 </div>
-                <ul class="text-sm text-center">
-                  <li class="inline mr-2">{{ $t('Lifetime access.') }}</li>
-                  <li class="inline mr-2">{{ $t('Unlimited projects.') }}</li>
+                <ul class="text-center text-sm">
+                  <li class="mr-2 inline">{{ $t('Lifetime access.') }}</li>
+                  <li class="mr-2 inline">{{ $t('Unlimited projects.') }}</li>
                   <li class="inline">{{ $t('Free updates.') }}</li>
                 </ul>
               </div>
 
-              <div class="bg-white shadow sm:rounded-lg p-8">
-                <img src="/img/upgrade_teams.png" class="w-40 mx-auto mb-3" alt="" />
-                <p class="text-center text-xl font-bold mb-2">{{ $t('Teams') }}</p>
+              <div class="bg-white p-8 shadow sm:rounded-lg">
+                <img src="/img/upgrade_teams.png" class="mx-auto mb-3 w-40" alt="" />
+                <p class="mb-2 text-center text-xl font-bold">{{ $t('Teams') }}</p>
                 <p class="mb-6 text-center">{{ $t('For companies') }}</p>
-                <div class="flex flex-col bg-gray-100 border rounded-lg border-gray-100 text-center p-10 mb-6">
-                  <div class="flex items-center mb-4">
-                    <p class="text-3xl mr-4">CA$ 1000</p>
+                <div class="mb-6 flex flex-col rounded-lg border border-gray-100 bg-gray-100 p-10 text-center">
+                  <div class="mb-4 flex items-center">
+                    <p class="mr-4 text-3xl">CA$ 1000</p>
                     <p>{{ $t('one time payment') }}</p>
                   </div>
 
                   <a
                     :href="data.url.store"
                     target="_blank"
-                    class="rounded-md bg-indigo-500 px-3 py-1.5 font-semibold text-white shadow-sm ring-1 ring-inset ring-indigo-600 hover:bg-indigo-700 text-center"
+                    class="rounded-md bg-indigo-500 px-3 py-1.5 text-center font-semibold text-white shadow-sm ring-1 ring-inset ring-indigo-600 hover:bg-indigo-700"
                     >{{ $t('Unlock') }}</a
                   >
                 </div>
-                <ul class="text-sm text-center">
-                  <li class="inline mr-2">{{ $t('Lifetime access.') }}</li>
-                  <li class="inline mr-2">{{ $t('Unlimited projects.') }}</li>
+                <ul class="text-center text-sm">
+                  <li class="mr-2 inline">{{ $t('Lifetime access.') }}</li>
+                  <li class="mr-2 inline">{{ $t('Unlimited projects.') }}</li>
                   <li class="inline">{{ $t('Free updates.') }}</li>
                 </ul>
               </div>
             </div>
 
-            <form @submit.prevent="update()" class="mb-14 rounded-lg shadow bg-white p-8 max-w-2xl mx-auto">
+            <form @submit.prevent="update()" class="mx-auto mb-14 max-w-2xl rounded-lg bg-white p-8 shadow">
               <div class="mb-4">
                 <InputLabel
                   for="licence_key"
@@ -159,11 +159,11 @@ const update = () => {
               </div>
 
               <div v-if="hasError">
-                <div class="flex items-center border-red p-3 border rounded mb-3">
-                  <img src="/img/error.png" class="w-24 h-2w-24" alt="lumberjack being embarrassed" />
+                <div class="border-red mb-3 flex items-center rounded border p-3">
+                  <img src="/img/error.png" class="h-2w-24 w-24" alt="lumberjack being embarrassed" />
 
                   <div class="mb-3">
-                    <p class="text-sm mb-4">{{ $t("We've found some errors. Sorry about that.") }}</p>
+                    <p class="mb-4 text-sm">{{ $t("We've found some errors. Sorry about that.") }}</p>
                     <p>{{ $t('Invalid licence key.') }}</p>
                   </div>
                 </div>
@@ -177,7 +177,7 @@ const update = () => {
             <div class="px-14">
               <p class="mb-10 text-2xl">{{ $t('Frequently Asked Questions') }}</p>
 
-              <p class="text-xl font-bold mb-3">{{ $t('What does "Lifetime access" mean?') }}</p>
+              <p class="mb-3 text-xl font-bold">{{ $t('What does "Lifetime access" mean?') }}</p>
               <p class="mb-6">
                 {{
                   $t(
@@ -186,7 +186,7 @@ const update = () => {
                 }}
               </p>
 
-              <p class="text-xl font-bold mb-3">{{ $t("Isn't that too expensive?") }}</p>
+              <p class="mb-3 text-xl font-bold">{{ $t("Isn't that too expensive?") }}</p>
               <p class="mb-6">
                 {{
                   $t(
@@ -195,7 +195,7 @@ const update = () => {
                 }}
               </p>
 
-              <p class="text-xl font-bold mb-3">{{ $t('What does "Free updates" mean?') }}</p>
+              <p class="mb-3 text-xl font-bold">{{ $t('What does "Free updates" mean?') }}</p>
               <p class="mb-6">
                 {{
                   $t(
@@ -204,7 +204,7 @@ const update = () => {
                 }}
               </p>
 
-              <p class="text-xl font-bold mb-3">{{ $t('What is your refund policy?') }}</p>
+              <p class="mb-3 text-xl font-bold">{{ $t('What is your refund policy?') }}</p>
               <p class="mb-6">
                 {{
                   $t(
@@ -215,11 +215,11 @@ const update = () => {
             </div>
           </div>
 
-          <div v-else class="bg-white rounded-lg shadow p-8">
-            <h1 class="text-center text-3xl mb-4">{{ $t('Your account is unlocked.') }}</h1>
-            <p class="text-center mb-10">{{ $t('Enjoy unlimited projects, forever.') }}</p>
-            <img src="/img/upgrade_success.png" class="w-80 mx-auto mb-10" alt="" />
-            <p class="text-center max-w-md mx-auto font-semibold">
+          <div v-else class="rounded-lg bg-white p-8 shadow">
+            <h1 class="mb-4 text-center text-3xl">{{ $t('Your account is unlocked.') }}</h1>
+            <p class="mb-10 text-center">{{ $t('Enjoy unlimited projects, forever.') }}</p>
+            <img src="/img/upgrade_success.png" class="mx-auto mb-10 w-80" alt="" />
+            <p class="mx-auto max-w-md text-center font-semibold">
               {{
                 $t("We are truly grateful for your support. Without you, we wouldn't be where we are today.Thank you!")
               }}

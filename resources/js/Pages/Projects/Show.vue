@@ -18,7 +18,7 @@ defineProps({
   <Head :title="$t('View project')" />
 
   <AuthenticatedLayout>
-    <div class="mt-8 px-12 max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 mb-6">
+    <div class="mx-auto mb-6 mt-8 max-w-7xl space-y-6 px-12 sm:px-6 lg:px-8">
       <ProjectHeader :data="data" :menu="menu" />
 
       <!-- body -->

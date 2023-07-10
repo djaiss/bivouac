@@ -46,7 +46,7 @@ const resize = (event) => {
 
 <template>
   <textarea
-    class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+    class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
     :value="modelValue"
     :placeholder="placeholder"
     @input="resize($event)"
