@@ -106,5 +106,10 @@ class AddCommentToMessageTest extends TestCase
             'commentable_id' => $message->id,
             'commentable_type' => Message::class,
         ]);
+
+        $this->assertDatabaseHas('message_read_status', [
+            'user_id' => $user->id,
+            'message_id' => $message->id,
+        ]);
     }
 }

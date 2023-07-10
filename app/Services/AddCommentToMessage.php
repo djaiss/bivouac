@@ -7,6 +7,7 @@ use App\Models\Comment;
 use App\Models\Message;
 use App\Models\Project;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class AddCommentToMessage extends BaseService
 {
@@ -30,6 +31,7 @@ class AddCommentToMessage extends BaseService
         $this->validate();
         $this->create();
         $this->associate();
+        $this->markMessageAsUnreadForOtherUsers();
 
         return $this->comment;
     }
@@ -64,5 +66,17 @@ class AddCommentToMessage extends BaseService
     private function associate(): void
     {
         $this->message->comments()->save($this->comment);
+    }
+
+    private function markMessageAsUnreadForOtherUsers(): void
+    {
+        DB::table('message_read_status')
+            ->where('message_id', $this->message->id)
+            ->delete();
+
+        (new MarkMessageAsRead)->execute([
+            'user_id' => $this->user->id,
+            'message_id' => $this->message->id,
+        ]);
     }
 }
