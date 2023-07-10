@@ -46,31 +46,31 @@ const destroy = (user) => {
   <AuthenticatedLayout>
     <!-- header -->
     <div class="mb-6">
-      <div class="bg-white shadow px-4 py-2">
+      <div class="bg-white px-4 py-2 shadow">
         <!-- Breadcrumb -->
         <nav class="flex py-3 text-gray-700">
           <ol class="inline-flex items-center space-x-1 md:space-x-3">
             <li class="inline-flex items-center">
               <Link
                 :href="data.url.breadcrumb.home"
-                class="text-sm text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
                 >{{ $t('Home') }}</Link
               >
             </li>
             <li>
               <div class="flex items-center">
-                <ChevronRightIcon class="w-4 h-4 text-gray-400 mr-2" />
+                <ChevronRightIcon class="mr-2 h-4 w-4 text-gray-400" />
                 <Link
                   :href="data.url.breadcrumb.settings"
-                  class="text-sm text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
                   >{{ $t('Account settings') }}</Link
                 >
               </div>
             </li>
             <li>
               <div class="flex items-center">
-                <ChevronRightIcon class="w-4 h-4 text-gray-400" />
-                <span class="ml-1 text-sm text-gray-500 md:ml-2 dark:text-gray-400">{{ $t('Manage users') }}</span>
+                <ChevronRightIcon class="h-4 w-4 text-gray-400" />
+                <span class="ml-1 text-sm text-gray-500 dark:text-gray-400 md:ml-2">{{ $t('Manage users') }}</span>
               </div>
             </li>
           </ol>
@@ -79,11 +79,11 @@ const destroy = (user) => {
     </div>
 
     <div class="pb-12">
-      <div class="max-w-5xl mx-auto sm:px-6 lg:px-8 flex">
+      <div class="mx-auto flex max-w-5xl sm:px-6 lg:px-8">
         <div class="w-full">
           <div class="bg-white shadow sm:rounded-lg">
             <!-- title -->
-            <div class="px-4 py-2 flex justify-between items-center border-b border-gray-200">
+            <div class="flex items-center justify-between border-b border-gray-200 px-4 py-2">
               <h2 class="text-lg font-medium text-gray-900">
                 {{ $t('All the users who have access to this account') }}
               </h2>
@@ -101,20 +101,20 @@ const destroy = (user) => {
                 class="group flex items-center justify-between px-6 py-4 hover:bg-slate-50 last:hover:rounded-b-lg">
                 <!-- user information -->
                 <div class="flex items-center">
-                  <Avatar :data="user.avatar" class="h-8 w-8 rounded mr-4" />
+                  <Avatar :data="user.avatar" class="mr-4 h-8 w-8 rounded" />
 
-                  <div class="flex flex-col mr-6">
+                  <div class="mr-6 flex flex-col">
                     <span class="font-bold">{{ user.name }}</span>
                     <div class="flex">
-                      <div class="text-sm inline mr-4">
+                      <div class="mr-4 inline text-sm">
                         <span class="flex items-center">
-                          <EnvelopeIcon class="w-3 h-3 mr-2 text-gray-400" />
+                          <EnvelopeIcon class="mr-2 h-3 w-3 text-gray-400" />
                           <span>{{ user.email }}</span>
                         </span>
                       </div>
-                      <div class="text-sm inline">
+                      <div class="inline text-sm">
                         <span class="flex items-center">
-                          <KeyIcon class="w-3 h-3 mr-2 text-gray-400" />
+                          <KeyIcon class="mr-2 h-3 w-3 text-gray-400" />
                           {{ user.permissions }}
                         </span>
                       </div>
@@ -123,16 +123,16 @@ const destroy = (user) => {
 
                   <span
                     v-if="!user.verified"
-                    class="flex items-center bg-yellow-50 border-yellow-300 border px-2 py-1 rounded-lg text-xs">
+                    class="flex items-center rounded-lg border border-yellow-300 bg-yellow-50 px-2 py-1 text-xs">
                     <span class="text-yellow-600">{{ $t('invited') }}</span>
                   </span>
                 </div>
 
                 <!-- menu -->
                 <div v-if="user.can_delete" class="">
-                  <Menu as="div" class="text-left relative">
+                  <Menu as="div" class="relative text-left">
                     <MenuButton class="">
-                      <EllipsisVerticalIcon class="h-5 w-5 hover:text-gray-500 cursor-pointer" />
+                      <EllipsisVerticalIcon class="h-5 w-5 cursor-pointer hover:text-gray-500" />
                     </MenuButton>
 
                     <transition

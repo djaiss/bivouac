@@ -50,7 +50,7 @@ const submit = () => {
   <AuthenticatedLayout>
     <!-- header -->
     <div class="mb-12">
-      <div class="bg-white shadow px-4 py-2">
+      <div class="bg-white px-4 py-2 shadow">
         <div class="">
           <!-- Breadcrumb -->
           <nav class="flex py-3 text-gray-700">
@@ -59,15 +59,15 @@ const submit = () => {
                 <div class="flex items-center">
                   <Link
                     :href="data.url.breadcrumb.projects"
-                    class="text-sm text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                    class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
                     >{{ $t('Projects') }}</Link
                   >
                 </div>
               </li>
               <li>
                 <div class="flex items-center">
-                  <ChevronRightIcon class="w-4 h-4 text-gray-400" />
-                  <span class="ml-1 text-sm text-gray-500 md:ml-2 dark:text-gray-400">{{
+                  <ChevronRightIcon class="h-4 w-4 text-gray-400" />
+                  <span class="ml-1 text-sm text-gray-500 dark:text-gray-400 md:ml-2">{{
                     $t('Create a project')
                   }}</span>
                 </div>
@@ -79,19 +79,19 @@ const submit = () => {
     </div>
 
     <div class="pb-12">
-      <div class="mx-auto max-w-lg bg-white dark:bg-gray-800 shadow-md overflow-hidden rounded-lg">
+      <div class="mx-auto max-w-lg overflow-hidden rounded-lg bg-white shadow-md dark:bg-gray-800">
         <form @submit.prevent="submit">
-          <div class="px-6 py-4 relative border-b">
-            <div class="mx-auto mb-4 relative w-32 h-3w-32 overflow-hidden rounded-full">
-              <img src="/img/project_create.png" alt="logo" class="text-center mx-auto block" />
+          <div class="relative border-b px-6 py-4">
+            <div class="h-3w-32 relative mx-auto mb-4 w-32 overflow-hidden rounded-full">
+              <img src="/img/project_create.png" alt="logo" class="mx-auto block text-center" />
             </div>
-            <h1 class="font-bold text-lg text-center mb-2">{{ $t('Create a project') }}</h1>
-            <h3 class="text-sm text-gray-700 mb-4 text-center">
+            <h1 class="mb-2 text-center text-lg font-bold">{{ $t('Create a project') }}</h1>
+            <h3 class="mb-4 text-center text-sm text-gray-700">
               {{ $t('Projects are at the heart of everything in the organization.') }}
             </h3>
           </div>
 
-          <div class="px-6 py-4 relative border-b">
+          <div class="relative border-b px-6 py-4">
             <!-- Title -->
             <div class="mb-4">
               <InputLabel for="title" :value="$t('What is the name of the project?')" class="mb-1" />
@@ -113,7 +113,7 @@ const submit = () => {
             <Error :errors="form.errors" />
           </div>
 
-          <div class="px-6 py-4 space-y-2">
+          <div class="space-y-2 px-6 py-4">
             <div class="flex items-center gap-x-2">
               <input
                 id="hidden"
@@ -140,10 +140,10 @@ const submit = () => {
             </div>
           </div>
 
-          <div class="border-t flex items-center justify-between px-6 py-4 bg-gray-50">
+          <div class="flex items-center justify-between border-t bg-gray-50 px-6 py-4">
             <Link
               :href="data.url.breadcrumb.users"
-              class="text-sm font-medium text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+              class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
               >{{ $t('Back') }}</Link
             >
 

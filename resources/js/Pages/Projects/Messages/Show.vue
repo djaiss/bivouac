@@ -32,7 +32,7 @@ const destroy = () => {
   <AuthenticatedLayout>
     <!-- header -->
     <div class="mb-12">
-      <div class="bg-white shadow px-4 py-2">
+      <div class="bg-white px-4 py-2 shadow">
         <!-- Breadcrumb -->
         <nav class="flex py-3 text-gray-700">
           <ol class="inline-flex items-center space-x-1 md:space-x-3">
@@ -40,35 +40,35 @@ const destroy = () => {
               <div class="flex items-center">
                 <Link
                   :href="data.url.breadcrumb.projects"
-                  class="text-sm text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
                   >{{ $t('Projects') }}</Link
                 >
               </div>
             </li>
             <li>
               <div class="flex items-center">
-                <ChevronRightIcon class="w-4 h-4 text-gray-400 mr-2" />
+                <ChevronRightIcon class="mr-2 h-4 w-4 text-gray-400" />
                 <Link
                   :href="data.url.breadcrumb.project"
-                  class="text-sm text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
                   >{{ data.project.name }}
                 </Link>
               </div>
             </li>
             <li>
               <div class="flex items-center">
-                <ChevronRightIcon class="w-4 h-4 text-gray-400 mr-2" />
+                <ChevronRightIcon class="mr-2 h-4 w-4 text-gray-400" />
                 <Link
                   :href="data.url.breadcrumb.messages"
-                  class="text-sm text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline">
+                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                   {{ $t('Messages') }}
                 </Link>
               </div>
             </li>
             <li>
               <div class="flex items-center">
-                <ChevronRightIcon class="w-4 h-4 text-gray-400" />
-                <span class="ml-1 text-sm text-gray-500 md:ml-2 dark:text-gray-400">{{ data.message.title }}</span>
+                <ChevronRightIcon class="h-4 w-4 text-gray-400" />
+                <span class="ml-1 text-sm text-gray-500 dark:text-gray-400 md:ml-2">{{ data.message.title }}</span>
               </div>
             </li>
           </ol>
@@ -82,22 +82,22 @@ const destroy = () => {
           <!-- left -->
           <div>
             <!-- message -->
-            <div class="bg-white shadow sm:rounded-lg relative mb-8">
+            <div class="relative mb-8 bg-white shadow sm:rounded-lg">
               <!-- message body -->
-              <div class="px-6 py-8 border-b">
+              <div class="border-b px-6 py-8">
                 <!-- message header -->
-                <h1 class="text-center text-3xl mb-3">{{ data.message.title }}</h1>
+                <h1 class="mb-3 text-center text-3xl">{{ data.message.title }}</h1>
 
                 <!-- avatar + name -->
-                <div class="flex items-center justify-center mb-8 text-sm">
+                <div class="mb-8 flex items-center justify-center text-sm">
                   <Avatar
                     v-if="data.message.author.avatar"
                     :data="data.message.author.avatar"
                     :url="data.message.author.url"
-                    class="w-5 mr-2" />
+                    class="mr-2 w-5" />
                   <Link
                     :href="data.message.author.url"
-                    class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline mr-4"
+                    class="mr-4 text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
                     >{{ data.message.author.name }}</Link
                   >
                   <p>{{ data.message.created_at }}</p>
@@ -108,7 +108,7 @@ const destroy = () => {
               </div>
 
               <!-- message footer -->
-              <div class="p-3 bg-gray-50 rounded-b-lg">
+              <div class="rounded-b-lg bg-gray-50 p-3">
                 <Reactions :reactions="data.reactions" :url="data.url" />
               </div>
             </div>
@@ -120,19 +120,19 @@ const destroy = () => {
           <!-- right -->
           <div>
             <div class="rounded-lg shadow">
-              <div class="bg-white border-b flex items-center justify-between px-6 py-4 rounded-t-lg">
+              <div class="flex items-center justify-between rounded-t-lg border-b bg-white px-6 py-4">
                 <Link
                   :href="data.message.url.edit"
-                  class="text-sm font-medium text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline">
+                  class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                   {{ $t('Edit') }}</Link
                 >
               </div>
 
               <!-- markdown help -->
-              <div class="bg-gray-50 rounded-b-lg px-6 py-4 prose text-sm">
+              <div class="prose rounded-b-lg bg-gray-50 px-6 py-4 text-sm">
                 <span
                   @click="destroy()"
-                  class="font-medium text-red-700 cursor-pointer hover:bg-red-700 hover:text-white hover:rounded-sm underline"
+                  class="cursor-pointer font-medium text-red-700 underline hover:rounded-sm hover:bg-red-700 hover:text-white"
                   >{{ $t('Delete') }}</span
                 >
               </div>

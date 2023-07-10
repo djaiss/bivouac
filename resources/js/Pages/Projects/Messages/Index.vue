@@ -22,12 +22,12 @@ defineProps({
   <Head :title="$t('All messages')" />
 
   <AuthenticatedLayout>
-    <div class="mt-8 px-12 max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 mb-6">
+    <div class="mx-auto mb-6 mt-8 max-w-7xl space-y-6 px-12 sm:px-6 lg:px-8">
       <ProjectHeader :data="data" :menu="menu" />
 
-      <div class="max-w-2xl bg-white shadow sm:rounded-lg mx-auto">
+      <div class="mx-auto max-w-2xl bg-white shadow sm:rounded-lg">
         <!-- header -->
-        <div class="px-4 py-2 flex justify-between items-center border-b border-gray-200">
+        <div class="flex items-center justify-between border-b border-gray-200 px-4 py-2">
           <h2 class="text-lg font-medium text-gray-900">
             {{ $t('All the messages') }}
           </h2>
@@ -42,28 +42,28 @@ defineProps({
           <li
             v-for="message in data.messages"
             :key="message.id"
-            class="pl-4 pr-6 py-4 hover:bg-slate-50 last:hover:rounded-b-lg flex">
+            class="flex py-4 pl-4 pr-6 hover:bg-slate-50 last:hover:rounded-b-lg">
             <!-- unread status -->
             <div v-if="!message.read" class="unread" v-tooltip="$t('The message is unread')"></div>
 
             <div class="ml-1">
               <Link
                 :href="message.url.show"
-                class="inline-block mb-2 text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                class="mb-2 inline-block text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
                 >{{ message.title }}</Link
               >
 
               <!-- author + nb of comments -->
               <div class="flex text-sm">
                 <!-- user name -->
-                <div class="flex items-center mr-4">
-                  <Avatar :data="message.author.avatar" :url="message.author.url" class="h-4 w-4 rounded mr-2" />
+                <div class="mr-4 flex items-center">
+                  <Avatar :data="message.author.avatar" :url="message.author.url" class="mr-2 h-4 w-4 rounded" />
                   <Link :href="message.author.url" class="text-gray-600">{{ message.author.name }}</Link>
                 </div>
 
                 <!-- comments -->
                 <div class="flex items-center text-gray-600">
-                  <ChatBubbleBottomCenterTextIcon class="w-3 h-3 mr-1" />
+                  <ChatBubbleBottomCenterTextIcon class="mr-1 h-3 w-3" />
                   <span>{{ message.comments_count }}</span>
                 </div>
               </div>
@@ -73,9 +73,9 @@ defineProps({
 
         <!-- blank state -->
         <div v-else class="px-4 py-6 text-center">
-          <h3 class="text-gray-900 font-medium text-lg mb-2">{{ $t("You haven't written a message yet.") }}</h3>
+          <h3 class="mb-2 text-lg font-medium text-gray-900">{{ $t("You haven't written a message yet.") }}</h3>
           <p class="mb-5 text-gray-500">{{ $t('Get started by adding your first message.') }}</p>
-          <img src="/img/messages.png" class="h-60 w-60 block mx-auto" alt="" />
+          <img src="/img/messages.png" class="mx-auto block h-60 w-60" alt="" />
         </div>
       </div>
     </div>

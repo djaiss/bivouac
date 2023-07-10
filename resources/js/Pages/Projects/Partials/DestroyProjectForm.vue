@@ -34,18 +34,18 @@ const closeModal = () => {
 <template>
   <section>
     <header class="w-full">
-      <h2 class="px-4 py-2 border-b border-gray-200 text-lg font-medium text-gray-900">
+      <h2 class="border-b border-gray-200 px-4 py-2 text-lg font-medium text-gray-900">
         {{ $t('Delete project') }}
       </h2>
     </header>
 
     <div class="flex">
       <!-- instructions -->
-      <div class="text-sm p-4 w-96 mr-8 prose">
+      <div class="prose mr-8 w-96 p-4 text-sm">
         {{ $t('Deleting the project is instantaneous. This will remove everything, including any files uploaded.') }}
       </div>
 
-      <div class="p-4 w-full">
+      <div class="w-full p-4">
         <DangerButton @click="confirmProjectDeletion">{{ $t('Delete project') }}</DangerButton>
 
         <Modal :show="confirmingProjectDeletion" @close="closeModal">

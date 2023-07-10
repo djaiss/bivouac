@@ -11,11 +11,11 @@ defineProps({
 </script>
 
 <template>
-  <label class="block font-medium text-sm text-gray-700">
+  <label class="block text-sm font-medium text-gray-700">
     <span v-if="value">{{ value }}</span>
     <span v-else><slot /></span>
 
-    <span v-if="!required" class="optional-badge rounded px-[3px] py-px text-xs ml-2">{{ $t('optional') }}</span>
+    <span v-if="!required" class="optional-badge ml-2 rounded px-[3px] py-px text-xs">{{ $t('optional') }}</span>
   </label>
 </template>
 

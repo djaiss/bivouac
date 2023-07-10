@@ -49,7 +49,7 @@ const submit = () => {
   <AuthenticatedLayout>
     <!-- header -->
     <div class="mb-12">
-      <div class="bg-white shadow px-4 py-2">
+      <div class="bg-white px-4 py-2 shadow">
         <div class="">
           <!-- Breadcrumb -->
           <nav class="flex py-3 text-gray-700">
@@ -57,34 +57,34 @@ const submit = () => {
               <li class="inline-flex items-center">
                 <Link
                   :href="data.url.breadcrumb.home"
-                  class="text-sm text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
                   >{{ $t('Home') }}</Link
                 >
               </li>
               <li>
                 <div class="flex items-center">
-                  <ChevronRightIcon class="w-4 h-4 text-gray-400 mr-2" />
+                  <ChevronRightIcon class="mr-2 h-4 w-4 text-gray-400" />
                   <Link
                     :href="data.url.breadcrumb.settings"
-                    class="text-sm text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                    class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
                     >{{ $t('Account settings') }}</Link
                   >
                 </div>
               </li>
               <li>
                 <div class="flex items-center">
-                  <ChevronRightIcon class="w-4 h-4 text-gray-400 mr-2" />
+                  <ChevronRightIcon class="mr-2 h-4 w-4 text-gray-400" />
                   <Link
                     :href="data.url.breadcrumb.offices"
-                    class="text-sm text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                    class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
                     >{{ $t('Manage offices') }}</Link
                   >
                 </div>
               </li>
               <li>
                 <div class="flex items-center">
-                  <ChevronRightIcon class="w-4 h-4 text-gray-400" />
-                  <span class="ml-1 text-sm text-gray-500 md:ml-2 dark:text-gray-400">{{
+                  <ChevronRightIcon class="h-4 w-4 text-gray-400" />
+                  <span class="ml-1 text-sm text-gray-500 dark:text-gray-400 md:ml-2">{{
                     $t('Add a new office')
                   }}</span>
                 </div>
@@ -96,18 +96,18 @@ const submit = () => {
     </div>
 
     <div class="pb-12">
-      <div class="mx-auto max-w-lg bg-white dark:bg-gray-800 shadow-md overflow-hidden rounded-lg">
+      <div class="mx-auto max-w-lg overflow-hidden rounded-lg bg-white shadow-md dark:bg-gray-800">
         <form @submit.prevent="submit">
-          <div class="px-6 py-4 relative border-b">
-            <div class="mx-auto mb-4 relative w-32 h-3w-32 overflow-hidden rounded-full">
-              <img src="/img/office_create.png" alt="logo" class="text-center mx-auto block" height="140" />
+          <div class="relative border-b px-6 py-4">
+            <div class="h-3w-32 relative mx-auto mb-4 w-32 overflow-hidden rounded-full">
+              <img src="/img/office_create.png" alt="logo" class="mx-auto block text-center" height="140" />
             </div>
-            <h1 class="font-bold text-lg text-center">{{ $t('Add an office') }}</h1>
+            <h1 class="text-center text-lg font-bold">{{ $t('Add an office') }}</h1>
           </div>
 
           <Error :errors="form.errors" />
 
-          <div class="px-6 py-4 relative border-b">
+          <div class="relative border-b px-6 py-4">
             <!-- Name -->
             <div class="mb-4">
               <InputLabel
@@ -135,10 +135,10 @@ const submit = () => {
             </div>
           </div>
 
-          <div class="flex items-center justify-between px-6 py-4 bg-gray-50">
+          <div class="flex items-center justify-between bg-gray-50 px-6 py-4">
             <Link
               :href="data.url.breadcrumb.offices"
-              class="text-sm font-medium text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+              class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
               >{{ $t('Back') }}</Link
             >
 

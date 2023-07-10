@@ -46,16 +46,16 @@ const submit = () => {
 
   <AuthenticatedLayout>
     <div class="mt-8 pb-12">
-      <div class="max-w-3xl mx-auto sm:px-6 lg:px-8 flex">
+      <div class="mx-auto flex max-w-3xl sm:px-6 lg:px-8">
         <div class="w-full">
           <!-- search box -->
-          <div class="bg-white shadow rounded-lg mb-10">
-            <form @submit.prevent="submit" class="p-3 flex items-center justify-between">
+          <div class="mb-10 rounded-lg bg-white shadow">
+            <form @submit.prevent="submit" class="flex items-center justify-between p-3">
               <TextInput
                 id="term"
                 type="text"
                 :placeholder="$t('Search anything')"
-                class="w-full mr-3"
+                class="mr-3 w-full"
                 v-model="form.term"
                 autofocus
                 required />
@@ -67,29 +67,29 @@ const submit = () => {
           <!-- search results -->
           <div v-if="results.length !== 0">
             <!-- users -->
-            <div class="flex items-center mb-2">
+            <div class="mb-2 flex items-center">
               <BriefcaseIcon class="h-4 w-4" />
               <span class="ml-2 font-bold">{{ $t('Users') }}</span>
             </div>
-            <ul v-if="results.users.length > 0" class="bg-white shadow rounded-lg w-full">
+            <ul v-if="results.users.length > 0" class="w-full rounded-lg bg-white shadow">
               <li
                 v-for="user in results.users"
                 :key="user.id"
                 class="group flex items-center justify-between px-6 py-4 hover:bg-slate-50 first:hover:rounded-t-lg last:hover:rounded-b-lg">
                 <!-- user information -->
                 <div class="flex items-center">
-                  <Avatar :data="user.avatar" class="w-10 mr-4" />
+                  <Avatar :data="user.avatar" class="mr-4 w-10" />
 
-                  <div class="flex flex-col mr-6">
+                  <div class="mr-6 flex flex-col">
                     <div>
                       <Link
                         :href="user.url.show"
-                        class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                        class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
                         >{{ user.name }}</Link
                       >
                     </div>
                     <div class="flex">
-                      <div class="text-sm inline">
+                      <div class="inline text-sm">
                         <span class="flex items-center">
                           <span>{{ user.email }}</span>
                         </span>
@@ -99,17 +99,17 @@ const submit = () => {
                 </div>
               </li>
             </ul>
-            <div v-else class="bg-white shadow rounded-lg w-full p-6 flex items-center justify-center text-gray-600">
-              <CircleStackIcon class="h-4 w-4 mr-4" />
+            <div v-else class="flex w-full items-center justify-center rounded-lg bg-white p-6 text-gray-600 shadow">
+              <CircleStackIcon class="mr-4 h-4 w-4" />
               <span>{{ $t('No users match the given criteria.') }}</span>
             </div>
 
             <!-- projects -->
-            <div class="flex items-center mt-10 mb-2">
+            <div class="mb-2 mt-10 flex items-center">
               <BriefcaseIcon class="h-4 w-4" />
               <span class="ml-2 font-bold">{{ $t('Projects') }}</span>
             </div>
-            <ul v-if="results.projects.length > 0" class="bg-white shadow rounded-lg w-full">
+            <ul v-if="results.projects.length > 0" class="w-full rounded-lg bg-white shadow">
               <li
                 v-for="project in results.projects"
                 :key="project.id"
@@ -118,24 +118,24 @@ const submit = () => {
                   <div>
                     <Link
                       :href="project.url.show"
-                      class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                      class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
                       >{{ project.name }}</Link
                     >
                   </div>
                 </div>
               </li>
             </ul>
-            <div v-else class="bg-white shadow rounded-lg w-full p-6 flex items-center justify-center text-gray-600">
-              <CircleStackIcon class="h-4 w-4 mr-4" />
+            <div v-else class="flex w-full items-center justify-center rounded-lg bg-white p-6 text-gray-600 shadow">
+              <CircleStackIcon class="mr-4 h-4 w-4" />
               <span>{{ $t('No projects match the given criteria.') }}</span>
             </div>
 
             <!-- messages -->
-            <div class="flex items-center mt-10 mb-2">
+            <div class="mb-2 mt-10 flex items-center">
               <BriefcaseIcon class="h-4 w-4" />
               <span class="ml-2 font-bold">{{ $t('Messages') }}</span>
             </div>
-            <ul v-if="results.messages.length > 0" class="bg-white shadow rounded-lg w-full">
+            <ul v-if="results.messages.length > 0" class="w-full rounded-lg bg-white shadow">
               <li
                 v-for="message in results.messages"
                 :key="message.id"
@@ -144,15 +144,15 @@ const submit = () => {
                   <div>
                     <Link
                       :href="message.url.show"
-                      class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                      class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
                       >{{ message.title }}</Link
                     >
                   </div>
                 </div>
               </li>
             </ul>
-            <div v-else class="bg-white shadow rounded-lg w-full p-6 flex items-center justify-center text-gray-600">
-              <CircleStackIcon class="h-4 w-4 mr-4" />
+            <div v-else class="flex w-full items-center justify-center rounded-lg bg-white p-6 text-gray-600 shadow">
+              <CircleStackIcon class="mr-4 h-4 w-4" />
               <span>{{ $t('No messages match the given criteria.') }}</span>
             </div>
           </div>

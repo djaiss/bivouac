@@ -53,14 +53,14 @@ const update = () => {
 <template>
   <section>
     <header class="w-full">
-      <h2 class="px-4 py-2 border-b border-gray-200 text-lg font-medium text-gray-900">
+      <h2 class="border-b border-gray-200 px-4 py-2 text-lg font-medium text-gray-900">
         {{ $t('Date of birth') }}
       </h2>
     </header>
 
     <div class="flex">
       <!-- instructions -->
-      <div class="text-sm p-4 w-96 mr-8">
+      <div class="mr-8 w-96 p-4 text-sm">
         {{
           $t('On your profile, you can indicate your age. You can choose how to display this information to others.')
         }}
@@ -69,7 +69,7 @@ const update = () => {
       <div class="p-4">
         <Error :errors="form.errors" />
 
-        <form @submit.prevent="update" class="space-y-6 max-w-3xl">
+        <form @submit.prevent="update" class="max-w-3xl space-y-6">
           <!-- date picker -->
           <div>
             <InputLabel :value="$t('Date of birth')" class="mb-1" />
@@ -88,7 +88,7 @@ const update = () => {
           </div>
 
           <!-- options -->
-          <div class="space-y-2 mb-4">
+          <div class="mb-4 space-y-2">
             <div class="flex items-center gap-x-2">
               <input
                 id="hidden"
