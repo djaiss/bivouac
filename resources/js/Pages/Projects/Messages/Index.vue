@@ -41,17 +41,22 @@ defineProps({
           <li
             v-for="message in data.messages"
             :key="message.id"
-            class="px-6 py-4 hover:bg-slate-50 last:hover:rounded-b-lg">
-            <Link
-              :href="message.url.show"
-              class="inline-block mb-2 text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
-              >{{ message.title }}</Link
-            >
+            class="pl-4 pr-6 py-4 hover:bg-slate-50 last:hover:rounded-b-lg flex">
+            <!-- unread status -->
+            <div v-if="!message.read" class="unread" v-tooltip="$t('The message is unread')"></div>
 
-            <!-- user name -->
-            <div class="flex items-center text-sm">
-              <Avatar :data="message.author.avatar" :url="message.author.url" class="h-4 w-4 rounded mr-2" />
-              <Link :href="message.author.url" class="text-gray-600">{{ message.author.name }}</Link>
+            <div class="ml-1">
+              <Link
+                :href="message.url.show"
+                class="inline-block mb-2 text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline"
+                >{{ message.title }}</Link
+              >
+
+              <!-- user name -->
+              <div class="flex items-center text-sm">
+                <Avatar :data="message.author.avatar" :url="message.author.url" class="h-4 w-4 rounded mr-2" />
+                <Link :href="message.author.url" class="text-gray-600">{{ message.author.name }}</Link>
+              </div>
             </div>
           </li>
         </ul>
@@ -62,15 +67,6 @@ defineProps({
           <p class="mb-5 text-gray-500">{{ $t('Get started by adding your first message.') }}</p>
           <img src="/img/messages.png" class="h-60 w-60 block mx-auto" alt="" />
         </div>
-      </div>
-
-      <!-- body -->
-      <div class="grid grid-cols-[2fr_1fr] gap-4">
-        <!-- left -->
-        <div class="bg-white shadow sm:rounded-lg"></div>
-
-        <!-- right -->
-        <div class="bg-white shadow sm:rounded-lg"></div>
       </div>
     </div>
   </AuthenticatedLayout>

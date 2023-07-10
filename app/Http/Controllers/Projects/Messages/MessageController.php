@@ -8,6 +8,7 @@ use App\Models\Message;
 use App\Models\Project;
 use App\Services\CreateMessage;
 use App\Services\DestroyMessage;
+use App\Services\MarkMessageAsRead;
 use App\Services\UpdateMessage;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class MessageController extends Controller
     public function index(Project $project): Response
     {
         return Inertia::render('Projects/Messages/Index', [
-            'data' => MessageViewModel::index($project),
+            'data' => MessageViewModel::index($project, auth()->user()),
             'menu' => ProjectViewModel::menu($project),
         ]);
     }
@@ -50,6 +51,11 @@ class MessageController extends Controller
 
     public function show(Request $request, Project $project, Message $message): Response
     {
+        (new MarkMessageAsRead)->execute([
+            'user_id' => auth()->user()->id,
+            'message_id' => $message->id,
+        ]);
+
         return Inertia::render('Projects/Messages/Show', [
             'data' => MessageViewModel::show($message),
             'menu' => ProjectViewModel::menu($project),

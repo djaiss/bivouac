@@ -83,5 +83,10 @@ class CreateMessageTest extends TestCase
             'title' => 'Dunder',
             'body' => 'this is a description',
         ]);
+
+        $this->assertDatabaseHas('message_read_status', [
+            'user_id' => $user->id,
+            'message_id' => $message->id,
+        ]);
     }
 }

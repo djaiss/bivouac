@@ -18,11 +18,12 @@ class MessageViewModelTest extends TestCase
     /** @test */
     public function it_gets_the_data_needed_for_the_index_view(): void
     {
+        $user = User::factory()->create();
         $project = Project::factory()->create(['name' => 'Dunder']);
         Message::factory()->create([
             'project_id' => $project->id,
         ]);
-        $array = MessageViewModel::index($project);
+        $array = MessageViewModel::index($project, $user);
 
         $this->assertCount(3, $array);
         $this->assertArrayHasKey('project', $array);
@@ -161,7 +162,7 @@ class MessageViewModelTest extends TestCase
         ]);
         $array = MessageViewModel::dto($message);
 
-        $this->assertCount(7, $array);
+        $this->assertCount(8, $array);
         $this->assertEquals(
             [
                 'id' => $message->id,
@@ -178,6 +179,7 @@ class MessageViewModelTest extends TestCase
 ',
                 'body_raw' => 'Body John',
                 'created_at' => '2018-01-01',
+                'read' => false,
                 'url' => [
                     'show' => env('APP_URL') . '/projects/' . $message->project_id . '/messages/' . $message->id,
                     'edit' => env('APP_URL') . '/projects/' . $message->project_id . '/messages/' . $message->id . '/edit',

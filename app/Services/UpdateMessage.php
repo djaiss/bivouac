@@ -6,6 +6,7 @@ use App\Exceptions\NotEnoughPermissionException;
 use App\Models\Message;
 use App\Models\Project;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class UpdateMessage extends BaseService
 {
@@ -27,8 +28,9 @@ class UpdateMessage extends BaseService
     {
         $this->data = $data;
         $this->validate();
-
         $this->edit();
+        $this->resetReadStatus();
+        $this->markAsRead();
 
         return $this->message;
     }
@@ -54,5 +56,20 @@ class UpdateMessage extends BaseService
         $this->message->title = $this->data['title'];
         $this->message->body = $this->valueOrNull($this->data, 'body');
         $this->message->save();
+    }
+
+    private function resetReadStatus(): void
+    {
+        DB::table('message_read_status')
+            ->where('message_id', $this->message->id)
+            ->delete();
+    }
+
+    private function markAsRead(): void
+    {
+        (new MarkMessageAsRead)->execute([
+            'user_id' => $this->user->id,
+            'message_id' => $this->message->id,
+        ]);
     }
 }
