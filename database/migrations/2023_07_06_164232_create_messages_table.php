@@ -26,7 +26,7 @@ return new class extends Migration
             }
         });
 
-        Schema::create('message_read_status', function (Blueprint $table) {
+        Schema::create('message_read_status', function (Blueprint $table): void {
             $table->unsignedBigInteger('message_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
