@@ -15,8 +15,8 @@ class TaskList extends Model
     protected $fillable = [
         'organization_id',
         'name',
-        'taskable_id',
-        'taskable_type',
+        'tasklistable_id',
+        'tasklistable_type',
     ];
 
     public function organization(): BelongsTo

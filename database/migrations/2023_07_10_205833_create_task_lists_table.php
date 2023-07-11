@@ -11,8 +11,8 @@ return new class extends Migration
         Schema::create('task_lists', function (Blueprint $table): void {
             $table->id();
             $table->unsignedBigInteger('organization_id');
-            $table->unsignedBigInteger('taskable_id')->nullable();
-            $table->string('taskable_type')->nullable();
+            $table->unsignedBigInteger('tasklistable_id')->nullable();
+            $table->string('tasklistable_type')->nullable();
             $table->string('name')->nullable();
             $table->timestamps();
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');

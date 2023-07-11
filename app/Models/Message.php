@@ -61,6 +61,11 @@ class Message extends Model
         return $this->morphMany(Reaction::class, 'reactionable');
     }
 
+    public function taskLists(): MorphMany
+    {
+        return $this->morphMany(TaskList::class, 'tasklistable');
+    }
+
     /**
      * @return Attribute<string,never>
      */

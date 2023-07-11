@@ -7,6 +7,7 @@ import { reactive, ref } from 'vue';
 
 import Avatar from '@/Components/Avatar.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import Reactions from '@/Components/Reactions.vue';
 import TextArea from '@/Components/TextArea.vue';
 import { flash } from '@/methods.js';
 

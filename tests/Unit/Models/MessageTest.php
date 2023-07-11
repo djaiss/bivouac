@@ -5,6 +5,7 @@ namespace Tests\Unit\Models;
 use App\Models\Comment;
 use App\Models\Message;
 use App\Models\Reaction;
+use App\Models\TaskList;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -80,5 +81,17 @@ class MessageTest extends TestCase
         ]);
 
         $this->assertTrue($message->reactions()->exists());
+    }
+
+    /** @test */
+    public function it_has_many_task_lists(): void
+    {
+        $message = Message::factory()->create();
+        TaskList::factory()->create([
+            'tasklistable_id' => $message->id,
+            'tasklistable_type' => Message::class,
+        ]);
+
+        $this->assertTrue($message->taskLists()->exists());
     }
 }
