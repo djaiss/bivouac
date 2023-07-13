@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Tasks;
 
-use App\Models\Reaction;
 use App\Models\Task;
 
 class TaskViewModel

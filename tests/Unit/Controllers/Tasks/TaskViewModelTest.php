@@ -3,9 +3,7 @@
 namespace Tests\Unit\Controllers\Tasks;
 
 use App\Http\Controllers\Tasks\TaskViewModel;
-use App\Models\Reaction;
 use App\Models\Task;
-use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 

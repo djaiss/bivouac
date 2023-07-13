@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Tasks;
 
 use App\Http\Controllers\Controller;
-use App\Models\Reaction;
 use App\Models\Task;
-use App\Services\DestroyReaction;
 use App\Services\DestroyTask;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
