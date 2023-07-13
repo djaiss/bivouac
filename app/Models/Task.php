@@ -15,6 +15,11 @@ class Task extends Model
     protected $fillable = [
         'task_list_id',
         'title',
+        'is_completed',
+    ];
+
+    protected $casts = [
+        'is_completed' => 'boolean',
     ];
 
     public function taskList(): BelongsTo

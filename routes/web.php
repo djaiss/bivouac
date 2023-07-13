@@ -9,6 +9,7 @@ use App\Http\Controllers\Projects\Messages\CommentController;
 use App\Http\Controllers\Projects\Messages\CommentReactionController;
 use App\Http\Controllers\Projects\Messages\MessageController;
 use App\Http\Controllers\Projects\Messages\MessageReactionController;
+use App\Http\Controllers\Projects\Messages\MessageTaskController;
 use App\Http\Controllers\Projects\ProjectController;
 use App\Http\Controllers\Reactions\ReactionController;
 use App\Http\Controllers\Search\SearchController;
@@ -54,8 +55,15 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
     // delete reaction
     Route::delete('reactions/{reaction}', [ReactionController::class, 'destroy'])->name('reactions.destroy');
 
-    // delete tasks
+    // tasks
+    Route::put('tasks/{task}', [TaskController::class, 'update'])->name('tasks.update');
     Route::delete('tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
+
+    // task lists and tasks
+    Route::middleware(['taskList'])->group(function (): void {
+        Route::put('taskLists/{taskList}', [ProjectController::class, 'update'])->name('projects.update');
+        Route::delete('taskLists/{taskList}', [ProjectController::class, 'destroy'])->name('projects.destroy');
+    });
 
     // projects
     Route::get('projects', [ProjectController::class, 'index'])->name('projects.index');
@@ -88,6 +96,9 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
 
             // add comment reaction
             Route::post('projects/{project}/messages/{message}/comments/{comment}/reactions', [CommentReactionController::class, 'store'])->name('messages.comments.reactions.store');
+
+            // add task
+            Route::post('projects/{project}/messages/{message}/tasks', [MessageTaskController::class, 'store'])->name('messages.tasks.store');
         });
     });
 

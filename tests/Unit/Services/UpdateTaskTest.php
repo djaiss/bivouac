@@ -71,6 +71,7 @@ class UpdateTaskTest extends TestCase
             'user_id' => $user->id,
             'task_id' => $task->id,
             'title' => 'this is a description',
+            'is_completed' => true,
         ];
 
         $task = (new UpdateTask)->execute($request);
@@ -83,6 +84,7 @@ class UpdateTaskTest extends TestCase
         $this->assertDatabaseHas('tasks', [
             'id' => $task->id,
             'title' => 'this is a description',
+            'is_completed' => true,
         ]);
     }
 }

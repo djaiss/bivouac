@@ -29,6 +29,7 @@ class CreateMessage extends BaseService
         $this->validate();
         $this->create();
         $this->markAsRead();
+        $this->createDefaultEmptyTaskList();
 
         return $this->message;
     }
@@ -63,5 +64,22 @@ class CreateMessage extends BaseService
             'user_id' => $this->user->id,
             'message_id' => $this->message->id,
         ]);
+    }
+
+    /**
+     * We also create a default, empty task list for storing future potential
+     * tasks on this list.
+     * A message can only have one task list, so it's easier to actually create
+     * it here, rather than having to deal with it later.
+     */
+    private function createDefaultEmptyTaskList(): void
+    {
+        $taskList = (new CreateTaskList)->execute([
+            'user_id' => $this->user->id,
+            'name' => null,
+        ]);
+        $taskList->tasklistable_id = $this->message->id;
+        $taskList->tasklistable_type = Message::class;
+        $taskList->save();
     }
 }

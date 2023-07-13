@@ -19,16 +19,19 @@ class TaskViewModelTest extends TestCase
         ]);
         $array = TaskViewModel::dto($task);
 
-        $this->assertCount(3, $array);
+        $this->assertCount(4, $array);
         $this->assertArrayHasKey('id', $array);
-        $this->assertArrayHasKey('task', $array);
+        $this->assertArrayHasKey('title', $array);
+        $this->assertArrayHasKey('is_completed', $array);
         $this->assertArrayHasKey('url', $array);
 
         $this->assertEquals(
             [
                 'id' => $task->id,
-                'task' => 'Test task',
+                'title' => 'Test task',
+                'is_completed' => false,
                 'url' => [
+                    'update' => env('APP_URL') . '/tasks/' . $task->id,
                     'destroy' => env('APP_URL') . '/tasks/' . $task->id,
                 ],
             ],

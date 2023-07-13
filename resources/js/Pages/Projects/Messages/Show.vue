@@ -8,7 +8,7 @@ import { trans } from 'laravel-vue-i18n';
 import Avatar from '@/Components/Avatar.vue';
 import Comments from '@/Components/Comments.vue';
 import Reactions from '@/Components/Reactions.vue';
-import TaskLists from '@/Components/TaskLists.vue';
+import TaskList from '@/Components/TaskList.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
 const props = defineProps({
@@ -115,7 +115,7 @@ const destroy = () => {
             </div>
 
             <!-- tasks -->
-            <TaskLists class="mb-8" />
+            <TaskList class="mb-8" :task-list="data.task_list" :url="data.url" />
 
             <!-- comments -->
             <Comments :comments="data.comments" :url="data.url" />

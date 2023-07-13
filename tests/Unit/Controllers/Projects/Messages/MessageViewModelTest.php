@@ -7,6 +7,7 @@ use App\Models\Comment;
 use App\Models\Message;
 use App\Models\Project;
 use App\Models\Reaction;
+use App\Models\TaskList;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -90,13 +91,18 @@ class MessageViewModelTest extends TestCase
             'reactionable_id' => $message->id,
             'reactionable_type' => Message::class,
         ]);
+        TaskList::factory()->create([
+            'tasklistable_id' => $message->id,
+            'tasklistable_type' => Message::class,
+        ]);
         $array = MessageViewModel::show($message);
 
-        $this->assertCount(5, $array);
+        $this->assertCount(6, $array);
         $this->assertArrayHasKey('project', $array);
         $this->assertArrayHasKey('message', $array);
         $this->assertArrayHasKey('reactions', $array);
         $this->assertArrayHasKey('comments', $array);
+        $this->assertArrayHasKey('task_list', $array);
         $this->assertArrayHasKey('url', $array);
         $this->assertEquals(
             [
@@ -127,6 +133,7 @@ class MessageViewModelTest extends TestCase
                 'preview' => env('APP_URL') . '/preview',
                 'store' => env('APP_URL') . '/projects/' . $project->id . '/messages/' . $message->id . '/comments',
                 'store_reaction' => env('APP_URL') . '/projects/' . $project->id . '/messages/' . $message->id . '/reactions',
+                'store_task' => env('APP_URL') . '/projects/' . $project->id . '/messages/' . $message->id . '/tasks',
                 'breadcrumb' => [
                     'projects' => env('APP_URL') . '/projects',
                     'project' => env('APP_URL') . '/projects/' . $project->id,

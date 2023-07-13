@@ -88,5 +88,12 @@ class CreateMessageTest extends TestCase
             'user_id' => $user->id,
             'message_id' => $message->id,
         ]);
+
+        $this->assertDatabaseHas('task_lists', [
+            'organization_id' => $user->organization_id,
+            'name' => null,
+            'tasklistable_id' => $message->id,
+            'tasklistable_type' => Message::class,
+        ]);
     }
 }

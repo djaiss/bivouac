@@ -10,8 +10,10 @@ class TaskViewModel
     {
         return [
             'id' => $task->id,
-            'task' => $task->title,
+            'title' => $task->title,
+            'is_completed' => $task->is_completed,
             'url' => [
+                'update' => route('tasks.update', $task),
                 'destroy' => route('tasks.destroy', $task),
             ],
         ];
