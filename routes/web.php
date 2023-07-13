@@ -17,6 +17,7 @@ use App\Http\Controllers\Settings\Personalize\PersonalizeOfficeController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeTeamTypeController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeUpgradeController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeUserController;
+use App\Http\Controllers\Tasks\TaskController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -52,6 +53,9 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
 
     // delete reaction
     Route::delete('reactions/{reaction}', [ReactionController::class, 'destroy'])->name('reactions.destroy');
+
+    // delete tasks
+    Route::delete('tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
 
     // projects
     Route::get('projects', [ProjectController::class, 'index'])->name('projects.index');

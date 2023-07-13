@@ -175,7 +175,6 @@ class MessageViewModel
     public static function dtoComment(Message $message, Comment $comment): array
     {
         $reactions = $comment->reactions()
-            ->with('user')
             ->get()
             ->map(fn (Reaction $reaction) => ReactionViewModel::dto($reaction));
 
