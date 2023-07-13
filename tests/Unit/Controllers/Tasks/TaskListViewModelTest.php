@@ -3,7 +3,6 @@
 namespace Tests\Unit\Controllers\Tasks;
 
 use App\Http\Controllers\Tasks\TaskListViewModel;
-use App\Http\Controllers\Tasks\TaskViewModel;
 use App\Models\Task;
 use App\Models\TaskList;
 use Illuminate\Foundation\Testing\DatabaseTransactions;

@@ -9,8 +9,6 @@ use App\Models\Comment;
 use App\Models\Message;
 use App\Models\Project;
 use App\Models\Reaction;
-use App\Models\Task;
-use App\Models\TaskList;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 

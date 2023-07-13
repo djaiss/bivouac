@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Task;
 use App\Services\DestroyTask;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class TaskListController extends Controller
 {

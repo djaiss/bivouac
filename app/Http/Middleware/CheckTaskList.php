@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Project;
 use App\Models\TaskList;
 use Closure;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
