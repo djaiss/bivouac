@@ -159,7 +159,7 @@ class MessageViewModel
             ->with('tasks')
             ->first();
         if ($taskList) {
-            $tasksCount = $taskList->tasks->filter(fn (Task $task) => !$task->is_completed)->count();
+            $tasksCount = $taskList->tasks->filter(fn (Task $task) => ! $task->is_completed)->count();
         }
 
         return [
