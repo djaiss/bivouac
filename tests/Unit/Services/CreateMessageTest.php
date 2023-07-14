@@ -91,6 +91,7 @@ class CreateMessageTest extends TestCase
 
         $this->assertDatabaseHas('task_lists', [
             'organization_id' => $user->organization_id,
+            'project_id' => $project->id,
             'name' => null,
             'tasklistable_id' => $message->id,
             'tasklistable_type' => Message::class,

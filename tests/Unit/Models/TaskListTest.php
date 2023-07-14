@@ -29,4 +29,12 @@ class TaskListTest extends TestCase
 
         $this->assertTrue($taskList->tasks()->exists());
     }
+
+    /** @test */
+    public function it_belongs_to_one_project(): void
+    {
+        $taskList = TaskList::factory()->create();
+
+        $this->assertTrue($taskList->project()->exists());
+    }
 }

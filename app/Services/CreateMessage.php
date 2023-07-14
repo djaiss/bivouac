@@ -78,6 +78,7 @@ class CreateMessage extends BaseService
             'user_id' => $this->user->id,
             'name' => null,
         ]);
+        $taskList->project_id = $this->data['project_id'];
         $taskList->tasklistable_id = $this->message->id;
         $taskList->tasklistable_type = Message::class;
         $taskList->save();

@@ -15,6 +15,7 @@ class TaskList extends Model
 
     protected $fillable = [
         'organization_id',
+        'project_id',
         'name',
         'tasklistable_id',
         'tasklistable_type',
@@ -33,5 +34,10 @@ class TaskList extends Model
     public function tasks(): HasMany
     {
         return $this->hasMany(Task::class);
+    }
+
+    public function project(): BelongsTo
+    {
+        return $this->belongsTo(Project::class);
     }
 }

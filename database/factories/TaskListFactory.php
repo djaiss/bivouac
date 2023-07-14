@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Organization;
+use App\Models\Project;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,6 +20,7 @@ class TaskListFactory extends Factory
     {
         return [
             'organization_id' => Organization::factory(),
+            'project_id' => Project::factory(),
             'name' => fake()->name(),
             'collapsed' => false,
         ];
