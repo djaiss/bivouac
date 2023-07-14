@@ -20,6 +20,7 @@ class TaskListFactory extends Factory
         return [
             'organization_id' => Organization::factory(),
             'name' => fake()->name(),
+            'collapsed' => false,
         ];
     }
 }

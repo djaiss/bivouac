@@ -18,6 +18,11 @@ class TaskList extends Model
         'name',
         'tasklistable_id',
         'tasklistable_type',
+        'collapsed',
+    ];
+
+    protected $casts = [
+        'collapsed' => 'boolean',
     ];
 
     public function organization(): BelongsTo

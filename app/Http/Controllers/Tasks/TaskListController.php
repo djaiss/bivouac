@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Tasks;
 
 use App\Http\Controllers\Controller;
-use App\Models\Task;
-use App\Services\DestroyTask;
+use App\Models\TaskList;
+use App\Services\ToggleTaskList;
 use Illuminate\Http\JsonResponse;
 
 class TaskListController extends Controller
 {
-    public function destroy(Task $task): JsonResponse
+    public function toggle(TaskList $taskList): JsonResponse
     {
-        (new DestroyTask)->execute([
+        (new ToggleTaskList)->execute([
             'user_id' => auth()->user()->id,
-            'task_id' => $task->id,
+            'task_list_id' => $taskList->id,
         ]);
 
         return response()->json([

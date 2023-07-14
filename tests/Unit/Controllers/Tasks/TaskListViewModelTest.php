@@ -25,11 +25,13 @@ class TaskListViewModelTest extends TestCase
         ]);
         $array = TaskListViewModel::dto($taskList);
 
-        $this->assertCount(4, $array);
+        $this->assertCount(6, $array);
         $this->assertArrayHasKey('id', $array);
         $this->assertArrayHasKey('name', $array);
         $this->assertArrayHasKey('completion_rate', $array);
         $this->assertArrayHasKey('tasks', $array);
+        $this->assertArrayHasKey('collapsed', $array);
+        $this->assertArrayHasKey('url', $array);
 
         $this->assertEquals(
             $taskList->id,
@@ -42,6 +44,15 @@ class TaskListViewModelTest extends TestCase
         $this->assertEquals(
             100,
             $array['completion_rate']
+        );
+        $this->assertEquals(
+            [
+                'toggle' => env('APP_URL') . '/taskLists/' . $taskList->id . '/toggle',
+            ],
+            $array['url']
+        );
+        $this->assertFalse(
+            $array['collapsed']
         );
         $this->assertEquals(
             [

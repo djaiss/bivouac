@@ -1,9 +1,9 @@
 <script setup>
-import { FaceSmileIcon } from '@heroicons/vue/24/outline';
+import { ChevronDownIcon } from '@heroicons/vue/24/outline';
+import { ChevronUpIcon } from '@heroicons/vue/24/outline';
 import { trans } from 'laravel-vue-i18n';
 import { reactive, ref } from 'vue';
 
-import Avatar from '@/Components/Avatar.vue';
 import Checkbox from '@/Components/Checkbox.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
@@ -26,14 +26,17 @@ const form = reactive({
   errors: '',
 });
 
+const taskList = ref(props.taskList);
 const localTasks = ref(props.taskList.tasks);
 const completionRate = ref(props.taskList.completion_rate);
 const addTaskModalShown = ref(false);
 const componentKey = ref(0);
+const collapsed = ref(props.taskList.collapsed);
 
 const showAddTask = () => {
   addTaskModalShown.value = true;
   form.title = '';
+  collapsed.value = false;
 };
 
 const forceRerender = () => {
@@ -59,51 +62,85 @@ const submit = () => {
     });
 };
 
-const toggle = (task) => {
+const toggleTask = (task) => {
   form.title = task.title;
   form.is_completed = !task.is_completed;
 
-  axios
-    .put(task.url.update, form)
-    .then((response) => {
-      let id = localTasks.value.findIndex((x) => x.id === task.id);
-      localTasks.value[id] = response.data.data.task;
-      completionRate.value = response.data.data.completion_rate;
-      forceRerender();
-    });
+  axios.put(task.url.update, form).then((response) => {
+    let id = localTasks.value.findIndex((x) => x.id === task.id);
+    localTasks.value[id] = response.data.data.task;
+    completionRate.value = response.data.data.completion_rate;
+    forceRerender();
+  });
+};
+
+const toggleTaskList = () => {
+  axios.put(taskList.value.url.toggle).then(() => {
+    collapsed.value = !collapsed.value;
+  });
 };
 </script>
 
 <template>
-  <div class="shadow bg-white rounded-lg">
+  <div class="rounded-lg bg-white shadow">
     <!-- title of the task list -->
-    <div class="px-4 py-2 border-b flex items-center justify-between">
+    <div class="flex items-center justify-between px-4 py-2" :class="{ 'border-b': !collapsed }">
       <p>{{ $t('Tasks') }}</p>
 
       <div class="flex items-center">
         <!-- completion -->
-        <div :key="componentKey" class="w-24 h-2 bg-blue-200  mr-4 rounded-full">
-          <div class="h-full text-center text-xs text-white bg-blue-600 rounded-full" :style="'width: ' + completionRate + '%'"></div>
+        <div :key="componentKey" class="mr-4 h-2 w-24 rounded-full bg-blue-200">
+          <div
+            class="h-full rounded-full bg-blue-600 text-center text-xs text-white"
+            :style="'width: ' + completionRate + '%'"></div>
         </div>
 
-        <!-- button -->
-        <p @click="showAddTask" class="text-sm border hover:border-solid border-dashed border-gray-500 px-3 py-1.5 bg-gray-50 cursor-pointer hover:bg-gray-200 rounded-lg">{{ $t('Add') }}</p>
+        <div class="flex items-center">
+          <!-- button -->
+          <p
+            @click="showAddTask"
+            class="mr-2 cursor-pointer rounded-lg border border-dashed border-gray-300 bg-gray-50 px-3 py-1.5 text-sm hover:border-solid hover:bg-gray-200">
+            {{ $t('Add') }}
+          </p>
+
+          <div
+            v-if="collapsed"
+            @click="toggleTaskList()"
+            class="cursor-pointer rounded-lg px-1 py-1.5 text-gray-400 hover:bg-gray-100">
+            <ChevronUpIcon class="h-5 w-5" />
+          </div>
+
+          <div
+            v-else
+            @click="toggleTaskList()"
+            class="cursor-pointer rounded-lg px-1 py-1.5 text-gray-400 hover:bg-gray-100">
+            <ChevronDownIcon class="h-5 w-5" />
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- tasks in the list -->
-    <div v-if="localTasks" class="bg-gray-50 rounded-b-lg">
-
+    <div v-if="localTasks && !collapsed" class="rounded-b-lg bg-gray-50">
       <!-- list of tasks -->
-      <div v-if="localTasks.length > 0" v-for="task in localTasks" :key="task.id" class="border-b px-4 py-2">
-        <div class="w-full border border-transparent hover:bg-white hover:border hover:border-gray-200 px-2 py-1 rounded-md flex items-center">
-          <Checkbox @click="toggle(task)" :checked="task.is_completed" :name="'completed' + task.id" class="mr-2" />
-          <span>{{ task.title }}</span>
+      <div v-if="localTasks.length > 0">
+        <div v-for="task in localTasks" :key="task.id" class="border-b px-4 py-2 last:border-b-0">
+          <div
+            class="flex w-full items-center rounded-md border border-transparent px-2 py-1 hover:border hover:border-gray-200 hover:bg-white">
+            <Checkbox
+              @click="toggleTask(task)"
+              :checked="task.is_completed"
+              :name="'completed' + task.id"
+              class="mr-2" />
+            <span>{{ task.title }}</span>
+          </div>
         </div>
       </div>
 
       <!-- blank state -->
-      <p v-if="localTasks.length == 0 && !addTaskModalShown" class="text-sm px-4 py-2">{{ $t('Use tasks to iterate on something that is essential to achieve.') }}</p>
+      <p v-if="localTasks.length == 0 && !addTaskModalShown" class="px-4 py-2 text-sm">
+        {{ $t('Use tasks to iterate on something that is essential to achieve.') }}
+      </p>
 
       <!-- add task -->
       <div v-if="addTaskModalShown" class="px-4 py-2">

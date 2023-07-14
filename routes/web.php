@@ -19,6 +19,7 @@ use App\Http\Controllers\Settings\Personalize\PersonalizeTeamTypeController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeUpgradeController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeUserController;
 use App\Http\Controllers\Tasks\TaskController;
+use App\Http\Controllers\Tasks\TaskListController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -61,8 +62,7 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
 
     // task lists and tasks
     Route::middleware(['taskList'])->group(function (): void {
-        Route::put('taskLists/{taskList}', [ProjectController::class, 'update'])->name('projects.update');
-        Route::delete('taskLists/{taskList}', [ProjectController::class, 'destroy'])->name('projects.destroy');
+        Route::put('taskLists/{taskList}/toggle', [TaskListController::class, 'toggle'])->name('task_lists.toggle');
     });
 
     // projects

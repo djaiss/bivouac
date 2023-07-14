@@ -14,6 +14,7 @@ return new class extends Migration
             $table->unsignedBigInteger('tasklistable_id')->nullable();
             $table->string('tasklistable_type')->nullable();
             $table->string('name')->nullable();
+            $table->boolean('collapsed')->default(false);
             $table->timestamps();
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
         });
