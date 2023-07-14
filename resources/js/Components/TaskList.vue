@@ -34,11 +34,17 @@ const completionRate = ref(props.taskList.completion_rate);
 const addTaskModalShown = ref(false);
 const componentKey = ref(0);
 const collapsed = ref(props.taskList.collapsed);
+const editedTaskId = ref(null);
 
 const showAddTask = () => {
   addTaskModalShown.value = true;
   form.title = '';
   collapsed.value = false;
+};
+
+const showEditTask = (task) => {
+  editedTaskId.value = task.id;
+  form.title = task.title;
 };
 
 const forceRerender = () => {
@@ -80,6 +86,24 @@ const toggleTaskList = () => {
   axios.put(taskList.value.url.toggle).then(() => {
     collapsed.value = !collapsed.value;
   });
+};
+
+const edit = (task) => {
+  loadingState.value = true;
+
+  axios
+    .put(task.url.update, form)
+    .then((response) => {
+      loadingState.value = false;
+      let id = localTasks.value.findIndex((x) => x.id === task.id);
+      localTasks.value[id] = response.data.data.task;
+      flash(trans('Changes saved'));
+      editedTaskId.value = 0;
+      form.title = '';
+    })
+    .catch(() => {
+      loadingState.value = false;
+    });
 };
 
 const destroy = (task) => {
@@ -137,8 +161,10 @@ const destroy = (task) => {
       <!-- list of tasks -->
       <div v-if="localTasks.length > 0">
         <div v-for="task in localTasks" :key="task.id" class="border-b px-4 py-2 last:border-b-0">
-          <div
-            class="flex w-full items-center justify-between rounded-md border border-transparent px-2 py-1 hover:border hover:border-gray-200 hover:bg-white">
+
+          <!-- content of the task -->
+          <div v-if="task.id != editedTaskId"
+            class="flex relative w-full items-center justify-between rounded-md border border-transparent px-2 py-1 hover:border hover:border-gray-200 hover:bg-white">
             <!-- title and checkbox -->
             <div class="flex items-center">
               <Checkbox
@@ -150,7 +176,7 @@ const destroy = (task) => {
             </div>
 
             <!-- options -->
-            <Menu as="div" class="relative z-30 text-left">
+            <Menu as="div" class="icon-menu relative z-30 text-left">
               <MenuButton>
                 <EllipsisVerticalIcon class="h-5 w-5 cursor-pointer hover:text-gray-500" />
               </MenuButton>
@@ -167,7 +193,7 @@ const destroy = (task) => {
                   <div class="px-1 py-1">
                     <MenuItem v-slot="{ active }">
                       <button
-                        @click="edit(task)"
+                        @click="showEditTask(task)"
                         :class="[
                           active ? 'bg-violet-500 text-white' : 'text-gray-900',
                           'group flex w-full items-center rounded-md px-2 py-2 text-sm',
@@ -190,6 +216,30 @@ const destroy = (task) => {
               </transition>
             </Menu>
           </div>
+
+          <!-- edit a task -->
+          <form v-else @submit.prevent="edit(task)" class="flex items-center justify-between">
+            <TextInput
+              id="term"
+              type="text"
+              :placeholder="$t('Enter a title')"
+              class="mr-3 w-full"
+              v-model="form.title"
+              autofocus
+              @keydown.esc="editedTaskId = 0"
+              required />
+
+            <!-- actions -->
+            <div class="flex items-center">
+              <PrimaryButton class="mr-2" :loading="loadingState" :disabled="loadingState">{{ $t('Edit') }}</PrimaryButton>
+
+              <span
+                @click="editedTaskId = 0"
+                class="flex cursor-pointer rounded-md bg-gray-100 px-3 py-1.5 font-semibold text-gray-700 hover:bg-gray-200 shadow-sm ring-1 ring-inset ring-gray-200">
+                {{ $t('Cancel') }}</span
+              >
+            </div>
+          </form>
         </div>
       </div>
 
@@ -211,9 +261,24 @@ const destroy = (task) => {
             @keydown.esc="addTaskModalShown = false"
             required />
 
-          <PrimaryButton :loading="loadingState" :disabled="loadingState">{{ $t('Add') }}</PrimaryButton>
+          <!-- actions -->
+          <div class="flex items-center">
+            <PrimaryButton class="mr-2" :loading="loadingState" :disabled="loadingState">{{ $t('Edit') }}</PrimaryButton>
+
+            <span
+              @click="addTaskModalShown = false"
+              class="flex cursor-pointer rounded-md bg-gray-100 px-3 py-1.5 font-semibold text-gray-700 hover:bg-gray-200 shadow-sm ring-1 ring-inset ring-gray-200">
+              {{ $t('Cancel') }}</span
+            >
+          </div>
         </form>
       </div>
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.icon-menu {
+  top: 3px;
+}
+</style>

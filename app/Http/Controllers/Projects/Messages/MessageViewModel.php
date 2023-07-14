@@ -9,6 +9,7 @@ use App\Models\Comment;
 use App\Models\Message;
 use App\Models\Project;
 use App\Models\Reaction;
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -158,7 +159,7 @@ class MessageViewModel
             ->with('tasks')
             ->first();
         if ($taskList) {
-            $tasksCount = $taskList->tasks->count();
+            $tasksCount = $taskList->tasks->filter(fn (Task $task) => !$task->is_completed)->count();
         }
 
         return [
