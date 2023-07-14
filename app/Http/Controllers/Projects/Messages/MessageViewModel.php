@@ -153,6 +153,14 @@ class MessageViewModel
 
     public static function dto(Message $message, bool $isRead = false): array
     {
+        $tasksCount = 0;
+        $taskList = $message->taskLists()
+            ->with('tasks')
+            ->first();
+        if ($taskList) {
+            $tasksCount = $taskList->tasks->count();
+        }
+
         return [
             'id' => $message->id,
             'author' => [
@@ -166,6 +174,7 @@ class MessageViewModel
             'created_at' => $message->created_at->format('Y-m-d'),
             'read' => $isRead,
             'comments_count' => $message->comments_count,
+            'tasks_count' => $tasksCount,
             'url' => [
                 'show' => route('messages.show', [
                     'project' => $message->project_id,

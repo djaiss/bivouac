@@ -194,7 +194,7 @@ class MessageViewModelTest extends TestCase
         ]);
         $array = MessageViewModel::dto($message);
 
-        $this->assertCount(9, $array);
+        $this->assertCount(10, $array);
         $this->assertEquals(
             [
                 'id' => $message->id,
@@ -213,6 +213,7 @@ class MessageViewModelTest extends TestCase
                 'created_at' => '2018-01-01',
                 'read' => false,
                 'comments_count' => 0,
+                'tasks_count' => 0,
                 'url' => [
                     'show' => env('APP_URL') . '/projects/' . $message->project_id . '/messages/' . $message->id,
                     'edit' => env('APP_URL') . '/projects/' . $message->project_id . '/messages/' . $message->id . '/edit',
