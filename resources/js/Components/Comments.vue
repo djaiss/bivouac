@@ -111,8 +111,8 @@ const destroy = (comment) => {
 
             <!-- avatar + time -->
             <div class="mb-2 flex justify-between text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-              <div class="flex">
-                <div class="mr-3 flex">
+              <div class="flex items-center">
+                <div class="mr-3 flex items-center">
                   <Avatar
                     v-if="comment.author.avatar"
                     :data="comment.author.avatar"

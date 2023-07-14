@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Projects\Messages;
 
 use App\Helpers\StringHelper;
 use App\Http\Controllers\Reactions\ReactionViewModel;
+use App\Http\Controllers\Tasks\TaskListViewModel;
 use App\Models\Comment;
 use App\Models\Message;
 use App\Models\Project;
 use App\Models\Reaction;
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -84,6 +86,11 @@ class MessageViewModel
             ->get()
             ->map(fn (Reaction $reaction) => ReactionViewModel::dto($reaction));
 
+        $taskList = $message->taskLists()
+            ->with('tasks')
+            ->first();
+        $taskList = TaskListViewModel::dto($taskList);
+
         return [
             'project' => [
                 'name' => $message->project->name,
@@ -91,6 +98,7 @@ class MessageViewModel
             'message' => self::dto($message),
             'comments' => $comments,
             'reactions' => $reactions,
+            'task_list' => $taskList,
             'url' => [
                 'preview' => route('preview.store'),
                 'store' => route('messages.comments.store', [
@@ -98,6 +106,10 @@ class MessageViewModel
                     'message' => $message->id,
                 ]),
                 'store_reaction' => route('messages.reactions.store', [
+                    'project' => $message->project_id,
+                    'message' => $message->id,
+                ]),
+                'store_task' => route('messages.tasks.store', [
                     'project' => $message->project_id,
                     'message' => $message->id,
                 ]),
@@ -142,6 +154,14 @@ class MessageViewModel
 
     public static function dto(Message $message, bool $isRead = false): array
     {
+        $tasksCount = 0;
+        $taskList = $message->taskLists()
+            ->with('tasks')
+            ->first();
+        if ($taskList) {
+            $tasksCount = $taskList->tasks->filter(fn (Task $task) => ! $task->is_completed)->count();
+        }
+
         return [
             'id' => $message->id,
             'author' => [
@@ -155,6 +175,7 @@ class MessageViewModel
             'created_at' => $message->created_at->format('Y-m-d'),
             'read' => $isRead,
             'comments_count' => $message->comments_count,
+            'tasks_count' => $tasksCount,
             'url' => [
                 'show' => route('messages.show', [
                     'project' => $message->project_id,
@@ -175,7 +196,6 @@ class MessageViewModel
     public static function dtoComment(Message $message, Comment $comment): array
     {
         $reactions = $comment->reactions()
-            ->with('user')
             ->get()
             ->map(fn (Reaction $reaction) => ReactionViewModel::dto($reaction));
 

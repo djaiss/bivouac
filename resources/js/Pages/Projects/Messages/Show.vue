@@ -8,6 +8,7 @@ import { trans } from 'laravel-vue-i18n';
 import Avatar from '@/Components/Avatar.vue';
 import Comments from '@/Components/Comments.vue';
 import Reactions from '@/Components/Reactions.vue';
+import TaskList from '@/Components/TaskList.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
 const props = defineProps({
@@ -82,7 +83,7 @@ const destroy = () => {
           <!-- left -->
           <div>
             <!-- message -->
-            <div class="relative mb-8 bg-white shadow sm:rounded-lg">
+            <div class="relative mb-4 bg-white shadow sm:rounded-lg">
               <!-- message body -->
               <div class="border-b px-6 py-8">
                 <!-- message header -->
@@ -112,6 +113,9 @@ const destroy = () => {
                 <Reactions :reactions="data.reactions" :url="data.url" />
               </div>
             </div>
+
+            <!-- tasks -->
+            <TaskList class="mb-8" :task-list="data.task_list" :url="data.url" />
 
             <!-- comments -->
             <Comments :comments="data.comments" :url="data.url" />

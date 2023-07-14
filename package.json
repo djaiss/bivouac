@@ -37,6 +37,7 @@
         "prettier-plugin-tailwindcss": "^0.3.0",
         "sass": "^1.63.3",
         "tiny-emitter": "^2.1.0",
-        "v-calendar": "^3.0.3"
+        "v-calendar": "^3.0.3",
+        "vue-confetti-explosion": "^1.0.2"
     }
 }

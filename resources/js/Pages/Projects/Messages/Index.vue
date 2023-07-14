@@ -1,5 +1,6 @@
 <script setup>
 import { ChatBubbleBottomCenterTextIcon } from '@heroicons/vue/24/outline';
+import { BoltIcon } from '@heroicons/vue/24/outline';
 import { Head } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
 
@@ -62,9 +63,15 @@ defineProps({
                 </div>
 
                 <!-- comments -->
-                <div class="flex items-center text-gray-600">
+                <div v-tooltip="$t('number of comments')" class="mr-4 flex items-center text-gray-600">
                   <ChatBubbleBottomCenterTextIcon class="mr-1 h-3 w-3" />
                   <span>{{ message.comments_count }}</span>
+                </div>
+
+                <!-- open tasks -->
+                <div v-tooltip="$t('number of open tasks')" class="flex items-center text-gray-600">
+                  <BoltIcon class="mr-1 h-3 w-3" />
+                  <span>{{ message.tasks_count }}</span>
                 </div>
               </div>
             </div>
