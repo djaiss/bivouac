@@ -4,7 +4,8 @@ import { ChevronDownIcon } from '@heroicons/vue/24/outline';
 import { ChevronUpIcon } from '@heroicons/vue/24/outline';
 import { EllipsisVerticalIcon } from '@heroicons/vue/24/outline';
 import { trans } from 'laravel-vue-i18n';
-import { reactive, ref } from 'vue';
+import { nextTick, reactive, ref } from 'vue';
+import ConfettiExplosion from 'vue-confetti-explosion';
 
 import Checkbox from '@/Components/Checkbox.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
@@ -35,6 +36,13 @@ const addTaskModalShown = ref(false);
 const componentKey = ref(0);
 const collapsed = ref(props.taskList.collapsed);
 const editedTaskId = ref(null);
+const visibleConfetti = ref(false);
+
+const explode = async () => {
+  visibleConfetti.value = false;
+  await nextTick();
+  visibleConfetti.value = true;
+};
 
 const showAddTask = () => {
   addTaskModalShown.value = true;
@@ -79,6 +87,10 @@ const toggleTask = (task) => {
     localTasks.value[id] = response.data.data.task;
     completionRate.value = response.data.data.completion_rate;
     forceRerender();
+
+    if (completionRate.value >= 100) {
+      explode();
+    }
   });
 };
 
@@ -130,6 +142,7 @@ const destroy = (task) => {
             class="h-full rounded-full bg-blue-600 text-center text-xs text-white"
             :style="'width: ' + completionRate + '%'"></div>
         </div>
+        <ConfettiExplosion v-if="visibleConfetti" />
 
         <div class="flex items-center">
           <!-- button -->
@@ -161,10 +174,10 @@ const destroy = (task) => {
       <!-- list of tasks -->
       <div v-if="localTasks.length > 0">
         <div v-for="task in localTasks" :key="task.id" class="border-b px-4 py-2 last:border-b-0">
-
           <!-- content of the task -->
-          <div v-if="task.id != editedTaskId"
-            class="flex relative w-full items-center justify-between rounded-md border border-transparent px-2 py-1 hover:border hover:border-gray-200 hover:bg-white">
+          <div
+            v-if="task.id != editedTaskId"
+            class="relative flex w-full items-center justify-between rounded-md border border-transparent px-2 py-1 hover:border hover:border-gray-200 hover:bg-white">
             <!-- title and checkbox -->
             <div class="flex items-center">
               <Checkbox
@@ -231,11 +244,13 @@ const destroy = (task) => {
 
             <!-- actions -->
             <div class="flex items-center">
-              <PrimaryButton class="mr-2" :loading="loadingState" :disabled="loadingState">{{ $t('Edit') }}</PrimaryButton>
+              <PrimaryButton class="mr-2" :loading="loadingState" :disabled="loadingState">{{
+                $t('Edit')
+              }}</PrimaryButton>
 
               <span
                 @click="editedTaskId = 0"
-                class="flex cursor-pointer rounded-md bg-gray-100 px-3 py-1.5 font-semibold text-gray-700 hover:bg-gray-200 shadow-sm ring-1 ring-inset ring-gray-200">
+                class="flex cursor-pointer rounded-md bg-gray-100 px-3 py-1.5 font-semibold text-gray-700 shadow-sm ring-1 ring-inset ring-gray-200 hover:bg-gray-200">
                 {{ $t('Cancel') }}</span
               >
             </div>
@@ -263,11 +278,13 @@ const destroy = (task) => {
 
           <!-- actions -->
           <div class="flex items-center">
-            <PrimaryButton class="mr-2" :loading="loadingState" :disabled="loadingState">{{ $t('Edit') }}</PrimaryButton>
+            <PrimaryButton class="mr-2" :loading="loadingState" :disabled="loadingState">{{
+              $t('Edit')
+            }}</PrimaryButton>
 
             <span
               @click="addTaskModalShown = false"
-              class="flex cursor-pointer rounded-md bg-gray-100 px-3 py-1.5 font-semibold text-gray-700 hover:bg-gray-200 shadow-sm ring-1 ring-inset ring-gray-200">
+              class="flex cursor-pointer rounded-md bg-gray-100 px-3 py-1.5 font-semibold text-gray-700 shadow-sm ring-1 ring-inset ring-gray-200 hover:bg-gray-200">
               {{ $t('Cancel') }}</span
             >
           </div>
