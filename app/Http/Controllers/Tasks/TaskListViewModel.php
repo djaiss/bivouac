@@ -22,6 +22,10 @@ class TaskListViewModel
             'tasks' => $tasks->map(fn (Task $task) => TaskViewModel::dto($task)),
             'completion_rate' => $completionRate,
             'collapsed' => $taskList->collapsed,
+            'parent' => [
+                'id' => $taskList->tasklistable->id,
+                'name' => $taskList->tasklistable->name,
+            ],
             'url' => [
                 'toggle' => route('task_lists.toggle', $taskList->id),
             ],

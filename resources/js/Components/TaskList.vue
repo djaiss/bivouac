@@ -279,7 +279,7 @@ const destroy = (task) => {
           <!-- actions -->
           <div class="flex items-center">
             <PrimaryButton class="mr-2" :loading="loadingState" :disabled="loadingState">{{
-              $t('Edit')
+              $t('Save')
             }}</PrimaryButton>
 
             <span

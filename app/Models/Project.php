@@ -63,6 +63,11 @@ class Project extends Model
         return $this->hasMany(Message::class);
     }
 
+    public function taskLists(): HasMany
+    {
+        return $this->hasMany(TaskList::class);
+    }
+
     /**
      * @return Attribute<string,never>
      */

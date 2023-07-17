@@ -3,6 +3,7 @@
 namespace Tests\Unit\Controllers\Tasks;
 
 use App\Http\Controllers\Tasks\TaskListViewModel;
+use App\Models\Message;
 use App\Models\Task;
 use App\Models\TaskList;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -15,8 +16,11 @@ class TaskListViewModelTest extends TestCase
     /** @test */
     public function it_gets_the_dto(): void
     {
+        $message = Message::factory()->create();
         $taskList = TaskList::factory()->create([
             'name' => 'Title',
+            'tasklistable_id' => $message->id,
+            'tasklistable_type' => Message::class,
         ]);
         $task = Task::factory()->create([
             'task_list_id' => $taskList->id,
@@ -25,12 +29,13 @@ class TaskListViewModelTest extends TestCase
         ]);
         $array = TaskListViewModel::dto($taskList);
 
-        $this->assertCount(6, $array);
+        $this->assertCount(7, $array);
         $this->assertArrayHasKey('id', $array);
         $this->assertArrayHasKey('name', $array);
         $this->assertArrayHasKey('completion_rate', $array);
         $this->assertArrayHasKey('tasks', $array);
         $this->assertArrayHasKey('collapsed', $array);
+        $this->assertArrayHasKey('parent', $array);
         $this->assertArrayHasKey('url', $array);
 
         $this->assertEquals(
@@ -53,6 +58,13 @@ class TaskListViewModelTest extends TestCase
         );
         $this->assertFalse(
             $array['collapsed']
+        );
+        $this->assertEquals(
+            [
+                'id' => $message->id,
+                'name' => $message->name,
+            ],
+            $array['parent']
         );
         $this->assertEquals(
             [
