@@ -115,7 +115,7 @@ const destroy = () => {
             </div>
 
             <!-- tasks -->
-            <TaskList class="mb-8" :task-list="data.task_list" :project-mode="false" />
+            <TaskList class="mb-8" :task-list="data.task_list" :context="'message'" />
 
             <!-- comments -->
             <Comments :comments="data.comments" :url="data.url" />

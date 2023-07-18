@@ -19,9 +19,9 @@ const props = defineProps({
   taskList: {
     type: Object,
   },
-  projectMode: {
-    type: Boolean,
-    default: false,
+  context: {
+    type: String,
+    default: 'project',
   },
 });
 
@@ -139,8 +139,12 @@ const destroy = (task) => {
     <!-- title of the task list -->
     <div class="flex items-center justify-between px-4 py-2" :class="{ 'border-b': !collapsed }">
       <!-- section title -->
-      <p v-if="!projectMode">{{ $t('Tasks') }}</p>
-      <Link :href="taskList.parent.url" class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline" v-else>{{ taskList.parent.title }}</Link>
+      <p v-if="context === 'message' || context === 'project'">{{ $t('Tasks') }}</p>
+
+
+      <p v-if="!taskList.name && taskList.parent.is_project">{{ $t('Tasks') }}</p>
+      <p v-if="taskList.name && taskList.parent.is_project">{{ taskList.name }}</p>
+      <Link v-if="!taskList.parent.is_project" :href="taskList.parent.url" class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline">{{ taskList.parent.title }}</Link>
 
       <div class="flex items-center">
         <!-- completion -->

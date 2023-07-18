@@ -101,6 +101,8 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
 
         // tasks
         Route::get('projects/{project}/tasks', [ProjectTaskLinkController::class, 'index'])->name('tasks.index');
+        Route::get('projects/{project}/tasks/create', [ProjectTaskLinkController::class, 'create'])->name('task_lists.create');
+        Route::post('projects/{project}/tasks/create', [ProjectTaskLinkController::class, 'store'])->name('task_lists.store');
     });
 
     // users

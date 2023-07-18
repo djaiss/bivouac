@@ -9,7 +9,7 @@ use App\Models\User;
 
 class ProjectTaskListViewModel
 {
-    public static function index(Project $project, User $user): array
+    public static function index(Project $project): array
     {
         $taskLists = $project->taskLists()
             ->get()
@@ -23,11 +23,34 @@ class ProjectTaskListViewModel
             ],
             'task_lists' => $taskLists,
             'url' => [
-                'create' => route('messages.create', [
+                'create' => route('task_lists.create', [
                     'project' => $project->id,
                 ]),
                 'breadcrumb' => [
                     'home' => route('profile.edit'),
+                ],
+            ],
+        ];
+    }
+
+    public static function create(Project $project): array
+    {
+        return [
+            'project' => [
+                'name' => $project->name,
+            ],
+            'url' => [
+                'store' => route('task_lists.store', [
+                    'project' => $project->id,
+                ]),
+                'breadcrumb' => [
+                    'projects' => route('projects.index'),
+                    'project' => route('projects.show', [
+                        'project' => $project->id,
+                    ]),
+                    'tasks' => route('tasks.index', [
+                        'project' => $project->id,
+                    ]),
                 ],
             ],
         ];
