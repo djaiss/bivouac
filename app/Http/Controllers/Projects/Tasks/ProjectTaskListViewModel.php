@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Projects\Tasks;
 use App\Http\Controllers\Tasks\TaskListViewModel;
 use App\Models\Project;
 use App\Models\TaskList;
-use App\Models\User;
 
 class ProjectTaskListViewModel
 {
