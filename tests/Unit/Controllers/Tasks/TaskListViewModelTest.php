@@ -65,7 +65,7 @@ class TaskListViewModelTest extends TestCase
                 'id' => $message->id,
                 'name' => $message->name,
                 'is_project' => false,
-                'url' => env('APP_URL') . '/projects/'.$message->project_id.'/messages/' . $message->id,
+                'url' => env('APP_URL') . '/projects/' . $message->project_id . '/messages/' . $message->id,
             ],
             $array['parent']
         );
