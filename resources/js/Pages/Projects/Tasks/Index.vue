@@ -4,9 +4,9 @@ import { BoltIcon } from '@heroicons/vue/24/outline';
 import { Head } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
 
-import TaskList from '@/Components/TaskList.vue';
 import Avatar from '@/Components/Avatar.vue';
 import PrimaryLinkButton from '@/Components/PrimaryLinkButton.vue';
+import TaskList from '@/Components/TaskList.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import ProjectHeader from '@/Pages/Projects/Partials/ProjectHeader.vue';
 
@@ -30,7 +30,7 @@ defineProps({
       <div class="mx-auto max-w-2xl">
         <!-- list of task lists -->
         <div v-for="taskList in data.task_lists" :key="taskList.id" class="mb-2">
-          <TaskList class="mb-8" :task-list="taskList" :url="data.url" />
+          <TaskList v-if="taskList.tasks.length > 0" class="mb-8" :task-list="taskList" :project-mode="true" />
         </div>
       </div>
     </div>

@@ -133,7 +133,6 @@ class MessageViewModelTest extends TestCase
                 'preview' => env('APP_URL') . '/preview',
                 'store' => env('APP_URL') . '/projects/' . $project->id . '/messages/' . $message->id . '/comments',
                 'store_reaction' => env('APP_URL') . '/projects/' . $project->id . '/messages/' . $message->id . '/reactions',
-                'store_task' => env('APP_URL') . '/projects/' . $project->id . '/messages/' . $message->id . '/tasks',
                 'breadcrumb' => [
                     'projects' => env('APP_URL') . '/projects',
                     'project' => env('APP_URL') . '/projects/' . $project->id,

@@ -58,8 +58,7 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
     Route::delete('reactions/{reaction}', [ReactionController::class, 'destroy'])->name('reactions.destroy');
 
     // tasks
-    // add task
-    Route::post('tasks', [MessageTaskController::class, 'store'])->name('messages.tasks.store');
+    Route::post('tasks', [TaskController::class, 'store'])->name('tasks.store');
     Route::put('tasks/{task}', [TaskController::class, 'update'])->name('tasks.update');
     Route::delete('tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
 

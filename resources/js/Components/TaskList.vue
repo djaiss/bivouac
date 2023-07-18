@@ -11,6 +11,7 @@ import Checkbox from '@/Components/Checkbox.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { flash } from '@/methods.js';
+import { Link } from '@inertiajs/vue3';
 
 const loadingState = ref(false);
 
@@ -18,14 +19,16 @@ const props = defineProps({
   taskList: {
     type: Object,
   },
-  url: {
-    type: Array,
+  projectMode: {
+    type: Boolean,
+    default: false,
   },
 });
 
 const form = reactive({
   title: '',
   is_completed: false,
+  task_list_id: 0,
   errors: '',
 });
 
@@ -47,12 +50,14 @@ const explode = async () => {
 const showAddTask = () => {
   addTaskModalShown.value = true;
   form.title = '';
+  form.task_list_id = taskList.value.id;
   collapsed.value = false;
 };
 
 const showEditTask = (task) => {
   editedTaskId.value = task.id;
   form.title = task.title;
+  form.task_list_id = taskList.value.id;
 };
 
 const forceRerender = () => {
@@ -63,7 +68,7 @@ const submit = () => {
   loadingState.value = true;
 
   axios
-    .post(props.url.store_task, form)
+    .post(taskList.value.url.store, form)
     .then((response) => {
       localTasks.value.push(response.data.data.task);
       loadingState.value = false;
@@ -133,7 +138,9 @@ const destroy = (task) => {
   <div class="rounded-lg bg-white shadow">
     <!-- title of the task list -->
     <div class="flex items-center justify-between px-4 py-2" :class="{ 'border-b': !collapsed }">
-      <p>{{ $t('Tasks') }}</p>
+      <!-- section title -->
+      <p v-if="!projectMode">{{ $t('Tasks') }}</p>
+      <Link :href="taskList.parent.url" class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline" v-else>{{ taskList.parent.title }}</Link>
 
       <div class="flex items-center">
         <!-- completion -->
