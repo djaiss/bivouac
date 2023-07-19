@@ -93,6 +93,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->BelongsToMany(Project::class)->withTimestamps();
     }
 
+    public function tasks(): BelongsToMany
+    {
+        return $this->belongsToMany(Task::class);
+    }
+
     /**
      * @return Attribute<string,never>
      */
