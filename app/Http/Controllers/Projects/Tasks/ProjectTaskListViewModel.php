@@ -70,6 +70,10 @@ class ProjectTaskListViewModel
                     'project' => $project->id,
                     'taskList' => $taskList->id,
                 ]),
+                'destroy' => route('task_lists.destroy', [
+                    'project' => $project->id,
+                    'taskList' => $taskList->id,
+                ]),
                 'breadcrumb' => [
                     'projects' => route('projects.index'),
                     'project' => route('projects.show', [

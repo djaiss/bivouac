@@ -29,13 +29,13 @@ const form = reactive({
   errors: '',
 });
 
-const submit = () => {
+const update = () => {
   loadingState.value = true;
 
   axios
-    .post(props.data.url.store, form)
+    .put(props.data.url.update, form)
     .then((response) => {
-      localStorage.success = trans('The list has been created');
+      localStorage.success = trans('Changes saved');
       router.visit(response.data.data);
     })
     .catch((error) => {
@@ -99,7 +99,7 @@ const submit = () => {
 
     <div class="pb-12">
       <div class="mx-auto max-w-lg overflow-hidden rounded-lg bg-white shadow-md dark:bg-gray-800">
-        <form @submit.prevent="submit">
+        <form @submit.prevent="update">
           <div class="relative border-b px-6 py-4">
             <h1 class="text-center text-lg font-bold">{{ $t('Edit the task list') }}</h1>
           </div>

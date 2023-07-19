@@ -7,6 +7,8 @@ use App\Http\Controllers\Projects\ProjectViewModel;
 use App\Models\Project;
 use App\Models\TaskList;
 use App\Services\CreateTaskList;
+use App\Services\DestroyTaskList;
+use App\Services\UpdateTaskList;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -57,5 +59,34 @@ class ProjectTaskListController extends Controller
         return Inertia::render('Projects/Tasks/Edit', [
             'data' => ProjectTaskListViewModel::edit($project, $taskList),
         ]);
+    }
+
+    public function update(Request $request, Project $project, TaskList $taskList): JsonResponse
+    {
+        (new UpdateTaskList)->execute([
+            'user_id' => auth()->user()->id,
+            'task_list_id' => $taskList->id,
+            'name' => $request->input('name'),
+        ]);
+
+        return response()->json([
+            'data' => route('tasks.index', [
+                'project' => $project->id,
+            ]),
+        ], 200);
+    }
+
+    public function destroy(Request $request, Project $project, TaskList $taskList): JsonResponse
+    {
+        (new DestroyTaskList)->execute([
+            'user_id' => auth()->user()->id,
+            'task_list_id' => $taskList->id,
+        ]);
+
+        return response()->json([
+            'data' => route('tasks.index', [
+                'project' => $project->id,
+            ]),
+        ], 200);
     }
 }

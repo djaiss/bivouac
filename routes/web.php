@@ -105,6 +105,7 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
         Route::post('projects/{project}/taskLists', [ProjectTaskListController::class, 'store'])->name('task_lists.store');
         Route::get('projects/{project}/taskLists/{taskList}/edit', [ProjectTaskListController::class, 'edit'])->name('task_lists.edit');
         Route::put('projects/{project}/taskLists/{taskList}', [ProjectTaskListController::class, 'update'])->name('task_lists.update');
+        Route::delete('projects/{project}/taskLists/{taskList}', [ProjectTaskListController::class, 'destroy'])->name('task_lists.destroy');
     });
 
     // users
