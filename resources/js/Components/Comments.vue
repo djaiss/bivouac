@@ -267,6 +267,12 @@ const destroy = (comment) => {
             <PrimaryButton class="" :loading="loadingState" :disabled="loadingState">
               {{ $t('Save') }}
             </PrimaryButton>
+
+            <span
+              @click="form.body = ''"
+              class="ml-2 inline-flex cursor-pointer items-center rounded-md border border-transparent bg-gray-100 px-3 py-1 text-sm font-medium leading-4 text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+              {{ $t('Cancel') }}</span
+            >
           </div>
         </div>
 
