@@ -4,6 +4,7 @@ namespace Tests\Unit\Models;
 
 use App\Models\Message;
 use App\Models\Project;
+use App\Models\TaskList;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -48,6 +49,15 @@ class ProjectTest extends TestCase
         Message::factory()->create(['project_id' => $project->id]);
 
         $this->assertTrue($project->messages()->exists());
+    }
+
+    /** @test */
+    public function it_has_many_task_lists(): void
+    {
+        $project = Project::factory()->create();
+        TaskList::factory()->create(['project_id' => $project->id]);
+
+        $this->assertTrue($project->taskLists()->exists());
     }
 
     /** @test */

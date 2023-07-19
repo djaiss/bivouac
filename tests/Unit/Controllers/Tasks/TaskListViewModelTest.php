@@ -3,6 +3,7 @@
 namespace Tests\Unit\Controllers\Tasks;
 
 use App\Http\Controllers\Tasks\TaskListViewModel;
+use App\Models\Message;
 use App\Models\Task;
 use App\Models\TaskList;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -15,8 +16,11 @@ class TaskListViewModelTest extends TestCase
     /** @test */
     public function it_gets_the_dto(): void
     {
+        $message = Message::factory()->create();
         $taskList = TaskList::factory()->create([
             'name' => 'Title',
+            'tasklistable_id' => $message->id,
+            'tasklistable_type' => Message::class,
         ]);
         $task = Task::factory()->create([
             'task_list_id' => $taskList->id,
@@ -25,12 +29,13 @@ class TaskListViewModelTest extends TestCase
         ]);
         $array = TaskListViewModel::dto($taskList);
 
-        $this->assertCount(6, $array);
+        $this->assertCount(7, $array);
         $this->assertArrayHasKey('id', $array);
         $this->assertArrayHasKey('name', $array);
         $this->assertArrayHasKey('completion_rate', $array);
         $this->assertArrayHasKey('tasks', $array);
         $this->assertArrayHasKey('collapsed', $array);
+        $this->assertArrayHasKey('parent', $array);
         $this->assertArrayHasKey('url', $array);
 
         $this->assertEquals(
@@ -47,12 +52,24 @@ class TaskListViewModelTest extends TestCase
         );
         $this->assertEquals(
             [
+                'store' => env('APP_URL') . '/tasks',
                 'toggle' => env('APP_URL') . '/taskLists/' . $taskList->id . '/toggle',
+                'edit' => env('APP_URL') . '/projects/' . $taskList->project_id . '/taskLists/' . $taskList->id . '/edit',
+                'destroy' => env('APP_URL') . '/projects/' . $taskList->project_id . '/taskLists/' . $taskList->id,
             ],
             $array['url']
         );
         $this->assertFalse(
             $array['collapsed']
+        );
+        $this->assertEquals(
+            [
+                'id' => $message->id,
+                'title' => $message->title,
+                'is_project' => false,
+                'url' => env('APP_URL') . '/projects/' . $message->project_id . '/messages/' . $message->id,
+            ],
+            $array['parent']
         );
         $this->assertEquals(
             [

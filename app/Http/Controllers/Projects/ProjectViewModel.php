@@ -112,6 +112,9 @@ class ProjectViewModel
                 'messages' => route('messages.index', [
                     'project' => $project->id,
                 ]),
+                'tasks' => route('tasks.index', [
+                    'project' => $project->id,
+                ]),
                 'settings' => route('projects.edit', [
                     'project' => $project->id,
                 ]),

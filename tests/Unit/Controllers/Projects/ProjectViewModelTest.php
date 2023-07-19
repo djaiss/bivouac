@@ -173,6 +173,7 @@ class ProjectViewModelTest extends TestCase
         $this->assertEquals(
             [
                 'messages' => env('APP_URL') . '/projects/' . $project->id . '/messages',
+                'tasks' => env('APP_URL') . '/projects/' . $project->id . '/taskLists',
                 'settings' => env('APP_URL') . '/projects/' . $project->id . '/edit',
             ],
             $array['url']

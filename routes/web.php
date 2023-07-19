@@ -9,8 +9,8 @@ use App\Http\Controllers\Projects\Messages\CommentController;
 use App\Http\Controllers\Projects\Messages\CommentReactionController;
 use App\Http\Controllers\Projects\Messages\MessageController;
 use App\Http\Controllers\Projects\Messages\MessageReactionController;
-use App\Http\Controllers\Projects\Messages\MessageTaskController;
 use App\Http\Controllers\Projects\ProjectController;
+use App\Http\Controllers\Projects\Tasks\ProjectTaskListController;
 use App\Http\Controllers\Reactions\ReactionController;
 use App\Http\Controllers\Search\SearchController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeController;
@@ -57,6 +57,7 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
     Route::delete('reactions/{reaction}', [ReactionController::class, 'destroy'])->name('reactions.destroy');
 
     // tasks
+    Route::post('tasks', [TaskController::class, 'store'])->name('tasks.store');
     Route::put('tasks/{task}', [TaskController::class, 'update'])->name('tasks.update');
     Route::delete('tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
 
@@ -96,10 +97,15 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
 
             // add comment reaction
             Route::post('projects/{project}/messages/{message}/comments/{comment}/reactions', [CommentReactionController::class, 'store'])->name('messages.comments.reactions.store');
-
-            // add task
-            Route::post('projects/{project}/messages/{message}/tasks', [MessageTaskController::class, 'store'])->name('messages.tasks.store');
         });
+
+        // tasks
+        Route::get('projects/{project}/taskLists', [ProjectTaskListController::class, 'index'])->name('tasks.index');
+        Route::get('projects/{project}/taskLists/create', [ProjectTaskListController::class, 'create'])->name('task_lists.create');
+        Route::post('projects/{project}/taskLists', [ProjectTaskListController::class, 'store'])->name('task_lists.store');
+        Route::get('projects/{project}/taskLists/{taskList}/edit', [ProjectTaskListController::class, 'edit'])->name('task_lists.edit');
+        Route::put('projects/{project}/taskLists/{taskList}', [ProjectTaskListController::class, 'update'])->name('task_lists.update');
+        Route::delete('projects/{project}/taskLists/{taskList}', [ProjectTaskListController::class, 'destroy'])->name('task_lists.destroy');
     });
 
     // users

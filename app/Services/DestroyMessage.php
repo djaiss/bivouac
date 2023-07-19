@@ -25,6 +25,9 @@ class DestroyMessage extends BaseService
         $this->data = $data;
         $this->validate();
 
+        $this->message->comments()->delete();
+        $this->message->reactions()->delete();
+        $this->message->taskLists()->delete();
         $this->message->delete();
     }
 

@@ -109,10 +109,6 @@ class MessageViewModel
                     'project' => $message->project_id,
                     'message' => $message->id,
                 ]),
-                'store_task' => route('messages.tasks.store', [
-                    'project' => $message->project_id,
-                    'message' => $message->id,
-                ]),
                 'breadcrumb' => [
                     'projects' => route('projects.index'),
                     'project' => route('projects.show', [
