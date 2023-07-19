@@ -64,7 +64,7 @@ class TaskViewModelTest extends TestCase
             $array['title']
         );
         $this->assertFalse(
-           $array['is_completed']
+            $array['is_completed']
         );
         $this->assertEquals(
             [
