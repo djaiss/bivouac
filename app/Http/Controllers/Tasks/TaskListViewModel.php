@@ -24,6 +24,7 @@ class TaskListViewModel
                 'project' => $taskList->tasklistable->project_id,
                 'message' => $taskList->tasklistable->id,
             ]),
+            default => '',
         };
 
         return [
