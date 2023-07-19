@@ -9,6 +9,8 @@ use App\Services\DestroyTask;
 use App\Services\UpdateTask;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class TaskController extends Controller
 {
@@ -32,6 +34,14 @@ class TaskController extends Controller
                 'completion_rate' => $completionRate,
             ],
         ], 201);
+    }
+
+    public function show(Request $request, Task $task): Response
+    {
+        return Inertia::render('Projects/Tasks/Show', [
+            'data' => ProjectViewModel::show($project),
+            'menu' => ProjectViewModel::menu($project),
+        ]);
     }
 
     public function update(Request $request, Task $task): JsonResponse

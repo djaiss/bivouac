@@ -35,6 +35,7 @@ class MessageViewModel
             'project' => [
                 'id' => $project->id,
                 'name' => $project->name,
+                'description' => $project->description,
                 'is_public' => $project->is_public,
             ],
             'messages' => $messages,

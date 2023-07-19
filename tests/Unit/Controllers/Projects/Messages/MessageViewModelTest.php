@@ -36,6 +36,7 @@ class MessageViewModelTest extends TestCase
             [
                 'id' => $project->id,
                 'name' => 'Dunder',
+                'description' => $project->description,
                 'is_public' => true,
             ],
             $array['project']
