@@ -55,6 +55,7 @@ class TaskListViewModelTest extends TestCase
                 'store' => env('APP_URL') . '/tasks',
                 'toggle' => env('APP_URL') . '/taskLists/' . $taskList->id . '/toggle',
                 'edit' => env('APP_URL') . '/projects/' . $taskList->project_id . '/taskLists/' . $taskList->id . '/edit',
+                'destroy' => env('APP_URL') . '/projects/' . $taskList->project_id . '/taskLists/' . $taskList->id,
             ],
             $array['url']
         );

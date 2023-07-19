@@ -46,6 +46,10 @@ class TaskListViewModel
                     'project' => $taskList->project_id,
                     'taskList' => $taskList->id,
                 ]),
+                'destroy' => route('task_lists.destroy', [
+                    'project' => $taskList->project_id,
+                    'taskList' => $taskList->id,
+                ]),
             ],
         ];
     }

@@ -84,9 +84,7 @@ class ProjectTaskListController extends Controller
         ]);
 
         return response()->json([
-            'data' => route('tasks.index', [
-                'project' => $project->id,
-            ]),
+            'data' => true,
         ], 200);
     }
 }

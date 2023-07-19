@@ -15,6 +15,8 @@ import { flash } from '@/methods.js';
 
 const loadingState = ref(false);
 
+const emit = defineEmits(['destroyed']);
+
 const props = defineProps({
   taskList: {
     type: Object,
@@ -132,6 +134,15 @@ const destroy = (task) => {
     });
   }
 };
+
+const destroyList = () => {
+  if (confirm(trans('Are you sure? This action cannot be undone.'))) {
+    axios.delete(taskList.value.url.destroy).then(() => {
+      flash(trans('The list has been deleted'));
+      emit('destroyed');
+    });
+  }
+};
 </script>
 
 <template>
@@ -212,7 +223,7 @@ const destroy = (task) => {
                 </MenuItem>
                 <MenuItem v-slot="{ active }">
                   <button
-                    @click="destroy(task)"
+                    @click="destroyList()"
                     :class="[
                       active ? 'bg-violet-500 text-white' : 'text-gray-900',
                       'group flex w-full items-center rounded-md px-2 py-2 text-sm',

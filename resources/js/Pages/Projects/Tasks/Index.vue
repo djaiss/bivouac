@@ -1,12 +1,13 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
 
+import { ref } from 'vue';
 import PrimaryLinkButton from '@/Components/PrimaryLinkButton.vue';
 import TaskList from '@/Components/TaskList.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import ProjectHeader from '@/Pages/Projects/Partials/ProjectHeader.vue';
 
-defineProps({
+const props = defineProps({
   data: {
     type: Array,
   },
@@ -14,6 +15,13 @@ defineProps({
     type: Array,
   },
 });
+
+const localLists = ref(props.data.task_lists);
+
+const removeList = (taskList) => {
+  let id = localLists.value.findIndex((x) => x.id === taskList.id);
+  localLists.value.splice(id, 1);
+};
 </script>
 
 <template>
@@ -47,9 +55,9 @@ defineProps({
 
       <div class="mx-auto max-w-4xl">
         <!-- list of task lists -->
-        <div v-for="taskList in data.task_lists" :key="taskList.id" class="mb-2">
-          <TaskList v-if="taskList.tasks.length > 0 && !taskList.name" class="mb-8" :task-list="taskList" />
-          <TaskList v-if="taskList.name" class="mb-8" :task-list="taskList" />
+        <div v-for="taskList in localLists" :key="taskList.id" class="mb-2">
+          <TaskList @destroyed="removeList(taskList)" v-if="taskList.tasks.length > 0 && !taskList.name" class="mb-8" :task-list="taskList" />
+          <TaskList @destroyed="removeList(taskList)" v-if="taskList.name" class="mb-8" :task-list="taskList" />
         </div>
       </div>
     </div>
