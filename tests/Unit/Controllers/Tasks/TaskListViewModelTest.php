@@ -54,6 +54,7 @@ class TaskListViewModelTest extends TestCase
             [
                 'store' => env('APP_URL') . '/tasks',
                 'toggle' => env('APP_URL') . '/taskLists/' . $taskList->id . '/toggle',
+                'edit' => env('APP_URL') . '/projects/' . $taskList->project_id . '/taskLists/' . $taskList->id . '/edit',
             ],
             $array['url']
         );
@@ -63,7 +64,7 @@ class TaskListViewModelTest extends TestCase
         $this->assertEquals(
             [
                 'id' => $message->id,
-                'name' => $message->name,
+                'title' => $message->title,
                 'is_project' => false,
                 'url' => env('APP_URL') . '/projects/' . $message->project_id . '/messages/' . $message->id,
             ],

@@ -41,6 +41,10 @@ class TaskListViewModel
             'url' => [
                 'store' => route('tasks.store'),
                 'toggle' => route('task_lists.toggle', $taskList->id),
+                'edit' => route('task_lists.edit', [
+                    'project' => $taskList->project_id,
+                    'taskList' => $taskList->id,
+                ]),
             ],
         ];
     }

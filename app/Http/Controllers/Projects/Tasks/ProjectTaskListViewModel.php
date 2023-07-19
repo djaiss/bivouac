@@ -54,4 +54,32 @@ class ProjectTaskListViewModel
             ],
         ];
     }
+
+    public static function edit(Project $project, TaskList $taskList): array
+    {
+        return [
+            'task_list' => [
+                'id' => $taskList->id,
+                'name' => $taskList->name,
+            ],
+            'project' => [
+                'name' => $project->name,
+            ],
+            'url' => [
+                'update' => route('task_lists.update', [
+                    'project' => $project->id,
+                    'taskList' => $taskList->id,
+                ]),
+                'breadcrumb' => [
+                    'projects' => route('projects.index'),
+                    'project' => route('projects.show', [
+                        'project' => $project->id,
+                    ]),
+                    'tasks' => route('tasks.index', [
+                        'project' => $project->id,
+                    ]),
+                ],
+            ],
+        ];
+    }
 }

@@ -4,7 +4,7 @@ import { Head } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
 import { router } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
-import { reactive, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 
 import Error from '@/Components/Error.vue';
 import InputLabel from '@/Components/InputLabel.vue';
@@ -19,6 +19,10 @@ const props = defineProps({
 });
 
 const loadingState = ref(false);
+
+onMounted(() => {
+  form.name = props.data.task_list.name;
+});
 
 const form = reactive({
   name: '',
@@ -42,7 +46,7 @@ const submit = () => {
 </script>
 
 <template>
-  <Head :title="$t('Create a project')" />
+  <Head :title="$t('Edit the task list')" />
 
   <AuthenticatedLayout>
     <!-- header -->
@@ -84,9 +88,7 @@ const submit = () => {
               <li>
                 <div class="flex items-center">
                   <ChevronRightIcon class="h-4 w-4 text-gray-400" />
-                  <span class="ml-1 text-sm text-gray-500 dark:text-gray-400 md:ml-2">{{
-                    $t('Create a task list')
-                  }}</span>
+                  <span class="ml-1 text-sm text-gray-500 dark:text-gray-400 md:ml-2">{{ data.task_list.name }}</span>
                 </div>
               </li>
             </ol>
@@ -99,7 +101,7 @@ const submit = () => {
       <div class="mx-auto max-w-lg overflow-hidden rounded-lg bg-white shadow-md dark:bg-gray-800">
         <form @submit.prevent="submit">
           <div class="relative border-b px-6 py-4">
-            <h1 class="text-center text-lg font-bold">{{ $t('Create a task list') }}</h1>
+            <h1 class="text-center text-lg font-bold">{{ $t('Edit the task list') }}</h1>
           </div>
 
           <div class="relative px-6 py-4">
@@ -121,7 +123,7 @@ const submit = () => {
             >
 
             <PrimaryButton class="ml-4" :loading="loadingState" :disabled="loadingState">
-              {{ $t('Create') }}
+              {{ $t('Save') }}
             </PrimaryButton>
           </div>
         </form>

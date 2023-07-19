@@ -1,10 +1,6 @@
 <script setup>
-import { ChatBubbleBottomCenterTextIcon } from '@heroicons/vue/24/outline';
-import { BoltIcon } from '@heroicons/vue/24/outline';
 import { Head } from '@inertiajs/vue3';
-import { Link } from '@inertiajs/vue3';
 
-import Avatar from '@/Components/Avatar.vue';
 import PrimaryLinkButton from '@/Components/PrimaryLinkButton.vue';
 import TaskList from '@/Components/TaskList.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
@@ -27,7 +23,7 @@ defineProps({
     <div class="mx-auto mb-6 mt-8 max-w-7xl space-y-6 px-12 sm:px-6 lg:px-8">
       <ProjectHeader :data="data" :menu="menu" />
 
-      <div class="mx-auto max-w-2xl bg-white shadow sm:rounded-lg">
+      <div class="mx-auto max-w-4xl bg-white shadow sm:rounded-lg">
         <!-- header -->
         <div class="flex items-center justify-between px-4 py-2">
           <h2 class="text-lg font-medium text-gray-900">
@@ -38,9 +34,18 @@ defineProps({
             <PrimaryLinkButton :href="data.url.create">{{ $t('Add a task list') }}</PrimaryLinkButton>
           </div>
         </div>
+
+        <!-- blank state -->
+        <div v-if="data.task_lists.length === 0" class="border-t px-4 py-6 text-center">
+          <h3 class="mb-2 text-lg font-medium text-gray-900">{{ $t('No task list has been created yet.') }}</h3>
+          <p class="mb-5 text-gray-500">
+            {{ $t('Create a task list to begin tracking your tasks and assign them to the appropriate people.') }}
+          </p>
+          <img src="/img/messages.png" class="mx-auto block h-60 w-60" alt="" />
+        </div>
       </div>
 
-      <div class="mx-auto max-w-2xl">
+      <div class="mx-auto max-w-4xl">
         <!-- list of task lists -->
         <div v-for="taskList in data.task_lists" :key="taskList.id" class="mb-2">
           <TaskList v-if="taskList.tasks.length > 0 && !taskList.name" class="mb-8" :task-list="taskList" />

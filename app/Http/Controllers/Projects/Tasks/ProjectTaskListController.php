@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Projects\Tasks;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Projects\ProjectViewModel;
 use App\Models\Project;
+use App\Models\TaskList;
 use App\Services\CreateTaskList;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class ProjectTaskLinkController extends Controller
+class ProjectTaskListController extends Controller
 {
     public function index(Project $project): Response
     {
@@ -45,5 +46,16 @@ class ProjectTaskLinkController extends Controller
                 'project' => $project->id,
             ]),
         ], 201);
+    }
+
+    public function edit(Project $project, TaskList $taskList): Response
+    {
+        if ($taskList->project_id !== $project->id) {
+            abort(404);
+        }
+
+        return Inertia::render('Projects/Tasks/Edit', [
+            'data' => ProjectTaskListViewModel::edit($project, $taskList),
+        ]);
     }
 }

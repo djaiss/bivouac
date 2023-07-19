@@ -10,7 +10,7 @@ use App\Http\Controllers\Projects\Messages\CommentReactionController;
 use App\Http\Controllers\Projects\Messages\MessageController;
 use App\Http\Controllers\Projects\Messages\MessageReactionController;
 use App\Http\Controllers\Projects\ProjectController;
-use App\Http\Controllers\Projects\Tasks\ProjectTaskLinkController;
+use App\Http\Controllers\Projects\Tasks\ProjectTaskListController;
 use App\Http\Controllers\Reactions\ReactionController;
 use App\Http\Controllers\Search\SearchController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeController;
@@ -100,9 +100,11 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
         });
 
         // tasks
-        Route::get('projects/{project}/tasks', [ProjectTaskLinkController::class, 'index'])->name('tasks.index');
-        Route::get('projects/{project}/tasks/create', [ProjectTaskLinkController::class, 'create'])->name('task_lists.create');
-        Route::post('projects/{project}/tasks/create', [ProjectTaskLinkController::class, 'store'])->name('task_lists.store');
+        Route::get('projects/{project}/taskLists', [ProjectTaskListController::class, 'index'])->name('tasks.index');
+        Route::get('projects/{project}/taskLists/create', [ProjectTaskListController::class, 'create'])->name('task_lists.create');
+        Route::post('projects/{project}/taskLists', [ProjectTaskListController::class, 'store'])->name('task_lists.store');
+        Route::get('projects/{project}/taskLists/{taskList}/edit', [ProjectTaskListController::class, 'edit'])->name('task_lists.edit');
+        Route::put('projects/{project}/taskLists/{taskList}', [ProjectTaskListController::class, 'update'])->name('task_lists.update');
     });
 
     // users

@@ -3,6 +3,7 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
 import { ChevronDownIcon } from '@heroicons/vue/24/outline';
 import { ChevronUpIcon } from '@heroicons/vue/24/outline';
 import { EllipsisVerticalIcon } from '@heroicons/vue/24/outline';
+import { Link } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
 import { nextTick, reactive, ref } from 'vue';
 import ConfettiExplosion from 'vue-confetti-explosion';
@@ -11,7 +12,6 @@ import Checkbox from '@/Components/Checkbox.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { flash } from '@/methods.js';
-import { Link } from '@inertiajs/vue3';
 
 const loadingState = ref(false);
 
@@ -139,13 +139,19 @@ const destroy = (task) => {
     <!-- title of the task list -->
     <div class="flex items-center justify-between px-4 py-2" :class="{ 'border-b': !collapsed }">
       <!-- section title -->
-      <p v-if="context === 'message' || context === 'project'">{{ $t('Tasks') }}</p>
+      <p v-if="taskList.name" class="font-bold">{{ taskList.name }}</p>
 
+      <div v-else>
+        <p v-if="context === 'message'">{{ $t('Tasks') }}</p>
+        <Link
+          v-else
+          :href="taskList.parent.url"
+          class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
+          >{{ taskList.parent.title }}</Link
+        >
+      </div>
 
-      <p v-if="!taskList.name && taskList.parent.is_project">{{ $t('Tasks') }}</p>
-      <p v-if="taskList.name && taskList.parent.is_project">{{ taskList.name }}</p>
-      <Link v-if="!taskList.parent.is_project" :href="taskList.parent.url" class="text-blue-700 hover:bg-blue-700 hover:text-white hover:rounded-sm underline">{{ taskList.parent.title }}</Link>
-
+      <!-- progress and cta -->
       <div class="flex items-center">
         <!-- completion -->
         <div :key="componentKey" v-tooltip="$t('Completion rate')" class="mr-4 h-2 w-24 rounded-full bg-blue-200">
@@ -177,6 +183,47 @@ const destroy = (task) => {
             <ChevronDownIcon class="h-5 w-5" />
           </div>
         </div>
+
+        <!-- options -->
+        <Menu v-if="taskList.name" as="div" class="icon-menu relative z-30 text-left">
+          <MenuButton>
+            <EllipsisVerticalIcon class="h-5 w-5 cursor-pointer hover:text-gray-500" />
+          </MenuButton>
+
+          <transition
+            enter-active-class="transition duration-100 ease-out"
+            enter-from-class="transform scale-95 opacity-0"
+            enter-to-class="transform scale-100 opacity-100"
+            leave-active-class="transition duration-75 ease-in"
+            leave-from-class="transform scale-100 opacity-100"
+            leave-to-class="transform scale-95 opacity-0">
+            <MenuItems
+              class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <div class="px-1 py-1">
+                <MenuItem v-slot="{ active }">
+                  <Link
+                    :href="taskList.url.edit"
+                    :class="[
+                      active ? 'bg-violet-500 text-white' : 'text-gray-900',
+                      'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                    ]">
+                    {{ $t('Edit') }}
+                  </Link>
+                </MenuItem>
+                <MenuItem v-slot="{ active }">
+                  <button
+                    @click="destroy(task)"
+                    :class="[
+                      active ? 'bg-violet-500 text-white' : 'text-gray-900',
+                      'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                    ]">
+                    {{ $t('Delete') }}
+                  </button>
+                </MenuItem>
+              </div>
+            </MenuItems>
+          </transition>
+        </Menu>
       </div>
     </div>
 
