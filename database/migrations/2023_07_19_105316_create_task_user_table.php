@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('task_user', function (Blueprint $table) {
+        Schema::create('task_user', function (Blueprint $table): void {
             $table->unsignedBigInteger('task_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
