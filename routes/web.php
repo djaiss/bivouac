@@ -5,14 +5,15 @@ use App\Http\Controllers\PreviewController;
 use App\Http\Controllers\Profile\ProfileAvatarController;
 use App\Http\Controllers\Profile\ProfileBirthdateController;
 use App\Http\Controllers\Profile\ProfileController;
-use App\Http\Controllers\Projects\Messages\CommentController;
 use App\Http\Controllers\Projects\Messages\CommentReactionController;
+use App\Http\Controllers\Projects\Messages\MessageCommentController;
 use App\Http\Controllers\Projects\Messages\MessageController;
 use App\Http\Controllers\Projects\Messages\MessageReactionController;
 use App\Http\Controllers\Projects\ProjectController;
 use App\Http\Controllers\Projects\Tasks\ProjectAssignTaskController;
 use App\Http\Controllers\Projects\Tasks\ProjectTaskListController;
 use App\Http\Controllers\Projects\Tasks\TaskCommentController;
+use App\Http\Controllers\Projects\Tasks\TaskCommentReactionController;
 use App\Http\Controllers\Projects\Tasks\TaskReactionController;
 use App\Http\Controllers\Reactions\ReactionController;
 use App\Http\Controllers\Search\SearchController;
@@ -95,9 +96,9 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
             Route::post('projects/{project}/messages/{message}/reactions', [MessageReactionController::class, 'store'])->name('messages.reactions.store');
 
             // comments
-            Route::post('projects/{project}/messages/{message}/comments', [CommentController::class, 'store'])->name('messages.comments.store');
-            Route::put('projects/{project}/messages/{message}/comments/{comment}', [CommentController::class, 'update'])->name('messages.comments.update');
-            Route::delete('projects/{project}/messages/{message}/comments/{comment}', [CommentController::class, 'destroy'])->name('messages.comments.destroy');
+            Route::post('projects/{project}/messages/{message}/comments', [MessageCommentController::class, 'store'])->name('messages.comments.store');
+            Route::put('projects/{project}/messages/{message}/comments/{comment}', [MessageCommentController::class, 'update'])->name('messages.comments.update');
+            Route::delete('projects/{project}/messages/{message}/comments/{comment}', [MessageCommentController::class, 'destroy'])->name('messages.comments.destroy');
 
             // add comment reaction
             Route::post('projects/{project}/messages/{message}/comments/{comment}/reactions', [CommentReactionController::class, 'store'])->name('messages.comments.reactions.store');
@@ -125,7 +126,7 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
         Route::delete('projects/{project}/tasks/{task}/comments/{comment}', [TaskCommentController::class, 'destroy'])->name('tasks.comments.destroy');
 
         // add reaction to comment on a task
-        Route::post('projects/{project}/tasks/{task}/comments/{comment}/reactions', [CommentReactionController::class, 'store'])->name('tasks.comments.reactions.store');
+        Route::post('projects/{project}/tasks/{task}/comments/{comment}/reactions', [TaskCommentReactionController::class, 'store'])->name('tasks.comments.reactions.store');
     });
 
     // users

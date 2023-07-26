@@ -48,6 +48,12 @@ class TaskViewModel
             ->get()
             ->map(fn (Reaction $reaction) => ReactionViewModel::dto($reaction));
 
+        $comments = $task->comments()
+            ->with('creator')
+            ->orderBy('created_at')
+            ->get()
+            ->map(fn (Comment $comment) => self::dtoComment($task, $comment));
+
         return [
             'id' => $task->id,
             'title' => $task->title,
@@ -55,8 +61,14 @@ class TaskViewModel
             'is_completed' => $task->is_completed,
             'assignees' => $assignees,
             'reactions' => $reactions,
+            'comments' => $comments,
             'url' => [
+                'preview' => route('preview.store'),
                 'show' => route('tasks.show', [
+                    'project' => $task->taskList->project_id,
+                    'task' => $task->id,
+                ]),
+                'store' => route('tasks.comments.store', [
                     'project' => $task->taskList->project_id,
                     'task' => $task->id,
                 ]),
@@ -72,7 +84,7 @@ class TaskViewModel
 
     public static function dtoComment(Task $task, Comment $comment): array
     {
-        $reactions = $task->reactions()
+        $reactions = $comment->reactions()
             ->get()
             ->map(fn (Reaction $reaction) => ReactionViewModel::dto($reaction));
 

@@ -58,13 +58,14 @@ class TaskViewModelTest extends TestCase
 
         $array = TaskViewModel::dto($task);
 
-        $this->assertCount(7, $array);
+        $this->assertCount(8, $array);
         $this->assertArrayHasKey('id', $array);
         $this->assertArrayHasKey('title', $array);
         $this->assertArrayHasKey('description', $array);
         $this->assertArrayHasKey('is_completed', $array);
         $this->assertArrayHasKey('assignees', $array);
         $this->assertArrayHasKey('reactions', $array);
+        $this->assertArrayHasKey('comments', $array);
         $this->assertArrayHasKey('url', $array);
 
         $this->assertEquals(
@@ -102,7 +103,9 @@ class TaskViewModelTest extends TestCase
         );
         $this->assertEquals(
             [
+                'preview' => env('APP_URL') . '/preview',
                 'show' => env('APP_URL') . '/projects/' . $task->taskList->project_id . '/tasks/' . $task->id,
+                'store' => env('APP_URL') . '/projects/' . $task->taskList->project_id . '/tasks/' . $task->id . '/comments',
                 'store_reaction' => env('APP_URL') . '/projects/' . $task->taskList->project_id . '/tasks/' . $task->id . '/reactions',
                 'update' => env('APP_URL') . '/tasks/' . $task->id,
                 'destroy' => env('APP_URL') . '/tasks/' . $task->id,

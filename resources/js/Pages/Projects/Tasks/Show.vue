@@ -6,6 +6,7 @@ import { reactive, ref } from 'vue';
 import Checkbox from '@/Components/Checkbox.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import Reactions from '@/Components/Reactions.vue';
+import Comments from '@/Components/Comments.vue';
 import TextInput from '@/Components/TextInput.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { flash } from '@/methods.js';
@@ -121,7 +122,7 @@ const update = () => {
           </div>
 
           <!-- comments -->
-          <!-- <Comments :comments="data.comments" :url="data.url" /> -->
+          <Comments :comments="task.comments" :url="task.url" />
         </div>
 
         <!-- right -->

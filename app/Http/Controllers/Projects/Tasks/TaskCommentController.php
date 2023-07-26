@@ -9,6 +9,8 @@ use App\Models\Comment;
 use App\Models\Project;
 use App\Models\Task;
 use App\Services\AddCommentToTask;
+use App\Services\DestroyCommentOfTask;
+use App\Services\UpdateCommentOfTask;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -31,21 +33,21 @@ class TaskCommentController extends Controller
     {
         $comment = (new UpdateCommentOfTask)->execute([
             'user_id' => auth()->user()->id,
-            'message_id' => $message->id,
+            'task_id' => $task->id,
             'comment_id' => $comment->id,
             'body' => $request->input('body'),
         ]);
 
         return response()->json([
-            'data' => MessageViewModel::dtoComment($message, $comment),
+            'data' => TaskViewModel::dtoComment($task, $comment),
         ], 200);
     }
 
-    public function destroy(Request $request, Project $project, Message $message, Comment $comment): JsonResponse
+    public function destroy(Request $request, Project $project, Task $task, Comment $comment): JsonResponse
     {
-        (new DestroyCommentOfMessage)->execute([
+        (new DestroyCommentOfTask)->execute([
             'user_id' => auth()->user()->id,
-            'message_id' => $message->id,
+            'task_id' => $task->id,
             'comment_id' => $comment->id,
         ]);
 
