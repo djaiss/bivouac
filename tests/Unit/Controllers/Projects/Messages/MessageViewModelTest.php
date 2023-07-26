@@ -276,7 +276,7 @@ class MessageViewModelTest extends TestCase
         );
         $this->assertEquals(
             [
-                'store_reaction' => env('APP_URL') . '/projects/' . $message->project_id . '/messages/' . $message->id . '/comments/' . $comment->id . '/reactions',
+                'store_reaction' => env('APP_URL') . '/comments/' . $comment->id . '/reactions',
                 'update' => env('APP_URL') . '/projects/' . $message->project_id . '/messages/' . $message->id . '/comments/' . $comment->id,
                 'destroy' => env('APP_URL') . '/projects/' . $message->project_id . '/messages/' . $message->id . '/comments/' . $comment->id,
             ],

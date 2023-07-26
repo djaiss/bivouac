@@ -100,9 +100,7 @@ class TaskViewModel
             'created_at' => $comment->created_at->format('Y-m-d H:i:s'),
             'reactions' => $reactions,
             'url' => [
-                'store_reaction' => route('tasks.comments.reactions.store', [
-                    'project' => $task->taskList->project_id,
-                    'task' => $task->id,
+                'store_reaction' => route('comments.reactions.store', [
                     'comment' => $comment->id,
                 ]),
                 'update' => route('tasks.comments.update', [

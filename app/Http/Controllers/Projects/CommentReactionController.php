@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Projects\Messages;
+namespace App\Http\Controllers\Projects;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Reactions\ReactionViewModel;
@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 
 class CommentReactionController extends Controller
 {
-    public function store(Request $request, Project $project, Message $message, Comment $comment): JsonResponse
+    public function store(Request $request, Comment $comment): JsonResponse
     {
         $reaction = (new AddReactionToComment)->execute([
             'user_id' => auth()->user()->id,

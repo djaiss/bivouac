@@ -177,7 +177,7 @@ class TaskViewModelTest extends TestCase
         );
         $this->assertEquals(
             [
-                'store_reaction' => env('APP_URL') . '/projects/' . $task->taskList->project_id . '/tasks/' . $task->id . '/comments/' . $comment->id . '/reactions',
+                'store_reaction' => env('APP_URL') . '/comments/' . $comment->id . '/reactions',
                 'update' => env('APP_URL') . '/projects/' . $task->taskList->project_id . '/tasks/' . $task->id . '/comments/' . $comment->id,
                 'destroy' => env('APP_URL') . '/projects/' . $task->taskList->project_id . '/tasks/' . $task->id . '/comments/' . $comment->id,
             ],
