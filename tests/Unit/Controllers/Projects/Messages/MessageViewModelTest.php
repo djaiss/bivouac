@@ -126,6 +126,7 @@ class MessageViewModelTest extends TestCase
         $this->assertEquals(
             [
                 'name' => 'Dunder',
+                'description' => $project->description,
             ],
             $array['project']
         );

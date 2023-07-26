@@ -120,9 +120,9 @@ const destroy = (comment) => {
                     class="mr-2 w-5" />
                   <Link
                     :href="comment.author.url"
-                    class="inline text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-                    >{{ comment.author.name }}</Link
-                  >
+                    class="inline text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                    {{ comment.author.name }}
+                  </Link>
                 </div>
 
                 <time>{{ comment.created_at }}</time>
@@ -218,8 +218,8 @@ const destroy = (comment) => {
                     <span
                       @click="editedComment = ''"
                       class="ml-2 inline-flex cursor-pointer items-center rounded-md border border-transparent bg-gray-100 px-3 py-1 text-sm font-medium leading-4 text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
-                      {{ $t('Cancel') }}</span
-                    >
+                      {{ $t('Cancel') }}
+                    </span>
                   </div>
                 </div>
 
@@ -271,8 +271,8 @@ const destroy = (comment) => {
             <span
               @click="form.body = ''"
               class="ml-2 inline-flex cursor-pointer items-center rounded-md border border-transparent bg-gray-100 px-3 py-1 text-sm font-medium leading-4 text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
-              {{ $t('Cancel') }}</span
-            >
+              {{ $t('Cancel') }}
+            </span>
           </div>
         </div>
 

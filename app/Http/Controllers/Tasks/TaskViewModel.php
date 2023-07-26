@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Tasks;
 
+use App\Helpers\StringHelper;
+use App\Http\Controllers\Reactions\ReactionViewModel;
+use App\Models\Comment;
+use App\Models\Reaction;
 use App\Models\Task;
 use App\Models\User;
 
@@ -39,15 +43,66 @@ class TaskViewModel
                 'url' => route('users.show', $user),
             ]);
 
+        $reactions = $task->reactions()
+            ->with('user')
+            ->get()
+            ->map(fn (Reaction $reaction) => ReactionViewModel::dto($reaction));
+
         return [
             'id' => $task->id,
             'title' => $task->title,
+            'description' => $task->description,
             'is_completed' => $task->is_completed,
             'assignees' => $assignees,
+            'reactions' => $reactions,
             'url' => [
-                'show' => route('tasks.show', $task),
+                'show' => route('tasks.show', [
+                    'project' => $task->taskList->project_id,
+                    'task' => $task->id,
+                ]),
+                'store_reaction' => route('tasks.reactions.store', [
+                    'project' => $task->taskList->project_id,
+                    'task' => $task->id,
+                ]),
                 'update' => route('tasks.update', $task),
                 'destroy' => route('tasks.destroy', $task),
+            ],
+        ];
+    }
+
+    public static function dtoComment(Task $task, Comment $comment): array
+    {
+        $reactions = $task->reactions()
+            ->get()
+            ->map(fn (Reaction $reaction) => ReactionViewModel::dto($reaction));
+
+        return [
+            'id' => $comment->id,
+            'author' => [
+                'name' => $comment->authorName,
+                'avatar' => $comment?->creator?->avatar,
+                'url' => $comment->creator ? route('users.show', $comment->creator) : null,
+            ],
+            'body' => StringHelper::parse($comment->body),
+            'body_raw' => $comment->body,
+            'created_at' => $comment->created_at->format('Y-m-d H:i:s'),
+            'reactions' => $reactions,
+            'url' => [
+                'store_reaction' => route('tasks.comments.reactions.store', [
+                    'project' => $task->taskList->project_id,
+                    'task' => $task->id,
+                    'comment' => $comment->id,
+                ]),
+                'update' => route('tasks.comments.update', [
+                    'project' => $task->taskList->project_id,
+                    'task' => $task->id,
+                    'comment' => $comment->id,
+                ]),
+                'destroy' => route('tasks.comments.destroy', [
+                    'project' => $task->taskList->project_id,
+                    'task' => $task->id,
+                    'comment' => $comment->id,
+                ]),
             ],
         ];
     }

@@ -9,9 +9,11 @@ use App\Http\Controllers\Projects\Messages\CommentController;
 use App\Http\Controllers\Projects\Messages\CommentReactionController;
 use App\Http\Controllers\Projects\Messages\MessageController;
 use App\Http\Controllers\Projects\Messages\MessageReactionController;
+use App\Http\Controllers\Projects\Tasks\TaskReactionController;
 use App\Http\Controllers\Projects\ProjectController;
 use App\Http\Controllers\Projects\Tasks\ProjectAssignTaskController;
 use App\Http\Controllers\Projects\Tasks\ProjectTaskListController;
+use App\Http\Controllers\Projects\Tasks\TaskCommentController;
 use App\Http\Controllers\Reactions\ReactionController;
 use App\Http\Controllers\Search\SearchController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeController;
@@ -112,6 +114,18 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
         // assign user to task
         Route::post('projects/{project}/tasks/{task}/assign', [ProjectAssignTaskController::class, 'store'])->name('tasks.assign.store');
         Route::delete('projects/{project}/tasks/{task}/assign', [ProjectAssignTaskController::class, 'destroy'])->name('tasks.assign.destroy');
+
+        // tasks
+        Route::get('projects/{project}/tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
+
+        // add reaction and message to tasks
+        Route::post('projects/{project}/tasks/{task}/reactions', [TaskReactionController::class, 'store'])->name('tasks.reactions.store');
+        Route::post('projects/{project}/tasks/{task}/comments', [TaskCommentController::class, 'store'])->name('tasks.comments.store');
+        Route::put('projects/{project}/tasks/{task}/comments/{comment}', [TaskCommentController::class, 'update'])->name('tasks.comments.update');
+        Route::delete('projects/{project}/tasks/{task}/comments/{comment}', [TaskCommentController::class, 'destroy'])->name('tasks.comments.destroy');
+
+        // add reaction to comment on a task
+        Route::post('projects/{project}/tasks/{task}/comments/{comment}/reactions', [CommentReactionController::class, 'store'])->name('tasks.comments.reactions.store');
     });
 
     // users

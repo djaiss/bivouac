@@ -59,17 +59,17 @@ const submit = () => {
                 <div class="flex items-center">
                   <Link
                     :href="data.url.breadcrumb.projects"
-                    class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-                    >{{ $t('Projects') }}</Link
-                  >
+                    class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                    {{ $t('Projects') }}
+                  </Link>
                 </div>
               </li>
               <li>
                 <div class="flex items-center">
                   <ChevronRightIcon class="h-4 w-4 text-gray-400" />
-                  <span class="ml-1 text-sm text-gray-500 dark:text-gray-400 md:ml-2">{{
-                    $t('Create a project')
-                  }}</span>
+                  <span class="ml-1 text-sm text-gray-500 dark:text-gray-400 md:ml-2">
+                    {{ $t('Create a project') }}
+                  </span>
                 </div>
               </li>
             </ol>
@@ -122,9 +122,9 @@ const submit = () => {
                 name="public"
                 type="radio"
                 class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
-              <label for="hidden" class="block text-sm font-medium leading-6 text-gray-900">{{
-                $t('Public: everyone can see and participate')
-              }}</label>
+              <label for="hidden" class="block text-sm font-medium leading-6 text-gray-900">
+                {{ $t('Public: everyone can see and participate') }}
+              </label>
             </div>
             <div class="flex items-center gap-x-2">
               <input
@@ -134,18 +134,18 @@ const submit = () => {
                 name="public"
                 type="radio"
                 class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
-              <label for="month_day" class="block text-sm font-medium leading-6 text-gray-900">{{
-                $t('Private: only selected users can access this project')
-              }}</label>
+              <label for="month_day" class="block text-sm font-medium leading-6 text-gray-900">
+                {{ $t('Private: only selected users can access this project') }}
+              </label>
             </div>
           </div>
 
           <div class="flex items-center justify-between border-t bg-gray-50 px-6 py-4">
             <Link
               :href="data.url.breadcrumb.users"
-              class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-              >{{ $t('Back') }}</Link
-            >
+              class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+              {{ $t('Back') }}
+            </Link>
 
             <PrimaryButton class="ml-4" :loading="loadingState" :disabled="loadingState">
               {{ $t('Create') }}

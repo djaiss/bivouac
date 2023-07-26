@@ -20,6 +20,7 @@ class TaskFactory extends Factory
         return [
             'task_list_id' => TaskList::factory(),
             'title' => fake()->name(),
+            'description' => fake()->sentence(),
         ];
     }
 }

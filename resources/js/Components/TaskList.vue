@@ -14,8 +14,6 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { flash } from '@/methods.js';
 
-const loadingState = ref(false);
-
 const emit = defineEmits(['destroyed']);
 
 const props = defineProps({
@@ -35,6 +33,7 @@ const form = reactive({
   errors: '',
 });
 
+const loadingState = ref(false);
 const taskList = ref(props.taskList);
 const localTasks = ref(props.taskList.tasks);
 const completionRate = ref(props.taskList.completion_rate);
@@ -158,9 +157,9 @@ const destroyList = () => {
         <Link
           v-else
           :href="taskList.parent.url"
-          class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-          >{{ taskList.parent.title }}</Link
-        >
+          class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+          {{ taskList.parent.title }}
+        </Link>
       </div>
 
       <!-- progress and cta -->
@@ -330,15 +329,15 @@ const destroyList = () => {
 
             <!-- actions -->
             <div class="flex items-center">
-              <PrimaryButton class="mr-2" :loading="loadingState" :disabled="loadingState">{{
-                $t('Edit')
-              }}</PrimaryButton>
+              <PrimaryButton class="mr-2" :loading="loadingState" :disabled="loadingState">
+                {{ $t('Edit') }}
+              </PrimaryButton>
 
               <span
                 @click="editedTaskId = 0"
                 class="flex cursor-pointer rounded-md bg-gray-100 px-3 py-1.5 font-semibold text-gray-700 shadow-sm ring-1 ring-inset ring-gray-200 hover:bg-gray-200">
-                {{ $t('Cancel') }}</span
-              >
+                {{ $t('Cancel') }}
+              </span>
             </div>
           </form>
         </div>
@@ -364,15 +363,15 @@ const destroyList = () => {
 
           <!-- actions -->
           <div class="flex items-center">
-            <PrimaryButton class="mr-2" :loading="loadingState" :disabled="loadingState">{{
-              $t('Save')
-            }}</PrimaryButton>
+            <PrimaryButton class="mr-2" :loading="loadingState" :disabled="loadingState">
+              {{ $t('Save') }}
+            </PrimaryButton>
 
             <span
               @click="addTaskModalShown = false"
               class="flex cursor-pointer rounded-md bg-gray-100 px-3 py-1.5 font-semibold text-gray-700 shadow-sm ring-1 ring-inset ring-gray-200 hover:bg-gray-200">
-              {{ $t('Cancel') }}</span
-            >
+              {{ $t('Cancel') }}
+            </span>
           </div>
         </form>
       </div>

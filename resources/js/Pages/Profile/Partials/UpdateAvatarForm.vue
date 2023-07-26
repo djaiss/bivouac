@@ -55,9 +55,9 @@ const update = () => {
         <Error :errors="form.errors" />
 
         <form @submit.prevent="update" class="max-w-3xl space-y-6">
-          <PrimaryButton :loading="loadingState" :disabled="loadingState">{{
-            $t('Generate new avatar')
-          }}</PrimaryButton>
+          <PrimaryButton :loading="loadingState" :disabled="loadingState">
+            {{ $t('Generate new avatar') }}
+          </PrimaryButton>
         </form>
       </div>
     </div>

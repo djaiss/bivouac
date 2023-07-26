@@ -56,26 +56,26 @@ const update = () => {
             <li class="inline-flex items-center">
               <Link
                 :href="data.url.breadcrumb.home"
-                class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-                >{{ $t('Home') }}</Link
-              >
+                class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                {{ $t('Home') }}
+              </Link>
             </li>
             <li>
               <div class="flex items-center">
                 <ChevronRightIcon class="mr-2 h-4 w-4 text-gray-400" />
                 <Link
                   :href="data.url.breadcrumb.settings"
-                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-                  >{{ $t('Account settings') }}</Link
-                >
+                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                  {{ $t('Account settings') }}
+                </Link>
               </div>
             </li>
             <li>
               <div class="flex items-center">
                 <ChevronRightIcon class="h-4 w-4 text-gray-400" />
-                <span class="ml-1 text-sm text-gray-500 dark:text-gray-400 md:ml-2">{{
-                  $t('Unlock your account')
-                }}</span>
+                <span class="ml-1 text-sm text-gray-500 dark:text-gray-400 md:ml-2">
+                  {{ $t('Unlock your account') }}
+                </span>
               </div>
             </li>
           </ol>
@@ -106,9 +106,9 @@ const update = () => {
                   <a
                     :href="data.url.store"
                     target="_blank"
-                    class="rounded-md bg-indigo-500 px-3 py-1.5 text-center font-semibold text-white shadow-sm ring-1 ring-inset ring-indigo-600 hover:bg-indigo-700"
-                    >{{ $t('Unlock') }}</a
-                  >
+                    class="rounded-md bg-indigo-500 px-3 py-1.5 text-center font-semibold text-white shadow-sm ring-1 ring-inset ring-indigo-600 hover:bg-indigo-700">
+                    {{ $t('Unlock') }}
+                  </a>
                 </div>
                 <ul class="text-center text-sm">
                   <li class="mr-2 inline">{{ $t('Lifetime access.') }}</li>
@@ -130,9 +130,9 @@ const update = () => {
                   <a
                     :href="data.url.store"
                     target="_blank"
-                    class="rounded-md bg-indigo-500 px-3 py-1.5 text-center font-semibold text-white shadow-sm ring-1 ring-inset ring-indigo-600 hover:bg-indigo-700"
-                    >{{ $t('Unlock') }}</a
-                  >
+                    class="rounded-md bg-indigo-500 px-3 py-1.5 text-center font-semibold text-white shadow-sm ring-1 ring-inset ring-indigo-600 hover:bg-indigo-700">
+                    {{ $t('Unlock') }}
+                  </a>
                 </div>
                 <ul class="text-center text-sm">
                   <li class="mr-2 inline">{{ $t('Lifetime access.') }}</li>

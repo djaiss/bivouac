@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Tasks;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Projects\ProjectViewModel;
+use App\Models\Project;
 use App\Models\Task;
 use App\Services\CreateTask;
 use App\Services\DestroyTask;
@@ -36,10 +38,10 @@ class TaskController extends Controller
         ], 201);
     }
 
-    public function show(Request $request, Task $task): Response
+    public function show(Request $request, Project $project, Task $task): Response
     {
         return Inertia::render('Projects/Tasks/Show', [
-            'data' => ProjectViewModel::show($project),
+            'data' => TaskViewModel::show($task),
             'menu' => ProjectViewModel::menu($project),
         ]);
     }

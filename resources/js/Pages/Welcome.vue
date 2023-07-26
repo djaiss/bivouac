@@ -28,23 +28,23 @@ defineProps({
       <Link
         v-if="$page.props.auth.user"
         :href="route('dashboard')"
-        class="font-semibold text-gray-600 hover:text-gray-900 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:text-gray-400 dark:hover:text-white"
-        >Dashboard</Link
-      >
+        class="font-semibold text-gray-600 hover:text-gray-900 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:text-gray-400 dark:hover:text-white">
+        Dashboard
+      </Link>
 
       <template v-else>
         <Link
           :href="route('login')"
-          class="font-semibold text-gray-600 hover:text-gray-900 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:text-gray-400 dark:hover:text-white"
-          >Log in</Link
-        >
+          class="font-semibold text-gray-600 hover:text-gray-900 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:text-gray-400 dark:hover:text-white">
+          Log in
+        </Link>
 
         <Link
           v-if="canRegister"
           :href="route('register')"
-          class="ml-4 font-semibold text-gray-600 hover:text-gray-900 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:text-gray-400 dark:hover:text-white"
-          >Register</Link
-        >
+          class="ml-4 font-semibold text-gray-600 hover:text-gray-900 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:text-gray-400 dark:hover:text-white">
+          Register
+        </Link>
       </template>
     </div>
 
@@ -193,55 +193,64 @@ defineProps({
                 Laravel's robust library of first-party tools and libraries, such as
                 <a
                   href="https://forge.laravel.com"
-                  class="underline hover:text-gray-700 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:hover:text-white"
-                  >Forge</a
-                >,
+                  class="underline hover:text-gray-700 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:hover:text-white">
+                  Forge
+                </a>
+                ,
                 <a
                   href="https://vapor.laravel.com"
-                  class="underline hover:text-gray-700 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:hover:text-white"
-                  >Vapor</a
-                >,
+                  class="underline hover:text-gray-700 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:hover:text-white">
+                  Vapor
+                </a>
+                ,
                 <a
                   href="https://nova.laravel.com"
-                  class="underline hover:text-gray-700 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:hover:text-white"
-                  >Nova</a
-                >, and
+                  class="underline hover:text-gray-700 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:hover:text-white">
+                  Nova
+                </a>
+                , and
                 <a
                   href="https://envoyer.io"
-                  class="underline hover:text-gray-700 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:hover:text-white"
-                  >Envoyer</a
-                >
+                  class="underline hover:text-gray-700 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:hover:text-white">
+                  Envoyer
+                </a>
                 help you take your projects to the next level. Pair them with powerful open source libraries like
                 <a
                   href="https://laravel.com/docs/billing"
-                  class="underline hover:text-gray-700 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:hover:text-white"
-                  >Cashier</a
-                >,
+                  class="underline hover:text-gray-700 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:hover:text-white">
+                  Cashier
+                </a>
+                ,
                 <a
                   href="https://laravel.com/docs/dusk"
-                  class="underline hover:text-gray-700 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:hover:text-white"
-                  >Dusk</a
-                >,
+                  class="underline hover:text-gray-700 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:hover:text-white">
+                  Dusk
+                </a>
+                ,
                 <a
                   href="https://laravel.com/docs/broadcasting"
-                  class="underline hover:text-gray-700 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:hover:text-white"
-                  >Echo</a
-                >,
+                  class="underline hover:text-gray-700 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:hover:text-white">
+                  Echo
+                </a>
+                ,
                 <a
                   href="https://laravel.com/docs/horizon"
-                  class="underline hover:text-gray-700 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:hover:text-white"
-                  >Horizon</a
-                >,
+                  class="underline hover:text-gray-700 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:hover:text-white">
+                  Horizon
+                </a>
+                ,
                 <a
                   href="https://laravel.com/docs/sanctum"
-                  class="underline hover:text-gray-700 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:hover:text-white"
-                  >Sanctum</a
-                >,
+                  class="underline hover:text-gray-700 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:hover:text-white">
+                  Sanctum
+                </a>
+                ,
                 <a
                   href="https://laravel.com/docs/telescope"
-                  class="underline hover:text-gray-700 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:hover:text-white"
-                  >Telescope</a
-                >, and more.
+                  class="underline hover:text-gray-700 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:hover:text-white">
+                  Telescope
+                </a>
+                , and more.
               </p>
             </div>
           </div>

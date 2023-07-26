@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('task_list_id');
             $table->string('title')->nullable();
+            $table->text('description')->nullable();
             $table->boolean('is_completed')->default(false);
             $table->timestamps();
             $table->foreign('task_list_id')->references('id')->on('task_lists')->onDelete('cascade');

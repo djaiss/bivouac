@@ -35,7 +35,7 @@ const destroy = () => {
 
   <AuthenticatedLayout>
     <div class="pb-12">
-      <div class="mx-auto max-w-7xl overflow-hidden">
+      <div class="mx-auto mb-6 mt-8 max-w-7xl space-y-6 px-12 sm:px-6 lg:px-8">
         <ProjectHeader :data="data" :menu="menu" />
 
         <div class="grid grid-cols-[3fr_1fr] gap-4 px-4">
@@ -57,9 +57,9 @@ const destroy = () => {
                     class="mr-2 w-5" />
                   <Link
                     :href="data.message.author.url"
-                    class="mr-4 text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-                    >{{ data.message.author.name }}</Link
-                  >
+                    class="mr-4 text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                    {{ data.message.author.name }}
+                  </Link>
                   <p>{{ data.message.created_at }}</p>
                 </div>
 
@@ -87,17 +87,17 @@ const destroy = () => {
                 <Link
                   :href="data.message.url.edit"
                   class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
-                  {{ $t('Edit') }}</Link
-                >
+                  {{ $t('Edit') }}
+                </Link>
               </div>
 
               <!-- markdown help -->
               <div class="prose rounded-b-lg bg-gray-50 px-6 py-4 text-sm">
                 <span
                   @click="destroy()"
-                  class="cursor-pointer font-medium text-red-700 underline hover:rounded-sm hover:bg-red-700 hover:text-white"
-                  >{{ $t('Delete') }}</span
-                >
+                  class="cursor-pointer font-medium text-red-700 underline hover:rounded-sm hover:bg-red-700 hover:text-white">
+                  {{ $t('Delete') }}
+                </span>
               </div>
             </div>
           </div>

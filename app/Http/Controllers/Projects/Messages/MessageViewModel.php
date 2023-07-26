@@ -95,6 +95,7 @@ class MessageViewModel
         return [
             'project' => [
                 'name' => $message->project->name,
+                'description' => $message->project->description,
             ],
             'message' => self::dto($message),
             'comments' => $comments,
