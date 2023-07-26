@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Projects\Tasks;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Projects\Messages\MessageViewModel;
 use App\Http\Controllers\Tasks\TaskViewModel;
 use App\Models\Comment;
 use App\Models\Project;
