@@ -4,13 +4,11 @@ namespace App\Http\Controllers\Projects\Tasks;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Projects\Messages\MessageViewModel;
-use App\Http\Controllers\Reactions\ReactionViewModel;
 use App\Http\Controllers\Tasks\TaskViewModel;
 use App\Models\Comment;
 use App\Models\Project;
 use App\Models\Task;
 use App\Services\AddCommentToTask;
-use App\Services\AddReactionToTask;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
