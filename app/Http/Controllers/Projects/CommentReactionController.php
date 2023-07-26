@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Projects;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Reactions\ReactionViewModel;
 use App\Models\Comment;
-use App\Models\Message;
-use App\Models\Project;
 use App\Services\AddReactionToComment;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
