@@ -87,6 +87,10 @@ class TaskViewModel
                     'project' => $task->taskList->project_id,
                     'task' => $task->id,
                 ]),
+                'unassign' => route('tasks.assign.destroy', [
+                    'project' => $task->taskList->project_id,
+                    'task' => $task->id,
+                ]),
             ],
         ];
     }

@@ -137,16 +137,22 @@ const showSearch = () => {
 
 const assign = (user) => {
   form.assignee_id = user.id;
-  axios
-    .post(task.value.url.assign, form)
-    .then((response) => {
-      flash(trans('Changes saved'));
-      localAssignees.value.push(response.data.data.assignee);
-      cancelSearch();
-    })
-    .catch(() => {
-      loadingState.value = false;
-    });
+  axios.post(task.value.url.assign, form).then((response) => {
+    flash(trans('Changes saved'));
+    localAssignees.value.push(response.data.data.assignee);
+    cancelSearch();
+    searchShown.value = false;
+  });
+};
+
+const unassign = (user) => {
+  form.assignee_id = user.id;
+
+  axios.post(task.value.url.unassign, form).then(() => {
+    flash(trans('Changes saved'));
+    let id = localAssignees.value.findIndex((x) => x.id === user.id);
+    localAssignees.value.splice(id, 1);
+  });
 };
 
 const searchUsers = debounce(() => {
@@ -225,11 +231,13 @@ const cancelSearch = () => {
               </div>
 
               <!-- description -->
-              <div
-                v-if="description && !editDescriptionShown"
-                @click="editDescription()"
-                v-html="formattedDescription"
-                class="prose ml-3"></div>
+              <div class="ml-3 rounded-lg p-2 hover:bg-gray-100">
+                <div
+                  v-if="description && !editDescriptionShown"
+                  @click="editDescription()"
+                  v-html="formattedDescription"
+                  class="prose"></div>
+              </div>
               <div
                 v-if="!description && !editDescriptionShown"
                 @click="editDescription()"
@@ -304,24 +312,38 @@ const cancelSearch = () => {
 
               <!-- list of assignees -->
               <div v-if="task.assignees.length > 0">
-                <div v-for="assignee in localAssignees" :key="assignee.id" class="mb-4 flex items-center">
-                  <Avatar
-                    v-tooltip="assignee.name"
-                    :data="assignee.avatar"
-                    :url="assignee.url"
-                    class="h-6 w-6 cursor-pointer rounded-full" />
+                <div
+                  v-for="assignee in localAssignees"
+                  :key="assignee.id"
+                  class="group mb-4 flex items-center justify-between rounded-lg px-2 py-1 hover:bg-gray-100">
+                  <div class="flex items-center">
+                    <Avatar
+                      v-tooltip="assignee.name"
+                      :data="assignee.avatar"
+                      :url="assignee.url"
+                      class="h-6 w-6 cursor-pointer rounded-full" />
 
-                  <Link
-                    :href="assignee.url"
-                    class="ml-2 text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
-                    {{ assignee.name }}
-                  </Link>
+                    <Link
+                      :href="assignee.url"
+                      class="ml-2 text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                      {{ assignee.name }}
+                    </Link>
+                  </div>
+
+                  <XMarkIcon
+                    @click="unassign(assignee)"
+                    class="hidden h-5 w-5 cursor-pointer text-gray-400 group-hover:block" />
                 </div>
               </div>
 
               <!-- links to add assignees -->
               <ul class="text-sm">
-                <li @click="showSearch()" v-if="!searchShown" class="mr-2 inline cursor-pointer text-gray-600 hover:underline">{{ $t('Add someone') }}</li>
+                <li
+                  @click="showSearch()"
+                  v-if="!searchShown"
+                  class="mr-2 inline cursor-pointer text-gray-600 hover:underline">
+                  {{ $t('Add someone') }}
+                </li>
                 <li
                   @click="assign(loggedUser)"
                   v-if="!isSelfAssigned"

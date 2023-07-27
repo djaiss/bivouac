@@ -143,7 +143,7 @@ const submit = () => {
           <!-- action -->
           <div class="flex items-center justify-between border-t bg-gray-50 px-6 py-4">
             <Link
-              :href="data.url.breadcrumb.users"
+              :href="data.url.breadcrumb.projects"
               class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
               {{ $t('Back') }}
             </Link>

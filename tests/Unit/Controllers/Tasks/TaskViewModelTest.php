@@ -116,6 +116,7 @@ class TaskViewModelTest extends TestCase
                 'update' => env('APP_URL') . '/tasks/' . $task->id,
                 'destroy' => env('APP_URL') . '/tasks/' . $task->id,
                 'assign' => env('APP_URL') . '/projects/' . $task->taskList->project_id . '/tasks/' . $task->id . '/assign',
+                'unassign' => env('APP_URL') . '/projects/' . $task->taskList->project_id . '/tasks/' . $task->id . '/unassign',
             ],
             $array['url']
         );

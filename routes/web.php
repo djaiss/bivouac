@@ -115,7 +115,7 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
 
         // assign user to task
         Route::post('projects/{project}/tasks/{task}/assign', [ProjectAssignTaskController::class, 'store'])->name('tasks.assign.store');
-        Route::delete('projects/{project}/tasks/{task}/assign', [ProjectAssignTaskController::class, 'destroy'])->name('tasks.assign.destroy');
+        Route::post('projects/{project}/tasks/{task}/unassign', [ProjectAssignTaskController::class, 'destroy'])->name('tasks.assign.destroy');
 
         // tasks
         Route::get('projects/{project}/tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
