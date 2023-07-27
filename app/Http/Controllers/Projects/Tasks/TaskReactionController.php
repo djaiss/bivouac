@@ -1,23 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Projects\Messages;
+namespace App\Http\Controllers\Projects\Tasks;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Reactions\ReactionViewModel;
-use App\Models\Comment;
-use App\Models\Message;
 use App\Models\Project;
-use App\Services\AddReactionToComment;
+use App\Models\Task;
+use App\Services\AddReactionToTask;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class CommentReactionController extends Controller
+class TaskReactionController extends Controller
 {
-    public function store(Request $request, Project $project, Message $message, Comment $comment): JsonResponse
+    public function store(Request $request, Project $project, Task $task): JsonResponse
     {
-        $reaction = (new AddReactionToComment)->execute([
+        $reaction = (new AddReactionToTask)->execute([
             'user_id' => auth()->user()->id,
-            'comment_id' => $comment->id,
+            'task_id' => $task->id,
             'emoji' => $request->input('emoji'),
         ]);
 

@@ -85,9 +85,9 @@ const update = () => {
                 name="public"
                 type="radio"
                 class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
-              <label for="hidden" class="block text-sm font-medium leading-6 text-gray-900">{{
-                $t('Public: everyone can see and participate')
-              }}</label>
+              <label for="hidden" class="block text-sm font-medium leading-6 text-gray-900">
+                {{ $t('Public: everyone can see and participate') }}
+              </label>
             </div>
             <div class="flex items-center gap-x-2">
               <input
@@ -97,9 +97,9 @@ const update = () => {
                 name="public"
                 type="radio"
                 class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
-              <label for="month_day" class="block text-sm font-medium leading-6 text-gray-900">{{
-                $t('Private: only selected users can access this project')
-              }}</label>
+              <label for="month_day" class="block text-sm font-medium leading-6 text-gray-900">
+                {{ $t('Private: only selected users can access this project') }}
+              </label>
             </div>
           </div>
 

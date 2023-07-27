@@ -26,23 +26,23 @@ const props = defineProps({
               <li class="mr-2">
                 <a
                   href="#"
-                  class="inline-block rounded-t-lg border-b-2 border-transparent p-4 hover:border-blue-300 hover:text-blue-600 dark:hover:text-gray-300"
-                  >{{ $t('Your projects') }}</a
-                >
+                  class="inline-block rounded-t-lg border-b-2 border-transparent p-4 hover:border-blue-300 hover:text-blue-600 dark:hover:text-gray-300">
+                  {{ $t('Your projects') }}
+                </a>
               </li>
               <li class="mr-2">
                 <a
                   href="#"
-                  class="active inline-block rounded-t-lg border-b-2 border-blue-600 p-4 text-blue-600 dark:border-blue-500 dark:text-blue-500"
-                  >{{ $t('Starred projects') }}</a
-                >
+                  class="active inline-block rounded-t-lg border-b-2 border-blue-600 p-4 text-blue-600 dark:border-blue-500 dark:text-blue-500">
+                  {{ $t('Starred projects') }}
+                </a>
               </li>
               <li class="mr-2">
                 <a
                   href="#"
-                  class="inline-block rounded-t-lg border-b-2 border-transparent p-4 hover:border-blue-300 hover:text-blue-600 dark:hover:text-gray-300"
-                  >{{ $t('All projects') }}</a
-                >
+                  class="inline-block rounded-t-lg border-b-2 border-transparent p-4 hover:border-blue-300 hover:text-blue-600 dark:hover:text-gray-300">
+                  {{ $t('All projects') }}
+                </a>
               </li>
             </ul>
 
@@ -52,9 +52,9 @@ const props = defineProps({
             <div v-else>
               <span
                 v-tooltip="$t('Please upgrade your account to add another project')"
-                class="flex cursor-not-allowed rounded-md bg-indigo-500 px-3 py-1.5 font-semibold text-white shadow-sm ring-1 ring-inset ring-indigo-600 hover:bg-indigo-700"
-                >{{ $t('Create project') }}</span
-              >
+                class="flex cursor-not-allowed rounded-md bg-indigo-500 px-3 py-1.5 font-semibold text-white shadow-sm ring-1 ring-inset ring-indigo-600 hover:bg-indigo-700">
+                {{ $t('Create project') }}
+              </span>
             </div>
           </div>
         </div>
@@ -77,14 +77,14 @@ const props = defineProps({
                     <div class="mr-6 flex flex-col">
                       <!-- project name -->
                       <div class="flex items-center">
-                        <span v-if="!project.is_public" v-tooltip="$t('This project is private')"
-                          ><LockClosedIcon class="mr-2 h-4 w-4 text-blue-500"
-                        /></span>
+                        <span v-if="!project.is_public" v-tooltip="$t('This project is private')">
+                          <LockClosedIcon class="mr-2 h-4 w-4 text-blue-500" />
+                        </span>
                         <Link
                           :href="project.url.show"
-                          class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-                          >{{ project.name }}</Link
-                        >
+                          class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                          {{ project.name }}
+                        </Link>
                       </div>
 
                       <!-- description -->

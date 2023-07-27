@@ -12,7 +12,7 @@ use App\Services\UpdateCommentOfMessage;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class CommentController extends Controller
+class MessageCommentController extends Controller
 {
     public function store(Request $request, Project $project, Message $message): JsonResponse
     {

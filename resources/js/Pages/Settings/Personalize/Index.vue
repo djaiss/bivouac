@@ -35,29 +35,29 @@ defineProps({
                 <span class="mr-4 rounded border border-yellow-400 bg-yellow-100 px-1">👥</span>
                 <Link
                   :href="data.url.users"
-                  class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-                  >{{ $t('Add or remove users') }}</Link
-                >
+                  class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                  {{ $t('Add or remove users') }}
+                </Link>
               </li>
               <li class="flex items-center border-b border-gray-200 px-4 py-2 hover:bg-slate-50">
                 <span class="mr-4 rounded border border-yellow-400 bg-yellow-100 px-1">🏣</span>
-                <Link class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">{{
-                  $t("Update organization's name and description")
-                }}</Link>
+                <Link class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                  {{ $t("Update organization's name and description") }}
+                </Link>
               </li>
               <li class="flex items-center border-b border-gray-200 px-4 py-2 hover:bg-slate-50">
                 <span class="mr-4 rounded border border-yellow-400 bg-yellow-100 px-1">👮‍♂️</span>
-                <Link class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">{{
-                  $t('Manage roles')
-                }}</Link>
+                <Link class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                  {{ $t('Manage roles') }}
+                </Link>
               </li>
               <li class="flex items-center border-b border-gray-200 px-4 py-2 hover:bg-slate-50">
                 <span class="mr-4 rounded border border-yellow-400 bg-yellow-100 px-1">🏢</span>
                 <Link
                   :href="data.url.offices"
-                  class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-                  >{{ $t('Manage offices') }}</Link
-                >
+                  class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                  {{ $t('Manage offices') }}
+                </Link>
               </li>
               <li class="flex items-center border-b border-gray-200 px-4 py-2 hover:bg-slate-50">
                 <div class="mr-3 rounded-lg bg-blue-300 p-2">
@@ -65,15 +65,15 @@ defineProps({
                 </div>
                 <Link
                   :href="data.url.team_types"
-                  class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-                  >{{ $t('Manage team types') }}</Link
-                >
+                  class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                  {{ $t('Manage team types') }}
+                </Link>
               </li>
               <li class="flex items-center border-b border-gray-200 px-4 py-2 hover:bg-slate-50">
                 <img src="/img/genders.png" class="mr-4 h-20 w-20" alt="" />
-                <Link class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">{{
-                  $t('Manage genders and pronouns')
-                }}</Link>
+                <Link class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                  {{ $t('Manage genders and pronouns') }}
+                </Link>
               </li>
               <li
                 v-if="data.upgradable"
@@ -81,15 +81,15 @@ defineProps({
                 <span class="mr-4 rounded border border-yellow-400 bg-yellow-100 px-1">🤑</span>
                 <Link
                   :href="data.url.upgrade"
-                  class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-                  >{{ $t('Unlock account') }}</Link
-                >
+                  class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                  {{ $t('Unlock account') }}
+                </Link>
               </li>
               <li class="flex items-center px-4 py-2 hover:rounded-b-lg hover:bg-slate-50">
                 <img src="/img/cancel.png" class="mr-4 h-20 w-20" alt="" />
-                <Link class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">{{
-                  $t('Delete organization')
-                }}</Link>
+                <Link class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                  {{ $t('Delete organization') }}
+                </Link>
               </li>
             </ul>
           </div>

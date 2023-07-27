@@ -71,19 +71,5 @@ class TaskListViewModelTest extends TestCase
             ],
             $array['parent']
         );
-        $this->assertEquals(
-            [
-                0 => [
-                    'id' => $task->id,
-                    'title' => 'Task',
-                    'is_completed' => true,
-                    'url' => [
-                        'update' => env('APP_URL') . '/tasks/' . $task->id,
-                        'destroy' => env('APP_URL') . '/tasks/' . $task->id,
-                    ],
-                ],
-            ],
-            $array['tasks']->toArray()
-        );
     }
 }

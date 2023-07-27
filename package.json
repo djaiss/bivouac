@@ -34,6 +34,7 @@
         "eslint-plugin-vue": "^9.14.1",
         "floating-vue": "^2.0.0-beta.24",
         "laravel-vue-i18n": "^2.5.1",
+        "lodash.debounce": "^4.0.8",
         "prettier-plugin-tailwindcss": "^0.3.0",
         "sass": "^1.63.3",
         "tiny-emitter": "^2.1.0",

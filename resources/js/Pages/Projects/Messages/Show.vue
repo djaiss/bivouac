@@ -1,5 +1,4 @@
 <script setup>
-import { ChevronRightIcon } from '@heroicons/vue/24/solid';
 import { Head } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
 import { router } from '@inertiajs/vue3';
@@ -10,9 +9,13 @@ import Comments from '@/Components/Comments.vue';
 import Reactions from '@/Components/Reactions.vue';
 import TaskList from '@/Components/TaskList.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import ProjectHeader from '@/Pages/Projects/Partials/ProjectHeader.vue';
 
 const props = defineProps({
   data: {
+    type: Array,
+  },
+  menu: {
     type: Array,
   },
 });
@@ -31,54 +34,10 @@ const destroy = () => {
   <Head :title="$t('Show message')" />
 
   <AuthenticatedLayout>
-    <!-- header -->
-    <div class="mb-12">
-      <div class="bg-white px-4 py-2 shadow">
-        <!-- Breadcrumb -->
-        <nav class="flex py-3 text-gray-700">
-          <ol class="inline-flex items-center space-x-1 md:space-x-3">
-            <li>
-              <div class="flex items-center">
-                <Link
-                  :href="data.url.breadcrumb.projects"
-                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-                  >{{ $t('Projects') }}</Link
-                >
-              </div>
-            </li>
-            <li>
-              <div class="flex items-center">
-                <ChevronRightIcon class="mr-2 h-4 w-4 text-gray-400" />
-                <Link
-                  :href="data.url.breadcrumb.project"
-                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-                  >{{ data.project.name }}
-                </Link>
-              </div>
-            </li>
-            <li>
-              <div class="flex items-center">
-                <ChevronRightIcon class="mr-2 h-4 w-4 text-gray-400" />
-                <Link
-                  :href="data.url.breadcrumb.messages"
-                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
-                  {{ $t('Messages') }}
-                </Link>
-              </div>
-            </li>
-            <li>
-              <div class="flex items-center">
-                <ChevronRightIcon class="h-4 w-4 text-gray-400" />
-                <span class="ml-1 text-sm text-gray-500 dark:text-gray-400 md:ml-2">{{ data.message.title }}</span>
-              </div>
-            </li>
-          </ol>
-        </nav>
-      </div>
-    </div>
-
     <div class="pb-12">
-      <div class="mx-auto max-w-7xl overflow-hidden">
+      <div class="mx-auto mb-6 mt-8 max-w-7xl space-y-6 px-12 sm:px-6 lg:px-8">
+        <ProjectHeader :data="data" :menu="menu" />
+
         <div class="grid grid-cols-[3fr_1fr] gap-4 px-4">
           <!-- left -->
           <div>
@@ -98,9 +57,9 @@ const destroy = () => {
                     class="mr-2 w-5" />
                   <Link
                     :href="data.message.author.url"
-                    class="mr-4 text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-                    >{{ data.message.author.name }}</Link
-                  >
+                    class="mr-4 text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                    {{ data.message.author.name }}
+                  </Link>
                   <p>{{ data.message.created_at }}</p>
                 </div>
 
@@ -128,17 +87,17 @@ const destroy = () => {
                 <Link
                   :href="data.message.url.edit"
                   class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
-                  {{ $t('Edit') }}</Link
-                >
+                  {{ $t('Edit') }}
+                </Link>
               </div>
 
               <!-- markdown help -->
               <div class="prose rounded-b-lg bg-gray-50 px-6 py-4 text-sm">
                 <span
                   @click="destroy()"
-                  class="cursor-pointer font-medium text-red-700 underline hover:rounded-sm hover:bg-red-700 hover:text-white"
-                  >{{ $t('Delete') }}</span
-                >
+                  class="cursor-pointer font-medium text-red-700 underline hover:rounded-sm hover:bg-red-700 hover:text-white">
+                  {{ $t('Delete') }}
+                </span>
               </div>
             </div>
           </div>

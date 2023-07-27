@@ -57,7 +57,7 @@ const closeModal = () => {
             </p>
 
             <div class="mt-6 flex justify-end">
-              <SecondaryButton @click="closeModal"> {{ $t('Cancel') }} </SecondaryButton>
+              <SecondaryButton @click="closeModal">{{ $t('Cancel') }}</SecondaryButton>
 
               <DangerButton class="ml-3" @click="destroy">
                 {{ $t('Delete') }}

@@ -5,12 +5,15 @@ use App\Http\Controllers\PreviewController;
 use App\Http\Controllers\Profile\ProfileAvatarController;
 use App\Http\Controllers\Profile\ProfileBirthdateController;
 use App\Http\Controllers\Profile\ProfileController;
-use App\Http\Controllers\Projects\Messages\CommentController;
-use App\Http\Controllers\Projects\Messages\CommentReactionController;
+use App\Http\Controllers\Projects\CommentReactionController;
+use App\Http\Controllers\Projects\Messages\MessageCommentController;
 use App\Http\Controllers\Projects\Messages\MessageController;
 use App\Http\Controllers\Projects\Messages\MessageReactionController;
 use App\Http\Controllers\Projects\ProjectController;
+use App\Http\Controllers\Projects\Tasks\ProjectAssignTaskController;
 use App\Http\Controllers\Projects\Tasks\ProjectTaskListController;
+use App\Http\Controllers\Projects\Tasks\TaskCommentController;
+use App\Http\Controllers\Projects\Tasks\TaskReactionController;
 use App\Http\Controllers\Reactions\ReactionController;
 use App\Http\Controllers\Search\SearchController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeController;
@@ -20,6 +23,7 @@ use App\Http\Controllers\Settings\Personalize\PersonalizeUpgradeController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeUserController;
 use App\Http\Controllers\Tasks\TaskController;
 use App\Http\Controllers\Tasks\TaskListController;
+use App\Http\Controllers\Tasks\TaskSearchUserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -41,6 +45,7 @@ Route::get('dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth', 'verified', 'last_activity')->group(function (): void {
+    // universal search
     Route::get('search', [SearchController::class, 'index'])->name('search.index');
     Route::post('search', [SearchController::class, 'show'])->name('search.show');
 
@@ -57,9 +62,13 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
     Route::delete('reactions/{reaction}', [ReactionController::class, 'destroy'])->name('reactions.destroy');
 
     // tasks
+    Route::get('tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
     Route::post('tasks', [TaskController::class, 'store'])->name('tasks.store');
     Route::put('tasks/{task}', [TaskController::class, 'update'])->name('tasks.update');
     Route::delete('tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
+
+    // reaction to comments
+    Route::post('comments/{comment}/reactions', [CommentReactionController::class, 'store'])->name('comments.reactions.store');
 
     // task lists and tasks
     Route::middleware(['taskList'])->group(function (): void {
@@ -91,21 +100,34 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
             Route::post('projects/{project}/messages/{message}/reactions', [MessageReactionController::class, 'store'])->name('messages.reactions.store');
 
             // comments
-            Route::post('projects/{project}/messages/{message}/comments', [CommentController::class, 'store'])->name('messages.comments.store');
-            Route::put('projects/{project}/messages/{message}/comments/{comment}', [CommentController::class, 'update'])->name('messages.comments.update');
-            Route::delete('projects/{project}/messages/{message}/comments/{comment}', [CommentController::class, 'destroy'])->name('messages.comments.destroy');
-
-            // add comment reaction
-            Route::post('projects/{project}/messages/{message}/comments/{comment}/reactions', [CommentReactionController::class, 'store'])->name('messages.comments.reactions.store');
+            Route::post('projects/{project}/messages/{message}/comments', [MessageCommentController::class, 'store'])->name('messages.comments.store');
+            Route::put('projects/{project}/messages/{message}/comments/{comment}', [MessageCommentController::class, 'update'])->name('messages.comments.update');
+            Route::delete('projects/{project}/messages/{message}/comments/{comment}', [MessageCommentController::class, 'destroy'])->name('messages.comments.destroy');
         });
 
-        // tasks
+        // tasklists
         Route::get('projects/{project}/taskLists', [ProjectTaskListController::class, 'index'])->name('tasks.index');
         Route::get('projects/{project}/taskLists/create', [ProjectTaskListController::class, 'create'])->name('task_lists.create');
         Route::post('projects/{project}/taskLists', [ProjectTaskListController::class, 'store'])->name('task_lists.store');
         Route::get('projects/{project}/taskLists/{taskList}/edit', [ProjectTaskListController::class, 'edit'])->name('task_lists.edit');
         Route::put('projects/{project}/taskLists/{taskList}', [ProjectTaskListController::class, 'update'])->name('task_lists.update');
         Route::delete('projects/{project}/taskLists/{taskList}', [ProjectTaskListController::class, 'destroy'])->name('task_lists.destroy');
+
+        // assign user to task
+        Route::post('projects/{project}/tasks/{task}/assign', [ProjectAssignTaskController::class, 'store'])->name('tasks.assign.store');
+        Route::post('projects/{project}/tasks/{task}/unassign', [ProjectAssignTaskController::class, 'destroy'])->name('tasks.assign.destroy');
+
+        // tasks
+        Route::get('projects/{project}/tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
+
+        // add reaction and message to tasks
+        Route::post('projects/{project}/tasks/{task}/reactions', [TaskReactionController::class, 'store'])->name('tasks.reactions.store');
+        Route::post('projects/{project}/tasks/{task}/comments', [TaskCommentController::class, 'store'])->name('tasks.comments.store');
+        Route::put('projects/{project}/tasks/{task}/comments/{comment}', [TaskCommentController::class, 'update'])->name('tasks.comments.update');
+        Route::delete('projects/{project}/tasks/{task}/comments/{comment}', [TaskCommentController::class, 'destroy'])->name('tasks.comments.destroy');
+
+        // search a specific user to assign a task to
+        Route::post('projects/{project}/tasks/{task}/search/users', [TaskSearchUserController::class, 'index'])->name('tasks.search.user.index');
     });
 
     // users

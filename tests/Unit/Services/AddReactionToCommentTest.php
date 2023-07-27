@@ -2,10 +2,7 @@
 
 namespace Tests\Unit\Services;
 
-use App\Exceptions\NotEnoughPermissionException;
 use App\Models\Comment;
-use App\Models\Message;
-use App\Models\Project;
 use App\Models\Reaction;
 use App\Models\User;
 use App\Services\AddReactionToComment;
@@ -22,16 +19,8 @@ class AddReactionToCommentTest extends TestCase
     public function it_creates_a_reaction(): void
     {
         $user = User::factory()->create();
-        $project = Project::factory()->create([
-            'organization_id' => $user->organization_id,
-        ]);
-        $message = Message::factory()->create([
-            'project_id' => $project->id,
-        ]);
-        $user->projects()->attach($project->id);
         $comment = Comment::factory()->create([
-            'commentable_id' => $message->id,
-            'commentable_type' => Message::class,
+            'organization_id' => $user->organization_id,
         ]);
         $this->executeService($user, $comment);
     }
@@ -48,65 +37,9 @@ class AddReactionToCommentTest extends TestCase
     }
 
     /** @test */
-    public function it_fails_if_project_doesnt_belong_to_organization(): void
+    public function it_fails_if_comment_doesnt_belong_to_organization(): void
     {
         $user = User::factory()->create();
-        $project = Project::factory()->create();
-        $user->projects()->attach($project->id);
-        $message = Message::factory()->create([
-            'project_id' => $project->id,
-        ]);
-        $comment = Comment::factory()->create([
-            'commentable_id' => $message->id,
-            'commentable_type' => Message::class,
-        ]);
-        $this->expectException(ModelNotFoundException::class);
-
-        $this->executeService($user, $comment);
-    }
-
-    /** @test */
-    public function it_fails_if_user_cant_access_the_project(): void
-    {
-        $user = User::factory()->create();
-        $project = Project::factory()->create([
-            'organization_id' => $user->organization_id,
-            'is_public' => false,
-        ]);
-        $message = Message::factory()->create([
-            'project_id' => $project->id,
-        ]);
-        $comment = Comment::factory()->create([
-            'commentable_id' => $message->id,
-            'commentable_type' => Message::class,
-        ]);
-
-        $this->expectException(NotEnoughPermissionException::class);
-        $this->executeService($user, $comment);
-    }
-
-    /** @test */
-    public function it_fails_if_message_doesnt_belong_to_project(): void
-    {
-        $user = User::factory()->create();
-        $message = Message::factory()->create();
-        $comment = Comment::factory()->create([
-            'commentable_id' => $message->id,
-            'commentable_type' => Message::class,
-        ]);
-
-        $this->expectException(ModelNotFoundException::class);
-        $this->executeService($user, $comment);
-    }
-
-    /** @test */
-    public function it_fails_if_comment_doesnt_belong_to_message(): void
-    {
-        $user = User::factory()->create();
-        $project = Project::factory()->create([
-            'organization_id' => $user->organization_id,
-        ]);
-        $user->projects()->attach($project->id);
         $comment = Comment::factory()->create();
 
         $this->expectException(ModelNotFoundException::class);

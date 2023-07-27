@@ -84,9 +84,9 @@ const submit = () => {
                     <div>
                       <Link
                         :href="user.url.show"
-                        class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-                        >{{ user.name }}</Link
-                      >
+                        class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                        {{ user.name }}
+                      </Link>
                     </div>
                     <div class="flex">
                       <div class="inline text-sm">
@@ -118,9 +118,9 @@ const submit = () => {
                   <div>
                     <Link
                       :href="project.url.show"
-                      class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-                      >{{ project.name }}</Link
-                    >
+                      class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                      {{ project.name }}
+                    </Link>
                   </div>
                 </div>
               </li>
@@ -144,9 +144,9 @@ const submit = () => {
                   <div>
                     <Link
                       :href="message.url.show"
-                      class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-                      >{{ message.title }}</Link
-                    >
+                      class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                      {{ message.title }}
+                    </Link>
                   </div>
                 </div>
               </li>

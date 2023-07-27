@@ -48,7 +48,7 @@ const act = (action, timeout) => {
       levelClass,
       isOpen ? ['opacity-100', 'translate-x-0', 'end-7'] : ['opacity-0', 'translate-x-full', 'end-0'],
     ]">
-    <span class="me-1"> 👋 </span>
+    <span class="me-1">👋</span>
     {{ messageText }}
   </div>
 </template>

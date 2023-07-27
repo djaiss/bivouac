@@ -8,12 +8,11 @@ import { trans } from 'laravel-vue-i18n';
 import { nextTick, reactive, ref } from 'vue';
 import ConfettiExplosion from 'vue-confetti-explosion';
 
+import Avatar from '@/Components/Avatar.vue';
 import Checkbox from '@/Components/Checkbox.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { flash } from '@/methods.js';
-
-const loadingState = ref(false);
 
 const emit = defineEmits(['destroyed']);
 
@@ -34,6 +33,7 @@ const form = reactive({
   errors: '',
 });
 
+const loadingState = ref(false);
 const taskList = ref(props.taskList);
 const localTasks = ref(props.taskList.tasks);
 const completionRate = ref(props.taskList.completion_rate);
@@ -157,9 +157,9 @@ const destroyList = () => {
         <Link
           v-else
           :href="taskList.parent.url"
-          class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-          >{{ taskList.parent.title }}</Link
-        >
+          class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+          {{ taskList.parent.title }}
+        </Link>
       </div>
 
       <!-- progress and cta -->
@@ -254,49 +254,65 @@ const destroyList = () => {
                 :checked="task.is_completed"
                 :name="'completed' + task.id"
                 class="mr-2" />
-              <span>{{ task.title }}</span>
+              <Link :href="task.url.show" class="hover:underline">{{ task.title }}</Link>
             </div>
 
-            <!-- options -->
-            <Menu as="div" class="icon-menu relative z-30 text-left">
-              <MenuButton>
-                <EllipsisVerticalIcon class="h-5 w-5 cursor-pointer hover:text-gray-500" />
-              </MenuButton>
+            <!-- options and assignees -->
+            <div class="flex items-center">
+              <!-- assignees -->
+              <div v-if="task.assignees.length > 0">
+                <div class="flex -space-x-3">
+                  <Avatar
+                    v-for="assignee in task.assignees"
+                    :key="assignee.id"
+                    v-tooltip="assignee.name"
+                    :data="assignee.avatar"
+                    :url="assignee.url"
+                    class="h-6 w-6 cursor-pointer rounded-full border-2 border-white dark:border-gray-800" />
+                </div>
+              </div>
 
-              <transition
-                enter-active-class="transition duration-100 ease-out"
-                enter-from-class="transform scale-95 opacity-0"
-                enter-to-class="transform scale-100 opacity-100"
-                leave-active-class="transition duration-75 ease-in"
-                leave-from-class="transform scale-100 opacity-100"
-                leave-to-class="transform scale-95 opacity-0">
-                <MenuItems
-                  class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                  <div class="px-1 py-1">
-                    <MenuItem v-slot="{ active }">
-                      <button
-                        @click="showEditTask(task)"
-                        :class="[
-                          active ? 'bg-violet-500 text-white' : 'text-gray-900',
-                          'group flex w-full items-center rounded-md px-2 py-2 text-sm',
-                        ]">
-                        {{ $t('Edit') }}
-                      </button>
-                    </MenuItem>
-                    <MenuItem v-slot="{ active }">
-                      <button
-                        @click="destroy(task)"
-                        :class="[
-                          active ? 'bg-violet-500 text-white' : 'text-gray-900',
-                          'group flex w-full items-center rounded-md px-2 py-2 text-sm',
-                        ]">
-                        {{ $t('Delete') }}
-                      </button>
-                    </MenuItem>
-                  </div>
-                </MenuItems>
-              </transition>
-            </Menu>
+              <!-- options -->
+              <Menu as="div" class="icon-menu relative z-30 text-left">
+                <MenuButton>
+                  <EllipsisVerticalIcon class="h-5 w-5 cursor-pointer hover:text-gray-500" />
+                </MenuButton>
+
+                <transition
+                  enter-active-class="transition duration-100 ease-out"
+                  enter-from-class="transform scale-95 opacity-0"
+                  enter-to-class="transform scale-100 opacity-100"
+                  leave-active-class="transition duration-75 ease-in"
+                  leave-from-class="transform scale-100 opacity-100"
+                  leave-to-class="transform scale-95 opacity-0">
+                  <MenuItems
+                    class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div class="px-1 py-1">
+                      <MenuItem v-slot="{ active }">
+                        <button
+                          @click="showEditTask(task)"
+                          :class="[
+                            active ? 'bg-violet-500 text-white' : 'text-gray-900',
+                            'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                          ]">
+                          {{ $t('Edit') }}
+                        </button>
+                      </MenuItem>
+                      <MenuItem v-slot="{ active }">
+                        <button
+                          @click="destroy(task)"
+                          :class="[
+                            active ? 'bg-violet-500 text-white' : 'text-gray-900',
+                            'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                          ]">
+                          {{ $t('Delete') }}
+                        </button>
+                      </MenuItem>
+                    </div>
+                  </MenuItems>
+                </transition>
+              </Menu>
+            </div>
           </div>
 
           <!-- edit a task -->
@@ -313,15 +329,15 @@ const destroyList = () => {
 
             <!-- actions -->
             <div class="flex items-center">
-              <PrimaryButton class="mr-2" :loading="loadingState" :disabled="loadingState">{{
-                $t('Edit')
-              }}</PrimaryButton>
+              <PrimaryButton class="mr-2" :loading="loadingState" :disabled="loadingState">
+                {{ $t('Edit') }}
+              </PrimaryButton>
 
               <span
                 @click="editedTaskId = 0"
                 class="flex cursor-pointer rounded-md bg-gray-100 px-3 py-1.5 font-semibold text-gray-700 shadow-sm ring-1 ring-inset ring-gray-200 hover:bg-gray-200">
-                {{ $t('Cancel') }}</span
-              >
+                {{ $t('Cancel') }}
+              </span>
             </div>
           </form>
         </div>
@@ -347,15 +363,15 @@ const destroyList = () => {
 
           <!-- actions -->
           <div class="flex items-center">
-            <PrimaryButton class="mr-2" :loading="loadingState" :disabled="loadingState">{{
-              $t('Save')
-            }}</PrimaryButton>
+            <PrimaryButton class="mr-2" :loading="loadingState" :disabled="loadingState">
+              {{ $t('Save') }}
+            </PrimaryButton>
 
             <span
               @click="addTaskModalShown = false"
               class="flex cursor-pointer rounded-md bg-gray-100 px-3 py-1.5 font-semibold text-gray-700 shadow-sm ring-1 ring-inset ring-gray-200 hover:bg-gray-200">
-              {{ $t('Cancel') }}</span
-            >
+              {{ $t('Cancel') }}
+            </span>
           </div>
         </form>
       </div>

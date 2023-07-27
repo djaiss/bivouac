@@ -76,9 +76,9 @@ const submit = () => {
               <div class="flex items-center">
                 <Link
                   :href="data.url.breadcrumb.projects"
-                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-                  >{{ $t('Projects') }}</Link
-                >
+                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                  {{ $t('Projects') }}
+                </Link>
               </div>
             </li>
             <li>
@@ -86,8 +86,8 @@ const submit = () => {
                 <ChevronRightIcon class="mr-2 h-4 w-4 text-gray-400" />
                 <Link
                   :href="data.url.breadcrumb.project"
-                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-                  >{{ data.project.name }}
+                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                  {{ data.project.name }}
                 </Link>
               </div>
             </li>
@@ -163,9 +163,9 @@ const submit = () => {
               <div class="flex items-center justify-between rounded-t-lg border-b bg-white px-6 py-4">
                 <Link
                   :href="data.url.breadcrumb.messages"
-                  class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-                  >{{ $t('Back') }}</Link
-                >
+                  class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                  {{ $t('Back') }}
+                </Link>
 
                 <PrimaryButton class="ml-4" :loading="loadingState" :disabled="loadingState">
                   {{ $t('Save') }}

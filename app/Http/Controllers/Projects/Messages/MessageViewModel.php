@@ -35,6 +35,7 @@ class MessageViewModel
             'project' => [
                 'id' => $project->id,
                 'name' => $project->name,
+                'description' => $project->description,
                 'is_public' => $project->is_public,
             ],
             'messages' => $messages,
@@ -94,6 +95,7 @@ class MessageViewModel
         return [
             'project' => [
                 'name' => $message->project->name,
+                'description' => $message->project->description,
             ],
             'message' => self::dto($message),
             'comments' => $comments,
@@ -207,9 +209,7 @@ class MessageViewModel
             'created_at' => $comment->created_at->format('Y-m-d H:i:s'),
             'reactions' => $reactions,
             'url' => [
-                'store_reaction' => route('messages.comments.reactions.store', [
-                    'project' => $message->project_id,
-                    'message' => $message->id,
+                'store_reaction' => route('comments.reactions.store', [
                     'comment' => $comment->id,
                 ]),
                 'update' => route('messages.comments.update', [

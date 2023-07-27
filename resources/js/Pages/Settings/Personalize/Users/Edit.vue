@@ -58,18 +58,18 @@ const submit = () => {
               <li class="inline-flex items-center">
                 <Link
                   :href="data.url.breadcrumb.home"
-                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-                  >{{ $t('Home') }}</Link
-                >
+                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                  {{ $t('Home') }}
+                </Link>
               </li>
               <li>
                 <div class="flex items-center">
                   <ChevronRightIcon class="mr-2 h-4 w-4 text-gray-400" />
                   <Link
                     :href="data.url.breadcrumb.settings"
-                    class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-                    >{{ $t('Account settings') }}</Link
-                  >
+                    class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                    {{ $t('Account settings') }}
+                  </Link>
                 </div>
               </li>
               <li>
@@ -77,9 +77,9 @@ const submit = () => {
                   <ChevronRightIcon class="mr-2 h-4 w-4 text-gray-400" />
                   <Link
                     :href="data.url.breadcrumb.users"
-                    class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-                    >{{ $t('Manage users') }}</Link
-                  >
+                    class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                    {{ $t('Manage users') }}
+                  </Link>
                 </div>
               </li>
               <li>
@@ -115,9 +115,9 @@ const submit = () => {
                   name="permissions"
                   type="radio"
                   class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
-                <label for="account_manager" class="block text-sm font-medium leading-6 text-gray-900">{{
-                  $t('Account manager')
-                }}</label>
+                <label for="account_manager" class="block text-sm font-medium leading-6 text-gray-900">
+                  {{ $t('Account manager') }}
+                </label>
               </div>
               <div class="flex items-center gap-x-2">
                 <input
@@ -127,9 +127,9 @@ const submit = () => {
                   name="permissions"
                   type="radio"
                   class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
-                <label for="administrator" class="block text-sm font-medium leading-6 text-gray-900">{{
-                  $t('Administrator')
-                }}</label>
+                <label for="administrator" class="block text-sm font-medium leading-6 text-gray-900">
+                  {{ $t('Administrator') }}
+                </label>
               </div>
               <div class="flex items-center gap-x-2">
                 <input
@@ -147,9 +147,9 @@ const submit = () => {
           <div class="flex items-center justify-between border-t bg-gray-50 px-6 py-4">
             <Link
               :href="data.url.breadcrumb.users"
-              class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-              >{{ $t('Back') }}</Link
-            >
+              class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+              {{ $t('Back') }}
+            </Link>
 
             <PrimaryButton class="ml-4" :loading="loadingState" :disabled="loadingState">
               {{ $t('Save') }}

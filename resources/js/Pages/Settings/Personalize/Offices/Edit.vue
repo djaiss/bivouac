@@ -62,18 +62,18 @@ const update = () => {
               <li class="inline-flex items-center">
                 <Link
                   :href="data.url.breadcrumb.home"
-                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-                  >{{ $t('Home') }}</Link
-                >
+                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                  {{ $t('Home') }}
+                </Link>
               </li>
               <li>
                 <div class="flex items-center">
                   <ChevronRightIcon class="mr-2 h-4 w-4 text-gray-400" />
                   <Link
                     :href="data.url.breadcrumb.settings"
-                    class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-                    >{{ $t('Account settings') }}</Link
-                  >
+                    class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                    {{ $t('Account settings') }}
+                  </Link>
                 </div>
               </li>
               <li>
@@ -81,9 +81,9 @@ const update = () => {
                   <ChevronRightIcon class="mr-2 h-4 w-4 text-gray-400" />
                   <Link
                     :href="data.url.breadcrumb.offices"
-                    class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-                    >{{ $t('Manage offices') }}</Link
-                  >
+                    class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                    {{ $t('Manage offices') }}
+                  </Link>
                 </div>
               </li>
               <li>
@@ -141,9 +141,9 @@ const update = () => {
           <div class="flex items-center justify-between bg-gray-50 px-6 py-4">
             <Link
               :href="data.url.breadcrumb.offices"
-              class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"
-              >{{ $t('Back') }}</Link
-            >
+              class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+              {{ $t('Back') }}
+            </Link>
 
             <PrimaryButton class="ml-4" :loading="loadingState" :disabled="loadingState">
               {{ $t('Save') }}

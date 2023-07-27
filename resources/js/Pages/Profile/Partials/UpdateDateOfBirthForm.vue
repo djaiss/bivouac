@@ -97,9 +97,9 @@ const update = () => {
                 name="date-birth"
                 type="radio"
                 class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
-              <label for="hidden" class="block text-sm font-medium leading-6 text-gray-900">{{
-                $t('Never display the date of birth to anyone')
-              }}</label>
+              <label for="hidden" class="block text-sm font-medium leading-6 text-gray-900">
+                {{ $t('Never display the date of birth to anyone') }}
+              </label>
             </div>
             <div class="flex items-center gap-x-2">
               <input
@@ -109,9 +109,9 @@ const update = () => {
                 name="date-birth"
                 type="radio"
                 class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
-              <label for="month_day" class="block text-sm font-medium leading-6 text-gray-900">{{
-                $t('Only show the day and the month')
-              }}</label>
+              <label for="month_day" class="block text-sm font-medium leading-6 text-gray-900">
+                {{ $t('Only show the day and the month') }}
+              </label>
             </div>
             <div class="flex items-center gap-x-2">
               <input
@@ -121,9 +121,9 @@ const update = () => {
                 name="date-birth"
                 type="radio"
                 class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
-              <label for="full" class="block text-sm font-medium leading-6 text-gray-900">{{
-                $t('Display the full date of birth')
-              }}</label>
+              <label for="full" class="block text-sm font-medium leading-6 text-gray-900">
+                {{ $t('Display the full date of birth') }}
+              </label>
             </div>
           </div>
 

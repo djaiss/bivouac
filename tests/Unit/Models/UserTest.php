@@ -4,6 +4,7 @@ namespace Tests\Unit\Models;
 
 use App\Models\Organization;
 use App\Models\Project;
+use App\Models\Task;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -43,6 +44,16 @@ class UserTest extends TestCase
         $user->projects()->attach($project);
 
         $this->assertTrue($user->projects()->exists());
+    }
+
+    /** @test */
+    public function it_belongs_to_many_tasks(): void
+    {
+        $user = User::factory()->create();
+        $task = Task::factory()->create();
+        $user->tasks()->attach($task);
+
+        $this->assertTrue($user->tasks()->exists());
     }
 
     /** @test */
