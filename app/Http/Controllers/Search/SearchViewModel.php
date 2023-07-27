@@ -23,7 +23,7 @@ class SearchViewModel
         ];
     }
 
-    private static function users(Organization $organization, string $term): Collection
+    public static function users(Organization $organization, string $term): Collection
     {
         /** @var Collection<int, User> */
         $users = User::search($term)

@@ -23,6 +23,7 @@ use App\Http\Controllers\Settings\Personalize\PersonalizeUpgradeController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeUserController;
 use App\Http\Controllers\Tasks\TaskController;
 use App\Http\Controllers\Tasks\TaskListController;
+use App\Http\Controllers\Tasks\TaskSearchUserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -44,6 +45,7 @@ Route::get('dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth', 'verified', 'last_activity')->group(function (): void {
+    // universal search
     Route::get('search', [SearchController::class, 'index'])->name('search.index');
     Route::post('search', [SearchController::class, 'show'])->name('search.show');
 
@@ -123,6 +125,9 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
         Route::post('projects/{project}/tasks/{task}/comments', [TaskCommentController::class, 'store'])->name('tasks.comments.store');
         Route::put('projects/{project}/tasks/{task}/comments/{comment}', [TaskCommentController::class, 'update'])->name('tasks.comments.update');
         Route::delete('projects/{project}/tasks/{task}/comments/{comment}', [TaskCommentController::class, 'destroy'])->name('tasks.comments.destroy');
+
+        // search a specific user to assign a task to
+        Route::post('projects/{project}/tasks/{task}/search/users', [TaskSearchUserController::class, 'index'])->name('tasks.search.user.index');
     });
 
     // users

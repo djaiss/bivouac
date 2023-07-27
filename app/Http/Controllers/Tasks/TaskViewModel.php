@@ -65,6 +65,10 @@ class TaskViewModel
             'comments' => $comments,
             'url' => [
                 'preview' => route('preview.store'),
+                'search_users' => route('tasks.search.user.index', [
+                    'project' => $task->taskList->project_id,
+                    'task' => $task->id,
+                ]),
                 'show' => route('tasks.show', [
                     'project' => $task->taskList->project_id,
                     'task' => $task->id,
@@ -79,6 +83,10 @@ class TaskViewModel
                 ]),
                 'update' => route('tasks.update', $task),
                 'destroy' => route('tasks.destroy', $task),
+                'assign' => route('tasks.assign.store', [
+                    'project' => $task->taskList->project_id,
+                    'task' => $task->id,
+                ]),
             ],
         ];
     }

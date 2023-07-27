@@ -1,9 +1,15 @@
 <script setup>
+import { MagnifyingGlassIcon } from '@heroicons/vue/24/solid';
+import { XMarkIcon } from '@heroicons/vue/24/solid';
 import { Head } from '@inertiajs/vue3';
 import { router } from '@inertiajs/vue3';
+import { Link } from '@inertiajs/vue3';
+import { usePage } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
-import { reactive, ref } from 'vue';
+import debounce from 'lodash.debounce';
+import { computed, reactive, ref } from 'vue';
 
+import Avatar from '@/Components/Avatar.vue';
 import Checkbox from '@/Components/Checkbox.vue';
 import Comments from '@/Components/Comments.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
@@ -13,6 +19,9 @@ import TextInput from '@/Components/TextInput.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { flash } from '@/methods.js';
 import ProjectHeader from '@/Pages/Projects/Partials/ProjectHeader.vue';
+
+const page = usePage();
+const loggedUser = computed(() => page.props.auth.user);
 
 const props = defineProps({
   data: {
@@ -27,6 +36,8 @@ const form = reactive({
   title: '',
   body: '',
   is_completed: false,
+  assignee_id: '',
+  term: '',
   errors: '',
 });
 
@@ -39,18 +50,28 @@ const editDescriptionShown = ref(false);
 const formattedDescription = ref(props.data.task.description);
 const activeTab = ref('write');
 const bodyInput = ref(null);
+const localAssignees = ref(props.data.task.assignees);
+const searchResults = ref([]);
+const searchShown = ref(false);
 
-const editTitle = () => {
+const isSelfAssigned = computed(() => {
+  // check if the logged user is assigned to the task in the list of assignees contained in the localAssignees variable
+  return localAssignees.value.some((assignee) => assignee.id === loggedUser.value.id);
+});
+
+const setValues = () => {
   form.title = title.value;
   form.body = description.value;
   form.is_completed = task.value.is_completed;
+};
+
+const editTitle = () => {
+  setValues();
   editTitleShown.value = true;
 };
 
 const editDescription = () => {
-  form.title = title.value;
-  form.body = description.value;
-  form.is_completed = task.value.is_completed;
+  setValues();
   editDescriptionShown.value = true;
 };
 
@@ -103,9 +124,49 @@ const destroy = () => {
 const toggleTask = () => {
   form.title = title.value;
   form.body = description.value;
-  form.is_completed = !task.is_completed;
+  form.is_completed = !task.value.is_completed;
 
   update();
+};
+
+const showSearch = () => {
+  searchShown.value = true;
+  form.term = '';
+  searchResults.value = [];
+};
+
+const assign = (user) => {
+  form.assignee_id = user.id;
+  axios
+    .post(task.value.url.assign, form)
+    .then((response) => {
+      flash(trans('Changes saved'));
+      localAssignees.value.push(response.data.data.assignee);
+      cancelSearch();
+    })
+    .catch(() => {
+      loadingState.value = false;
+    });
+};
+
+const searchUsers = debounce(() => {
+  if (form.term.length < 3) {
+    return;
+  }
+
+  axios
+    .post(task.value.url.search_users, form)
+    .then((response) => {
+      searchResults.value = response.data.data;
+    })
+    .catch(() => {
+      loadingState.value = false;
+    });
+}, 500);
+
+const cancelSearch = () => {
+  searchResults.value = [];
+  form.term = '';
 };
 </script>
 
@@ -164,11 +225,15 @@ const toggleTask = () => {
               </div>
 
               <!-- description -->
-              <div v-if="description && !editDescriptionShown" @click="editDescription()" v-html="formattedDescription" class="prose mx-auto"></div>
+              <div
+                v-if="description && !editDescriptionShown"
+                @click="editDescription()"
+                v-html="formattedDescription"
+                class="prose ml-3"></div>
               <div
                 v-if="!description && !editDescriptionShown"
                 @click="editDescription()"
-                class="mt-4 cursor-pointer text-sm text-gray-600 group-hover:underline">
+                class="mt-4 cursor-pointer text-sm text-gray-600 hover:underline">
                 {{ $t('+ add description') }}
               </div>
 
@@ -233,15 +298,80 @@ const toggleTask = () => {
         <!-- right -->
         <div>
           <div class="rounded-lg shadow">
-            <div class="flex items-center justify-between rounded-t-lg border-b bg-white px-6 py-4">
-              <Link
-                :href="data.task.url.edit"
-                class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
-                {{ $t('Edit') }}
-              </Link>
+            <!-- assignees -->
+            <div class="rounded-t-lg border-b bg-white px-6 py-4">
+              <p class="mb-2 text-xs">{{ $t('Assigned to') }}</p>
+
+              <!-- list of assignees -->
+              <div v-if="task.assignees.length > 0">
+                <div v-for="assignee in localAssignees" :key="assignee.id" class="mb-4 flex items-center">
+                  <Avatar
+                    v-tooltip="assignee.name"
+                    :data="assignee.avatar"
+                    :url="assignee.url"
+                    class="h-6 w-6 cursor-pointer rounded-full" />
+
+                  <Link
+                    :href="assignee.url"
+                    class="ml-2 text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                    {{ assignee.name }}
+                  </Link>
+                </div>
+              </div>
+
+              <!-- links to add assignees -->
+              <ul class="text-sm">
+                <li @click="showSearch()" v-if="!searchShown" class="mr-2 inline cursor-pointer text-gray-600 hover:underline">{{ $t('Add someone') }}</li>
+                <li
+                  @click="assign(loggedUser)"
+                  v-if="!isSelfAssigned"
+                  class="inline cursor-pointer text-gray-600 hover:underline">
+                  {{ $t('Assign yourself') }}
+                </li>
+              </ul>
+
+              <!-- search and add assignee -->
+              <div v-if="searchShown">
+                <!-- search field -->
+                <div class="relative">
+                  <TextInput
+                    type="text"
+                    autocomplete="off"
+                    :placeholder="$t('Type a few letters')"
+                    class="mt-2 block w-full"
+                    v-model="form.term"
+                    autofocus
+                    @input="searchUsers()"
+                    @keydown.esc="searchShown = false"
+                    required />
+
+                  <MagnifyingGlassIcon
+                    v-if="!form.term"
+                    class="absolute right-3 top-3 h-5 w-5 text-gray-400 transition ease-in-out" />
+                  <XMarkIcon
+                    @click="cancelSearch()"
+                    v-else
+                    class="absolute right-3 top-3 h-5 w-5 cursor-pointer text-gray-400 transition ease-in-out" />
+                </div>
+
+                <!-- search results -->
+                <div v-if="searchResults.length > 0" class="mt-3 rounded-lg border">
+                  <div
+                    v-for="result in searchResults"
+                    :key="result.id"
+                    class="item-list flex items-center border-b border-gray-200 px-5 py-2 hover:bg-slate-50">
+                    <Avatar v-tooltip="result.name" :data="result.avatar" class="h-6 w-6 cursor-pointer rounded-full" />
+
+                    <span
+                      @click="assign(result)"
+                      class="ml-2 cursor-pointer text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                      {{ result.name }}
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <!-- markdown help -->
             <div class="prose rounded-b-lg bg-gray-50 px-6 py-4 text-sm">
               <span
                 @click="destroy()"
@@ -259,5 +389,21 @@ const toggleTask = () => {
 <style lang="scss" scoped>
 .checkbox-title {
   top: 3px;
+}
+
+.item-list {
+  &:hover:first-child {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &:hover:last-child {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
 }
 </style>

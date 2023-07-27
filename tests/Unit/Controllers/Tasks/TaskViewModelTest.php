@@ -109,11 +109,13 @@ class TaskViewModelTest extends TestCase
         $this->assertEquals(
             [
                 'preview' => env('APP_URL') . '/preview',
+                'search_users' => env('APP_URL') . '/projects/' . $task->taskList->project_id . '/tasks/' . $task->id . '/search/users',
                 'show' => env('APP_URL') . '/projects/' . $task->taskList->project_id . '/tasks/' . $task->id,
                 'store' => env('APP_URL') . '/projects/' . $task->taskList->project_id . '/tasks/' . $task->id . '/comments',
                 'store_reaction' => env('APP_URL') . '/projects/' . $task->taskList->project_id . '/tasks/' . $task->id . '/reactions',
                 'update' => env('APP_URL') . '/tasks/' . $task->id,
                 'destroy' => env('APP_URL') . '/tasks/' . $task->id,
+                'assign' => env('APP_URL') . '/projects/' . $task->taskList->project_id . '/tasks/' . $task->id . '/assign',
             ],
             $array['url']
         );
