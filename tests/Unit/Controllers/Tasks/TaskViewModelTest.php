@@ -58,7 +58,7 @@ class TaskViewModelTest extends TestCase
 
         $array = TaskViewModel::dto($task);
 
-        $this->assertCount(8, $array);
+        $this->assertCount(9, $array);
         $this->assertArrayHasKey('id', $array);
         $this->assertArrayHasKey('title', $array);
         $this->assertArrayHasKey('description', $array);
@@ -77,8 +77,13 @@ class TaskViewModelTest extends TestCase
             $array['title']
         );
         $this->assertEquals(
-            'Test description',
+            '<p>Test description</p>
+',
             $array['description']
+        );
+        $this->assertEquals(
+            'Test description',
+            $array['description_raw']
         );
         $this->assertFalse(
             $array['is_completed']

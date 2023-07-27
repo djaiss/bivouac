@@ -140,6 +140,7 @@ const submit = () => {
             </div>
           </div>
 
+          <!-- action -->
           <div class="flex items-center justify-between border-t bg-gray-50 px-6 py-4">
             <Link
               :href="data.url.breadcrumb.users"

@@ -52,6 +52,7 @@ class TaskController extends Controller
             'user_id' => auth()->user()->id,
             'task_id' => $task->id,
             'title' => $request->input('title'),
+            'description' => $request->input('body'),
             'is_completed' => $request->input('is_completed'),
         ]);
 
@@ -75,7 +76,9 @@ class TaskController extends Controller
         ]);
 
         return response()->json([
-            'data' => true,
+            'data' => route('tasks.index', [
+                'project' => $task->taskList->project_id,
+            ]),
         ], 200);
     }
 }

@@ -57,7 +57,8 @@ class TaskViewModel
         return [
             'id' => $task->id,
             'title' => $task->title,
-            'description' => $task->description,
+            'description' => $task->description ? StringHelper::parse($task->description) : null,
+            'description_raw' => $task->description,
             'is_completed' => $task->is_completed,
             'assignees' => $assignees,
             'reactions' => $reactions,

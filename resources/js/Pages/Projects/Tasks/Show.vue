@@ -1,12 +1,14 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
+import { router } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
 import { reactive, ref } from 'vue';
 
 import Checkbox from '@/Components/Checkbox.vue';
+import Comments from '@/Components/Comments.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import Reactions from '@/Components/Reactions.vue';
-import Comments from '@/Components/Comments.vue';
+import TextArea from '@/Components/TextArea.vue';
 import TextInput from '@/Components/TextInput.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { flash } from '@/methods.js';
@@ -23,7 +25,7 @@ const props = defineProps({
 
 const form = reactive({
   title: '',
-  description: '',
+  body: '',
   is_completed: false,
   errors: '',
 });
@@ -31,12 +33,39 @@ const form = reactive({
 const loadingState = ref(false);
 const task = ref(props.data.task);
 const title = ref(props.data.task.title);
-const description = ref(props.data.task.description);
+const description = ref(props.data.task.description_raw);
 const editTitleShown = ref(false);
+const editDescriptionShown = ref(false);
+const formattedDescription = ref(props.data.task.description);
+const activeTab = ref('write');
+const bodyInput = ref(null);
 
 const editTitle = () => {
   form.title = title.value;
   editTitleShown.value = true;
+};
+
+const editDescription = () => {
+  form.title = title.value;
+  form.body = description.value;
+  editDescriptionShown.value = true;
+};
+
+const showPreviewTab = () => {
+  preview();
+
+  activeTab.value = 'preview';
+};
+
+const showWriteTab = () => {
+  activeTab.value = 'write';
+  formattedDescription.value = '';
+};
+
+const preview = () => {
+  axios.post(task.value.url.preview, form).then((response) => {
+    formattedDescription.value = response.data.data;
+  });
 };
 
 const update = () => {
@@ -46,14 +75,25 @@ const update = () => {
     .put(task.value.url.update, form)
     .then((response) => {
       loadingState.value = false;
-      task.value = response.data.data.task;
       title.value = form.title;
+      description.value = response.data.data.task.description_raw;
+      formattedDescription.value = response.data.data.task.description;
       flash(trans('Changes saved'));
       editTitleShown.value = false;
+      editDescriptionShown.value = false;
     })
     .catch(() => {
       loadingState.value = false;
     });
+};
+
+const destroy = () => {
+  if (confirm(trans('Are you sure? This action cannot be undone.'))) {
+    axios.delete(task.value.url.destroy).then((response) => {
+      localStorage.success = trans('Changes saved');
+      router.visit(response.data.data);
+    });
+  }
 };
 </script>
 
@@ -111,8 +151,61 @@ const update = () => {
                 </form>
               </div>
 
-              <!-- message body -->
-              <div v-html="description" class="prose mx-auto"></div>
+              <!-- description -->
+              <div v-if="description && !editDescriptionShown" @click="editDescription()" v-html="formattedDescription" class="prose mx-auto"></div>
+              <div
+                v-if="!description && !editDescriptionShown"
+                @click="editDescription()"
+                class="mt-4 cursor-pointer text-sm text-gray-600 group-hover:underline">
+                {{ $t('+ add description') }}
+              </div>
+
+              <!-- edit description -->
+              <form v-if="editDescriptionShown" @submit.prevent="update()" class="mt-6">
+                <ul v-if="form.body" class="mb-5 inline-block text-sm">
+                  <li
+                    @click="showWriteTab"
+                    class="inline cursor-pointer rounded-l-md border px-3 py-1 pr-2"
+                    :class="{ 'border-blue-600 text-blue-600': activeTab === 'write' }">
+                    {{ $t('Write') }}
+                  </li>
+                  <li
+                    @click="showPreviewTab"
+                    class="inline cursor-pointer rounded-r-md border-b border-r border-t px-3 py-1"
+                    :class="{ 'border-l border-blue-600 text-blue-600': activeTab === 'preview' }">
+                    {{ $t('Preview') }}
+                  </li>
+                </ul>
+
+                <!-- write mode -->
+                <div v-if="activeTab === 'write'">
+                  <TextArea
+                    @esc-key-pressed="editDescriptionShown = false"
+                    id="description"
+                    ref="bodyInput"
+                    class="block w-full"
+                    required
+                    autogrow
+                    v-model="form.body" />
+
+                  <div v-if="form.body" class="mt-4 flex justify-start">
+                    <PrimaryButton class="" :loading="loadingState" :disabled="loadingState">
+                      {{ $t('Save') }}
+                    </PrimaryButton>
+
+                    <span
+                      @click="editDescriptionShown = false"
+                      class="ml-2 inline-flex cursor-pointer items-center rounded-md border border-transparent bg-gray-100 px-3 py-1 text-sm font-medium leading-4 text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+                      {{ $t('Cancel') }}
+                    </span>
+                  </div>
+                </div>
+
+                <!-- preview mode -->
+                <div v-if="activeTab === 'preview'" class="w-full rounded-lg border bg-gray-50 p-4">
+                  <div v-html="formattedDescription" class="prose"></div>
+                </div>
+              </form>
             </div>
 
             <!-- message footer -->

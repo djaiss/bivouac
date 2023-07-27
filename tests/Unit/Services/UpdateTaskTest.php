@@ -71,6 +71,7 @@ class UpdateTaskTest extends TestCase
             'user_id' => $user->id,
             'task_id' => $task->id,
             'title' => 'this is a description',
+            'description' => null,
             'is_completed' => true,
         ];
 

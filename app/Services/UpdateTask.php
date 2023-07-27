@@ -18,6 +18,7 @@ class UpdateTask extends BaseService
             'user_id' => 'required|integer|exists:users,id',
             'task_id' => 'required|integer|exists:tasks,id',
             'title' => 'required|string|max:255',
+            'description' => 'nullable|string|max:65535',
             'is_completed' => 'required|boolean',
         ];
     }
@@ -46,6 +47,7 @@ class UpdateTask extends BaseService
     private function edit(): void
     {
         $this->task->title = $this->data['title'];
+        $this->task->description = $this->valueOrNull($this->data, 'description');
         $this->task->is_completed = $this->data['is_completed'];
         $this->task->save();
     }
