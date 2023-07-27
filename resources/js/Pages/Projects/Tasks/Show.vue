@@ -42,12 +42,15 @@ const bodyInput = ref(null);
 
 const editTitle = () => {
   form.title = title.value;
+  form.body = description.value;
+  form.is_completed = task.value.is_completed;
   editTitleShown.value = true;
 };
 
 const editDescription = () => {
   form.title = title.value;
   form.body = description.value;
+  form.is_completed = task.value.is_completed;
   editDescriptionShown.value = true;
 };
 
@@ -76,6 +79,7 @@ const update = () => {
     .then((response) => {
       loadingState.value = false;
       title.value = form.title;
+      task.value = response.data.data.task;
       description.value = response.data.data.task.description_raw;
       formattedDescription.value = response.data.data.task.description;
       flash(trans('Changes saved'));
@@ -94,6 +98,14 @@ const destroy = () => {
       router.visit(response.data.data);
     });
   }
+};
+
+const toggleTask = () => {
+  form.title = title.value;
+  form.body = description.value;
+  form.is_completed = !task.is_completed;
+
+  update();
 };
 </script>
 
@@ -116,7 +128,7 @@ const destroy = () => {
                 v-if="!editTitleShown"
                 class="flex cursor-pointer items-start rounded-lg border border-transparent px-2 py-2 hover:border-gray-200">
                 <Checkbox
-                  @click="toggleTask(task)"
+                  @click="toggleTask()"
                   :checked="task.is_completed"
                   :name="'completed' + task.id"
                   class="checkbox-title relative mr-3 h-6 w-6" />
