@@ -102,6 +102,7 @@ class ProjectViewModelTest extends TestCase
         $project = Project::factory()->create([
             'author_id' => $user->id,
             'name' => 'Dunder',
+            'short_description' => 'Dunder Mifflin',
             'description' => 'Dunder Mifflin',
             'is_public' => true,
         ]);
@@ -120,6 +121,7 @@ class ProjectViewModelTest extends TestCase
                         ],
                     ],
                     'name' => 'Dunder',
+                    'short_description' => 'Dunder Mifflin',
                     'description' => 'Dunder Mifflin',
                     'is_public' => true,
                 ],
@@ -142,16 +144,19 @@ class ProjectViewModelTest extends TestCase
         $project = Project::factory()->create([
             'author_id' => $user->id,
             'name' => 'Dunder',
+            'short_description' => 'Dunder Mifflin',
             'description' => 'Dunder Mifflin',
             'is_public' => true,
         ]);
         $project->users()->attach($user->id);
         $array = ProjectViewModel::dto($project);
 
-        $this->assertCount(6, $array);
+        $this->assertCount(7, $array);
         $this->assertEquals($project->id, $array['id']);
         $this->assertEquals('Dunder', $array['name']);
-        $this->assertEquals('Dunder Mifflin', $array['description']);
+        $this->assertEquals('Dunder Mifflin', $array['short_description']);
+        $this->assertEquals('<p>Dunder Mifflin</p>
+', $array['description']);
         $this->assertTrue($array['is_public']);
         $this->assertEquals(
             [
@@ -172,6 +177,7 @@ class ProjectViewModelTest extends TestCase
         $this->assertArrayHasKey('url', $array);
         $this->assertEquals(
             [
+                'summary' => env('APP_URL') . '/projects/' . $project->id,
                 'messages' => env('APP_URL') . '/projects/' . $project->id . '/messages',
                 'tasks' => env('APP_URL') . '/projects/' . $project->id . '/taskLists',
                 'settings' => env('APP_URL') . '/projects/' . $project->id . '/edit',

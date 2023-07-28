@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Projects;
 
+use App\Helpers\StringHelper;
 use App\Models\Organization;
 use App\Models\Project;
 use App\Models\User;
@@ -69,6 +70,7 @@ class ProjectViewModel
                     'avatar' => $project?->creator?->avatar,
                 ],
                 'name' => $project->name,
+                'short_description' => $project->short_description,
                 'description' => $project->description,
                 'is_public' => $project->is_public,
             ],
@@ -92,7 +94,8 @@ class ProjectViewModel
                 'avatar' => $project?->creator?->avatar,
             ],
             'name' => $project->name,
-            'description' => $project->description,
+            'short_description' => $project->short_description,
+            'description' => $project->description ? StringHelper::parse($project->description) : null,
             'is_public' => $project->is_public,
             'url' => [
                 'show' => route('projects.show', [
@@ -109,6 +112,9 @@ class ProjectViewModel
     {
         return [
             'url' => [
+                'summary' => route('projects.show', [
+                    'project' => $project->id,
+                ]),
                 'messages' => route('messages.index', [
                     'project' => $project->id,
                 ]),

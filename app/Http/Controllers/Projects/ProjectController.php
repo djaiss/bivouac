@@ -47,7 +47,7 @@ class ProjectController extends Controller
 
     public function show(Request $request, Project $project): Response
     {
-        return Inertia::render('Projects/Show', [
+        return Inertia::render('Projects/Summary/Index', [
             'data' => ProjectViewModel::show($project),
             'menu' => ProjectViewModel::menu($project),
         ]);
@@ -67,6 +67,7 @@ class ProjectController extends Controller
             'user_id' => auth()->user()->id,
             'project_id' => $project->id,
             'name' => $request->input('name'),
+            'short_description' => $request->input('short_description'),
             'description' => $request->input('description'),
             'is_public' => $request->input('is_public') === 'true',
         ]);

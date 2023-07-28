@@ -18,6 +18,7 @@ class ProjectTaskListViewModel
             'project' => [
                 'id' => $project->id,
                 'name' => $project->name,
+                'short_description' => $project->short_description,
                 'description' => $project->description,
                 'is_public' => $project->is_public,
             ],

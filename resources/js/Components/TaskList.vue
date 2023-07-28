@@ -1,8 +1,6 @@
 <script setup>
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
-import { ChevronDownIcon } from '@heroicons/vue/24/outline';
-import { ChevronUpIcon } from '@heroicons/vue/24/outline';
-import { EllipsisVerticalIcon } from '@heroicons/vue/24/outline';
+import { ChevronDownIcon, ChevronUpIcon, EllipsisVerticalIcon } from '@heroicons/vue/24/outline';
 import { Link } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
 import { nextTick, reactive, ref } from 'vue';
@@ -176,8 +174,8 @@ const destroyList = () => {
           <!-- button -->
           <p
             @click="showAddTask"
-            class="mr-2 cursor-pointer rounded-lg border border-dashed border-gray-300 bg-gray-50 px-3 py-1.5 text-sm hover:border-solid hover:bg-gray-200">
-            {{ $t('Add') }}
+            class="mr-2 cursor-pointer rounded-lg border border-dashed border-gray-300 bg-gray-50 px-3 py-1 text-sm hover:border-gray-400 hover:bg-gray-200">
+            {{ $t('Add task') }}
           </p>
 
           <div
@@ -335,7 +333,7 @@ const destroyList = () => {
 
               <span
                 @click="editedTaskId = 0"
-                class="flex cursor-pointer rounded-md bg-gray-100 px-3 py-1.5 font-semibold text-gray-700 shadow-sm ring-1 ring-inset ring-gray-200 hover:bg-gray-200">
+                class="flex cursor-pointer rounded-md border border-gray-300 bg-gray-100 px-3 py-1 font-semibold text-gray-700 hover:border-solid hover:border-gray-500 hover:bg-gray-200">
                 {{ $t('Cancel') }}
               </span>
             </div>
@@ -369,7 +367,7 @@ const destroyList = () => {
 
             <span
               @click="addTaskModalShown = false"
-              class="flex cursor-pointer rounded-md bg-gray-100 px-3 py-1.5 font-semibold text-gray-700 shadow-sm ring-1 ring-inset ring-gray-200 hover:bg-gray-200">
+              class="flex cursor-pointer rounded-md border border-gray-300 bg-gray-100 px-3 py-1 font-semibold text-gray-700 hover:border-solid hover:border-gray-500 hover:bg-gray-200">
               {{ $t('Cancel') }}
             </span>
           </div>

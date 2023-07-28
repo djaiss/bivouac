@@ -1,10 +1,6 @@
 <script setup>
-import { MagnifyingGlassIcon } from '@heroicons/vue/24/solid';
-import { XMarkIcon } from '@heroicons/vue/24/solid';
-import { Head } from '@inertiajs/vue3';
-import { router } from '@inertiajs/vue3';
-import { Link } from '@inertiajs/vue3';
-import { usePage } from '@inertiajs/vue3';
+import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/vue/24/solid';
+import { Head, Link, router, usePage } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
 import debounce from 'lodash.debounce';
 import { computed, reactive, ref } from 'vue';
@@ -231,12 +227,8 @@ const cancelSearch = () => {
               </div>
 
               <!-- description -->
-              <div class="ml-3 rounded-lg p-2 hover:bg-gray-100">
-                <div
-                  v-if="description && !editDescriptionShown"
-                  @click="editDescription()"
-                  v-html="formattedDescription"
-                  class="prose"></div>
+              <div v-if="description && !editDescriptionShown" class="ml-3 rounded-lg p-2 hover:bg-gray-100">
+                <div @click="editDescription()" v-html="formattedDescription" class="prose"></div>
               </div>
               <div
                 v-if="!description && !editDescriptionShown"
@@ -274,13 +266,13 @@ const cancelSearch = () => {
                     v-model="form.body" />
 
                   <div v-if="form.body" class="mt-4 flex justify-start">
-                    <PrimaryButton class="" :loading="loadingState" :disabled="loadingState">
+                    <PrimaryButton class="mr-2" :loading="loadingState" :disabled="loadingState">
                       {{ $t('Save') }}
                     </PrimaryButton>
 
                     <span
                       @click="editDescriptionShown = false"
-                      class="ml-2 inline-flex cursor-pointer items-center rounded-md border border-transparent bg-gray-100 px-3 py-1 text-sm font-medium leading-4 text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+                      class="flex cursor-pointer rounded-md border border-gray-300 bg-gray-100 px-3 py-1 font-semibold text-gray-700 hover:border-solid hover:border-gray-500 hover:bg-gray-200">
                       {{ $t('Cancel') }}
                     </span>
                   </div>
@@ -382,11 +374,14 @@ const cancelSearch = () => {
                     v-for="result in searchResults"
                     :key="result.id"
                     class="item-list flex items-center border-b border-gray-200 px-5 py-2 hover:bg-slate-50">
-                    <Avatar v-tooltip="result.name" :data="result.avatar" class="h-6 w-6 cursor-pointer rounded-full" />
+                    <Avatar
+                      v-tooltip="result.name"
+                      :data="result.avatar"
+                      class="mr-2 h-6 w-6 cursor-pointer rounded-full" />
 
                     <span
                       @click="assign(result)"
-                      class="ml-2 cursor-pointer text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                      class="flex cursor-pointer rounded-md border border-gray-300 bg-gray-100 px-3 py-1 font-semibold text-gray-700 hover:border-solid hover:border-gray-500 hover:bg-gray-200">
                       {{ result.name }}
                     </span>
                   </div>

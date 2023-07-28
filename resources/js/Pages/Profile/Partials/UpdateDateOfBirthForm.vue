@@ -3,8 +3,7 @@ import 'v-calendar/style.css';
 
 import { trans } from 'laravel-vue-i18n';
 import { DatePicker } from 'v-calendar';
-import { reactive, ref } from 'vue';
-import { onMounted } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 
 import Error from '@/Components/Error.vue';
 import InputLabel from '@/Components/InputLabel.vue';

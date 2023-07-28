@@ -1,8 +1,7 @@
 <script setup>
 import { ChatBubbleBottomCenterTextIcon } from '@heroicons/vue/24/outline';
 import { BoltIcon } from '@heroicons/vue/24/outline';
-import { Head } from '@inertiajs/vue3';
-import { Link } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 
 import Avatar from '@/Components/Avatar.vue';
 import PrimaryLinkButton from '@/Components/PrimaryLinkButton.vue';

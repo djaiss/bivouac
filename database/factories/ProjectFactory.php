@@ -23,6 +23,7 @@ class ProjectFactory extends Factory
             'author_id' => User::factory(),
             'author_name' => fake()->name(),
             'name' => fake()->name(),
+            'short_description' => fake()->sentence(),
             'description' => fake()->paragraph(),
             'is_public' => true,
         ];

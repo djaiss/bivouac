@@ -1,15 +1,8 @@
 <script setup>
-import { HomeIcon } from '@heroicons/vue/24/solid';
-import { BuildingOffice2Icon } from '@heroicons/vue/24/solid';
-import { MagnifyingGlassIcon } from '@heroicons/vue/24/solid';
-import { BellIcon } from '@heroicons/vue/24/solid';
-import { QuestionMarkCircleIcon } from '@heroicons/vue/24/solid';
-import { BriefcaseIcon } from '@heroicons/vue/24/solid';
-import { Cog8ToothIcon } from '@heroicons/vue/24/solid';
-import { ArrowLeftOnRectangleIcon } from '@heroicons/vue/24/solid';
-import { ComputerDesktopIcon } from '@heroicons/vue/24/solid';
-import { Link } from '@inertiajs/vue3';
-import { usePage } from '@inertiajs/vue3';
+import { BellIcon, BuildingOffice2Icon, HomeIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/solid';
+import { BriefcaseIcon, Cog8ToothIcon, QuestionMarkCircleIcon } from '@heroicons/vue/24/solid';
+import { ArrowLeftOnRectangleIcon, ComputerDesktopIcon } from '@heroicons/vue/24/solid';
+import { Link, usePage } from '@inertiajs/vue3';
 import { computed, onMounted } from 'vue';
 
 import Toaster from '@/Components/Toaster.vue';

@@ -17,6 +17,7 @@ class UpdateProject extends BaseService
             'user_id' => 'required|integer|exists:users,id',
             'project_id' => 'required|integer|exists:projects,id',
             'name' => 'required|string|max:255',
+            'short_description' => 'nullable|string|max:255',
             'description' => 'nullable|string|max:65535',
             'is_public' => 'required|boolean',
         ];
@@ -44,7 +45,8 @@ class UpdateProject extends BaseService
     private function edit(): void
     {
         $this->project->name = $this->data['name'];
-        $this->project->description = $this->data['description'];
+        $this->project->description = $this->valueOrNull($this->data, 'description');
+        $this->project->short_description = $this->valueOrNull($this->data, 'short_description');
         $this->project->is_public = $this->data['is_public'];
         $this->project->save();
     }

@@ -24,6 +24,7 @@ class Project extends Model
         'author_name',
         'name',
         'description',
+        'short_description',
         'is_public',
     ];
 

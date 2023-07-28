@@ -15,6 +15,7 @@ return new class extends Migration
             $table->unsignedBigInteger('author_id')->nullable();
             $table->string('author_name')->nullable();
             $table->string('name');
+            $table->string('short_description')->nullable();
             $table->text('description')->nullable();
             $table->boolean('is_public')->default(true);
             $table->timestamps();
