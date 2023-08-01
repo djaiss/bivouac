@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Controllers\Tasks;
+namespace Tests\Unit\Controllers\Projects\Tasks;
 
 use App\Http\Controllers\Projects\Tasks\ProjectTaskListViewModel;
 use App\Models\Message;
@@ -31,6 +31,7 @@ class ProjectTaskListViewModelTest extends TestCase
             [
                 'id' => $project->id,
                 'name' => 'Dunder',
+                'short_description' => $project->short_description,
                 'description' => $project->description,
                 'is_public' => true,
             ],

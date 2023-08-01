@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Controllers\Profile;
+namespace Tests\Unit\Controllers\Search;
 
 use App\Http\Controllers\Search\SearchViewModel;
 use App\Models\Message;

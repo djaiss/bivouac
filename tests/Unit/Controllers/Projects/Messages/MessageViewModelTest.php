@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Controllers\Projects;
+namespace Tests\Unit\Controllers\Projects\Messages;
 
 use App\Http\Controllers\Projects\Messages\MessageViewModel;
 use App\Models\Comment;
@@ -36,6 +36,7 @@ class MessageViewModelTest extends TestCase
             [
                 'id' => $project->id,
                 'name' => 'Dunder',
+                'short_description' => $project->short_description,
                 'description' => $project->description,
                 'is_public' => true,
             ],
@@ -126,7 +127,7 @@ class MessageViewModelTest extends TestCase
         $this->assertEquals(
             [
                 'name' => 'Dunder',
-                'description' => $project->description,
+                'short_description' => $project->short_description,
             ],
             $array['project']
         );

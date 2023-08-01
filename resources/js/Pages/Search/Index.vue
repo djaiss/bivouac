@@ -1,7 +1,6 @@
 <script setup>
 import { BriefcaseIcon, CircleStackIcon } from '@heroicons/vue/24/outline';
-import { Head } from '@inertiajs/vue3';
-import { Link } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import { reactive, ref } from 'vue';
 
 import Avatar from '@/Components/Avatar.vue';

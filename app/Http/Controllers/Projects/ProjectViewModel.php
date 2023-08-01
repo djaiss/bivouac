@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Projects;
 
+use App\Helpers\StringHelper;
 use App\Models\Organization;
 use App\Models\Project;
+use App\Models\ProjectResource;
 use App\Models\User;
 
 class ProjectViewModel
@@ -49,13 +51,13 @@ class ProjectViewModel
 
     public static function show(Project $project): array
     {
+        $resources = $project->projectResources()
+            ->get()
+            ->map(fn (ProjectResource $projectResource) => self::dtoProjectResource($projectResource));
+
         return [
             'project' => self::dto($project),
-            'url' => [
-                'breadcrumb' => [
-                    'projects' => route('projects.index'),
-                ],
-            ],
+            'resources' => $resources,
         ];
     }
 
@@ -69,6 +71,7 @@ class ProjectViewModel
                     'avatar' => $project?->creator?->avatar,
                 ],
                 'name' => $project->name,
+                'short_description' => $project->short_description,
                 'description' => $project->description,
                 'is_public' => $project->is_public,
             ],
@@ -92,10 +95,14 @@ class ProjectViewModel
                 'avatar' => $project?->creator?->avatar,
             ],
             'name' => $project->name,
-            'description' => $project->description,
+            'short_description' => $project->short_description,
+            'description' => $project->description ? StringHelper::parse($project->description) : null,
             'is_public' => $project->is_public,
             'url' => [
                 'show' => route('projects.show', [
+                    'project' => $project->id,
+                ]),
+                'store_resource' => route('projects.resources.store', [
                     'project' => $project->id,
                 ]),
                 'edit' => route('projects.edit', [
@@ -105,10 +112,32 @@ class ProjectViewModel
         ];
     }
 
+    public static function dtoProjectResource(ProjectResource $projectResource): array
+    {
+        return [
+            'id' => $projectResource->id,
+            'name' => $projectResource->name,
+            'link' => $projectResource->link,
+            'url' => [
+                'update' => route('projects.resources.update', [
+                    'project' => $projectResource->project_id,
+                    'projectResource' => $projectResource->id,
+                ]),
+                'destroy' => route('projects.resources.destroy', [
+                    'project' => $projectResource->project_id,
+                    'projectResource' => $projectResource->id,
+                ]),
+            ],
+        ];
+    }
+
     public static function menu(Project $project): array
     {
         return [
             'url' => [
+                'summary' => route('projects.show', [
+                    'project' => $project->id,
+                ]),
                 'messages' => route('messages.index', [
                     'project' => $project->id,
                 ]),

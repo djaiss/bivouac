@@ -18,6 +18,7 @@ const props = defineProps({
 const loadingState = ref(false);
 const form = reactive({
   name: props.data.project.name,
+  short_description: props.data.project.short_description,
   description: props.data.project.description,
   is_public: props.data.project.is_public,
   errors: null,
@@ -69,7 +70,18 @@ const update = () => {
             <TextInput id="name" type="text" class="block w-full" v-model="form.name" autofocus required />
           </div>
 
-          <!-- description -->
+          <!-- short description -->
+          <div>
+            <InputLabel
+              for="short_description"
+              :value="$t('Summarize the project in one line.')"
+              class="mb-1"
+              :required="false" />
+
+            <TextInput id="short_description" type="text" class="block w-full" v-model="form.short_description" />
+          </div>
+
+          <!-- full description -->
           <div>
             <InputLabel for="description" :value="$t('Project description')" :required="false" />
 

@@ -1,7 +1,5 @@
 <script setup>
-import { Head } from '@inertiajs/vue3';
-import { Link } from '@inertiajs/vue3';
-import { router } from '@inertiajs/vue3';
+import { Head, Link, router } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
 
 import Avatar from '@/Components/Avatar.vue';

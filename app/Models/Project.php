@@ -24,6 +24,7 @@ class Project extends Model
         'author_name',
         'name',
         'description',
+        'short_description',
         'is_public',
     ];
 
@@ -66,6 +67,11 @@ class Project extends Model
     public function taskLists(): HasMany
     {
         return $this->hasMany(TaskList::class);
+    }
+
+    public function projectResources(): HasMany
+    {
+        return $this->hasMany(ProjectResource::class);
     }
 
     /**

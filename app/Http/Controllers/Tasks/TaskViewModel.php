@@ -19,6 +19,7 @@ class TaskViewModel
             'task' => self::dto($task),
             'project' => [
                 'name' => $taskList->project->name,
+                'short_description' => $taskList->project->short_description,
             ],
             'breadcrumb' => [
                 'projects' => route('projects.index'),

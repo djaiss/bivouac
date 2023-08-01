@@ -24,6 +24,8 @@ class DestroyTask extends BaseService
         $this->data = $data;
         $this->validate();
 
+        $this->task->comments()->delete();
+        $this->task->reactions()->delete();
         $this->task->delete();
     }
 

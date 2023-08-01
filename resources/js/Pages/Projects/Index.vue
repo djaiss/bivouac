@@ -1,7 +1,6 @@
 <script setup>
 import { LockClosedIcon } from '@heroicons/vue/24/solid';
-import { Head } from '@inertiajs/vue3';
-import { Link } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 
 import PrimaryLinkButton from '@/Components/PrimaryLinkButton.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
@@ -88,7 +87,9 @@ const props = defineProps({
                       </div>
 
                       <!-- description -->
-                      <p v-if="project.description" class="text-sm text-gray-600">{{ project.description }}</p>
+                      <p v-if="project.short_description" class="text-sm text-gray-600">
+                        {{ project.short_description }}
+                      </p>
                     </div>
                   </div>
                 </li>

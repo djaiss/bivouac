@@ -52,6 +52,7 @@ class UpdateProjectTest extends TestCase
             'user_id' => $user->id,
             'project_id' => $project->id,
             'name' => 'Dunder',
+            'short_description' => 'this is a description',
             'description' => 'this is a description',
             'is_public' => true,
         ];
@@ -67,6 +68,7 @@ class UpdateProjectTest extends TestCase
             'id' => $project->id,
             'organization_id' => $user->organization_id,
             'name' => 'Dunder',
+            'short_description' => 'this is a description',
             'description' => 'this is a description',
             'is_public' => true,
         ]);

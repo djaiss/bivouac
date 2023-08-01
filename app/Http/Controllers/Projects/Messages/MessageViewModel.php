@@ -35,6 +35,7 @@ class MessageViewModel
             'project' => [
                 'id' => $project->id,
                 'name' => $project->name,
+                'short_description' => $project->short_description,
                 'description' => $project->description,
                 'is_public' => $project->is_public,
             ],
@@ -95,7 +96,7 @@ class MessageViewModel
         return [
             'project' => [
                 'name' => $message->project->name,
-                'description' => $message->project->description,
+                'short_description' => $message->project->short_description,
             ],
             'message' => self::dto($message),
             'comments' => $comments,

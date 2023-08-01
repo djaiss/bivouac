@@ -211,13 +211,13 @@ const destroy = (comment) => {
                     v-model="form.body" />
 
                   <div v-if="form.body" class="mt-4 flex justify-start">
-                    <PrimaryButton class="" :loading="loadingState" :disabled="loadingState">
+                    <PrimaryButton class="mr-2" :loading="loadingState" :disabled="loadingState">
                       {{ $t('Save') }}
                     </PrimaryButton>
 
                     <span
                       @click="editedComment = ''"
-                      class="ml-2 inline-flex cursor-pointer items-center rounded-md border border-transparent bg-gray-100 px-3 py-1 text-sm font-medium leading-4 text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+                      class="flex cursor-pointer rounded-md border border-gray-300 bg-gray-100 px-3 py-1 font-semibold text-gray-700 hover:border-solid hover:border-gray-500 hover:bg-gray-200">
                       {{ $t('Cancel') }}
                     </span>
                   </div>
@@ -264,13 +264,13 @@ const destroy = (comment) => {
             v-model="form.body" />
 
           <div v-if="form.body" class="mt-4 flex justify-start">
-            <PrimaryButton class="" :loading="loadingState" :disabled="loadingState">
+            <PrimaryButton class="mr-2" :loading="loadingState" :disabled="loadingState">
               {{ $t('Save') }}
             </PrimaryButton>
 
             <span
               @click="form.body = ''"
-              class="ml-2 inline-flex cursor-pointer items-center rounded-md border border-transparent bg-gray-100 px-3 py-1 text-sm font-medium leading-4 text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+              class="flex cursor-pointer rounded-md border border-gray-300 bg-gray-100 px-3 py-1 font-semibold text-gray-700 hover:border-solid hover:border-gray-500 hover:bg-gray-200">
               {{ $t('Cancel') }}
             </span>
           </div>

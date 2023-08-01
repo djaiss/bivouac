@@ -9,7 +9,7 @@ defineProps({
 
 <template>
   <button
-    class="flex rounded-md bg-indigo-500 px-3 py-1.5 font-semibold text-white shadow-sm ring-1 ring-inset ring-indigo-600 hover:bg-indigo-700">
+    class="flex rounded-md border border-indigo-700 bg-indigo-500 px-3 py-1 font-semibold text-white shadow-sm hover:bg-indigo-700">
     <span v-if="loading" class="mr-2">
       <div class="lds-ring">
         <div></div>
