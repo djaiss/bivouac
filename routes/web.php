@@ -10,6 +10,7 @@ use App\Http\Controllers\Projects\Messages\MessageCommentController;
 use App\Http\Controllers\Projects\Messages\MessageController;
 use App\Http\Controllers\Projects\Messages\MessageReactionController;
 use App\Http\Controllers\Projects\ProjectController;
+use App\Http\Controllers\Projects\Summary\ProjectResourceController;
 use App\Http\Controllers\Projects\Tasks\ProjectAssignTaskController;
 use App\Http\Controllers\Projects\Tasks\ProjectTaskListController;
 use App\Http\Controllers\Projects\Tasks\TaskCommentController;
@@ -128,6 +129,11 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
 
         // search a specific user to assign a task to
         Route::post('projects/{project}/tasks/{task}/search/users', [TaskSearchUserController::class, 'index'])->name('tasks.search.user.index');
+
+        // project resources
+        Route::post('projects/{project}/resources', [ProjectResourceController::class, 'store'])->name('projects.resources.store');
+        Route::put('projects/{project}/resources/{projectResource}', [ProjectResourceController::class, 'update'])->name('projects.resources.update');
+        Route::delete('projects/{project}/resources/{projectResource}', [ProjectResourceController::class, 'destroy'])->name('projects.resources.destroy');
     });
 
     // users

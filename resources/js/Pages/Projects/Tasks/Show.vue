@@ -324,7 +324,7 @@ const cancelSearch = () => {
 
                   <XMarkIcon
                     @click="unassign(assignee)"
-                    class="hidden h-5 w-5 cursor-pointer text-gray-400 group-hover:block hover:bg-gray-300 hover:text-gray-600 rounded" />
+                    class="hidden h-5 w-5 cursor-pointer rounded text-gray-400 hover:bg-gray-300 hover:text-gray-600 group-hover:block" />
                 </div>
               </div>
 
