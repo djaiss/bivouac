@@ -44,7 +44,7 @@ class ProjectResourceController extends Controller
 
     public function destroy(Request $request, Project $project, ProjectResource $projectResource): JsonResponse
     {
-        $projectResource = (new DestroyProjectResource)->execute([
+        (new DestroyProjectResource)->execute([
             'user_id' => auth()->user()->id,
             'project_resource_id' => $projectResource->id,
         ]);
