@@ -19,7 +19,7 @@ defineProps({
         <span v-if="!data.project.is_public" v-tooltip="$t('This project is private')">
           <LockClosedIcon class="mr-2 h-4 w-4 text-blue-500" />
         </span>
-        <h1 class="text-xl font-bold">{{ data.project.name }}</h1>
+        <h1 class="text-2xl font-bold">{{ data.project.name }}</h1>
       </div>
       <p v-if="data.project.short_description" class="mt-1 text-sm">{{ data.project.short_description }}</p>
     </div>

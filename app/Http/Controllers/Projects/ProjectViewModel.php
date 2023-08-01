@@ -50,6 +50,8 @@ class ProjectViewModel
 
     public static function show(Project $project): array
     {
+        $resources = $project->projectResources();
+
         return [
             'project' => self::dto($project),
             'url' => [

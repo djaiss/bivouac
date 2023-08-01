@@ -58,7 +58,7 @@ defineProps({
                 <!-- user name -->
                 <div class="group mr-4 flex items-center">
                   <Avatar :data="message.author.avatar" :url="message.author.url" class="mr-2 h-4 w-4 rounded" />
-                  <Link :href="message.author.url" class="text-gray-600 group-hover:underline">
+                  <Link :href="message.author.url" class="text-gray-600 group-hover:underline group-hover:text-blue-700">
                     {{ message.author.name }}
                   </Link>
                 </div>

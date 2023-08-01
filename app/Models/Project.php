@@ -69,6 +69,11 @@ class Project extends Model
         return $this->hasMany(TaskList::class);
     }
 
+    public function projectResources(): HasMany
+    {
+        return $this->hasMany(ProjectResource::class);
+    }
+
     /**
      * @return Attribute<string,never>
      */
