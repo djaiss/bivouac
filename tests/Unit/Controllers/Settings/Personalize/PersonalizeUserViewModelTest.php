@@ -26,7 +26,7 @@ class PersonalizeUserViewModelTest extends TestCase
                 'invite_store' => env('APP_URL') . '/settings/users/invite',
                 'breadcrumb' => [
                     'home' => env('APP_URL') . '/profile',
-                    'settings' => env('APP_URL') . '/settings/personalize',
+                    'settings' => env('APP_URL') . '/settings',
                     'users' => env('APP_URL') . '/settings/users',
                 ],
             ],
@@ -92,7 +92,7 @@ class PersonalizeUserViewModelTest extends TestCase
                 'url' => [
                     'breadcrumb' => [
                         'home' => env('APP_URL') . '/profile',
-                        'settings' => env('APP_URL') . '/settings/personalize',
+                        'settings' => env('APP_URL') . '/settings',
                         'users' => env('APP_URL') . '/settings/users',
                     ],
                     'update' => env('APP_URL') . '/settings/users/' . $user->id,

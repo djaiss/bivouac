@@ -22,7 +22,7 @@ class PersonalizeViewModelTest extends TestCase
                 'url' => [
                     'breadcrumb' => [
                         'home' => env('APP_URL') . '/profile',
-                        'settings' => env('APP_URL') . '/settings/personalize',
+                        'settings' => env('APP_URL') . '/settings',
                     ],
                     'users' => env('APP_URL') . '/settings/users',
                     'offices' => env('APP_URL') . '/settings/offices',

@@ -26,7 +26,7 @@ class PersonalizeTeamTypeViewModelTest extends TestCase
                 'create' => env('APP_URL') . '/settings/teamTypes/create',
                 'breadcrumb' => [
                     'home' => env('APP_URL') . '/profile',
-                    'settings' => env('APP_URL') . '/settings/personalize',
+                    'settings' => env('APP_URL') . '/settings',
                 ],
             ],
             $array['url']
@@ -69,7 +69,7 @@ class PersonalizeTeamTypeViewModelTest extends TestCase
                     'store' => env('APP_URL') . '/settings/teamTypes',
                     'breadcrumb' => [
                         'home' => env('APP_URL') . '/profile',
-                        'settings' => env('APP_URL') . '/settings/personalize',
+                        'settings' => env('APP_URL') . '/settings',
                         'team_types' => env('APP_URL') . '/settings/teamTypes',
                     ],
                 ],
@@ -97,7 +97,7 @@ class PersonalizeTeamTypeViewModelTest extends TestCase
                     'update' => env('APP_URL') . '/settings/teamTypes/' . $teamType->id,
                     'breadcrumb' => [
                         'home' => env('APP_URL') . '/profile',
-                        'settings' => env('APP_URL') . '/settings/personalize',
+                        'settings' => env('APP_URL') . '/settings',
                         'team_types' => env('APP_URL') . '/settings/teamTypes',
                     ],
                 ],

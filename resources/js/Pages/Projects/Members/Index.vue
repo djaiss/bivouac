@@ -1,10 +1,10 @@
 <script setup>
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
 import { ChatBubbleBottomCenterTextIcon } from '@heroicons/vue/24/outline';
 import { BoltIcon } from '@heroicons/vue/24/outline';
+import { ChevronDownIcon, ChevronUpIcon, EllipsisVerticalIcon } from '@heroicons/vue/24/outline';
 import { Head, Link } from '@inertiajs/vue3';
 
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
-import { ChevronDownIcon, ChevronUpIcon, EllipsisVerticalIcon } from '@heroicons/vue/24/outline';
 import Avatar from '@/Components/Avatar.vue';
 import PrimaryLinkButton from '@/Components/PrimaryLinkButton.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';

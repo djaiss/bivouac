@@ -30,7 +30,7 @@ class PersonalizeUpgradeViewModelTest extends TestCase
                     'upgrade' => env('APP_URL') . '/settings/upgrade',
                     'breadcrumb' => [
                         'home' => env('APP_URL') . '/profile',
-                        'settings' => env('APP_URL') . '/settings/personalize',
+                        'settings' => env('APP_URL') . '/settings',
                     ],
                 ],
             ],

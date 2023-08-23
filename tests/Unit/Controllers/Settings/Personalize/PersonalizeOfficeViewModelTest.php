@@ -26,7 +26,7 @@ class PersonalizeOfficeViewModelTest extends TestCase
                 'create' => env('APP_URL') . '/settings/offices/create',
                 'breadcrumb' => [
                     'home' => env('APP_URL') . '/profile',
-                    'settings' => env('APP_URL') . '/settings/personalize',
+                    'settings' => env('APP_URL') . '/settings',
                 ],
             ],
             $array['url']
@@ -76,7 +76,7 @@ class PersonalizeOfficeViewModelTest extends TestCase
                     'update' => env('APP_URL') . '/settings/offices/' . $office->id,
                     'breadcrumb' => [
                         'home' => env('APP_URL') . '/profile',
-                        'settings' => env('APP_URL') . '/settings/personalize',
+                        'settings' => env('APP_URL') . '/settings',
                         'offices' => env('APP_URL') . '/settings/offices',
                     ],
                 ],
