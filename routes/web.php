@@ -6,6 +6,7 @@ use App\Http\Controllers\Profile\ProfileAvatarController;
 use App\Http\Controllers\Profile\ProfileBirthdateController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Projects\CommentReactionController;
+use App\Http\Controllers\Projects\Members\MemberController;
 use App\Http\Controllers\Projects\Messages\MessageCommentController;
 use App\Http\Controllers\Projects\Messages\MessageController;
 use App\Http\Controllers\Projects\Messages\MessageReactionController;
@@ -121,6 +122,9 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
         // tasks
         Route::get('projects/{project}/tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
 
+        // members
+        Route::get('projects/{project}/members', [MemberController::class, 'index'])->name('members.index');
+
         // add reaction and message to tasks
         Route::post('projects/{project}/tasks/{task}/reactions', [TaskReactionController::class, 'store'])->name('tasks.reactions.store');
         Route::post('projects/{project}/tasks/{task}/comments', [TaskCommentController::class, 'store'])->name('tasks.comments.store');
@@ -140,7 +144,7 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
     Route::get('users/{user}', [UserController::class, 'show'])->name('users.show');
 
     Route::middleware(['administrator'])->prefix('settings')->group(function (): void {
-        Route::get('personalize', [PersonalizeController::class, 'index'])->name('settings.index');
+        Route::get('', [PersonalizeController::class, 'index'])->name('settings.index');
 
         // user management
         Route::get('users', [PersonalizeUserController::class, 'index'])->name('settings.user.index');

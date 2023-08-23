@@ -92,7 +92,7 @@ onMounted(() => {
               <Cog8ToothIcon
                 class="h-4 w-4 transition ease-in-out group-hover:fill-current group-hover:text-blue-500" />
               <span class="ml-2">
-                <Link :href="page.props.url.settings">{{ $t('Account settings') }}</Link>
+                <Link :href="page.props.url.settings.index">{{ $t('Account settings') }}</Link>
               </span>
             </li>
           </ul>

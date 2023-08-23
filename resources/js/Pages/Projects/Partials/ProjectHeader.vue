@@ -76,11 +76,15 @@ defineProps({
             </a>
           </li>
           <li class="mr-2">
-            <a
-              href="#"
-              class="inline-block rounded-t-lg border-b-2 border-transparent p-3 hover:border-blue-300 hover:text-blue-600 dark:hover:text-gray-300">
+            <Link
+              :href="menu.url.members"
+              class="inline-block rounded-t-lg border-b-2 p-3 hover:border-blue-300 hover:text-blue-600 dark:hover:text-gray-300"
+                :class="{
+                  'border-blue-600 text-blue-600': $page.component.startsWith('Projects/Members'),
+                  'border-transparent': !$page.component.startsWith('Projects/Members'),
+                }">
               {{ $t('Members') }}
-            </a>
+            </Link>
           </li>
           <li class="mr-2">
             <Link
