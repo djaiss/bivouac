@@ -16,10 +16,10 @@ class PersonalizeTeamTypeViewModel
         return [
             'team_types' => $teamTypes,
             'url' => [
-                'create' => route('settings.personalize.team_type.create'),
+                'create' => route('settings.team_type.create'),
                 'breadcrumb' => [
                     'home' => route('profile.edit'),
-                    'settings' => route('settings.personalize.index'),
+                    'settings' => route('settings.index'),
                 ],
             ],
         ];
@@ -29,11 +29,11 @@ class PersonalizeTeamTypeViewModel
     {
         return [
             'url' => [
-                'store' => route('settings.personalize.team_type.store'),
+                'store' => route('settings.team_type.store'),
                 'breadcrumb' => [
                     'home' => route('profile.edit'),
-                    'settings' => route('settings.personalize.index'),
-                    'team_types' => route('settings.personalize.team_type.index'),
+                    'settings' => route('settings.index'),
+                    'team_types' => route('settings.team_type.index'),
                 ],
             ],
         ];
@@ -46,13 +46,13 @@ class PersonalizeTeamTypeViewModel
             'label' => $teamType->label,
             'position' => $teamType->position,
             'url' => [
-                'update' => route('settings.personalize.team_type.update', [
+                'update' => route('settings.team_type.update', [
                     'teamType' => $teamType->id,
                 ]),
                 'breadcrumb' => [
                     'home' => route('profile.edit'),
-                    'settings' => route('settings.personalize.index'),
-                    'team_types' => route('settings.personalize.team_type.index'),
+                    'settings' => route('settings.index'),
+                    'team_types' => route('settings.team_type.index'),
                 ],
             ],
         ];
@@ -65,10 +65,10 @@ class PersonalizeTeamTypeViewModel
             'label' => $teamType->label,
             'position' => $teamType->position,
             'url' => [
-                'edit' => route('settings.personalize.team_type.edit', [
+                'edit' => route('settings.team_type.edit', [
                     'teamType' => $teamType->id,
                 ]),
-                'destroy' => route('settings.personalize.team_type.destroy', [
+                'destroy' => route('settings.team_type.destroy', [
                     'teamType' => $teamType->id,
                 ]),
             ],

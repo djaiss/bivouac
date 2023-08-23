@@ -23,7 +23,7 @@ class PersonalizeTeamTypeViewModelTest extends TestCase
         $this->assertArrayHasKey('url', $array);
         $this->assertEquals(
             [
-                'create' => env('APP_URL') . '/settings/personalize/teamTypes/create',
+                'create' => env('APP_URL') . '/settings/teamTypes/create',
                 'breadcrumb' => [
                     'home' => env('APP_URL') . '/profile',
                     'settings' => env('APP_URL') . '/settings/personalize',
@@ -49,8 +49,8 @@ class PersonalizeTeamTypeViewModelTest extends TestCase
                 'label' => 'Dunder',
                 'position' => 1,
                 'url' => [
-                    'edit' => env('APP_URL') . '/settings/personalize/teamTypes/' . $teamType->id . '/edit',
-                    'destroy' => env('APP_URL') . '/settings/personalize/teamTypes/' . $teamType->id,
+                    'edit' => env('APP_URL') . '/settings/teamTypes/' . $teamType->id . '/edit',
+                    'destroy' => env('APP_URL') . '/settings/teamTypes/' . $teamType->id,
                 ],
             ],
             $array
@@ -66,11 +66,11 @@ class PersonalizeTeamTypeViewModelTest extends TestCase
         $this->assertEquals(
             [
                 'url' => [
-                    'store' => env('APP_URL') . '/settings/personalize/teamTypes',
+                    'store' => env('APP_URL') . '/settings/teamTypes',
                     'breadcrumb' => [
                         'home' => env('APP_URL') . '/profile',
                         'settings' => env('APP_URL') . '/settings/personalize',
-                        'team_types' => env('APP_URL') . '/settings/personalize/teamTypes',
+                        'team_types' => env('APP_URL') . '/settings/teamTypes',
                     ],
                 ],
             ],
@@ -94,11 +94,11 @@ class PersonalizeTeamTypeViewModelTest extends TestCase
                 'label' => 'Dunder',
                 'position' => 1,
                 'url' => [
-                    'update' => env('APP_URL') . '/settings/personalize/teamTypes/' . $teamType->id,
+                    'update' => env('APP_URL') . '/settings/teamTypes/' . $teamType->id,
                     'breadcrumb' => [
                         'home' => env('APP_URL') . '/profile',
                         'settings' => env('APP_URL') . '/settings/personalize',
-                        'team_types' => env('APP_URL') . '/settings/personalize/teamTypes',
+                        'team_types' => env('APP_URL') . '/settings/teamTypes',
                     ],
                 ],
             ],

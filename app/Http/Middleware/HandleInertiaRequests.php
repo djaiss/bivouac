@@ -44,7 +44,7 @@ class HandleInertiaRequests extends Middleware
                 'projects' => route('projects.index'),
                 'profile' => route('profile.edit'),
                 'settings' => [
-                    'personalize' => route('settings.personalize.index'),
+                    'personalize' => route('settings.index'),
                 ],
             ],
             'ziggy' => function () use ($request) {

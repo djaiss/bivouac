@@ -16,14 +16,14 @@ class PersonalizeTeamTypeController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('Settings/Personalize/TeamTypes/Index', [
+        return Inertia::render('Settings/TeamTypes/Index', [
             'data' => PersonalizeTeamTypeViewModel::index(auth()->user()->organization),
         ]);
     }
 
     public function create(): Response
     {
-        return Inertia::render('Settings/Personalize/TeamTypes/Create', [
+        return Inertia::render('Settings/TeamTypes/Create', [
             'data' => PersonalizeTeamTypeViewModel::create(),
         ]);
     }
@@ -36,13 +36,13 @@ class PersonalizeTeamTypeController extends Controller
         ]);
 
         return response()->json([
-            'data' => route('settings.personalize.team_type.index'),
+            'data' => route('settings.team_type.index'),
         ], 201);
     }
 
     public function edit(Request $request, TeamType $teamType): Response
     {
-        return Inertia::render('Settings/Personalize/TeamTypes/Edit', [
+        return Inertia::render('Settings/TeamTypes/Edit', [
             'data' => PersonalizeTeamTypeViewModel::edit($teamType),
         ]);
     }
@@ -56,7 +56,7 @@ class PersonalizeTeamTypeController extends Controller
         ]);
 
         return response()->json([
-            'data' => route('settings.personalize.team_type.index'),
+            'data' => route('settings.team_type.index'),
         ], 200);
     }
 

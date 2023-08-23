@@ -22,12 +22,12 @@ class PersonalizeUserViewModelTest extends TestCase
         $this->assertArrayHasKey('url', $array);
         $this->assertEquals(
             [
-                'invite' => env('APP_URL') . '/settings/personalize/users/invite',
-                'invite_store' => env('APP_URL') . '/settings/personalize/users/invite',
+                'invite' => env('APP_URL') . '/settings/users/invite',
+                'invite_store' => env('APP_URL') . '/settings/users/invite',
                 'breadcrumb' => [
                     'home' => env('APP_URL') . '/profile',
                     'settings' => env('APP_URL') . '/settings/personalize',
-                    'users' => env('APP_URL') . '/settings/personalize/users',
+                    'users' => env('APP_URL') . '/settings/users',
                 ],
             ],
             $array['url']
@@ -60,8 +60,8 @@ class PersonalizeUserViewModelTest extends TestCase
                 'can_delete' => false,
                 'permissions' => 'User',
                 'url' => [
-                    'edit' => env('APP_URL') . '/settings/personalize/users/' . $user->id . '/edit',
-                    'destroy' => env('APP_URL') . '/settings/personalize/users/' . $user->id,
+                    'edit' => env('APP_URL') . '/settings/users/' . $user->id . '/edit',
+                    'destroy' => env('APP_URL') . '/settings/users/' . $user->id,
                 ],
             ],
             $array
@@ -93,9 +93,9 @@ class PersonalizeUserViewModelTest extends TestCase
                     'breadcrumb' => [
                         'home' => env('APP_URL') . '/profile',
                         'settings' => env('APP_URL') . '/settings/personalize',
-                        'users' => env('APP_URL') . '/settings/personalize/users',
+                        'users' => env('APP_URL') . '/settings/users',
                     ],
-                    'update' => env('APP_URL') . '/settings/personalize/users/' . $user->id,
+                    'update' => env('APP_URL') . '/settings/users/' . $user->id,
                 ],
             ],
             $array

@@ -14,7 +14,7 @@ class PersonalizeUpgradeController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('Settings/Personalize/Upgrade/Index', [
+        return Inertia::render('Settings/Upgrade/Index', [
             'data' => PersonalizeUpgradeViewModel::data(auth()->user()->organization),
         ]);
     }

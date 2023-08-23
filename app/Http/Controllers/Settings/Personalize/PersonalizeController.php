@@ -10,7 +10,7 @@ class PersonalizeController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('Settings/Personalize/Index', [
+        return Inertia::render('Settings/Index', [
             'data' => PersonalizeViewModel::data(),
         ]);
     }

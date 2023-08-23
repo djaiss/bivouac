@@ -15,12 +15,12 @@ class PersonalizeUserViewModel
         return [
             'users' => $users,
             'url' => [
-                'invite' => route('settings.personalize.user.create'),
-                'invite_store' => route('settings.personalize.user.store'),
+                'invite' => route('settings.user.create'),
+                'invite_store' => route('settings.user.store'),
                 'breadcrumb' => [
                     'home' => route('profile.edit'),
-                    'settings' => route('settings.personalize.index'),
-                    'users' => route('settings.personalize.user.index'),
+                    'settings' => route('settings.index'),
+                    'users' => route('settings.user.index'),
                 ],
             ],
         ];
@@ -44,10 +44,10 @@ class PersonalizeUserViewModel
             'can_delete' => $loggedUser->id !== $otherUser->id,
             'permissions' => $permission,
             'url' => [
-                'edit' => route('settings.personalize.user.edit', [
+                'edit' => route('settings.user.edit', [
                     'user' => $otherUser->id,
                 ]),
-                'destroy' => route('settings.personalize.user.destroy', [
+                'destroy' => route('settings.user.destroy', [
                     'user' => $otherUser->id,
                 ]),
             ],
@@ -64,10 +64,10 @@ class PersonalizeUserViewModel
             'url' => [
                 'breadcrumb' => [
                     'home' => route('profile.edit'),
-                    'settings' => route('settings.personalize.index'),
-                    'users' => route('settings.personalize.user.index'),
+                    'settings' => route('settings.index'),
+                    'users' => route('settings.user.index'),
                 ],
-                'update' => route('settings.personalize.user.update', [
+                'update' => route('settings.user.update', [
                     'user' => $user->id,
                 ]),
             ],
