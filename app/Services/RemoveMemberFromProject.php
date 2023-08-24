@@ -47,7 +47,6 @@ class RemoveMemberFromProject extends BaseService
         }
 
         if ($this->project->users()->where('user_id', $this->user->id)->doesntExist()) {
-
             throw new NotEnoughPermissionException;
         }
     }

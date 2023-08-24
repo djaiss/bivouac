@@ -3,15 +3,11 @@
 namespace App\Http\Controllers\Projects\Members;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Projects\ProjectViewModel;
 use App\Models\Project;
 use App\Models\User;
 use App\Services\AddProjectMember;
-use App\Services\RemoveMemberFromProject;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
-use Inertia\Response;
 
 class MemberUserController extends Controller
 {
