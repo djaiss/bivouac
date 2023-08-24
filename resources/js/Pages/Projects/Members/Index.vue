@@ -85,7 +85,7 @@ const remove = (member) => {
         <div v-if="loadingUsers">{{ $t('Loading users...') }}</div>
 
         <!-- list -->
-        <ul class="overflow-auto h-40">
+        <ul class="overflow-auto max-h-40">
           <li v-for="user in localPotentialMembers" :key="user.id" class="flex justify-between items-center py-4 pl-4 pr-6 hover:bg-slate-50 last:hover:rounded-b-lg">
             <!-- user name -->
             <div>{{ user.name }}</div>
@@ -104,7 +104,7 @@ const remove = (member) => {
         <!-- header -->
         <div class="flex items-center justify-between border-b border-gray-200 px-4 py-2">
           <h2 class="text-lg font-medium text-gray-900">
-            {{ $t('Users who can contribute to this project') }}
+            {{ $t('Project members') }}
           </h2>
 
           <div>
