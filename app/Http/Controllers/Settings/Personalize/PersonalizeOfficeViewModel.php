@@ -16,10 +16,10 @@ class PersonalizeOfficeViewModel
         return [
             'offices' => $offices,
             'url' => [
-                'create' => route('settings.personalize.office.create'),
+                'create' => route('settings.office.create'),
                 'breadcrumb' => [
                     'home' => route('profile.edit'),
-                    'settings' => route('settings.personalize.index'),
+                    'settings' => route('settings.index'),
                 ],
             ],
         ];
@@ -29,11 +29,11 @@ class PersonalizeOfficeViewModel
     {
         return [
             'url' => [
-                'store' => route('settings.personalize.office.store'),
+                'store' => route('settings.office.store'),
                 'breadcrumb' => [
                     'home' => route('profile.edit'),
-                    'settings' => route('settings.personalize.index'),
-                    'offices' => route('settings.personalize.office.index'),
+                    'settings' => route('settings.index'),
+                    'offices' => route('settings.office.index'),
                 ],
             ],
         ];
@@ -46,13 +46,13 @@ class PersonalizeOfficeViewModel
             'name' => $office->name,
             'is_main_office' => $office->is_main_office,
             'url' => [
-                'update' => route('settings.personalize.office.update', [
+                'update' => route('settings.office.update', [
                     'office' => $office->id,
                 ]),
                 'breadcrumb' => [
                     'home' => route('profile.edit'),
-                    'settings' => route('settings.personalize.index'),
-                    'offices' => route('settings.personalize.office.index'),
+                    'settings' => route('settings.index'),
+                    'offices' => route('settings.office.index'),
                 ],
             ],
         ];
@@ -65,10 +65,10 @@ class PersonalizeOfficeViewModel
             'name' => $office->name,
             'is_main_office' => $office->is_main_office,
             'url' => [
-                'edit' => route('settings.personalize.office.edit', [
+                'edit' => route('settings.office.edit', [
                     'office' => $office->id,
                 ]),
-                'destroy' => route('settings.personalize.office.destroy', [
+                'destroy' => route('settings.office.destroy', [
                     'office' => $office->id,
                 ]),
             ],

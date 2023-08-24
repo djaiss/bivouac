@@ -2,9 +2,11 @@
 
 namespace Tests\Unit\Services;
 
+use App\Jobs\PopulateAccount;
 use App\Models\User;
 use App\Services\CreateAccount;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\Queue;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 
@@ -31,6 +33,8 @@ class CreateAccountTest extends TestCase
 
     private function executeService(): void
     {
+        Queue::fake();
+
         $request = [
             'email' => 'john@email.com',
             'password' => 'johnny',
@@ -61,5 +65,7 @@ class CreateAccountTest extends TestCase
             'id' => $user->organization_id,
             'name' => 'johnny inc',
         ]);
+
+        Queue::assertPushed(PopulateAccount::class);
     }
 }

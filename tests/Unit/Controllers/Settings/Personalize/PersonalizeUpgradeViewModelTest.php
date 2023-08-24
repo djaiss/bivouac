@@ -27,10 +27,10 @@ class PersonalizeUpgradeViewModelTest extends TestCase
                 'upgraded' => true,
                 'url' => [
                     'store' => 'https://bivouac.lemonsqueezy.com/',
-                    'upgrade' => env('APP_URL') . '/settings/personalize/upgrade',
+                    'upgrade' => env('APP_URL') . '/settings/upgrade',
                     'breadcrumb' => [
                         'home' => env('APP_URL') . '/profile',
-                        'settings' => env('APP_URL') . '/settings/personalize',
+                        'settings' => env('APP_URL') . '/settings',
                     ],
                 ],
             ],

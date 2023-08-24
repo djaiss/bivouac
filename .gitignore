@@ -19,3 +19,4 @@ yarn-error.log
 /.vscode
 /lang/php_*.json
 .DS_Store
+bivouac.code-workspace

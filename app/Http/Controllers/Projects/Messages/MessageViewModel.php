@@ -97,6 +97,7 @@ class MessageViewModel
             'project' => [
                 'name' => $message->project->name,
                 'short_description' => $message->project->short_description,
+                'is_public' => $message->project->is_public,
             ],
             'message' => self::dto($message),
             'comments' => $comments,

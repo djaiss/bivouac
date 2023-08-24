@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Jobs\PopulateAccount;
 use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -34,6 +35,8 @@ class CreateAccount extends BaseService
         $this->validate();
         $this->createOrganization();
         $this->createUser();
+
+        PopulateAccount::dispatch($this->organization);
 
         return $this->user;
     }

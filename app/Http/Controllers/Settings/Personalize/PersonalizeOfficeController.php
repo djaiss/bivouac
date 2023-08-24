@@ -16,14 +16,14 @@ class PersonalizeOfficeController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('Settings/Personalize/Offices/Index', [
+        return Inertia::render('Settings/Offices/Index', [
             'data' => PersonalizeOfficeViewModel::index(auth()->user()->organization),
         ]);
     }
 
     public function create(): Response
     {
-        return Inertia::render('Settings/Personalize/Offices/Create', [
+        return Inertia::render('Settings/Offices/Create', [
             'data' => PersonalizeOfficeViewModel::create(),
         ]);
     }
@@ -37,13 +37,13 @@ class PersonalizeOfficeController extends Controller
         ]);
 
         return response()->json([
-            'data' => route('settings.personalize.office.index'),
+            'data' => route('settings.office.index'),
         ], 201);
     }
 
     public function edit(Request $request, Office $office): Response
     {
-        return Inertia::render('Settings/Personalize/Offices/Edit', [
+        return Inertia::render('Settings/Offices/Edit', [
             'data' => PersonalizeOfficeViewModel::edit($office),
         ]);
     }
@@ -58,7 +58,7 @@ class PersonalizeOfficeController extends Controller
         ]);
 
         return response()->json([
-            'data' => route('settings.personalize.office.index'),
+            'data' => route('settings.office.index'),
         ], 200);
     }
 

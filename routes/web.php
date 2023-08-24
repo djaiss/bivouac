@@ -6,6 +6,8 @@ use App\Http\Controllers\Profile\ProfileAvatarController;
 use App\Http\Controllers\Profile\ProfileBirthdateController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Projects\CommentReactionController;
+use App\Http\Controllers\Projects\Members\MemberController;
+use App\Http\Controllers\Projects\Members\MemberUserController;
 use App\Http\Controllers\Projects\Messages\MessageCommentController;
 use App\Http\Controllers\Projects\Messages\MessageController;
 use App\Http\Controllers\Projects\Messages\MessageReactionController;
@@ -121,6 +123,12 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
         // tasks
         Route::get('projects/{project}/tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
 
+        // members
+        Route::get('projects/{project}/members', [MemberController::class, 'index'])->name('members.index');
+        Route::get('projects/{project}/users', [MemberUserController::class, 'index'])->name('members.user.index');
+        Route::post('projects/{project}/members/{member}', [MemberUserController::class, 'store'])->name('members.user.store');
+        Route::delete('projects/{project}/members/{member}', [MemberController::class, 'destroy'])->name('members.destroy');
+
         // add reaction and message to tasks
         Route::post('projects/{project}/tasks/{task}/reactions', [TaskReactionController::class, 'store'])->name('tasks.reactions.store');
         Route::post('projects/{project}/tasks/{task}/comments', [TaskCommentController::class, 'store'])->name('tasks.comments.store');
@@ -140,35 +148,35 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
     Route::get('users/{user}', [UserController::class, 'show'])->name('users.show');
 
     Route::middleware(['administrator'])->prefix('settings')->group(function (): void {
-        Route::get('personalize', [PersonalizeController::class, 'index'])->name('settings.personalize.index');
+        Route::get('', [PersonalizeController::class, 'index'])->name('settings.index');
 
         // user management
-        Route::get('personalize/users', [PersonalizeUserController::class, 'index'])->name('settings.personalize.user.index');
-        Route::get('personalize/users/invite', [PersonalizeUserController::class, 'create'])->name('settings.personalize.user.create');
-        Route::post('personalize/users/invite', [PersonalizeUserController::class, 'store'])->name('settings.personalize.user.store');
-        Route::get('personalize/users/{user}/edit', [PersonalizeUserController::class, 'edit'])->name('settings.personalize.user.edit');
-        Route::put('personalize/users/{user}', [PersonalizeUserController::class, 'update'])->name('settings.personalize.user.update');
-        Route::delete('personalize/users/{user}', [PersonalizeUserController::class, 'destroy'])->name('settings.personalize.user.destroy');
+        Route::get('users', [PersonalizeUserController::class, 'index'])->name('settings.user.index');
+        Route::get('users/invite', [PersonalizeUserController::class, 'create'])->name('settings.user.create');
+        Route::post('users/invite', [PersonalizeUserController::class, 'store'])->name('settings.user.store');
+        Route::get('users/{user}/edit', [PersonalizeUserController::class, 'edit'])->name('settings.user.edit');
+        Route::put('users/{user}', [PersonalizeUserController::class, 'update'])->name('settings.user.update');
+        Route::delete('users/{user}', [PersonalizeUserController::class, 'destroy'])->name('settings.user.destroy');
 
         // office management
-        Route::get('personalize/offices', [PersonalizeOfficeController::class, 'index'])->name('settings.personalize.office.index');
-        Route::get('personalize/offices/create', [PersonalizeOfficeController::class, 'create'])->name('settings.personalize.office.create');
-        Route::post('personalize/offices', [PersonalizeOfficeController::class, 'store'])->name('settings.personalize.office.store');
-        Route::get('personalize/offices/{office}/edit', [PersonalizeOfficeController::class, 'edit'])->name('settings.personalize.office.edit');
-        Route::put('personalize/offices/{office}', [PersonalizeOfficeController::class, 'update'])->name('settings.personalize.office.update');
-        Route::delete('personalize/offices/{office}', [PersonalizeOfficeController::class, 'destroy'])->name('settings.personalize.office.destroy');
+        Route::get('offices', [PersonalizeOfficeController::class, 'index'])->name('settings.office.index');
+        Route::get('offices/create', [PersonalizeOfficeController::class, 'create'])->name('settings.office.create');
+        Route::post('offices', [PersonalizeOfficeController::class, 'store'])->name('settings.office.store');
+        Route::get('offices/{office}/edit', [PersonalizeOfficeController::class, 'edit'])->name('settings.office.edit');
+        Route::put('offices/{office}', [PersonalizeOfficeController::class, 'update'])->name('settings.office.update');
+        Route::delete('offices/{office}', [PersonalizeOfficeController::class, 'destroy'])->name('settings.office.destroy');
 
         // team type management
-        Route::get('personalize/teamTypes', [PersonalizeTeamTypeController::class, 'index'])->name('settings.personalize.team_type.index');
-        Route::get('personalize/teamTypes/create', [PersonalizeTeamTypeController::class, 'create'])->name('settings.personalize.team_type.create');
-        Route::post('personalize/teamTypes', [PersonalizeTeamTypeController::class, 'store'])->name('settings.personalize.team_type.store');
-        Route::get('personalize/teamTypes/{teamType}/edit', [PersonalizeTeamTypeController::class, 'edit'])->name('settings.personalize.team_type.edit');
-        Route::put('personalize/teamTypes/{teamType}', [PersonalizeTeamTypeController::class, 'update'])->name('settings.personalize.team_type.update');
-        Route::delete('personalize/teamTypes/{teamType}', [PersonalizeTeamTypeController::class, 'destroy'])->name('settings.personalize.team_type.destroy');
+        Route::get('teamTypes', [PersonalizeTeamTypeController::class, 'index'])->name('settings.team_type.index');
+        Route::get('teamTypes/create', [PersonalizeTeamTypeController::class, 'create'])->name('settings.team_type.create');
+        Route::post('teamTypes', [PersonalizeTeamTypeController::class, 'store'])->name('settings.team_type.store');
+        Route::get('teamTypes/{teamType}/edit', [PersonalizeTeamTypeController::class, 'edit'])->name('settings.team_type.edit');
+        Route::put('teamTypes/{teamType}', [PersonalizeTeamTypeController::class, 'update'])->name('settings.team_type.update');
+        Route::delete('teamTypes/{teamType}', [PersonalizeTeamTypeController::class, 'destroy'])->name('settings.team_type.destroy');
 
         Route::middleware(['account_manager'])->group(function (): void {
-            Route::get('personalize/upgrade', [PersonalizeUpgradeController::class, 'index'])->name('settings.personalize.upgrade.index');
-            Route::put('personalize/upgrade', [PersonalizeUpgradeController::class, 'update'])->name('settings.personalize.upgrade.update');
+            Route::get('upgrade', [PersonalizeUpgradeController::class, 'index'])->name('settings.upgrade.index');
+            Route::put('upgrade', [PersonalizeUpgradeController::class, 'update'])->name('settings.upgrade.update');
         });
     });
 });

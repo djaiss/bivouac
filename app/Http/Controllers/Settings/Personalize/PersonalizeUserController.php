@@ -16,14 +16,14 @@ class PersonalizeUserController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('Settings/Personalize/Users/Index', [
+        return Inertia::render('Settings/Users/Index', [
             'data' => PersonalizeUserViewModel::data(auth()->user()),
         ]);
     }
 
     public function create(): Response
     {
-        return Inertia::render('Settings/Personalize/Users/Create', [
+        return Inertia::render('Settings/Users/Create', [
             'data' => PersonalizeUserViewModel::data(auth()->user()),
         ]);
     }
@@ -36,13 +36,13 @@ class PersonalizeUserController extends Controller
         ]);
 
         return response()->json([
-            'data' => route('settings.personalize.user.index'),
+            'data' => route('settings.user.index'),
         ], 201);
     }
 
     public function edit(Request $request, User $user): Response
     {
-        return Inertia::render('Settings/Personalize/Users/Edit', [
+        return Inertia::render('Settings/Users/Edit', [
             'data' => PersonalizeUserViewModel::edit($user),
         ]);
     }
@@ -56,7 +56,7 @@ class PersonalizeUserController extends Controller
         ]);
 
         return response()->json([
-            'data' => route('settings.personalize.user.index'),
+            'data' => route('settings.user.index'),
         ], 200);
     }
 

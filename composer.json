@@ -1,8 +1,8 @@
 {
-    "name": "laravel/laravel",
+    "name": "djaiss/bivouac",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "An open source project management software.",
+    "keywords": ["project management"],
     "license": "MIT",
     "require": {
         "php": "^8.1",
@@ -41,7 +41,10 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files": [
+          "app/Helpers/helpers.php"
+        ]
     },
     "scripts": {
         "post-autoload-dump": [

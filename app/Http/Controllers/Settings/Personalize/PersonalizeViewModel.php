@@ -11,12 +11,12 @@ class PersonalizeViewModel
             'url' => [
                 'breadcrumb' => [
                     'home' => route('profile.edit'),
-                    'settings' => route('settings.personalize.index'),
+                    'settings' => route('settings.index'),
                 ],
-                'users' => route('settings.personalize.user.index'),
-                'offices' => route('settings.personalize.office.index'),
-                'team_types' => route('settings.personalize.team_type.index'),
-                'upgrade' => route('settings.personalize.upgrade.index'),
+                'users' => route('settings.user.index'),
+                'offices' => route('settings.office.index'),
+                'team_types' => route('settings.team_type.index'),
+                'upgrade' => route('settings.upgrade.index'),
             ],
         ];
     }

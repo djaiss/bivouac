@@ -23,10 +23,10 @@ class PersonalizeOfficeViewModelTest extends TestCase
         $this->assertArrayHasKey('url', $array);
         $this->assertEquals(
             [
-                'create' => env('APP_URL') . '/settings/personalize/offices/create',
+                'create' => env('APP_URL') . '/settings/offices/create',
                 'breadcrumb' => [
                     'home' => env('APP_URL') . '/profile',
-                    'settings' => env('APP_URL') . '/settings/personalize',
+                    'settings' => env('APP_URL') . '/settings',
                 ],
             ],
             $array['url']
@@ -49,8 +49,8 @@ class PersonalizeOfficeViewModelTest extends TestCase
                 'name' => 'Dunder',
                 'is_main_office' => true,
                 'url' => [
-                    'edit' => env('APP_URL') . '/settings/personalize/offices/' . $office->id . '/edit',
-                    'destroy' => env('APP_URL') . '/settings/personalize/offices/' . $office->id,
+                    'edit' => env('APP_URL') . '/settings/offices/' . $office->id . '/edit',
+                    'destroy' => env('APP_URL') . '/settings/offices/' . $office->id,
                 ],
             ],
             $array
@@ -73,11 +73,11 @@ class PersonalizeOfficeViewModelTest extends TestCase
                 'name' => 'Dunder',
                 'is_main_office' => true,
                 'url' => [
-                    'update' => env('APP_URL') . '/settings/personalize/offices/' . $office->id,
+                    'update' => env('APP_URL') . '/settings/offices/' . $office->id,
                     'breadcrumb' => [
                         'home' => env('APP_URL') . '/profile',
-                        'settings' => env('APP_URL') . '/settings/personalize',
-                        'offices' => env('APP_URL') . '/settings/personalize/offices',
+                        'settings' => env('APP_URL') . '/settings',
+                        'offices' => env('APP_URL') . '/settings/offices',
                     ],
                 ],
             ],

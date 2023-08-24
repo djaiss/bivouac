@@ -4,6 +4,7 @@ import { Head, Link } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
 import { reactive, ref } from 'vue';
 
+import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
@@ -136,28 +137,34 @@ const destroy = (projectResource) => {
                   @submit.prevent="update(projectResource)"
                   v-if="editedResourceId == projectResource.id"
                   class="flex justify-between">
-                  <div class="mr-2 flex w-full">
-                    <TextInput
-                      id="term"
-                      type="text"
-                      :placeholder="$t('Label')"
-                      class="mr-3 w-full"
-                      v-model="form.name"
-                      autofocus
-                      @keydown.esc="addResourceShown = false" />
-                    <TextInput
-                      id="term"
-                      type="text"
-                      :placeholder="$t('URL/link')"
-                      class="w-full"
-                      v-model="form.link"
-                      @keydown.esc="editedResourceId = null"
-                      required />
+                  <div class="mr-2 flex w-full items-center">
+                    <div class="mr-3">
+                      <InputLabel for="title" :value="$t('Label')" class="mb-1" />
+                      <TextInput
+                        id="term"
+                        type="text"
+                        :placeholder="$t('Label')"
+                        class="w-full"
+                        v-model="form.name"
+                        autofocus
+                        @keydown.esc="addResourceShown = false" />
+                    </div>
+                    <div>
+                      <InputLabel for="title" :value="$t('URL/link')" class="mb-1" />
+                      <TextInput
+                        id="term"
+                        type="text"
+                        :placeholder="$t('URL/link')"
+                        class="w-full"
+                        v-model="form.link"
+                        @keydown.esc="editedResourceId = null"
+                        required />
+                    </div>
                   </div>
 
                   <!-- actions -->
-                  <div class="flex items-center">
-                    <PrimaryButton class="mr-2" :loading="loadingState" :disabled="loadingState">
+                  <div class="flex items-center pt-4">
+                    <PrimaryButton class="mr-2 py-1" :loading="loadingState" :disabled="loadingState">
                       {{ $t('Save') }}
                     </PrimaryButton>
 
