@@ -20,9 +20,16 @@ class MemberViewModelTest extends TestCase
         $project->users()->attach($user->id);
         $array = MemberViewModel::index($project);
 
-        $this->assertCount(2, $array);
+        $this->assertCount(3, $array);
         $this->assertArrayHasKey('project', $array);
         $this->assertArrayHasKey('members', $array);
+        $this->assertArrayHasKey('url', $array);
+        $this->assertEquals(
+            [
+                'search' => env('APP_URL') . '/projects/' . $project->id . '/users',
+            ],
+            $array['url']
+        );
     }
 
     /** @test */
@@ -32,16 +39,53 @@ class MemberViewModelTest extends TestCase
             'first_name' => 'Michael',
             'last_name' => 'Scott',
         ]);
-        $array = MemberViewModel::dto($user);
+        $project = Project::factory()->create();
+        $array = MemberViewModel::dto($user, $project);
 
         $this->assertCount(4, $array);
         $this->assertEquals([
             'id' => $user->id,
             'name' => 'Michael Scott',
             'avatar' => $user->avatar,
-            'url' => env('APP_URL') . '/users/' . $user->id,
+            'url' => [
+                'show' => env('APP_URL') . '/users/' . $user->id,
+                'store' => env('APP_URL') . '/projects/' . $project->id . '/members/' . $user->id,
+                'remove' => env('APP_URL') . '/projects/' . $project->id . '/members/' . $user->id,
+            ],
         ],
             $array
         );
+    }
+
+    /** @test */
+    public function it_returns_an_empty_array_if_there_are_no_new_users_to_search_for(): void
+    {
+        $user = User::factory()->create();
+        $project = Project::factory()->create();
+        $array = MemberViewModel::listUsers($user, $project);
+
+        $this->assertCount(1, $array);
+        $this->assertArrayHasKey('users', $array);
+
+        $this->assertCount(0, $array['users']);
+    }
+
+    /** @test */
+    public function it_gets_the_list_of_users_who_are_not_part_of_the_project_yet(): void
+    {
+        $user = User::factory()->create();
+        $project = Project::factory()->create([
+            'organization_id' => $user->organization_id,
+        ]);
+        User::factory()->create([
+            'organization_id' => $user->organization_id,
+        ]);
+        $project->users()->attach($user->id);
+        $array = MemberViewModel::listUsers($user, $project);
+
+        $this->assertCount(1, $array);
+        $this->assertArrayHasKey('users', $array);
+
+        $this->assertCount(1, $array['users']);
     }
 }

@@ -79,10 +79,10 @@ defineProps({
             <Link
               :href="menu.url.members"
               class="inline-block rounded-t-lg border-b-2 p-3 hover:border-blue-300 hover:text-blue-600 dark:hover:text-gray-300"
-                :class="{
-                  'border-blue-600 text-blue-600': $page.component.startsWith('Projects/Members'),
-                  'border-transparent': !$page.component.startsWith('Projects/Members'),
-                }">
+              :class="{
+                'border-blue-600 text-blue-600': $page.component.startsWith('Projects/Members'),
+                'border-transparent': !$page.component.startsWith('Projects/Members'),
+              }">
               {{ $t('Members') }}
             </Link>
           </li>

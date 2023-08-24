@@ -52,18 +52,18 @@ const destroy = (reaction) => {
 <template>
   <div class="flex items-center">
     <VMenu placement="bottom-start" class="mr-2">
-      <div class="rounded-full bg-gray-200 p-1"><FaceSmileIcon class="w-4" /></div>
+      <div class="rounded-full bg-gray-200 p-1 hover:bg-lime-200 hover:cursor-pointer"><FaceSmileIcon class="w-4" /></div>
 
       <template #popper>
         <div class="flex p-2">
-          <div @click="submit('👍')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 px-2 py-1">👍</div>
-          <div @click="submit('👎')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 px-2 py-1">👎</div>
-          <div @click="submit('😁')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 px-2 py-1">😁</div>
-          <div @click="submit('🎉')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 px-2 py-1">🎉</div>
-          <div @click="submit('🫤')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 px-2 py-1">🫤</div>
-          <div @click="submit('😭')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 px-2 py-1">😭</div>
-          <div @click="submit('❤️')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 px-2 py-1">❤️</div>
-          <div @click="submit('🚀')" class="cursor-pointer rounded-lg bg-gray-200 px-2 py-1">🚀</div>
+          <div @click="submit('👍')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 hover:bg-gray-300 px-2 py-1">👍</div>
+          <div @click="submit('👎')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 hover:bg-gray-300 px-2 py-1">👎</div>
+          <div @click="submit('😁')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 hover:bg-gray-300 px-2 py-1">😁</div>
+          <div @click="submit('🎉')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 hover:bg-gray-300 px-2 py-1">🎉</div>
+          <div @click="submit('🫤')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 hover:bg-gray-300 px-2 py-1">🫤</div>
+          <div @click="submit('😭')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 hover:bg-gray-300 px-2 py-1">😭</div>
+          <div @click="submit('❤️')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 hover:bg-gray-300 px-2 py-1">❤️</div>
+          <div @click="submit('🚀')" class="cursor-pointer rounded-lg bg-gray-200 hover:bg-gray-300 px-2 py-1">🚀</div>
         </div>
       </template>
     </VMenu>

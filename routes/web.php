@@ -7,6 +7,7 @@ use App\Http\Controllers\Profile\ProfileBirthdateController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Projects\CommentReactionController;
 use App\Http\Controllers\Projects\Members\MemberController;
+use App\Http\Controllers\Projects\Members\MemberUserController;
 use App\Http\Controllers\Projects\Messages\MessageCommentController;
 use App\Http\Controllers\Projects\Messages\MessageController;
 use App\Http\Controllers\Projects\Messages\MessageReactionController;
@@ -124,6 +125,9 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
 
         // members
         Route::get('projects/{project}/members', [MemberController::class, 'index'])->name('members.index');
+        Route::get('projects/{project}/users', [MemberUserController::class, 'index'])->name('members.user.index');
+        Route::post('projects/{project}/members/{member}', [MemberUserController::class, 'store'])->name('members.user.store');
+        Route::delete('projects/{project}/members/{member}', [MemberController::class, 'destroy'])->name('members.destroy');
 
         // add reaction and message to tasks
         Route::post('projects/{project}/tasks/{task}/reactions', [TaskReactionController::class, 'store'])->name('tasks.reactions.store');
