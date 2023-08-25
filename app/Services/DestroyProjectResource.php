@@ -39,7 +39,7 @@ class DestroyProjectResource extends BaseService
         $project = Project::where('organization_id', $user->organization_id)
             ->findOrFail($this->projectResource->project_id);
 
-        if ($project->users()->where('user_id', $user->id)->doesntExist()) {
+        if ($project->users()->where('user_id', $user->id)->doesntExist() && ! $project->is_public) {
             throw new NotEnoughPermissionException;
         }
     }

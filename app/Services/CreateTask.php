@@ -35,6 +35,7 @@ class CreateTask extends BaseService
         $this->validateRules($this->data);
 
         $this->user = User::findOrFail($this->data['user_id']);
+
         TaskList::where('organization_id', $this->user->organization_id)
             ->findOrFail($this->data['task_list_id']);
     }

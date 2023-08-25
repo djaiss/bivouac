@@ -4,12 +4,13 @@ namespace App\Services;
 
 use App\Exceptions\NotEnoughPermissionException;
 use App\Models\Project;
-use App\Models\ProjectResource;
+use App\Models\ProjectUpdate;
 use App\Models\User;
 
-class CreateProjectResource extends BaseService
+class CreateProjectUpdate extends BaseService
 {
-    private ProjectResource $projectResource;
+    private Project $project;
+    private ProjectUpdate $projectUpdate;
     private User $user;
     private array $data;
 
@@ -18,18 +19,17 @@ class CreateProjectResource extends BaseService
         return [
             'user_id' => 'required|integer|exists:users,id',
             'project_id' => 'required|integer|exists:projects,id',
-            'name' => 'nullable|string|max:255',
-            'link' => 'required|string|max:255',
+            'content' => 'nullable|string|max:65535',
         ];
     }
 
-    public function execute(array $data): ProjectResource
+    public function execute(array $data): ProjectUpdate
     {
         $this->data = $data;
         $this->validate();
         $this->create();
 
-        return $this->projectResource;
+        return $this->projectUpdate;
     }
 
     private function validate(): void
@@ -37,20 +37,22 @@ class CreateProjectResource extends BaseService
         $this->validateRules($this->data);
 
         $this->user = User::findOrFail($this->data['user_id']);
-        $project = Project::where('organization_id', $this->user->organization_id)
+
+        $this->project = Project::where('organization_id', $this->user->organization_id)
             ->findOrFail($this->data['project_id']);
 
-        if ($project->users()->where('user_id', $this->user->id)->doesntExist() && ! $project->is_public) {
+        if ($this->project->users()->where('user_id', $this->user->id)->doesntExist() && ! $this->project->is_public) {
             throw new NotEnoughPermissionException;
         }
     }
 
     private function create(): void
     {
-        $this->projectResource = ProjectResource::create([
-            'project_id' => $this->data['project_id'],
-            'name' => $this->valueOrNull($this->data, 'name'),
-            'link' => $this->data['link'],
+        $this->projectUpdate = Project::create([
+            'project_id' => $this->project->id,
+            'author_id' => $this->user->id,
+            'author_name' => $this->user->name,
+            'content' => $this->valueOrNull($this->data, 'content'),
         ]);
     }
 }

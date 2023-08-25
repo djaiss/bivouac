@@ -13,6 +13,7 @@ use App\Http\Controllers\Projects\Messages\MessageController;
 use App\Http\Controllers\Projects\Messages\MessageReactionController;
 use App\Http\Controllers\Projects\ProjectController;
 use App\Http\Controllers\Projects\Summary\ProjectResourceController;
+use App\Http\Controllers\Projects\Summary\ProjectUpdateController;
 use App\Http\Controllers\Projects\Tasks\ProjectAssignTaskController;
 use App\Http\Controllers\Projects\Tasks\ProjectTaskListController;
 use App\Http\Controllers\Projects\Tasks\TaskCommentController;
@@ -107,6 +108,11 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
             Route::put('projects/{project}/messages/{message}/comments/{comment}', [MessageCommentController::class, 'update'])->name('messages.comments.update');
             Route::delete('projects/{project}/messages/{message}/comments/{comment}', [MessageCommentController::class, 'destroy'])->name('messages.comments.destroy');
         });
+
+        // project updates
+        Route::post('projects/{project}/updates', [ProjectUpdateController::class, 'store'])->name('project_updates.store');
+        Route::put('projects/{project}/updates/{update}', [ProjectUpdateController::class, 'update'])->name('project_updates.update');
+        Route::delete('projects/{project}/updates/{update}', [ProjectUpdateController::class, 'destroy'])->name('project_updates.destroy');
 
         // tasklists
         Route::get('projects/{project}/taskLists', [ProjectTaskListController::class, 'index'])->name('tasks.index');

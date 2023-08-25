@@ -55,6 +55,7 @@ class CreateMessageTest extends TestCase
         $user = User::factory()->create();
         $project = Project::factory()->create([
             'organization_id' => $user->organization_id,
+            'is_public' => false,
         ]);
         $this->expectException(NotEnoughPermissionException::class);
 
