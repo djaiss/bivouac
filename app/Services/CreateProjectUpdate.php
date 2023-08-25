@@ -19,7 +19,7 @@ class CreateProjectUpdate extends BaseService
         return [
             'user_id' => 'required|integer|exists:users,id',
             'project_id' => 'required|integer|exists:projects,id',
-            'content' => 'nullable|string|max:65535',
+            'content' => 'required|string|max:65535',
         ];
     }
 
@@ -48,11 +48,11 @@ class CreateProjectUpdate extends BaseService
 
     private function create(): void
     {
-        $this->projectUpdate = Project::create([
+        $this->projectUpdate = ProjectUpdate::create([
             'project_id' => $this->project->id,
             'author_id' => $this->user->id,
             'author_name' => $this->user->name,
-            'content' => $this->valueOrNull($this->data, 'content'),
+            'content' => $this->data['content'],
         ]);
     }
 }
