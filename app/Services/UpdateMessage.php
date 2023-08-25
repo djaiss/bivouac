@@ -46,7 +46,7 @@ class UpdateMessage extends BaseService
         $project = Project::where('organization_id', $this->user->organization_id)
             ->findOrFail($this->message->project_id);
 
-        if ($project->users()->where('user_id', $this->user->id)->doesntExist()) {
+        if ($project->users()->where('user_id', $this->user->id)->doesntExist() && ! $project->is_public) {
             throw new NotEnoughPermissionException;
         }
     }

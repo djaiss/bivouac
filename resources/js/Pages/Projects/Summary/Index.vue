@@ -10,6 +10,7 @@ import TextInput from '@/Components/TextInput.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { flash } from '@/methods.js';
 import ProjectHeader from '@/Pages/Projects/Partials/ProjectHeader.vue';
+import ProjectUpdates from '@/Pages/Projects/Summary/Partials/ProjectUpdates.vue';
 
 const props = defineProps({
   data: {
@@ -107,7 +108,7 @@ const destroy = (projectResource) => {
           </div>
 
           <!-- resources -->
-          <div class="bg-white px-4 py-4 shadow sm:rounded-lg">
+          <div class="mb-6 bg-white px-4 py-4 shadow sm:rounded-lg">
             <p class="mb-4 text-sm font-bold">{{ $t('Key resources') }}</p>
             <ul v-if="localProjectResources.length > 0" class="mb-2">
               <li
@@ -222,6 +223,9 @@ const destroy = (projectResource) => {
               </div>
             </form>
           </div>
+
+          <!-- project updates -->
+          <ProjectUpdates :data="data" />
         </div>
 
         <!-- right -->

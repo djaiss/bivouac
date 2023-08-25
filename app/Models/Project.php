@@ -74,6 +74,11 @@ class Project extends Model
         return $this->hasMany(ProjectResource::class);
     }
 
+    public function projectUpdates(): HasMany
+    {
+        return $this->hasMany(ProjectUpdate::class);
+    }
+
     /**
      * @return Attribute<string,never>
      */

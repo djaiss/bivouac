@@ -3,31 +3,31 @@
 namespace Tests\Unit\Services;
 
 use App\Exceptions\NotEnoughPermissionException;
-use App\Models\Message;
 use App\Models\Project;
+use App\Models\ProjectUpdate;
 use App\Models\User;
-use App\Services\DestroyMessage;
+use App\Services\DestroyProjectUpdate;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 
-class DestroyMessageTest extends TestCase
+class DestroyProjectUpdateTest extends TestCase
 {
     use DatabaseTransactions;
 
     /** @test */
-    public function it_destroys_a_message(): void
+    public function it_destroys_a_project_update(): void
     {
         $user = User::factory()->create();
         $project = Project::factory()->create([
             'organization_id' => $user->organization_id,
         ]);
         $user->projects()->attach($project->id);
-        $message = Message::factory()->create([
+        $projectUpdate = ProjectUpdate::factory()->create([
             'project_id' => $project->id,
         ]);
-        $this->executeService($user, $project, $message);
+        $this->executeService($user, $project, $projectUpdate);
     }
 
     /** @test */
@@ -35,25 +35,25 @@ class DestroyMessageTest extends TestCase
     {
         $user = User::factory()->create();
         $project = Project::factory()->create();
-        $message = Message::factory()->create([
+        $projectUpdate = ProjectUpdate::factory()->create([
             'project_id' => $project->id,
         ]);
 
         $this->expectException(ModelNotFoundException::class);
-        $this->executeService($user, $project, $message);
+        $this->executeService($user, $project, $projectUpdate);
     }
 
     /** @test */
-    public function it_fails_if_message_doesnt_belong_to_project(): void
+    public function it_fails_if_project_update_doesnt_belong_to_project(): void
     {
         $user = User::factory()->create();
         $project = Project::factory()->create();
-        $message = Message::factory()->create([
+        $projectUpdate = ProjectUpdate::factory()->create([
             'project_id' => $project->id,
         ]);
 
         $this->expectException(ModelNotFoundException::class);
-        $this->executeService($user, $project, $message);
+        $this->executeService($user, $project, $projectUpdate);
     }
 
     /** @test */
@@ -64,12 +64,12 @@ class DestroyMessageTest extends TestCase
             'organization_id' => $user->organization_id,
             'is_public' => false,
         ]);
-        $message = Message::factory()->create([
+        $projectUpdate = ProjectUpdate::factory()->create([
             'project_id' => $project->id,
         ]);
 
         $this->expectException(NotEnoughPermissionException::class);
-        $this->executeService($user, $project, $message);
+        $this->executeService($user, $project, $projectUpdate);
     }
 
     /** @test */
@@ -80,20 +80,20 @@ class DestroyMessageTest extends TestCase
         ];
 
         $this->expectException(ValidationException::class);
-        (new DestroyMessage)->execute($request);
+        (new DestroyProjectUpdate)->execute($request);
     }
 
-    private function executeService(User $user, Project $project, Message $message): void
+    private function executeService(User $user, Project $project, ProjectUpdate $projectUpdate): void
     {
         $request = [
             'user_id' => $user->id,
-            'message_id' => $message->id,
+            'project_update_id' => $projectUpdate->id,
         ];
 
-        (new DestroyMessage)->execute($request);
+        (new DestroyProjectUpdate)->execute($request);
 
-        $this->assertDatabaseMissing('messages', [
-            'id' => $message->id,
+        $this->assertDatabaseMissing('project_updates', [
+            'id' => $projectUpdate->id,
         ]);
     }
 }

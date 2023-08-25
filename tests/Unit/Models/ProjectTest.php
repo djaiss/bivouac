@@ -5,6 +5,7 @@ namespace Tests\Unit\Models;
 use App\Models\Message;
 use App\Models\Project;
 use App\Models\ProjectResource;
+use App\Models\ProjectUpdate;
 use App\Models\TaskList;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -68,6 +69,15 @@ class ProjectTest extends TestCase
         ProjectResource::factory()->create(['project_id' => $project->id]);
 
         $this->assertTrue($project->projectResources()->exists());
+    }
+
+    /** @test */
+    public function it_has_many_project_updates(): void
+    {
+        $project = Project::factory()->create();
+        ProjectUpdate::factory()->create(['project_id' => $project->id]);
+
+        $this->assertTrue($project->projectUpdates()->exists());
     }
 
     /** @test */

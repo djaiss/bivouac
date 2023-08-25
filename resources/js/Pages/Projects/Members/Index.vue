@@ -2,10 +2,10 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
 import { EllipsisVerticalIcon, QuestionMarkCircleIcon, XMarkIcon } from '@heroicons/vue/24/outline';
 import { Head, Link } from '@inertiajs/vue3';
+import { usePage } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
 import { ref } from 'vue';
 
-import { usePage } from '@inertiajs/vue3';
 import Avatar from '@/Components/Avatar.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
@@ -41,13 +41,11 @@ const load = () => {
 };
 
 const store = (user) => {
-  axios
-    .post(user.url.store)
-    .then((response) => {
-      localMembers.value.push(response.data.data);
-      flash(trans('The user has been added as a member'));
-      potentialMembersShown.value = false;
-    });
+  axios.post(user.url.store).then((response) => {
+    localMembers.value.push(response.data.data);
+    flash(trans('The user has been added as a member'));
+    potentialMembersShown.value = false;
+  });
 };
 
 const remove = (member) => {
@@ -69,24 +67,34 @@ const remove = (member) => {
       <ProjectHeader :data="data" :menu="menu" />
 
       <!-- help -->
-      <div class="mx-auto max-w-2xl flex bg-white shadow sm:rounded-lg px-4 py-2 text-sm">
+      <div class="mx-auto flex max-w-2xl bg-white px-4 py-2 text-sm shadow sm:rounded-lg">
         <QuestionMarkCircleIcon class="h-5 w-5 shrink-0 pe-2 text-gray-600" />
-        <p>{{ $t('If the project is public, anyone can take part without having to be a formal member. On the other hand, private projects are only accessible and open to members.') }}</p>
+        <p>
+          {{
+            $t(
+              'If the project is public, anyone can take part without having to be a formal member. On the other hand, private projects are only accessible and open to members.',
+            )
+          }}
+        </p>
       </div>
 
       <!-- list of potential members -->
       <div v-if="potentialMembersShown" class="mx-auto max-w-2xl bg-white shadow sm:rounded-lg">
         <!-- header -->
-        <div class="flex justify-between items-center border-b px-4 py-2">
+        <div class="flex items-center justify-between border-b px-4 py-2">
           <p class="font-bold">{{ $t('Add a user to this project') }}</p>
-          <XMarkIcon @click="potentialMembersShown = false"
+          <XMarkIcon
+            @click="potentialMembersShown = false"
             class="h-5 w-5 cursor-pointer rounded text-gray-400 hover:bg-gray-300 hover:text-gray-600 group-hover:block" />
         </div>
         <div v-if="loadingUsers">{{ $t('Loading users...') }}</div>
 
         <!-- list -->
-        <ul class="overflow-auto max-h-40">
-          <li v-for="user in localPotentialMembers" :key="user.id" class="flex justify-between items-center py-4 pl-4 pr-6 hover:bg-slate-50 last:hover:rounded-b-lg">
+        <ul class="max-h-40 overflow-auto">
+          <li
+            v-for="user in localPotentialMembers"
+            :key="user.id"
+            class="flex items-center justify-between py-4 pl-4 pr-6 hover:bg-slate-50 last:hover:rounded-b-lg">
             <!-- user name -->
             <div>{{ user.name }}</div>
 
@@ -108,7 +116,9 @@ const remove = (member) => {
           </h2>
 
           <div>
-            <PrimaryButton v-if="! potentialMembersShown" @click.prevent="showPotentialMembers()">{{ $t('Add member') }}</PrimaryButton>
+            <PrimaryButton v-if="!potentialMembersShown" @click.prevent="showPotentialMembers()">
+              {{ $t('Add member') }}
+            </PrimaryButton>
           </div>
         </div>
 

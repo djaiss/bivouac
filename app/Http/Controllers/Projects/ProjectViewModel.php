@@ -6,6 +6,7 @@ use App\Helpers\StringHelper;
 use App\Models\Organization;
 use App\Models\Project;
 use App\Models\ProjectResource;
+use App\Models\ProjectUpdate;
 use App\Models\User;
 
 class ProjectViewModel
@@ -55,9 +56,16 @@ class ProjectViewModel
             ->get()
             ->map(fn (ProjectResource $projectResource) => self::dtoProjectResource($projectResource));
 
+        $updates = $project->projectUpdates()
+            ->with('creator')
+            ->orderByDesc('created_at')
+            ->get()
+            ->map(fn (ProjectUpdate $projectUpdate) => self::dtoProjectUpdate($projectUpdate));
+
         return [
             'project' => self::dto($project),
             'resources' => $resources,
+            'updates' => $updates,
         ];
     }
 
@@ -102,7 +110,11 @@ class ProjectViewModel
                 'show' => route('projects.show', [
                     'project' => $project->id,
                 ]),
+                'preview' => route('preview.store'),
                 'store_resource' => route('projects.resources.store', [
+                    'project' => $project->id,
+                ]),
+                'store_update' => route('project_updates.store', [
                     'project' => $project->id,
                 ]),
                 'edit' => route('projects.edit', [
@@ -126,6 +138,31 @@ class ProjectViewModel
                 'destroy' => route('projects.resources.destroy', [
                     'project' => $projectResource->project_id,
                     'projectResource' => $projectResource->id,
+                ]),
+            ],
+        ];
+    }
+
+    public static function dtoProjectUpdate(ProjectUpdate $projectUpdate): array
+    {
+        return [
+            'id' => $projectUpdate->id,
+            'author' => [
+                'name' => $projectUpdate->author,
+                'avatar' => $projectUpdate?->creator?->avatar,
+                'url' => $projectUpdate->creator ? route('users.show', $projectUpdate->creator) : null,
+            ],
+            'content' => StringHelper::parse($projectUpdate->content),
+            'content_raw' => $projectUpdate->content,
+            'created_at' => $projectUpdate->created_at->format('Y-m-d'),
+            'url' => [
+                'update' => route('project_updates.update', [
+                    'project' => $projectUpdate->project_id,
+                    'update' => $projectUpdate->id,
+                ]),
+                'destroy' => route('project_updates.destroy', [
+                    'project' => $projectUpdate->project_id,
+                    'update' => $projectUpdate->id,
                 ]),
             ],
         ];
