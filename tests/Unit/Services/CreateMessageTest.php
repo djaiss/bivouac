@@ -7,6 +7,7 @@ use App\Models\Message;
 use App\Models\Project;
 use App\Models\User;
 use App\Services\CreateMessage;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Validation\ValidationException;
@@ -64,6 +65,7 @@ class CreateMessageTest extends TestCase
 
     private function executeService(User $user, Project $project): void
     {
+        Carbon::setTestNow(Carbon::create(2018, 1, 1));
         $request = [
             'user_id' => $user->id,
             'project_id' => $project->id,
@@ -96,6 +98,10 @@ class CreateMessageTest extends TestCase
             'name' => null,
             'tasklistable_id' => $message->id,
             'tasklistable_type' => Message::class,
+        ]);
+
+        $this->assertDatabaseHas('projects', [
+            'updated_at' => '2018-01-01 00:00:00',
         ]);
     }
 }

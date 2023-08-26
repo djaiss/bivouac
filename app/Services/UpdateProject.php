@@ -48,6 +48,7 @@ class UpdateProject extends BaseService
         $this->project->description = $this->valueOrNull($this->data, 'description');
         $this->project->short_description = $this->valueOrNull($this->data, 'short_description');
         $this->project->is_public = $this->data['is_public'];
+        $this->project->updated_at = now();
         $this->project->save();
     }
 }

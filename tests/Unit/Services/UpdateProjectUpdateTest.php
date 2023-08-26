@@ -7,6 +7,7 @@ use App\Models\Project;
 use App\Models\ProjectUpdate;
 use App\Models\User;
 use App\Services\UpdateProjectUpdate;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Validation\ValidationException;
@@ -85,6 +86,7 @@ class UpdateProjectUpdateTest extends TestCase
 
     private function executeService(User $user, Project $project, ProjectUpdate $projectUpdate): void
     {
+        Carbon::setTestNow(Carbon::create(2018, 1, 1));
         $request = [
             'user_id' => $user->id,
             'project_update_id' => $projectUpdate->id,
@@ -102,6 +104,10 @@ class UpdateProjectUpdateTest extends TestCase
             'id' => $projectUpdate->id,
             'project_id' => $project->id,
             'content' => 'Dunder',
+        ]);
+
+        $this->assertDatabaseHas('projects', [
+            'updated_at' => '2018-01-01 00:00:00',
         ]);
     }
 }

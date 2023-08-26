@@ -12,6 +12,7 @@ class RemoveUserFromTask extends BaseService
     private Task $task;
     private User $assignee;
     private User $user;
+    private Project $project;
     private array $data;
 
     public function rules(): array
@@ -41,14 +42,14 @@ class RemoveUserFromTask extends BaseService
 
         $this->task = Task::findOrFail($this->data['task_id']);
 
-        $project = Project::where('organization_id', $this->user->organization_id)
+        $this->project = Project::where('organization_id', $this->user->organization_id)
             ->findOrFail($this->task->taskList->project_id);
 
-        if ($project->users()->where('user_id', $this->user->id)->doesntExist() && ! $project->is_public) {
+        if ($this->project->users()->where('user_id', $this->user->id)->doesntExist() && ! $this->project->is_public) {
             throw new NotEnoughPermissionException;
         }
 
-        if ($project->users()->where('user_id', $this->assignee->id)->doesntExist() && ! $project->is_public) {
+        if ($this->project->users()->where('user_id', $this->assignee->id)->doesntExist() && ! $this->project->is_public) {
             throw new NotEnoughPermissionException;
         }
     }
@@ -56,5 +57,8 @@ class RemoveUserFromTask extends BaseService
     private function unassign(): void
     {
         $this->assignee->tasks()->detach($this->task);
+
+        $this->project->updated_at = now();
+        $this->project->save();
     }
 }

@@ -12,6 +12,7 @@ class UpdateMessage extends BaseService
 {
     private Message $message;
     private User $user;
+    private Project $project;
     private array $data;
 
     public function rules(): array
@@ -43,10 +44,10 @@ class UpdateMessage extends BaseService
 
         $this->message = Message::findOrFail($this->data['message_id']);
 
-        $project = Project::where('organization_id', $this->user->organization_id)
+        $this->project = Project::where('organization_id', $this->user->organization_id)
             ->findOrFail($this->message->project_id);
 
-        if ($project->users()->where('user_id', $this->user->id)->doesntExist() && ! $project->is_public) {
+        if ($this->project->users()->where('user_id', $this->user->id)->doesntExist() && ! $this->project->is_public) {
             throw new NotEnoughPermissionException;
         }
     }
@@ -56,6 +57,9 @@ class UpdateMessage extends BaseService
         $this->message->title = $this->data['title'];
         $this->message->body = $this->valueOrNull($this->data, 'body');
         $this->message->save();
+
+        $this->project->updated_at = now();
+        $this->project->save();
     }
 
     private function resetReadStatus(): void

@@ -8,6 +8,7 @@ use App\Models\Task;
 use App\Models\TaskList;
 use App\Models\User;
 use App\Services\AssignUserToTask;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Validation\ValidationException;
@@ -158,6 +159,7 @@ class AssignUserToTaskTest extends TestCase
 
     private function executeService(User $user, User $assignee, Task $task): void
     {
+        Carbon::setTestNow(Carbon::create(2018, 1, 1));
         $request = [
             'user_id' => $user->id,
             'assignee_id' => $assignee->id,
@@ -174,6 +176,10 @@ class AssignUserToTaskTest extends TestCase
         $this->assertDatabaseHas('task_user', [
             'user_id' => $assignee->id,
             'task_id' => $task->id,
+        ]);
+
+        $this->assertDatabaseHas('projects', [
+            'updated_at' => '2018-01-01 00:00:00',
         ]);
     }
 }

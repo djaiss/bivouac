@@ -13,6 +13,7 @@ class AddCommentToTask extends BaseService
     private Comment $comment;
     private Task $task;
     private User $user;
+    private Project $project;
     private array $data;
 
     public function rules(): array
@@ -42,10 +43,10 @@ class AddCommentToTask extends BaseService
 
         $this->task = Task::findOrFail($this->data['task_id']);
 
-        $project = Project::where('organization_id', $this->user->organization_id)
+        $this->project = Project::where('organization_id', $this->user->organization_id)
             ->findOrFail($this->task->taskList->project_id);
 
-        if ($project->users()->where('user_id', $this->user->id)->doesntExist() && ! $project->is_public) {
+        if ($this->project->users()->where('user_id', $this->user->id)->doesntExist() && ! $this->project->is_public) {
             throw new NotEnoughPermissionException;
         }
     }
@@ -63,5 +64,8 @@ class AddCommentToTask extends BaseService
     private function associate(): void
     {
         $this->task->comments()->save($this->comment);
+
+        $this->project->updated_at = now();
+        $this->project->save();
     }
 }

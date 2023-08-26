@@ -1,6 +1,7 @@
 <script setup>
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
 import { EllipsisVerticalIcon } from '@heroicons/vue/24/solid';
+import { Link } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
 import { reactive, ref } from 'vue';
 
@@ -161,14 +162,19 @@ const destroy = (projectUpdate) => {
       <div class="mb-4 bg-white shadow sm:rounded-lg">
         <!-- avatar and date -->
         <div class="flex items-center justify-between border-b px-4 py-4">
-          <div class="flex items-center">
+          <div class="group flex items-center">
             <Avatar
               v-tooltip="projectUpdate.author.name"
               :data="projectUpdate.author.avatar"
+              :url="projectUpdate.author.url"
               class="mr-4 h-10 w-10 rounded" />
 
             <div>
-              <p>{{ projectUpdate.author.name }}</p>
+              <Link
+                :href="projectUpdate.author.url"
+                class="text-sm text-gray-600 group-hover:text-blue-700 group-hover:underline">
+                {{ projectUpdate.author.name }}
+              </Link>
               <p class="text-sm text-gray-500">{{ projectUpdate.created_at }}</p>
             </div>
           </div>
@@ -216,10 +222,7 @@ const destroy = (projectUpdate) => {
         </div>
 
         <!-- content -->
-        <div
-          v-if="editedUpdateId !== projectUpdate.id"
-          v-html="projectUpdate.content_raw"
-          class="prose px-4 py-4"></div>
+        <div v-if="editedUpdateId !== projectUpdate.id" v-html="projectUpdate.content" class="prose px-4 py-4"></div>
 
         <!-- edit form -->
         <div v-else class="px-4 py-4">
