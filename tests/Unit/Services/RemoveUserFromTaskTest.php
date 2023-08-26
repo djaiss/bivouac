@@ -8,6 +8,7 @@ use App\Models\Task;
 use App\Models\TaskList;
 use App\Models\User;
 use App\Services\RemoveUserFromTask;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Validation\ValidationException;
@@ -164,6 +165,7 @@ class RemoveUserFromTaskTest extends TestCase
 
     private function executeService(User $user, User $assignee, Task $task): void
     {
+        Carbon::setTestNow(Carbon::create(2018, 1, 1));
         $this->assertDatabaseHas('task_user', [
             'user_id' => $assignee->id,
             'task_id' => $task->id,
@@ -180,6 +182,10 @@ class RemoveUserFromTaskTest extends TestCase
         $this->assertDatabaseMissing('task_user', [
             'user_id' => $assignee->id,
             'task_id' => $task->id,
+        ]);
+
+        $this->assertDatabaseHas('projects', [
+            'updated_at' => '2018-01-01 00:00:00',
         ]);
     }
 }

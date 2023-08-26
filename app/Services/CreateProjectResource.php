@@ -11,6 +11,7 @@ class CreateProjectResource extends BaseService
 {
     private ProjectResource $projectResource;
     private User $user;
+    private Project $project;
     private array $data;
 
     public function rules(): array
@@ -37,10 +38,10 @@ class CreateProjectResource extends BaseService
         $this->validateRules($this->data);
 
         $this->user = User::findOrFail($this->data['user_id']);
-        $project = Project::where('organization_id', $this->user->organization_id)
+        $this->project = Project::where('organization_id', $this->user->organization_id)
             ->findOrFail($this->data['project_id']);
 
-        if ($project->users()->where('user_id', $this->user->id)->doesntExist() && ! $project->is_public) {
+        if ($this->project->users()->where('user_id', $this->user->id)->doesntExist() && ! $this->project->is_public) {
             throw new NotEnoughPermissionException;
         }
     }
@@ -52,5 +53,8 @@ class CreateProjectResource extends BaseService
             'name' => $this->valueOrNull($this->data, 'name'),
             'link' => $this->data['link'],
         ]);
+
+        $this->project->updated_at = now();
+        $this->project->save();
     }
 }

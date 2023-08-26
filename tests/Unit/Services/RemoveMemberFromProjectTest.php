@@ -6,6 +6,7 @@ use App\Exceptions\NotEnoughPermissionException;
 use App\Models\Project;
 use App\Models\User;
 use App\Services\RemoveMemberFromProject;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Validation\ValidationException;
@@ -109,6 +110,7 @@ class RemoveMemberFromProjectTest extends TestCase
 
     private function executeService(User $user, User $member, Project $project): void
     {
+        Carbon::setTestNow(Carbon::create(2018, 1, 1));
         $request = [
             'user_id' => $user->id,
             'member_id' => $member->id,
@@ -120,6 +122,10 @@ class RemoveMemberFromProjectTest extends TestCase
         $this->assertDatabaseMissing('project_user', [
             'user_id' => $member->id,
             'project_id' => $project->id,
+        ]);
+
+        $this->assertDatabaseHas('projects', [
+            'updated_at' => '2018-01-01 00:00:00',
         ]);
     }
 }

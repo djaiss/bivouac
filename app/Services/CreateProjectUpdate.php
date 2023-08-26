@@ -54,5 +54,8 @@ class CreateProjectUpdate extends BaseService
             'author_name' => $this->user->name,
             'content' => $this->data['content'],
         ]);
+
+        $this->project->updated_at = now();
+        $this->project->save();
     }
 }

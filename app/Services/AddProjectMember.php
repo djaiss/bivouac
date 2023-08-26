@@ -40,5 +40,8 @@ class AddProjectMember extends BaseService
     private function associate(): void
     {
         $this->project->users()->syncWithoutDetaching($this->user);
+
+        $this->project->updated_at = now();
+        $this->project->save();
     }
 }

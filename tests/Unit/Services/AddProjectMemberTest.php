@@ -5,6 +5,7 @@ namespace Tests\Unit\Services;
 use App\Models\Project;
 use App\Models\User;
 use App\Services\AddProjectMember;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Validation\ValidationException;
@@ -48,6 +49,8 @@ class AddProjectMemberTest extends TestCase
 
     private function executeService(User $user, Project $project): void
     {
+        Carbon::setTestNow(Carbon::create(2018, 1, 1));
+
         $request = [
             'user_id' => $user->id,
             'project_id' => $project->id,
@@ -63,6 +66,10 @@ class AddProjectMemberTest extends TestCase
         $this->assertDatabaseHas('project_user', [
             'user_id' => $user->id,
             'project_id' => $project->id,
+        ]);
+
+        $this->assertDatabaseHas('projects', [
+            'updated_at' => '2018-01-01 00:00:00',
         ]);
     }
 }

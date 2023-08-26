@@ -54,5 +54,8 @@ class RemoveMemberFromProject extends BaseService
     private function remove(): void
     {
         $this->member->projects()->detach($this->project);
+
+        $this->project->updated_at = now();
+        $this->project->save();
     }
 }

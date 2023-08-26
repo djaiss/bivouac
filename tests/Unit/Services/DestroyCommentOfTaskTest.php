@@ -8,6 +8,7 @@ use App\Models\Project;
 use App\Models\Task;
 use App\Models\User;
 use App\Services\DestroyCommentOfTask;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Validation\ValidationException;
@@ -134,6 +135,7 @@ class DestroyCommentOfTaskTest extends TestCase
 
     private function executeService(User $user, Task $task, Comment $comment): void
     {
+        Carbon::setTestNow(Carbon::create(2018, 1, 1));
         $request = [
             'user_id' => $user->id,
             'task_id' => $task->id,
@@ -144,6 +146,10 @@ class DestroyCommentOfTaskTest extends TestCase
 
         $this->assertDatabaseMissing('comments', [
             'id' => $comment->id,
+        ]);
+
+        $this->assertDatabaseHas('projects', [
+            'updated_at' => '2018-01-01 00:00:00',
         ]);
     }
 }

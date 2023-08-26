@@ -8,6 +8,7 @@ use App\Models\Message;
 use App\Models\Project;
 use App\Models\User;
 use App\Services\DestroyCommentOfMessage;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Validation\ValidationException;
@@ -126,6 +127,7 @@ class DestroyCommentOfMessageTest extends TestCase
 
     private function executeService(User $user, Message $message, Comment $comment): void
     {
+        Carbon::setTestNow(Carbon::create(2018, 1, 1));
         $request = [
             'user_id' => $user->id,
             'message_id' => $message->id,
@@ -136,6 +138,10 @@ class DestroyCommentOfMessageTest extends TestCase
 
         $this->assertDatabaseMissing('comments', [
             'id' => $comment->id,
+        ]);
+
+        $this->assertDatabaseHas('projects', [
+            'updated_at' => '2018-01-01 00:00:00',
         ]);
     }
 }

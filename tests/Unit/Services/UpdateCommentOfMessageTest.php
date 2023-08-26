@@ -8,6 +8,7 @@ use App\Models\Message;
 use App\Models\Project;
 use App\Models\User;
 use App\Services\UpdateCommentOfMessage;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Validation\ValidationException;
@@ -98,6 +99,7 @@ class UpdateCommentOfMessageTest extends TestCase
         $user = User::factory()->create();
         $project = Project::factory()->create([
             'organization_id' => $user->organization_id,
+            'is_public' => false,
         ]);
         $message = Message::factory()->create([
             'project_id' => $project->id,
@@ -125,6 +127,7 @@ class UpdateCommentOfMessageTest extends TestCase
 
     private function executeService(User $user, Message $message, Comment $comment): void
     {
+        Carbon::setTestNow(Carbon::create(2018, 1, 1));
         $request = [
             'user_id' => $user->id,
             'message_id' => $message->id,
@@ -150,6 +153,10 @@ class UpdateCommentOfMessageTest extends TestCase
         $this->assertDatabaseHas('message_read_status', [
             'user_id' => $user->id,
             'message_id' => $message->id,
+        ]);
+
+        $this->assertDatabaseHas('projects', [
+            'updated_at' => '2018-01-01 00:00:00',
         ]);
     }
 }

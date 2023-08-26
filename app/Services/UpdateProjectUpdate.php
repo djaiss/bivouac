@@ -11,6 +11,7 @@ class UpdateProjectUpdate extends BaseService
 {
     private ProjectUpdate $projectUpdate;
     private User $user;
+    private Project $project;
     private array $data;
 
     public function rules(): array
@@ -39,10 +40,10 @@ class UpdateProjectUpdate extends BaseService
 
         $this->projectUpdate = ProjectUpdate::findOrFail($this->data['project_update_id']);
 
-        $project = Project::where('organization_id', $this->user->organization_id)
+        $this->project = Project::where('organization_id', $this->user->organization_id)
             ->findOrFail($this->projectUpdate->project_id);
 
-        if ($project->users()->where('user_id', $this->user->id)->doesntExist() && ! $project->is_public) {
+        if ($this->project->users()->where('user_id', $this->user->id)->doesntExist() && ! $this->project->is_public) {
             throw new NotEnoughPermissionException;
         }
     }
@@ -51,5 +52,8 @@ class UpdateProjectUpdate extends BaseService
     {
         $this->projectUpdate->content = $this->data['content'];
         $this->projectUpdate->save();
+
+        $this->project->updated_at = now();
+        $this->project->save();
     }
 }

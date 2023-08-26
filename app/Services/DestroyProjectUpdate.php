@@ -10,6 +10,7 @@ use App\Models\User;
 class DestroyProjectUpdate extends BaseService
 {
     private ProjectUpdate $projectUpdate;
+    private Project $project;
     private array $data;
 
     public function rules(): array
@@ -26,6 +27,9 @@ class DestroyProjectUpdate extends BaseService
         $this->validate();
 
         $this->projectUpdate->delete();
+
+        $this->project->updated_at = now();
+        $this->project->save();
     }
 
     private function validate(): void
@@ -36,10 +40,10 @@ class DestroyProjectUpdate extends BaseService
 
         $this->projectUpdate = ProjectUpdate::findOrFail($this->data['project_update_id']);
 
-        $project = Project::where('organization_id', $user->organization_id)
+        $this->project = Project::where('organization_id', $user->organization_id)
             ->findOrFail($this->projectUpdate->project_id);
 
-        if ($project->users()->where('user_id', $user->id)->doesntExist() && ! $project->is_public) {
+        if ($this->project->users()->where('user_id', $user->id)->doesntExist() && ! $this->project->is_public) {
             throw new NotEnoughPermissionException;
         }
     }

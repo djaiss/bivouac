@@ -12,6 +12,7 @@ class AddReactionToMessage extends BaseService
 {
     private Reaction $reaction;
     private Message $message;
+    private Project $project;
     private User $user;
     private array $data;
 
@@ -43,10 +44,10 @@ class AddReactionToMessage extends BaseService
 
         $this->message = Message::findOrFail($this->data['message_id']);
 
-        $project = Project::where('organization_id', $this->user->organization_id)
+        $this->project = Project::where('organization_id', $this->user->organization_id)
             ->findOrFail($this->message->project_id);
 
-        if ($project->users()->where('user_id', $this->user->id)->doesntExist() && ! $project->is_public) {
+        if ($this->project->users()->where('user_id', $this->user->id)->doesntExist() && ! $this->project->is_public) {
             throw new NotEnoughPermissionException;
         }
     }
@@ -63,5 +64,8 @@ class AddReactionToMessage extends BaseService
     private function associate(): void
     {
         $this->message->reactions()->save($this->reaction);
+
+        $this->project->updated_at = now();
+        $this->project->save();
     }
 }
