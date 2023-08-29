@@ -139,10 +139,33 @@ class SetupDummyAccount extends Command
     {
         $this->info('☐ Create projects');
 
+        $projectNames = [
+            'In-Store Software Evolution Service',
+            'Next-Generation Point-of-Sale System',
+            'Intelligent Inventory Management Suite',
+            'Advanced Customer Engagement Solutions',
+            'Smart Store Operations Monitoring',
+            'Evolving Retail Analytics Software',
+            'Digital Transformation for Physical Stores',
+            'Intelligent Product Recommendation Engine',
+            'Revolutionary In-Store App Development',
+            'Predictive Pricing and Promotions',
+            'Dynamic Supply Chain Management Solutions',
+            'Machine Learning Driven Business Insights',
+            'Cutting-Edge Mobile Checkout Innovations',
+            'Adaptable Store Maintenance Tools',
+            'Automated Staff Scheduling and Optimization',
+            'Virtual Reality In-Store Experience',
+            'Enhanced Cybersecurity for Brick and Mortar',
+            'Progressive Data Analytics for Retail',
+            'Natural Language In-Store Assistants',
+            'Continuous Software Improvement for Stores',
+        ];
+
         for ($i = 0; $i < rand(3, 5); $i++) {
             $project = (new CreateProject)->execute([
                 'user_id' => $this->user->id,
-                'name' => $this->faker->firstName,
+                'name' => $projectNames[array_rand($projectNames)],
                 'description' => rand(1, 2) == 1 ? $this->faker->sentence() : null,
                 'is_public' => rand(1, 2) == 1,
             ]);
@@ -167,11 +190,43 @@ class SetupDummyAccount extends Command
     {
         $this->info('☐ Add messages to project ' . $project->name);
 
+        $messageTitles = [
+            "Hey, let's accelerate our project together!",
+            'Calling all users: how can we speed things up?',
+            'We need your input to break through barriers',
+            "Let's revitalize our project. your ideas matter",
+            'Ignite innovation and supercharge progress',
+            'Boosting project velocity with your collaboration',
+            "Powering ahead: let's drive swift advancement",
+            'Agile minds unite: overcoming obstacles',
+            'Pursuing speed: your contributions count',
+            'Join us to unlock rapid progress',
+            'Getting back on the fast track with your support',
+            'Reigniting the momentum: breaking free',
+            'Racing towards success: your involvement matters',
+            'Elevating the pace: join the movement',
+            'Hustle time: collaborative actions for results',
+            'Breaking bottlenecks: speeding up our journey',
+            'Reshaping our future: embracing agility',
+            "Urging a swift approach: let's move together",
+            'Leveraging synergy: powering project performance',
+            'Transforming delays into deliveries: fueling progress',
+            'Fuelling momentum: speed as our mantra',
+            'Reenergizing our efforts: united for swift advancements',
+            'Maximizing velocity: your participation counts',
+            'Empowering action-oriented users for success',
+            'Unleashing a speed revolution: join the movement',
+            'Taking charge of speed: collaborating for milestones',
+            'Breaking free from sluggishness: your involvement matters',
+            'Rapid progress catalysts: amplifying our project',
+            'Seizing time together: propelling success',
+        ];
+
         for ($i = 0; $i < rand(3, 5); $i++) {
             $message = (new CreateMessage)->execute([
                 'user_id' => $this->user->id,
                 'project_id' => $project->id,
-                'title' => $this->faker->sentence(),
+                'title' => $messageTitles[array_rand($messageTitles)],
                 'body' => $this->faker->paragraph(15),
             ]);
 

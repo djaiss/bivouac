@@ -9,7 +9,9 @@ class MemberViewModel
 {
     public static function index(Project $project): array
     {
-        $members = $project->users()->get()
+        $members = $project->users()
+            ->orderBy('last_name')
+            ->get()
             ->map(fn (User $user) => self::dto($user, $project));
 
         return [

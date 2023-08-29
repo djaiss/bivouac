@@ -31,6 +31,7 @@ class CreateMessage extends BaseService
         $this->create();
         $this->markAsRead();
         $this->createDefaultEmptyTaskList();
+        $this->addMemberToProject();
 
         return $this->message;
     }
@@ -86,5 +87,15 @@ class CreateMessage extends BaseService
         $taskList->tasklistable_id = $this->message->id;
         $taskList->tasklistable_type = Message::class;
         $taskList->save();
+    }
+
+    /**
+     * Add the user to the project as a member if they aren't already.
+     */
+    private function addMemberToProject(): void
+    {
+        if ($this->project->users()->where('user_id', $this->user->id)->doesntExist()) {
+            $this->project->users()->syncWithoutDetaching($this->user);
+        }
     }
 }

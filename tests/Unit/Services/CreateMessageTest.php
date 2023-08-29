@@ -103,5 +103,10 @@ class CreateMessageTest extends TestCase
         $this->assertDatabaseHas('projects', [
             'updated_at' => '2018-01-01 00:00:00',
         ]);
+
+        $this->assertDatabaseHas('project_user', [
+            'project_id' => $project->id,
+            'user_id' => $user->id,
+        ]);
     }
 }

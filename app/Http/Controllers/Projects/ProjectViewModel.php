@@ -16,6 +16,7 @@ class ProjectViewModel
         // we make sure users can't see projects they don't belong to
         $projects = $organization->projects()
             ->with('creator')
+            ->withCount('users')
             ->orderBy('name')
             ->get()
             ->filter(function (Project $project) use ($user) {
@@ -96,6 +97,19 @@ class ProjectViewModel
 
     public static function dto(Project $project): array
     {
+        // get random members of the project
+        if ($project->users->count() > 4) {
+            $random = 4;
+        } else {
+            $random = $project->users->count();
+        }
+        $randomMembers = $project->users->random($random)
+            ->map(fn (User $user) => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'avatar' => $user->avatar,
+            ]);
+
         return [
             'id' => $project->id,
             'author' => [
@@ -106,6 +120,9 @@ class ProjectViewModel
             'short_description' => $project->short_description,
             'description' => $project->description ? StringHelper::parse($project->description) : null,
             'is_public' => $project->is_public,
+            'updated_at' => $project->updated_at->ago(),
+            'members' => $randomMembers,
+            'other_members_counter' => $project->users_count - 4,
             'url' => [
                 'show' => route('projects.show', [
                     'project' => $project->id,

@@ -31,6 +31,7 @@ class AddCommentToTask extends BaseService
         $this->validate();
         $this->create();
         $this->associate();
+        $this->addMemberToProject();
 
         return $this->comment;
     }
@@ -67,5 +68,15 @@ class AddCommentToTask extends BaseService
 
         $this->project->updated_at = now();
         $this->project->save();
+    }
+
+    /**
+     * Add the user to the project as a member if they aren't already.
+     */
+    private function addMemberToProject(): void
+    {
+        if ($this->project->users()->where('user_id', $this->user->id)->doesntExist()) {
+            $this->project->users()->syncWithoutDetaching($this->user);
+        }
     }
 }
