@@ -2,6 +2,7 @@
 import { LockClosedIcon } from '@heroicons/vue/24/solid';
 import { Head, Link } from '@inertiajs/vue3';
 
+import Avatar from '@/Components/Avatar.vue';
 import PrimaryLinkButton from '@/Components/PrimaryLinkButton.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
@@ -70,9 +71,9 @@ const props = defineProps({
                 <li
                   v-for="project in props.data.projects"
                   :key="project.id"
-                  class="flex items-center justify-between px-6 py-4 hover:bg-slate-50 first:hover:rounded-t-lg last:hover:rounded-b-lg">
+                  class="px-6 py-4 hover:bg-slate-50 first:hover:rounded-t-lg last:hover:rounded-b-lg">
                   <!-- project information -->
-                  <div class="flex items-center">
+                  <div class="flex items-center justify-between">
                     <div class="mr-6 flex flex-col">
                       <!-- project name -->
                       <div class="flex items-center">
@@ -86,10 +87,36 @@ const props = defineProps({
                         </Link>
                       </div>
 
-                      <!-- description -->
-                      <p v-if="project.short_description" class="text-sm text-gray-600">
-                        {{ project.short_description }}
-                      </p>
+                      <!-- description & last activity -->
+                      <div class="mt-2 flex items-center">
+                        <p v-if="project.short_description" class="mr-4 text-sm text-gray-600">
+                          {{ project.short_description }}
+                        </p>
+
+                        <div class="flex">
+                          <svg class="mr-1 w-6" viewBox="0 0 201 127" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M72.7119 0.403809L69.8206 8.5089L49.9031 63.3197C28.0589 63.294 23.4324 63.3197 0.27002 63.3197V68.4557C24.2563 68.4557 27.6834 68.43 51.67 68.4557H53.4369L54.0794 66.7706L71.7481 18.2997L95.4402 117.81L97.4482 126.396L100.339 118.05L126.601 41.6523L139.291 67.0112L140.014 68.4557H141.62H185.792C186.86 71.4302 189.676 73.5917 193.02 73.5917C197.278 73.5917 200.73 70.1426 200.73 65.8877C200.73 61.6327 197.278 58.1837 193.02 58.1837C189.676 58.1837 186.86 60.3451 185.792 63.3197H143.226L128.529 33.8679L125.799 28.4109L123.791 34.1889L98.4119 108.019L74.7198 8.74981L72.7119 0.403809Z"
+                              fill="#7A7A7A" />
+                          </svg>
+                          <div class="text-xs">{{ project.updated_at }}</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- contributors -->
+                    <div class="flex -space-x-4">
+                      <div v-for="member in project.members" :key="member.id">
+                        <Avatar
+                          v-tooltip="member.name"
+                          :data="member.avatar"
+                          class="mr-2 h-8 w-8 cursor-pointer rounded-full border-2 border-white" />
+                      </div>
+                      <div
+                        v-if="project.other_members_counter > 0"
+                        class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-gray-700 text-xs font-medium text-white hover:bg-gray-600 dark:border-gray-800">
+                        <span>+{{ project.other_members_counter }}</span>
+                      </div>
                     </div>
                   </div>
                 </li>
@@ -110,3 +137,10 @@ const props = defineProps({
     </div>
   </AuthenticatedLayout>
 </template>
+
+<style lang="scss" scoped>
+.more-members {
+  height: 32px;
+  top: 8px;
+}
+</style>

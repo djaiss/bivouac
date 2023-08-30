@@ -147,7 +147,7 @@ class ProjectViewModelTest extends TestCase
         $project->users()->attach($user->id);
         $array = ProjectViewModel::dto($project);
 
-        $this->assertCount(7, $array);
+        $this->assertCount(10, $array);
         $this->assertEquals($project->id, $array['id']);
         $this->assertEquals('Dunder', $array['name']);
         $this->assertEquals('Dunder Mifflin', $array['short_description']);

@@ -33,6 +33,7 @@ class AddCommentToMessage extends BaseService
         $this->create();
         $this->associate();
         $this->markMessageAsUnreadForOtherUsers();
+        $this->addMemberToProject();
 
         return $this->comment;
     }
@@ -82,5 +83,15 @@ class AddCommentToMessage extends BaseService
 
         $this->project->updated_at = now();
         $this->project->save();
+    }
+
+    /**
+     * Add the user to the project as a member if they aren't already.
+     */
+    private function addMemberToProject(): void
+    {
+        if ($this->project->users()->where('user_id', $this->user->id)->doesntExist()) {
+            $this->project->users()->syncWithoutDetaching($this->user);
+        }
     }
 }
