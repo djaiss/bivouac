@@ -99,7 +99,6 @@ const destroy = (office) => {
                   v-for="office in localOffices"
                   :key="office.id"
                   class="group flex items-center justify-between px-6 py-4 hover:bg-slate-50 last:hover:rounded-b-lg">
-                  <!-- user information -->
                   <div class="flex items-center">
                     <span class="mr-3">{{ office.name }}</span>
 

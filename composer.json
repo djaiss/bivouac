@@ -14,7 +14,8 @@
         "laravel/scout": "^10.2",
         "laravel/tinker": "^2.8",
         "stichoza/google-translate-php": "^5.1",
-        "tightenco/ziggy": "^1.0"
+        "tightenco/ziggy": "^1.0",
+        "uploadcare/uploadcare-php": "^4.1"
     },
     "require-dev": {
         "amirami/localizator": "^0.12.1@alpha",

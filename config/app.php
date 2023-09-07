@@ -203,4 +203,23 @@ return [
         'product_id' => env('LEMON_SQUEEZY_PRODUCT_ID', null),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Uploadcare public key
+    |--------------------------------------------------------------------------
+    |
+    | The public key of Uploadcare, used to store uploaded documents.
+    |
+    */
+    'uploadcare_public_key' => env('UPLOADCARE_PUBLIC_KEY', null),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Uploadcare private key
+    |--------------------------------------------------------------------------
+    |
+    | The private key of Uploadcare, used to store uploaded documents.
+    |
+    */
+    'uploadcare_private_key' => env('UPLOADCARE_PRIVATE_KEY', null),
 ];
