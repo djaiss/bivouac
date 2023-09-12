@@ -38,7 +38,7 @@ class DeleteFileInStorage
     /**
      * Handle the event.
      */
-    public function handle(FileDeleted $event)
+    public function handle(FileDeleted $event): void
     {
         $this->file = $event->file;
         $this->checkAPIKeyPresence();
