@@ -65,9 +65,9 @@ const update = () => {
         <form @submit.prevent="update" class="max-w-5xl space-y-4">
           <!-- name -->
           <div>
-            <InputLabel for="name" :value="$t('What is the name of the project?')" class="mb-1" />
+            <InputLabel for="title" :value="$t('What is the name of the project?')" class="mb-1" />
 
-            <TextInput id="name" type="text" class="block w-full" v-model="form.name" autofocus required />
+            <TextInput id="title" type="text" class="block w-full" v-model="form.name" autofocus required />
           </div>
 
           <!-- short description -->

@@ -6,6 +6,7 @@ use App\Events\FileDeleted;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class File extends Model
 {
@@ -21,6 +22,8 @@ class File extends Model
     protected $fillable = [
         'organization_id',
         'uuid',
+        'fileable_id',
+        'fileable_type',
         'uploader_id',
         'uploader_name',
         'original_url',
@@ -48,5 +51,10 @@ class File extends Model
     public function uploader()
     {
         return $this->belongsTo(User::class, 'uploader_id');
+    }
+
+    public function fileable(): MorphTo
+    {
+        return $this->morphTo();
     }
 }

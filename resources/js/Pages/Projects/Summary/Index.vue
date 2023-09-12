@@ -11,6 +11,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { flash } from '@/methods.js';
 import ProjectHeader from '@/Pages/Projects/Partials/ProjectHeader.vue';
 import ProjectUpdates from '@/Pages/Projects/Summary/Partials/ProjectUpdates.vue';
+import Uploader from '@/Components/Uploader.vue';
 
 const props = defineProps({
   data: {
