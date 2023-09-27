@@ -7,11 +7,11 @@ import { reactive, ref } from 'vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import Uploader from '@/Components/Uploader.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { flash } from '@/methods.js';
 import ProjectHeader from '@/Pages/Projects/Partials/ProjectHeader.vue';
 import ProjectUpdates from '@/Pages/Projects/Summary/Partials/ProjectUpdates.vue';
-import Uploader from '@/Components/Uploader.vue';
 
 const props = defineProps({
   data: {
@@ -81,6 +81,17 @@ const destroy = (projectResource) => {
       localProjectResources.value.splice(id, 1);
     });
   }
+};
+
+const onSuccess = (file) => {
+  form.uuid = file.uuid;
+  form.name = file.name;
+  form.original_url = file.originalUrl;
+  form.cdn_url = file.cdnUrl;
+  form.mime_type = file.mimeType;
+  form.size = file.size;
+
+  upload();
 };
 </script>
 
@@ -227,6 +238,8 @@ const destroy = (projectResource) => {
 
           <!-- project updates -->
           <ProjectUpdates :data="data" />
+
+          <Uploader />
         </div>
 
         <!-- right -->

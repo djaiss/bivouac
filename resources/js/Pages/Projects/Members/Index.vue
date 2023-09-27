@@ -87,7 +87,7 @@ const remove = (member) => {
             @click="potentialMembersShown = false"
             class="h-5 w-5 cursor-pointer rounded text-gray-400 hover:bg-gray-300 hover:text-gray-600 group-hover:block" />
         </div>
-        <div v-if="loadingUsers">{{ $t('Loading users...') }}</div>
+        <div v-if="loadingUsers" class="text-center p-3">{{ $t('Loading users...') }}</div>
 
         <!-- list -->
         <ul class="max-h-40 overflow-auto">
@@ -148,7 +148,7 @@ const remove = (member) => {
                 leave-from-class="transform scale-100 opacity-100"
                 leave-to-class="transform scale-95 opacity-0">
                 <MenuItems
-                  class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  class="absolute z-50 right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div class="px-1 py-1 bg-white">
                     <MenuItem v-slot="{ active }">
                       <button

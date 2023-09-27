@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Services\File;
+namespace Tests\Unit\Services;
 
 use App\Exceptions\EnvVariablesNotSetException;
 use App\Models\File;
