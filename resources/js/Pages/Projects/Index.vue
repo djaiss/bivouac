@@ -17,15 +17,13 @@ const props = defineProps({
   <Head :title="$t('Projects')" />
 
   <AuthenticatedLayout>
-    <div class="mt-10 mb-4 mx-auto flex max-w-5xl sm:px-6 lg:px-8 justify-end">
+    <div class="mx-auto mb-4 mt-10 flex max-w-5xl justify-end sm:px-6 lg:px-8">
       <!-- menu -->
       <div v-if="!data.needs_upgrade">
         <PrimaryLinkButton :href="data.url.create">{{ $t('Create project') }}</PrimaryLinkButton>
       </div>
       <div v-else>
-        <span
-          v-tooltip="$t('Please upgrade your account to add another project')"
-          class="flex cursor-not-allowed rounded-md bg-indigo-500 px-3 py-1.5 font-semibold text-white shadow-sm ring-1 ring-inset ring-indigo-600 hover:bg-indigo-700">
+        <span v-tooltip="$t('Please upgrade your account to add another project')" class="flex cursor-not-allowed rounded-md bg-indigo-500 px-3 py-1.5 font-semibold text-white shadow-sm ring-1 ring-inset ring-indigo-600 hover:bg-indigo-700">
           {{ $t('Create project') }}
         </span>
       </div>
@@ -38,10 +36,7 @@ const props = defineProps({
             <!-- list of projects -->
             <div v-if="props.data.projects.length > 0" class="flex">
               <ul class="w-full">
-                <li
-                  v-for="project in props.data.projects"
-                  :key="project.id"
-                  class="px-6 py-4 hover:bg-slate-50 first:hover:rounded-t-lg last:hover:rounded-b-lg">
+                <li v-for="project in props.data.projects" :key="project.id" class="px-6 py-4 hover:bg-slate-50 first:hover:rounded-t-lg last:hover:rounded-b-lg">
                   <!-- project information -->
                   <div class="flex items-center justify-between">
                     <div class="mr-6 flex flex-col">
@@ -50,9 +45,7 @@ const props = defineProps({
                         <span v-if="!project.is_public" v-tooltip="$t('This project is private')">
                           <LockClosedIcon class="mr-2 h-4 w-4 text-blue-500" />
                         </span>
-                        <Link
-                          :href="project.url.show"
-                          class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                        <Link :href="project.url.show" class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                           {{ project.name }}
                         </Link>
                       </div>
@@ -77,14 +70,9 @@ const props = defineProps({
                     <!-- contributors -->
                     <div class="flex -space-x-4">
                       <div v-for="member in project.members" :key="member.id">
-                        <Avatar
-                          v-tooltip="member.name"
-                          :data="member.avatar"
-                          class="mr-2 h-8 w-8 cursor-pointer rounded-full border-2 border-white" />
+                        <Avatar v-tooltip="member.name" :data="member.avatar" class="mr-2 h-8 w-8 cursor-pointer rounded-full border-2 border-white" />
                       </div>
-                      <div
-                        v-if="project.other_members_counter > 0"
-                        class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-gray-700 text-xs font-medium text-white hover:bg-gray-600 dark:border-gray-800">
+                      <div v-if="project.other_members_counter > 0" class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-gray-700 text-xs font-medium text-white hover:bg-gray-600 dark:border-gray-800">
                         <span>+{{ project.other_members_counter }}</span>
                       </div>
                     </div>

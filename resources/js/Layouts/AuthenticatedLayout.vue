@@ -41,8 +41,7 @@ onMounted(() => {
           <!-- search and notifications -->
           <ul class="mb-4 border-b border-slate-700 pb-4 text-slate-400">
             <li class="group flex items-center px-4 py-2 hover:bg-slate-900 hover:text-white">
-              <MagnifyingGlassIcon
-                class="h-4 w-4 transition ease-in-out group-hover:fill-current group-hover:text-blue-500" />
+              <MagnifyingGlassIcon class="h-4 w-4 transition ease-in-out group-hover:fill-current group-hover:text-blue-500" />
               <span class="ml-2">
                 <Link :href="page.props.url.search">{{ $t('Search') }}</Link>
               </span>
@@ -64,15 +63,13 @@ onMounted(() => {
 
             <!-- company -->
             <li class="group flex items-center px-4 py-2 hover:bg-slate-900 hover:text-white">
-              <BuildingOffice2Icon
-                class="h-4 w-4 transition ease-in-out group-hover:fill-current group-hover:text-blue-500" />
+              <BuildingOffice2Icon class="h-4 w-4 transition ease-in-out group-hover:fill-current group-hover:text-blue-500" />
               <span class="ml-2">Basecamp</span>
             </li>
 
             <!-- projects -->
             <li class="group flex items-center px-4 py-2 hover:bg-slate-900 hover:text-white">
-              <BriefcaseIcon
-                class="h-4 w-4 transition ease-in-out group-hover:fill-current group-hover:text-blue-500" />
+              <BriefcaseIcon class="h-4 w-4 transition ease-in-out group-hover:fill-current group-hover:text-blue-500" />
               <span class="ml-2">
                 <Link :href="page.props.url.projects">{{ $t('Projects') }}</Link>
               </span>
@@ -80,17 +77,13 @@ onMounted(() => {
 
             <!-- asset management -->
             <li class="group flex items-center px-4 py-2 hover:bg-slate-900 hover:text-white">
-              <ComputerDesktopIcon
-                class="h-4 w-4 transition ease-in-out group-hover:fill-current group-hover:text-blue-500" />
+              <ComputerDesktopIcon class="h-4 w-4 transition ease-in-out group-hover:fill-current group-hover:text-blue-500" />
               <span class="ml-2">{{ $t('Asset management') }}</span>
             </li>
 
             <!-- settings -->
-            <li
-              v-if="user.permissions !== 'user'"
-              class="group flex items-center px-4 py-2 hover:bg-slate-900 hover:text-white">
-              <Cog8ToothIcon
-                class="h-4 w-4 transition ease-in-out group-hover:fill-current group-hover:text-blue-500" />
+            <li v-if="user.permissions !== 'user'" class="group flex items-center px-4 py-2 hover:bg-slate-900 hover:text-white">
+              <Cog8ToothIcon class="h-4 w-4 transition ease-in-out group-hover:fill-current group-hover:text-blue-500" />
               <span class="ml-2">
                 <Link :href="page.props.url.settings.index">{{ $t('Account settings') }}</Link>
               </span>
@@ -100,14 +93,12 @@ onMounted(() => {
           <!-- help and user -->
           <ul class="mb-4 border-b border-slate-700 pb-4 text-slate-400">
             <li class="group flex items-center px-4 py-2 hover:bg-slate-900 hover:text-white">
-              <QuestionMarkCircleIcon
-                class="h-4 w-4 transition ease-in-out group-hover:fill-current group-hover:text-blue-500" />
+              <QuestionMarkCircleIcon class="h-4 w-4 transition ease-in-out group-hover:fill-current group-hover:text-blue-500" />
               <span class="ml-2">{{ $t('Help') }}</span>
             </li>
 
             <li class="group flex items-center px-4 py-2 hover:bg-slate-900 hover:text-white">
-              <ArrowLeftOnRectangleIcon
-                class="h-4 w-4 transition ease-in-out group-hover:fill-current group-hover:text-blue-500" />
+              <ArrowLeftOnRectangleIcon class="h-4 w-4 transition ease-in-out group-hover:fill-current group-hover:text-blue-500" />
               <span class="ml-2">
                 <Link :href="route('logout')" method="post">{{ $t('Logout') }}</Link>
               </span>

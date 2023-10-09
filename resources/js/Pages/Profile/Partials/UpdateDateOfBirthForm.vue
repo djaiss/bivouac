@@ -60,9 +60,7 @@ const update = () => {
     <div class="flex">
       <!-- instructions -->
       <div class="mr-8 w-96 p-4 text-sm">
-        {{
-          $t('On your profile, you can indicate your age. You can choose how to display this information to others.')
-        }}
+        {{ $t('On your profile, you can indicate your age. You can choose how to display this information to others.') }}
       </div>
 
       <div class="p-4">
@@ -72,16 +70,9 @@ const update = () => {
           <!-- date picker -->
           <div>
             <InputLabel :value="$t('Date of birth')" class="mb-1" />
-            <DatePicker
-              v-model.string="form.born_at"
-              class="inline-block h-full"
-              :masks="masks"
-              :update-on-input="false">
+            <DatePicker v-model.string="form.born_at" class="inline-block h-full" :masks="masks" :update-on-input="false">
               <template #default="{ inputValue, inputEvents }">
-                <input
-                  class="rounded border bg-white px-2 py-1 dark:bg-gray-900"
-                  :value="inputValue"
-                  v-on="inputEvents" />
+                <input class="rounded border bg-white px-2 py-1 dark:bg-gray-900" :value="inputValue" v-on="inputEvents" />
               </template>
             </DatePicker>
           </div>
@@ -89,37 +80,19 @@ const update = () => {
           <!-- options -->
           <div class="mb-4 space-y-2">
             <div class="flex items-center gap-x-2">
-              <input
-                id="hidden"
-                v-model="form.age_preferences"
-                value="hidden"
-                name="date-birth"
-                type="radio"
-                class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
+              <input id="hidden" v-model="form.age_preferences" value="hidden" name="date-birth" type="radio" class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
               <label for="hidden" class="block text-sm font-medium leading-6 text-gray-900">
                 {{ $t('Never display the date of birth to anyone') }}
               </label>
             </div>
             <div class="flex items-center gap-x-2">
-              <input
-                id="month_day"
-                v-model="form.age_preferences"
-                value="month_day"
-                name="date-birth"
-                type="radio"
-                class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
+              <input id="month_day" v-model="form.age_preferences" value="month_day" name="date-birth" type="radio" class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
               <label for="month_day" class="block text-sm font-medium leading-6 text-gray-900">
                 {{ $t('Only show the day and the month') }}
               </label>
             </div>
             <div class="flex items-center gap-x-2">
-              <input
-                id="full"
-                v-model="form.age_preferences"
-                value="full"
-                name="date-birth"
-                type="radio"
-                class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
+              <input id="full" v-model="form.age_preferences" value="full" name="date-birth" type="radio" class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
               <label for="full" class="block text-sm font-medium leading-6 text-gray-900">
                 {{ $t('Display the full date of birth') }}
               </label>

@@ -52,9 +52,7 @@ const submit = () => {
             <ol class="inline-flex items-center space-x-1 md:space-x-3">
               <li>
                 <div class="flex items-center">
-                  <Link
-                    :href="data.url.breadcrumb.projects"
-                    class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                  <Link :href="data.url.breadcrumb.projects" class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                     {{ $t('Projects') }}
                   </Link>
                 </div>
@@ -62,9 +60,7 @@ const submit = () => {
               <li>
                 <div class="flex items-center">
                   <ChevronRightIcon class="mr-2 h-4 w-4 text-gray-400" />
-                  <Link
-                    :href="data.url.breadcrumb.project"
-                    class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                  <Link :href="data.url.breadcrumb.project" class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                     {{ data.project.name }}
                   </Link>
                 </div>
@@ -72,9 +68,7 @@ const submit = () => {
               <li>
                 <div class="flex items-center">
                   <ChevronRightIcon class="mr-2 h-4 w-4 text-gray-400" />
-                  <Link
-                    :href="data.url.breadcrumb.tasks"
-                    class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                  <Link :href="data.url.breadcrumb.tasks" class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                     {{ $t('Tasks') }}
                   </Link>
                 </div>
@@ -112,9 +106,7 @@ const submit = () => {
           </div>
 
           <div class="flex items-center justify-between border-t bg-gray-50 px-6 py-4">
-            <Link
-              :href="data.url.breadcrumb.tasks"
-              class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+            <Link :href="data.url.breadcrumb.tasks" class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
               {{ $t('Back') }}
             </Link>
 

@@ -48,14 +48,8 @@ const destroy = () => {
 
                 <!-- avatar + name -->
                 <div class="mb-8 flex items-center justify-center text-sm">
-                  <Avatar
-                    v-if="data.message.author.avatar"
-                    :data="data.message.author.avatar"
-                    :url="data.message.author.url"
-                    class="mr-2 w-5" />
-                  <Link
-                    :href="data.message.author.url"
-                    class="mr-4 text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                  <Avatar v-if="data.message.author.avatar" :data="data.message.author.avatar" :url="data.message.author.url" class="mr-2 w-5" />
+                  <Link :href="data.message.author.url" class="mr-4 text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                     {{ data.message.author.name }}
                   </Link>
                   <p>{{ data.message.created_at }}</p>
@@ -82,18 +76,14 @@ const destroy = () => {
           <div>
             <div class="rounded-lg shadow">
               <div class="flex items-center justify-between rounded-t-lg border-b bg-white px-6 py-4">
-                <Link
-                  :href="data.message.url.edit"
-                  class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                <Link :href="data.message.url.edit" class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                   {{ $t('Edit') }}
                 </Link>
               </div>
 
               <!-- markdown help -->
               <div class="prose rounded-b-lg bg-gray-50 px-6 py-4 text-sm">
-                <span
-                  @click="destroy()"
-                  class="cursor-pointer font-medium text-red-700 underline hover:rounded-sm hover:bg-red-700 hover:text-white">
+                <span @click="destroy()" class="cursor-pointer font-medium text-red-700 underline hover:rounded-sm hover:bg-red-700 hover:text-white">
                   {{ $t('Delete') }}
                 </span>
               </div>

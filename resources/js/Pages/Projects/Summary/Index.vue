@@ -7,7 +7,6 @@ import { reactive, ref } from 'vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import Uploader from '@/Components/Uploader.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { flash } from '@/methods.js';
 import ProjectHeader from '@/Pages/Projects/Partials/ProjectHeader.vue';
@@ -82,17 +81,6 @@ const destroy = (projectResource) => {
     });
   }
 };
-
-const onSuccess = (file) => {
-  form.uuid = file.uuid;
-  form.name = file.name;
-  form.original_url = file.originalUrl;
-  form.cdn_url = file.cdnUrl;
-  form.mime_type = file.mimeType;
-  form.size = file.size;
-
-  upload();
-};
 </script>
 
 <template>
@@ -123,55 +111,29 @@ const onSuccess = (file) => {
           <div class="mb-6 bg-white px-4 py-4 shadow sm:rounded-lg">
             <p class="mb-4 text-sm font-bold">{{ $t('Key resources') }}</p>
             <ul v-if="localProjectResources.length > 0" class="mb-2">
-              <li
-                v-for="projectResource in localProjectResources"
-                :key="projectResource.id"
-                class="group mb-3 flex items-center justify-between rounded-lg px-2 py-1 hover:bg-gray-100">
+              <li v-for="projectResource in localProjectResources" :key="projectResource.id" class="group mb-3 flex items-center justify-between rounded-lg px-2 py-1 hover:bg-gray-100">
                 <div v-if="editedResourceId !== projectResource.id" class="flex items-center">
                   <LinkIcon class="mr-2 h-4 w-4 text-blue-400" />
-                  <Link
-                    :href="projectResource.link"
-                    class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                  <Link :href="projectResource.link" class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                     {{ projectResource.name }}
                   </Link>
                 </div>
 
                 <div v-if="editedResourceId !== projectResource.id" class="flex">
-                  <PencilSquareIcon
-                    @click="showEditResource(projectResource)"
-                    class="mr-2 hidden h-5 w-5 cursor-pointer rounded text-gray-400 hover:bg-gray-300 hover:text-gray-600 group-hover:block" />
-                  <XMarkIcon
-                    @click="destroy(projectResource)"
-                    class="hidden h-5 w-5 cursor-pointer rounded text-gray-400 hover:bg-gray-300 hover:text-gray-600 group-hover:block" />
+                  <PencilSquareIcon @click="showEditResource(projectResource)" class="mr-2 hidden h-5 w-5 cursor-pointer rounded text-gray-400 hover:bg-gray-300 hover:text-gray-600 group-hover:block" />
+                  <XMarkIcon @click="destroy(projectResource)" class="hidden h-5 w-5 cursor-pointer rounded text-gray-400 hover:bg-gray-300 hover:text-gray-600 group-hover:block" />
                 </div>
 
                 <!-- edit resource -->
-                <form
-                  @submit.prevent="update(projectResource)"
-                  v-if="editedResourceId == projectResource.id"
-                  class="flex justify-between">
+                <form @submit.prevent="update(projectResource)" v-if="editedResourceId == projectResource.id" class="flex justify-between">
                   <div class="mr-2 flex w-full items-center">
                     <div class="mr-3">
                       <InputLabel for="title" :value="$t('Label')" class="mb-1" />
-                      <TextInput
-                        id="term"
-                        type="text"
-                        :placeholder="$t('Label')"
-                        class="w-full"
-                        v-model="form.name"
-                        autofocus
-                        @keydown.esc="addResourceShown = false" />
+                      <TextInput id="term" type="text" :placeholder="$t('Label')" class="w-full" v-model="form.name" autofocus @keydown.esc="addResourceShown = false" />
                     </div>
                     <div>
                       <InputLabel for="title" :value="$t('URL/link')" class="mb-1" />
-                      <TextInput
-                        id="term"
-                        type="text"
-                        :placeholder="$t('URL/link')"
-                        class="w-full"
-                        v-model="form.link"
-                        @keydown.esc="editedResourceId = null"
-                        required />
+                      <TextInput id="term" type="text" :placeholder="$t('URL/link')" class="w-full" v-model="form.link" @keydown.esc="editedResourceId = null" required />
                     </div>
                   </div>
 
@@ -181,9 +143,7 @@ const onSuccess = (file) => {
                       {{ $t('Save') }}
                     </PrimaryButton>
 
-                    <span
-                      @click="editedResourceId = null"
-                      class="flex cursor-pointer rounded-md border border-gray-300 bg-gray-100 px-3 py-1 font-semibold text-gray-700 hover:border-solid hover:border-gray-500 hover:bg-gray-200">
+                    <span @click="editedResourceId = null" class="flex cursor-pointer rounded-md border border-gray-300 bg-gray-100 px-3 py-1 font-semibold text-gray-700 hover:border-solid hover:border-gray-500 hover:bg-gray-200">
                       {{ $t('Cancel') }}
                     </span>
                   </div>
@@ -193,9 +153,7 @@ const onSuccess = (file) => {
 
             <!-- cta to add resource-->
             <div v-if="!addResourceShown">
-              <span
-                @click="showAddResource"
-                class="mr-2 cursor-pointer rounded-lg border border-dashed border-gray-300 bg-gray-50 px-3 py-1 text-sm hover:border-gray-400 hover:bg-gray-200">
+              <span @click="showAddResource" class="mr-2 cursor-pointer rounded-lg border border-dashed border-gray-300 bg-gray-50 px-3 py-1 text-sm hover:border-gray-400 hover:bg-gray-200">
                 {{ $t('Add resource') }}
               </span>
             </div>
@@ -203,22 +161,8 @@ const onSuccess = (file) => {
             <!-- add resource -->
             <form @submit.prevent="submit()" v-if="addResourceShown" class="flex justify-between">
               <div class="mr-2 flex w-full">
-                <TextInput
-                  id="term"
-                  type="text"
-                  :placeholder="$t('Label')"
-                  class="mr-3 w-full"
-                  v-model="form.name"
-                  autofocus
-                  @keydown.esc="addResourceShown = false" />
-                <TextInput
-                  id="term"
-                  type="text"
-                  :placeholder="$t('URL/link')"
-                  class="w-full"
-                  v-model="form.link"
-                  @keydown.esc="addResourceShown = false"
-                  required />
+                <TextInput id="term" type="text" :placeholder="$t('Label')" class="mr-3 w-full" v-model="form.name" autofocus @keydown.esc="addResourceShown = false" />
+                <TextInput id="term" type="text" :placeholder="$t('URL/link')" class="w-full" v-model="form.link" @keydown.esc="addResourceShown = false" required />
               </div>
 
               <!-- actions -->
@@ -227,9 +171,7 @@ const onSuccess = (file) => {
                   {{ $t('Save') }}
                 </PrimaryButton>
 
-                <span
-                  @click="addResourceShown = false"
-                  class="flex cursor-pointer rounded-md border border-gray-300 bg-gray-100 px-3 py-1 font-semibold text-gray-700 hover:border-solid hover:border-gray-500 hover:bg-gray-200">
+                <span @click="addResourceShown = false" class="flex cursor-pointer rounded-md border border-gray-300 bg-gray-100 px-3 py-1 font-semibold text-gray-700 hover:border-solid hover:border-gray-500 hover:bg-gray-200">
                   {{ $t('Cancel') }}
                 </span>
               </div>

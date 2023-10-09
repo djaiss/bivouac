@@ -62,49 +62,26 @@ const update = () => {
         <div class="mr-4">
           <InputLabel for="name" value="Your first name" />
 
-          <TextInput
-            id="name"
-            type="text"
-            class="mt-1 block w-full"
-            v-model="form.first_name"
-            required
-            autofocus
-            autocomplete="first_name" />
+          <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.first_name" required autofocus autocomplete="first_name" />
         </div>
 
         <div>
           <InputLabel for="last_name" value="Your last name" />
 
-          <TextInput
-            id="last_name"
-            type="text"
-            class="mt-1 block w-full"
-            v-model="form.last_name"
-            required
-            autocomplete="last_name" />
+          <TextInput id="last_name" type="text" class="mt-1 block w-full" v-model="form.last_name" required autocomplete="last_name" />
         </div>
       </div>
 
       <div class="mt-4">
         <InputLabel for="password" value="Choose a strong password" />
 
-        <TextInput
-          id="password"
-          type="password"
-          class="mt-1 block w-full"
-          v-model="form.password"
-          required
-          autocomplete="new-password" />
+        <TextInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="new-password" />
 
         <HelpInput value="Minimum 8 characters." />
       </div>
 
       <div class="mt-4 flex items-center justify-end">
-        <PrimaryButton
-          class="ml-4"
-          :class="{ 'opacity-25': form.processing }"
-          :loading="form.processing"
-          :disabled="form.processing">
+        <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :loading="form.processing" :disabled="form.processing">
           {{ $t('Create your account') }}
         </PrimaryButton>
       </div>

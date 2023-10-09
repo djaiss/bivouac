@@ -44,11 +44,7 @@ const update = () => {
     <div class="flex">
       <!-- instructions -->
       <div class="mr-8 w-96 p-4 text-sm">
-        {{
-          $t(
-            'You can choose to display an avatar either by using the default one based on your nickname or by uploading a photo.',
-          )
-        }}
+        {{ $t('You can choose to display an avatar either by using the default one based on your nickname or by uploading a photo.') }}
       </div>
 
       <div class="p-4">
