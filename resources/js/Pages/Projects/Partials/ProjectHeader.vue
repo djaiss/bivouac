@@ -51,13 +51,6 @@ defineProps({
             </Link>
           </li>
           <li class="mr-2">
-            <a
-              href="#"
-              class="inline-block rounded-t-lg border-b-2 border-transparent p-3 hover:border-blue-300 hover:text-blue-600 dark:hover:text-gray-300">
-              {{ $t('Decisions') }}
-            </a>
-          </li>
-          <li class="mr-2">
             <Link
               :href="menu.url.tasks"
               class="inline-block rounded-t-lg border-b-2 p-3 hover:border-blue-300 hover:text-blue-600 dark:hover:text-gray-300"
@@ -67,13 +60,6 @@ defineProps({
               }">
               {{ $t('Tasks') }}
             </Link>
-          </li>
-          <li class="mr-2">
-            <a
-              href="#"
-              class="inline-block rounded-t-lg border-b-2 border-transparent p-3 hover:border-blue-300 hover:text-blue-600 dark:hover:text-gray-300">
-              {{ $t('Files') }}
-            </a>
           </li>
           <li class="mr-2">
             <Link

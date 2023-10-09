@@ -158,6 +158,7 @@ class MessageViewModel
         $taskList = $message->taskLists()
             ->with('tasks')
             ->first();
+
         if ($taskList) {
             $tasksCount = $taskList->tasks->filter(fn (Task $task) => ! $task->is_completed)->count();
         }

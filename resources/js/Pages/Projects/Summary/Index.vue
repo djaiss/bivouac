@@ -238,8 +238,6 @@ const onSuccess = (file) => {
 
           <!-- project updates -->
           <ProjectUpdates :data="data" />
-
-          <Uploader />
         </div>
 
         <!-- right -->

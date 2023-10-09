@@ -222,4 +222,15 @@ return [
     |
     */
     'uploadcare_private_key' => env('UPLOADCARE_PRIVATE_KEY', null),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default account upload limit in MB
+    |--------------------------------------------------------------------------
+    |
+    | Accounts can have a limit on the total size of combined documents they
+    | can upload in their accounts.
+    |
+    */
+    'default_account_upload_limit' => env('DEFAULT_ACCOUNT_UPLOAD_LIMIT', 100),
 ];
