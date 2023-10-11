@@ -10,6 +10,7 @@ import TextInput from '@/Components/TextInput.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { flash } from '@/methods.js';
 import ProjectHeader from '@/Pages/Projects/Partials/ProjectHeader.vue';
+import KeyPeople from '@/Pages/Projects/Summary/Partials/KeyPeople.vue';
 import ProjectUpdates from '@/Pages/Projects/Summary/Partials/ProjectUpdates.vue';
 
 const props = defineProps({
@@ -183,7 +184,9 @@ const destroy = (projectResource) => {
         </div>
 
         <!-- right -->
-        <div class="bg-white shadow sm:rounded-lg"></div>
+        <div class="mb-6 bg-white px-4 py-4 shadow sm:rounded-lg">
+          <KeyPeople />
+        </div>
       </div>
     </div>
   </AuthenticatedLayout>
