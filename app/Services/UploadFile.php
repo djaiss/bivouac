@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Exceptions\EnvVariablesNotSetException;
 use App\Models\File;
 use App\Models\User;
-use Illuminate\Http\UploadedFile;
 use ImageKit\ImageKit;
 
 class UploadFile extends BaseService
@@ -27,14 +26,14 @@ class UploadFile extends BaseService
         $this->data = $data;
 
         $imageKit = new ImageKit(
-            "public_EzDvkvJ9MjIa1LGQZmdWeUJH6Q8=",
-            "private_h9oiG6J5VFVCIh7erNONoneHAtw=",
-            "https://ik.imagekit.io/8dfyonadf",
+            'public_EzDvkvJ9MjIa1LGQZmdWeUJH6Q8=',
+            'private_h9oiG6J5VFVCIh7erNONoneHAtw=',
+            'https://ik.imagekit.io/8dfyonadf',
         );
         // For File Upload
         $uploadFile = $imageKit->uploadFile([
             'file' => $data['file']->path(),
-            'fileName' => 'new-file'
+            'fileName' => 'new-file',
         ]);
         dd($uploadFile);
 

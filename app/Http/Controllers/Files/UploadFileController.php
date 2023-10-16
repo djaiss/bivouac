@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Files;
 
 use App\Http\Controllers\Controller;
-use App\Services\RegenerateAvatar;
 use App\Services\UploadFile;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
