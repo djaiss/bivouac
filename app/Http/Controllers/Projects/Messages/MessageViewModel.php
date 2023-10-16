@@ -104,6 +104,7 @@ class MessageViewModel
             'reactions' => $reactions,
             'task_list' => $taskList,
             'url' => [
+                'upload' => route('file.store'),
                 'preview' => route('preview.store'),
                 'store' => route('messages.comments.store', [
                     'project' => $message->project_id,

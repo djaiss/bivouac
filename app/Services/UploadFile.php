@@ -5,30 +5,14 @@ namespace App\Services;
 use App\Exceptions\EnvVariablesNotSetException;
 use App\Models\File;
 use App\Models\User;
+use Illuminate\Http\UploadedFile;
+use ImageKit\ImageKit;
 
 class UploadFile extends BaseService
 {
     private array $data;
     private User $user;
     private File $file;
-
-    /**
-     * Get the validation rules that apply to the service.
-     */
-    public function rules(): array
-    {
-        return [
-            'organization_id' => 'required|integer|exists:organizations,id',
-            'user_id' => 'required|integer|exists:users,id',
-            'uuid' => 'required|string',
-            'name' => 'required|string',
-            'original_url' => 'required|string',
-            'cdn_url' => 'required|string',
-            'mime_type' => 'required|string',
-            'size' => 'required|integer',
-            'type' => 'required|string',
-        ];
-    }
 
     /**
      * Upload a file.
@@ -41,10 +25,22 @@ class UploadFile extends BaseService
     public function execute(array $data): File
     {
         $this->data = $data;
-        $this->validate();
-        $this->save();
 
-        return $this->file;
+        $imageKit = new ImageKit(
+            "public_EzDvkvJ9MjIa1LGQZmdWeUJH6Q8=",
+            "private_h9oiG6J5VFVCIh7erNONoneHAtw=",
+            "https://ik.imagekit.io/8dfyonadf",
+        );
+        // For File Upload
+        $uploadFile = $imageKit->uploadFile([
+            'file' => $data['file']->path(),
+            'fileName' => 'new-file'
+        ]);
+        dd($uploadFile);
+
+        //$this->save();
+
+        //return $this->file;
     }
 
     private function validate(): void

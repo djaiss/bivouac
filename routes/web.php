@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\ValidateInvitationController;
+use App\Http\Controllers\Files\UploadFileController;
 use App\Http\Controllers\PreviewController;
 use App\Http\Controllers\Profile\ProfileAvatarController;
 use App\Http\Controllers\Profile\ProfileBirthdateController;
@@ -61,6 +62,9 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
 
     // preview markdown
     Route::post('preview', [PreviewController::class, 'store'])->name('preview.store');
+
+    // files
+    Route::post('upload', [UploadFileController::class, 'store'])->name('file.store');
 
     // delete reaction
     Route::delete('reactions/{reaction}', [ReactionController::class, 'destroy'])->name('reactions.destroy');

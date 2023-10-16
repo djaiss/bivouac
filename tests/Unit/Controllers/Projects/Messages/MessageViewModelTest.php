@@ -134,6 +134,7 @@ class MessageViewModelTest extends TestCase
         );
         $this->assertEquals(
             [
+                'upload' => env('APP_URL') . '/upload',
                 'preview' => env('APP_URL') . '/preview',
                 'store' => env('APP_URL') . '/projects/' . $project->id . '/messages/' . $message->id . '/comments',
                 'store_reaction' => env('APP_URL') . '/projects/' . $project->id . '/messages/' . $message->id . '/reactions',

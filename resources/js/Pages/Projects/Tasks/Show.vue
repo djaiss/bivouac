@@ -179,7 +179,7 @@ const cancelSearch = () => {
     <div class="mx-auto mb-6 mt-8 max-w-7xl space-y-6 px-12 sm:px-6 lg:px-8">
       <ProjectHeader :data="data" :menu="menu" />
 
-      <div class="grid grid-cols-[3fr_1fr] gap-4 px-4">
+      <div class="grid grid-cols-[3fr_1fr] gap-4">
         <!-- left -->
         <div>
           <!-- task -->

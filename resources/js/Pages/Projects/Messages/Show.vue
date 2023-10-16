@@ -5,9 +5,11 @@ import { trans } from 'laravel-vue-i18n';
 import Avatar from '@/Components/Avatar.vue';
 import Comments from '@/Components/Comments.vue';
 import Reactions from '@/Components/Reactions.vue';
+import FileUpload from '@/Components/FileUpload.vue';
 import TaskList from '@/Components/TaskList.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import ProjectHeader from '@/Pages/Projects/Partials/ProjectHeader.vue';
+
 
 const props = defineProps({
   data: {
@@ -36,7 +38,7 @@ const destroy = () => {
       <div class="mx-auto mb-6 mt-8 max-w-7xl space-y-6 px-12 sm:px-6 lg:px-8">
         <ProjectHeader :data="data" :menu="menu" />
 
-        <div class="grid grid-cols-[3fr_1fr] gap-4 px-4">
+        <div class="grid grid-cols-[3fr_1fr] gap-4">
           <!-- left -->
           <div>
             <!-- message -->
@@ -60,8 +62,13 @@ const destroy = () => {
               </div>
 
               <!-- message footer -->
-              <div class="rounded-b-lg bg-gray-50 p-3">
+              <div class="bg-gray-50 p-3 border-b">
                 <Reactions :reactions="data.reactions" :url="data.url" />
+              </div>
+
+              <!-- files -->
+              <div class="rounded-b-lg bg-gray-50 p-3">
+                <FileUpload :url="data.url.upload" />
               </div>
             </div>
 
