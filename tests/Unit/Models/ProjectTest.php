@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Models;
 
+use App\Models\KeyPeople;
 use App\Models\Message;
 use App\Models\Project;
 use App\Models\ProjectResource;
@@ -78,6 +79,15 @@ class ProjectTest extends TestCase
         ProjectUpdate::factory()->create(['project_id' => $project->id]);
 
         $this->assertTrue($project->projectUpdates()->exists());
+    }
+
+    /** @test */
+    public function it_has_many_key_people(): void
+    {
+        $project = Project::factory()->create();
+        KeyPeople::factory()->create(['project_id' => $project->id]);
+
+        $this->assertTrue($project->keyPeople()->exists());
     }
 
     /** @test */

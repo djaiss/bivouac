@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Projects;
 
 use App\Helpers\StringHelper;
+use App\Models\KeyPeople;
 use App\Models\Organization;
 use App\Models\Project;
 use App\Models\ProjectResource;
@@ -63,10 +64,15 @@ class ProjectViewModel
             ->get()
             ->map(fn (ProjectUpdate $projectUpdate) => self::dtoProjectUpdate($projectUpdate));
 
+        $keyPeople = $project->keyPeople()
+            ->get()
+            ->map(fn (KeyPeople $keyPeople) => self::dtoKeyPeople($keyPeople));
+
         return [
             'project' => self::dto($project),
             'resources' => $resources,
             'updates' => $updates,
+            'key_people' => $keyPeople,
         ];
     }
 
@@ -127,11 +133,15 @@ class ProjectViewModel
                 'show' => route('projects.show', [
                     'project' => $project->id,
                 ]),
+                'search_users' => route('user.search.index'),
                 'preview' => route('preview.store'),
                 'store_resource' => route('projects.resources.store', [
                     'project' => $project->id,
                 ]),
                 'store_update' => route('project_updates.store', [
+                    'project' => $project->id,
+                ]),
+                'store_key_people' => route('key_people.store', [
                     'project' => $project->id,
                 ]),
                 'edit' => route('projects.edit', [
@@ -180,6 +190,25 @@ class ProjectViewModel
                 'destroy' => route('project_updates.destroy', [
                     'project' => $projectUpdate->project_id,
                     'update' => $projectUpdate->id,
+                ]),
+            ],
+        ];
+    }
+
+    public static function dtoKeyPeople(KeyPeople $keyPeople): array
+    {
+        return [
+            'id' => $keyPeople->id,
+            'user' => [
+                'id' => $keyPeople->user->id,
+                'name' => $keyPeople->user->name,
+                'avatar' => $keyPeople->user->avatar,
+            ],
+            'role' => $keyPeople->role,
+            'url' => [
+                'destroy' => route('key_people.destroy', [
+                    'project' => $keyPeople->project_id,
+                    'people' => $keyPeople->id,
                 ]),
             ],
         ];
