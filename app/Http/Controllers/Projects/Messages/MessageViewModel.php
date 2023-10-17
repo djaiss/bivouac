@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Projects\Messages;
 
 use App\Helpers\StringHelper;
+use App\Http\Controllers\Projects\Files\FileViewModel;
 use App\Http\Controllers\Reactions\ReactionViewModel;
 use App\Http\Controllers\Tasks\TaskListViewModel;
 use App\Models\Comment;
@@ -93,6 +94,9 @@ class MessageViewModel
             ->first();
         $taskList = TaskListViewModel::dto($taskList);
 
+        $files = $message->getMedia('*')
+            ->map(fn ($file) => FileViewModel::dto($file));
+
         return [
             'project' => [
                 'name' => $message->project->name,
@@ -103,8 +107,16 @@ class MessageViewModel
             'comments' => $comments,
             'reactions' => $reactions,
             'task_list' => $taskList,
+            'files' => $files,
             'url' => [
-                'upload' => route('file.store'),
+                'upload' => route('messages.files.store', [
+                    'project' => $message->project_id,
+                    'message' => $message->id,
+                ]),
+                'files_index' => route('messages.files.index', [
+                    'project' => $message->project_id,
+                    'message' => $message->id,
+                ]),
                 'preview' => route('preview.store'),
                 'store' => route('messages.comments.store', [
                     'project' => $message->project_id,

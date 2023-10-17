@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\Auth\ValidateInvitationController;
-use App\Http\Controllers\Files\UploadFileController;
+use App\Http\Controllers\Files\FileController;
+use App\Http\Controllers\Files\FileDownloadController;
 use App\Http\Controllers\PreviewController;
 use App\Http\Controllers\Profile\ProfileAvatarController;
 use App\Http\Controllers\Profile\ProfileBirthdateController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Projects\CommentReactionController;
+use App\Http\Controllers\Projects\Files\MessageFileController;
 use App\Http\Controllers\Projects\Members\MemberController;
 use App\Http\Controllers\Projects\Members\MemberUserController;
 use App\Http\Controllers\Projects\Messages\MessageCommentController;
@@ -63,11 +65,14 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
     // preview markdown
     Route::post('preview', [PreviewController::class, 'store'])->name('preview.store');
 
-    // files
-    Route::post('upload', [UploadFileController::class, 'store'])->name('file.store');
-
     // delete reaction
     Route::delete('reactions/{reaction}', [ReactionController::class, 'destroy'])->name('reactions.destroy');
+
+    // download file
+    Route::middleware(['media'])->group(function (): void {
+        Route::get('media/{media}/download', [FileDownloadController::class, 'show'])->name('files.download.show');
+        Route::delete('media/{media}', [FileController::class, 'destroy'])->name('files.destroy');
+    });
 
     // tasks
     Route::get('tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
@@ -103,6 +108,10 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
             Route::get('projects/{project}/messages/{message}/edit', [MessageController::class, 'edit'])->name('messages.edit');
             Route::put('projects/{project}/messages/{message}/edit', [MessageController::class, 'update'])->name('messages.update');
             Route::delete('projects/{project}/messages/{message}', [MessageController::class, 'destroy'])->name('messages.destroy');
+
+            // files
+            Route::get('projects/{project}/messages/{message}/media', [MessageFileController::class, 'index'])->name('messages.files.index');
+            Route::post('projects/{project}/messages/{message}/upload', [MessageFileController::class, 'store'])->name('messages.files.store');
 
             // add reaction
             Route::post('projects/{project}/messages/{message}/reactions', [MessageReactionController::class, 'store'])->name('messages.reactions.store');
