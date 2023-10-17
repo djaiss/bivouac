@@ -39,17 +39,12 @@ defineProps({
 
         <!-- list of messages -->
         <ul v-if="data.messages.length > 0" class="w-full">
-          <li
-            v-for="message in data.messages"
-            :key="message.id"
-            class="flex py-4 pl-4 pr-6 hover:bg-slate-50 last:hover:rounded-b-lg">
+          <li v-for="message in data.messages" :key="message.id" class="flex py-4 pl-4 pr-6 hover:bg-slate-50 last:hover:rounded-b-lg">
             <!-- unread status -->
             <div v-if="!message.read" class="unread" v-tooltip="$t('The message is unread')"></div>
 
             <div class="ml-1">
-              <Link
-                :href="message.url.show"
-                class="mb-2 inline-block text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+              <Link :href="message.url.show" class="mb-2 inline-block text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                 {{ message.title }}
               </Link>
 
@@ -58,9 +53,7 @@ defineProps({
                 <!-- user name -->
                 <div class="group mr-4 flex items-center">
                   <Avatar :data="message.author.avatar" :url="message.author.url" class="mr-2 h-4 w-4 rounded" />
-                  <Link
-                    :href="message.author.url"
-                    class="text-gray-600 group-hover:text-blue-700 group-hover:underline">
+                  <Link :href="message.author.url" class="text-gray-600 group-hover:text-blue-700 group-hover:underline">
                     {{ message.author.name }}
                   </Link>
                 </div>

@@ -55,9 +55,7 @@ const submit = () => {
             <ol class="inline-flex items-center space-x-1 md:space-x-3">
               <li>
                 <div class="flex items-center">
-                  <Link
-                    :href="data.url.breadcrumb.projects"
-                    class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                  <Link :href="data.url.breadcrumb.projects" class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                     {{ $t('Projects') }}
                   </Link>
                 </div>
@@ -99,11 +97,7 @@ const submit = () => {
 
             <!-- Description -->
             <div class="mb-4">
-              <InputLabel
-                for="description"
-                :value="$t('Provide a description for this project.')"
-                :required="false"
-                class="mb-1" />
+              <InputLabel for="description" :value="$t('Provide a description for this project.')" :required="false" class="mb-1" />
 
               <TextArea id="description" type="text" class="block w-full" v-model="form.description" />
             </div>
@@ -113,25 +107,13 @@ const submit = () => {
 
           <div class="space-y-2 px-6 py-4">
             <div class="flex items-center gap-x-2">
-              <input
-                id="hidden"
-                v-model="form.is_public"
-                value="true"
-                name="public"
-                type="radio"
-                class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
+              <input id="hidden" v-model="form.is_public" value="true" name="public" type="radio" class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
               <label for="hidden" class="block text-sm font-medium leading-6 text-gray-900">
                 {{ $t('Public: everyone can see and participate') }}
               </label>
             </div>
             <div class="flex items-center gap-x-2">
-              <input
-                id="month_day"
-                v-model="form.is_public"
-                value="false"
-                name="public"
-                type="radio"
-                class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
+              <input id="month_day" v-model="form.is_public" value="false" name="public" type="radio" class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
               <label for="month_day" class="block text-sm font-medium leading-6 text-gray-900">
                 {{ $t('Private: only selected users can access this project') }}
               </label>
@@ -140,9 +122,7 @@ const submit = () => {
 
           <!-- action -->
           <div class="flex items-center justify-between border-t bg-gray-50 px-6 py-4">
-            <Link
-              :href="data.url.breadcrumb.projects"
-              class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+            <Link :href="data.url.breadcrumb.projects" class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
               {{ $t('Back') }}
             </Link>
 

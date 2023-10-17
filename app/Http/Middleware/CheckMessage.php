@@ -33,7 +33,7 @@ class CheckMessage
             $message = Message::where('project_id', $projectId)
                 ->findOrFail($id);
 
-            $request->attributes->add(['project' => $message]);
+            $request->attributes->add(['message' => $message]);
 
             return $next($request);
         } catch (ModelNotFoundException) {

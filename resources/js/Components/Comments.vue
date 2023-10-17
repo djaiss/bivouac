@@ -106,21 +106,14 @@ const destroy = (comment) => {
       <div v-if="localComments.length > 0">
         <ol class="relative mx-auto max-w-3xl border-l border-gray-200 dark:border-gray-700">
           <li v-for="comment in localComments" :key="comment.id" class="mb-10 ml-4">
-            <div
-              class="border-bg-900 absolute -left-1.5 mt-1.5 h-3 w-3 rounded-full border bg-gray-300 dark:border-gray-900 dark:bg-gray-700"></div>
+            <div class="border-bg-900 absolute -left-1.5 mt-1.5 h-3 w-3 rounded-full border bg-gray-300 dark:border-gray-900 dark:bg-gray-700"></div>
 
             <!-- avatar + time -->
             <div class="mb-2 flex justify-between text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
               <div class="flex items-center">
                 <div class="mr-3 flex items-center">
-                  <Avatar
-                    v-if="comment.author.avatar"
-                    :data="comment.author.avatar"
-                    :url="comment.author.url"
-                    class="mr-2 w-5" />
-                  <Link
-                    :href="comment.author.url"
-                    class="inline text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                  <Avatar v-if="comment.author.avatar" :data="comment.author.avatar" :url="comment.author.url" class="mr-2 w-5" />
+                  <Link :href="comment.author.url" class="inline text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                     {{ comment.author.name }}
                   </Link>
                 </div>
@@ -134,33 +127,16 @@ const destroy = (comment) => {
                   <EllipsisHorizontalIcon class="h-5 w-5 cursor-pointer hover:text-gray-500" />
                 </MenuButton>
 
-                <transition
-                  enter-active-class="transition duration-100 ease-out"
-                  enter-from-class="transform scale-95 opacity-0"
-                  enter-to-class="transform scale-100 opacity-100"
-                  leave-active-class="transition duration-75 ease-in"
-                  leave-from-class="transform scale-100 opacity-100"
-                  leave-to-class="transform scale-95 opacity-0">
-                  <MenuItems
-                    class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <transition enter-active-class="transition duration-100 ease-out" enter-from-class="transform scale-95 opacity-0" enter-to-class="transform scale-100 opacity-100" leave-active-class="transition duration-75 ease-in" leave-from-class="transform scale-100 opacity-100" leave-to-class="transform scale-95 opacity-0">
+                  <MenuItems class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div class="px-1 py-1">
                       <MenuItem v-slot="{ active }">
-                        <span
-                          @click="edit(comment)"
-                          :class="[
-                            active ? 'bg-violet-500 text-white' : 'text-gray-900',
-                            'group flex w-full items-center rounded-md px-2 py-2 text-sm',
-                          ]">
+                        <span @click="edit(comment)" :class="[active ? 'bg-violet-500 text-white' : 'text-gray-900', 'group flex w-full items-center rounded-md px-2 py-2 text-sm']">
                           {{ $t('Edit') }}
                         </span>
                       </MenuItem>
                       <MenuItem v-slot="{ active }">
-                        <button
-                          @click="destroy(comment)"
-                          :class="[
-                            active ? 'bg-violet-500 text-white' : 'text-gray-900',
-                            'group flex w-full items-center rounded-md px-2 py-2 text-sm',
-                          ]">
+                        <button @click="destroy(comment)" :class="[active ? 'bg-violet-500 text-white' : 'text-gray-900', 'group flex w-full items-center rounded-md px-2 py-2 text-sm']">
                           {{ $t('Delete') }}
                         </button>
                       </MenuItem>
@@ -186,38 +162,24 @@ const destroy = (comment) => {
             <div v-else class="rounded-lg bg-white px-4 py-4 shadow">
               <form @submit.prevent="update(comment)">
                 <ul v-if="form.body" class="mb-5 inline-block text-sm">
-                  <li
-                    @click="showWriteTab"
-                    class="inline cursor-pointer rounded-l-md border px-3 py-1 pr-2"
-                    :class="{ 'border-blue-600 text-blue-600': activeTab === 'write' }">
+                  <li @click="showWriteTab" class="inline cursor-pointer rounded-l-md border px-3 py-1 pr-2" :class="{ 'border-blue-600 text-blue-600': activeTab === 'write' }">
                     {{ $t('Write') }}
                   </li>
-                  <li
-                    @click="showPreviewTab"
-                    class="inline cursor-pointer rounded-r-md border-b border-r border-t px-3 py-1"
-                    :class="{ 'border-l border-blue-600 text-blue-600': activeTab === 'preview' }">
+                  <li @click="showPreviewTab" class="inline cursor-pointer rounded-r-md border-b border-r border-t px-3 py-1" :class="{ 'border-l border-blue-600 text-blue-600': activeTab === 'preview' }">
                     {{ $t('Preview') }}
                   </li>
                 </ul>
 
                 <!-- write mode -->
                 <div v-if="activeTab === 'write'">
-                  <TextArea
-                    @esc-key-pressed="editedComment = ''"
-                    id="description"
-                    class="block w-full"
-                    required
-                    autogrow
-                    v-model="form.body" />
+                  <TextArea @esc-key-pressed="editedComment = ''" id="description" class="block w-full" required autogrow v-model="form.body" />
 
                   <div v-if="form.body" class="mt-4 flex justify-start">
                     <PrimaryButton class="mr-2" :loading="loadingState" :disabled="loadingState">
                       {{ $t('Save') }}
                     </PrimaryButton>
 
-                    <span
-                      @click="editedComment = ''"
-                      class="flex cursor-pointer rounded-md border border-gray-300 bg-gray-100 px-3 py-1 font-semibold text-gray-700 hover:border-solid hover:border-gray-500 hover:bg-gray-200">
+                    <span @click="editedComment = ''" class="flex cursor-pointer rounded-md border border-gray-300 bg-gray-100 px-3 py-1 font-semibold text-gray-700 hover:border-solid hover:border-gray-500 hover:bg-gray-200">
                       {{ $t('Cancel') }}
                     </span>
                   </div>
@@ -239,38 +201,24 @@ const destroy = (comment) => {
       <form @submit.prevent="submit()">
         <p class="mb-2 font-bold">{{ $t('Add a comment') }}</p>
         <ul v-if="form.body" class="mb-5 inline-block text-sm">
-          <li
-            @click="showWriteTab"
-            class="inline cursor-pointer rounded-l-md border px-3 py-1 pr-2"
-            :class="{ 'border-blue-600 text-blue-600': activeTab === 'write' }">
+          <li @click="showWriteTab" class="inline cursor-pointer rounded-l-md border px-3 py-1 pr-2" :class="{ 'border-blue-600 text-blue-600': activeTab === 'write' }">
             {{ $t('Write') }}
           </li>
-          <li
-            @click="showPreviewTab"
-            class="inline cursor-pointer rounded-r-md border-b border-r border-t px-3 py-1"
-            :class="{ 'border-l border-blue-600 text-blue-600': activeTab === 'preview' }">
+          <li @click="showPreviewTab" class="inline cursor-pointer rounded-r-md border-b border-r border-t px-3 py-1" :class="{ 'border-l border-blue-600 text-blue-600': activeTab === 'preview' }">
             {{ $t('Preview') }}
           </li>
         </ul>
 
         <!-- write mode -->
         <div v-if="activeTab === 'write'">
-          <TextArea
-            @esc-key-pressed="form.body = ''"
-            id="description"
-            class="block w-full"
-            :rows="'80px'"
-            required
-            v-model="form.body" />
+          <TextArea @esc-key-pressed="form.body = ''" id="description" class="block w-full" :rows="'80px'" required v-model="form.body" />
 
           <div v-if="form.body" class="mt-4 flex justify-start">
             <PrimaryButton class="mr-2" :loading="loadingState" :disabled="loadingState">
               {{ $t('Save') }}
             </PrimaryButton>
 
-            <span
-              @click="form.body = ''"
-              class="flex cursor-pointer rounded-md border border-gray-300 bg-gray-100 px-3 py-1 font-semibold text-gray-700 hover:border-solid hover:border-gray-500 hover:bg-gray-200">
+            <span @click="form.body = ''" class="flex cursor-pointer rounded-md border border-gray-300 bg-gray-100 px-3 py-1 font-semibold text-gray-700 hover:border-solid hover:border-gray-500 hover:bg-gray-200">
               {{ $t('Cancel') }}
             </span>
           </div>

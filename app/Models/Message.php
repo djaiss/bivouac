@@ -10,10 +10,12 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Laravel\Scout\Attributes\SearchUsingFullText;
 use Laravel\Scout\Attributes\SearchUsingPrefix;
 use Laravel\Scout\Searchable;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Message extends Model
+class Message extends Model implements HasMedia
 {
-    use HasFactory, Searchable;
+    use HasFactory, InteractsWithMedia, Searchable;
 
     protected $table = 'messages';
 

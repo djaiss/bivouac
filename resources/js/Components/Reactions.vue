@@ -58,27 +58,13 @@ const destroy = (reaction) => {
 
       <template #popper>
         <div class="flex p-2">
-          <div @click="submit('👍')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 px-2 py-1 hover:bg-gray-300">
-            👍
-          </div>
-          <div @click="submit('👎')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 px-2 py-1 hover:bg-gray-300">
-            👎
-          </div>
-          <div @click="submit('😁')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 px-2 py-1 hover:bg-gray-300">
-            😁
-          </div>
-          <div @click="submit('🎉')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 px-2 py-1 hover:bg-gray-300">
-            🎉
-          </div>
-          <div @click="submit('🫤')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 px-2 py-1 hover:bg-gray-300">
-            🫤
-          </div>
-          <div @click="submit('😭')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 px-2 py-1 hover:bg-gray-300">
-            😭
-          </div>
-          <div @click="submit('❤️')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 px-2 py-1 hover:bg-gray-300">
-            ❤️
-          </div>
+          <div @click="submit('👍')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 px-2 py-1 hover:bg-gray-300">👍</div>
+          <div @click="submit('👎')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 px-2 py-1 hover:bg-gray-300">👎</div>
+          <div @click="submit('😁')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 px-2 py-1 hover:bg-gray-300">😁</div>
+          <div @click="submit('🎉')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 px-2 py-1 hover:bg-gray-300">🎉</div>
+          <div @click="submit('🫤')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 px-2 py-1 hover:bg-gray-300">🫤</div>
+          <div @click="submit('😭')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 px-2 py-1 hover:bg-gray-300">😭</div>
+          <div @click="submit('❤️')" class="mr-1 cursor-pointer rounded-lg bg-gray-200 px-2 py-1 hover:bg-gray-300">❤️</div>
           <div @click="submit('🚀')" class="cursor-pointer rounded-lg bg-gray-200 px-2 py-1 hover:bg-gray-300">🚀</div>
         </div>
       </template>

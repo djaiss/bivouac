@@ -19,7 +19,7 @@ defineProps({
         <span v-if="!data.project.is_public" v-tooltip="$t('This project is private')">
           <LockClosedIcon class="mr-2 h-4 w-4 text-blue-500" />
         </span>
-        <h1 class="text-2xl font-bold">{{ data.project.name }}</h1>
+        <h1 class="text-xl font-semibold">{{ data.project.name }}</h1>
       </div>
       <p v-if="data.project.short_description" class="mt-1 text-sm">{{ data.project.short_description }}</p>
     </div>
@@ -51,13 +51,6 @@ defineProps({
             </Link>
           </li>
           <li class="mr-2">
-            <a
-              href="#"
-              class="inline-block rounded-t-lg border-b-2 border-transparent p-3 hover:border-blue-300 hover:text-blue-600 dark:hover:text-gray-300">
-              {{ $t('Decisions') }}
-            </a>
-          </li>
-          <li class="mr-2">
             <Link
               :href="menu.url.tasks"
               class="inline-block rounded-t-lg border-b-2 p-3 hover:border-blue-300 hover:text-blue-600 dark:hover:text-gray-300"
@@ -67,13 +60,6 @@ defineProps({
               }">
               {{ $t('Tasks') }}
             </Link>
-          </li>
-          <li class="mr-2">
-            <a
-              href="#"
-              class="inline-block rounded-t-lg border-b-2 border-transparent p-3 hover:border-blue-300 hover:text-blue-600 dark:hover:text-gray-300">
-              {{ $t('Files') }}
-            </a>
           </li>
           <li class="mr-2">
             <Link

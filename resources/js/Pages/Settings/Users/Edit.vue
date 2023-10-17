@@ -56,18 +56,14 @@ const submit = () => {
           <nav class="flex py-3 text-gray-700">
             <ol class="inline-flex items-center space-x-1 md:space-x-3">
               <li class="inline-flex items-center">
-                <Link
-                  :href="data.url.breadcrumb.home"
-                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                <Link :href="data.url.breadcrumb.home" class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                   {{ $t('Home') }}
                 </Link>
               </li>
               <li>
                 <div class="flex items-center">
                   <ChevronRightIcon class="mr-2 h-4 w-4 text-gray-400" />
-                  <Link
-                    :href="data.url.breadcrumb.settings"
-                    class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                  <Link :href="data.url.breadcrumb.settings" class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                     {{ $t('Account settings') }}
                   </Link>
                 </div>
@@ -75,9 +71,7 @@ const submit = () => {
               <li>
                 <div class="flex items-center">
                   <ChevronRightIcon class="mr-2 h-4 w-4 text-gray-400" />
-                  <Link
-                    :href="data.url.breadcrumb.users"
-                    class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                  <Link :href="data.url.breadcrumb.users" class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                     {{ $t('Manage users') }}
                   </Link>
                 </div>
@@ -108,46 +102,26 @@ const submit = () => {
             <InputLabel :value="$t('What permissions should this person have?')" class="mb-3" />
             <div class="space-y-2">
               <div class="flex items-center gap-x-2">
-                <input
-                  id="account_manager"
-                  v-model="form.permissions"
-                  value="account_manager"
-                  name="permissions"
-                  type="radio"
-                  class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
+                <input id="account_manager" v-model="form.permissions" value="account_manager" name="permissions" type="radio" class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
                 <label for="account_manager" class="block text-sm font-medium leading-6 text-gray-900">
                   {{ $t('Account manager') }}
                 </label>
               </div>
               <div class="flex items-center gap-x-2">
-                <input
-                  id="administrator"
-                  v-model="form.permissions"
-                  value="administrator"
-                  name="permissions"
-                  type="radio"
-                  class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
+                <input id="administrator" v-model="form.permissions" value="administrator" name="permissions" type="radio" class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
                 <label for="administrator" class="block text-sm font-medium leading-6 text-gray-900">
                   {{ $t('Administrator') }}
                 </label>
               </div>
               <div class="flex items-center gap-x-2">
-                <input
-                  id="user"
-                  v-model="form.permissions"
-                  value="user"
-                  name="permissions"
-                  type="radio"
-                  class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
+                <input id="user" v-model="form.permissions" value="user" name="permissions" type="radio" class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
                 <label for="user" class="block text-sm font-medium leading-6 text-gray-900">{{ $t('User') }}</label>
               </div>
             </div>
           </div>
 
           <div class="flex items-center justify-between border-t bg-gray-50 px-6 py-4">
-            <Link
-              :href="data.url.breadcrumb.users"
-              class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+            <Link :href="data.url.breadcrumb.users" class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
               {{ $t('Back') }}
             </Link>
 

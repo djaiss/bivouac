@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Controllers\Auth\ValidateInvitationController;
+use App\Http\Controllers\Files\FileController;
+use App\Http\Controllers\Files\FileDownloadController;
 use App\Http\Controllers\PreviewController;
 use App\Http\Controllers\Profile\ProfileAvatarController;
 use App\Http\Controllers\Profile\ProfileBirthdateController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Projects\CommentReactionController;
+use App\Http\Controllers\Projects\Files\MessageFileController;
 use App\Http\Controllers\Projects\Members\MemberController;
 use App\Http\Controllers\Projects\Members\MemberUserController;
 use App\Http\Controllers\Projects\Messages\MessageCommentController;
@@ -65,6 +68,12 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
     // delete reaction
     Route::delete('reactions/{reaction}', [ReactionController::class, 'destroy'])->name('reactions.destroy');
 
+    // download file
+    Route::middleware(['media'])->group(function (): void {
+        Route::get('media/{media}/download', [FileDownloadController::class, 'show'])->name('files.download.show');
+        Route::delete('media/{media}', [FileController::class, 'destroy'])->name('files.destroy');
+    });
+
     // tasks
     Route::get('tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
     Route::post('tasks', [TaskController::class, 'store'])->name('tasks.store');
@@ -99,6 +108,10 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
             Route::get('projects/{project}/messages/{message}/edit', [MessageController::class, 'edit'])->name('messages.edit');
             Route::put('projects/{project}/messages/{message}/edit', [MessageController::class, 'update'])->name('messages.update');
             Route::delete('projects/{project}/messages/{message}', [MessageController::class, 'destroy'])->name('messages.destroy');
+
+            // files
+            Route::get('projects/{project}/messages/{message}/media', [MessageFileController::class, 'index'])->name('messages.files.index');
+            Route::post('projects/{project}/messages/{message}/upload', [MessageFileController::class, 'store'])->name('messages.files.store');
 
             // add reaction
             Route::post('projects/{project}/messages/{message}/reactions', [MessageReactionController::class, 'store'])->name('messages.reactions.store');
@@ -153,36 +166,36 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
     // users
     Route::get('users/{user}', [UserController::class, 'show'])->name('users.show');
 
-    Route::middleware(['administrator'])->prefix('settings')->group(function (): void {
-        Route::get('', [PersonalizeController::class, 'index'])->name('settings.index');
+    Route::middleware(['administrator'])->group(function (): void {
+        Route::get('settings', [PersonalizeController::class, 'index'])->name('settings.index');
 
         // user management
-        Route::get('users', [PersonalizeUserController::class, 'index'])->name('settings.user.index');
-        Route::get('users/invite', [PersonalizeUserController::class, 'create'])->name('settings.user.create');
-        Route::post('users/invite', [PersonalizeUserController::class, 'store'])->name('settings.user.store');
-        Route::get('users/{user}/edit', [PersonalizeUserController::class, 'edit'])->name('settings.user.edit');
-        Route::put('users/{user}', [PersonalizeUserController::class, 'update'])->name('settings.user.update');
-        Route::delete('users/{user}', [PersonalizeUserController::class, 'destroy'])->name('settings.user.destroy');
+        Route::get('settings/users', [PersonalizeUserController::class, 'index'])->name('settings.user.index');
+        Route::get('settings/users/invite', [PersonalizeUserController::class, 'create'])->name('settings.user.create');
+        Route::post('settings/users/invite', [PersonalizeUserController::class, 'store'])->name('settings.user.store');
+        Route::get('settings/users/{user}/edit', [PersonalizeUserController::class, 'edit'])->name('settings.user.edit');
+        Route::put('settings/users/{user}', [PersonalizeUserController::class, 'update'])->name('settings.user.update');
+        Route::delete('settings/users/{user}', [PersonalizeUserController::class, 'destroy'])->name('settings.user.destroy');
 
         // office management
-        Route::get('offices', [PersonalizeOfficeController::class, 'index'])->name('settings.office.index');
-        Route::get('offices/create', [PersonalizeOfficeController::class, 'create'])->name('settings.office.create');
-        Route::post('offices', [PersonalizeOfficeController::class, 'store'])->name('settings.office.store');
-        Route::get('offices/{office}/edit', [PersonalizeOfficeController::class, 'edit'])->name('settings.office.edit');
-        Route::put('offices/{office}', [PersonalizeOfficeController::class, 'update'])->name('settings.office.update');
-        Route::delete('offices/{office}', [PersonalizeOfficeController::class, 'destroy'])->name('settings.office.destroy');
+        Route::get('settings/offices', [PersonalizeOfficeController::class, 'index'])->name('settings.office.index');
+        Route::get('settings/offices/create', [PersonalizeOfficeController::class, 'create'])->name('settings.office.create');
+        Route::post('settings/offices', [PersonalizeOfficeController::class, 'store'])->name('settings.office.store');
+        Route::get('settings/offices/{office}/edit', [PersonalizeOfficeController::class, 'edit'])->name('settings.office.edit');
+        Route::put('settings/offices/{office}', [PersonalizeOfficeController::class, 'update'])->name('settings.office.update');
+        Route::delete('settings/offices/{office}', [PersonalizeOfficeController::class, 'destroy'])->name('settings.office.destroy');
 
         // team type management
-        Route::get('teamTypes', [PersonalizeTeamTypeController::class, 'index'])->name('settings.team_type.index');
-        Route::get('teamTypes/create', [PersonalizeTeamTypeController::class, 'create'])->name('settings.team_type.create');
-        Route::post('teamTypes', [PersonalizeTeamTypeController::class, 'store'])->name('settings.team_type.store');
-        Route::get('teamTypes/{teamType}/edit', [PersonalizeTeamTypeController::class, 'edit'])->name('settings.team_type.edit');
-        Route::put('teamTypes/{teamType}', [PersonalizeTeamTypeController::class, 'update'])->name('settings.team_type.update');
-        Route::delete('teamTypes/{teamType}', [PersonalizeTeamTypeController::class, 'destroy'])->name('settings.team_type.destroy');
+        Route::get('settings/teamTypes', [PersonalizeTeamTypeController::class, 'index'])->name('settings.team_type.index');
+        Route::get('settings/teamTypes/create', [PersonalizeTeamTypeController::class, 'create'])->name('settings.team_type.create');
+        Route::post('settings/teamTypes', [PersonalizeTeamTypeController::class, 'store'])->name('settings.team_type.store');
+        Route::get('settings/teamTypes/{teamType}/edit', [PersonalizeTeamTypeController::class, 'edit'])->name('settings.team_type.edit');
+        Route::put('settings/teamTypes/{teamType}', [PersonalizeTeamTypeController::class, 'update'])->name('settings.team_type.update');
+        Route::delete('settings/teamTypes/{teamType}', [PersonalizeTeamTypeController::class, 'destroy'])->name('settings.team_type.destroy');
 
         Route::middleware(['account_manager'])->group(function (): void {
-            Route::get('upgrade', [PersonalizeUpgradeController::class, 'index'])->name('settings.upgrade.index');
-            Route::put('upgrade', [PersonalizeUpgradeController::class, 'update'])->name('settings.upgrade.update');
+            Route::get('settings/upgrade', [PersonalizeUpgradeController::class, 'index'])->name('settings.upgrade.index');
+            Route::put('settings/upgrade', [PersonalizeUpgradeController::class, 'update'])->name('settings.upgrade.update');
         });
     });
 });

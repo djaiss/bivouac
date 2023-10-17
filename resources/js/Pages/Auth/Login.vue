@@ -49,14 +49,7 @@ const submit = () => {
       <div>
         <InputLabel for="email" value="Email" />
 
-        <TextInput
-          id="email"
-          type="email"
-          class="mt-1 block w-full"
-          v-model="form.email"
-          required
-          autofocus
-          autocomplete="username" />
+        <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus autocomplete="username" />
 
         <InputError class="mt-2" :message="form.errors.email" />
       </div>
@@ -64,13 +57,7 @@ const submit = () => {
       <div class="mt-4">
         <InputLabel for="password" value="Password" />
 
-        <TextInput
-          id="password"
-          type="password"
-          class="mt-1 block w-full"
-          v-model="form.password"
-          required
-          autocomplete="current-password" />
+        <TextInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="current-password" />
 
         <InputError class="mt-2" :message="form.errors.password" />
       </div>
@@ -83,16 +70,9 @@ const submit = () => {
       </div>
 
       <div class="mt-4 flex items-center justify-end">
-        <Link
-          v-if="canResetPassword"
-          :href="route('password.request')"
-          class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-          Forgot your password?
-        </Link>
+        <Link v-if="canResetPassword" :href="route('password.request')" class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Forgot your password?</Link>
 
-        <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-          Log in
-        </PrimaryButton>
+        <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">Log in</PrimaryButton>
       </div>
     </form>
   </GuestLayout>

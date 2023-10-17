@@ -54,18 +54,14 @@ const submit = () => {
           <nav class="flex py-3 text-gray-700">
             <ol class="inline-flex items-center space-x-1 md:space-x-3">
               <li class="inline-flex items-center">
-                <Link
-                  :href="data.url.breadcrumb.home"
-                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                <Link :href="data.url.breadcrumb.home" class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                   {{ $t('Home') }}
                 </Link>
               </li>
               <li>
                 <div class="flex items-center">
                   <ChevronRightIcon class="mr-2 h-4 w-4 text-gray-400" />
-                  <Link
-                    :href="data.url.breadcrumb.settings"
-                    class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                  <Link :href="data.url.breadcrumb.settings" class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                     {{ $t('Account settings') }}
                   </Link>
                 </div>
@@ -73,9 +69,7 @@ const submit = () => {
               <li>
                 <div class="flex items-center">
                   <ChevronRightIcon class="mr-2 h-4 w-4 text-gray-400" />
-                  <Link
-                    :href="data.url.breadcrumb.users"
-                    class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                  <Link :href="data.url.breadcrumb.users" class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                     {{ $t('Manage users') }}
                   </Link>
                 </div>
@@ -108,9 +102,7 @@ const submit = () => {
           <div class="relative border-b px-6 py-4">
             <!-- Name -->
             <div class="mb-4">
-              <InputLabel
-                for="email"
-                :value="$t('What is the email address of the person you would like to invite?')" />
+              <InputLabel for="email" :value="$t('What is the email address of the person you would like to invite?')" />
 
               <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" autofocus required />
 
@@ -124,19 +116,13 @@ const submit = () => {
             <div class="space-y-2">
               <p class="mb-2 text-sm font-bold">{{ $t('What happens next?') }}</p>
               <p>
-                {{
-                  $t(
-                    'The person will receive an email with instructions to setup the account. The invitation will remain valid for three days.',
-                  )
-                }}
+                {{ $t('The person will receive an email with instructions to setup the account. The invitation will remain valid for three days.') }}
               </p>
             </div>
           </div>
 
           <div class="flex items-center justify-between border-t bg-gray-50 px-6 py-4">
-            <Link
-              :href="data.url.breadcrumb.users"
-              class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+            <Link :href="data.url.breadcrumb.users" class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
               {{ $t('Back') }}
             </Link>
 

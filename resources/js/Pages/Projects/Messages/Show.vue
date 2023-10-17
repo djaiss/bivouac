@@ -6,6 +6,7 @@ import Avatar from '@/Components/Avatar.vue';
 import Comments from '@/Components/Comments.vue';
 import Reactions from '@/Components/Reactions.vue';
 import TaskList from '@/Components/TaskList.vue';
+import FileList from '@/Components/FileList.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import ProjectHeader from '@/Pages/Projects/Partials/ProjectHeader.vue';
 
@@ -36,7 +37,7 @@ const destroy = () => {
       <div class="mx-auto mb-6 mt-8 max-w-7xl space-y-6 px-12 sm:px-6 lg:px-8">
         <ProjectHeader :data="data" :menu="menu" />
 
-        <div class="grid grid-cols-[3fr_1fr] gap-4 px-4">
+        <div class="grid grid-cols-[3fr_1fr] gap-4">
           <!-- left -->
           <div>
             <!-- message -->
@@ -48,14 +49,8 @@ const destroy = () => {
 
                 <!-- avatar + name -->
                 <div class="mb-8 flex items-center justify-center text-sm">
-                  <Avatar
-                    v-if="data.message.author.avatar"
-                    :data="data.message.author.avatar"
-                    :url="data.message.author.url"
-                    class="mr-2 w-5" />
-                  <Link
-                    :href="data.message.author.url"
-                    class="mr-4 text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                  <Avatar v-if="data.message.author.avatar" :data="data.message.author.avatar" :url="data.message.author.url" class="mr-2 w-5" />
+                  <Link :href="data.message.author.url" class="mr-4 text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                     {{ data.message.author.name }}
                   </Link>
                   <p>{{ data.message.created_at }}</p>
@@ -66,8 +61,13 @@ const destroy = () => {
               </div>
 
               <!-- message footer -->
-              <div class="rounded-b-lg bg-gray-50 p-3">
+              <div class="border-b bg-gray-50 p-3">
                 <Reactions :reactions="data.reactions" :url="data.url" />
+              </div>
+
+              <!-- files -->
+              <div class="rounded-b-lg bg-gray-50 p-3">
+                <FileList :data="data" />
               </div>
             </div>
 
@@ -82,18 +82,14 @@ const destroy = () => {
           <div>
             <div class="rounded-lg shadow">
               <div class="flex items-center justify-between rounded-t-lg border-b bg-white px-6 py-4">
-                <Link
-                  :href="data.message.url.edit"
-                  class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                <Link :href="data.message.url.edit" class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                   {{ $t('Edit') }}
                 </Link>
               </div>
 
               <!-- markdown help -->
               <div class="prose rounded-b-lg bg-gray-50 px-6 py-4 text-sm">
-                <span
-                  @click="destroy()"
-                  class="cursor-pointer font-medium text-red-700 underline hover:rounded-sm hover:bg-red-700 hover:text-white">
+                <span @click="destroy()" class="cursor-pointer font-medium text-red-700 underline hover:rounded-sm hover:bg-red-700 hover:text-white">
                   {{ $t('Delete') }}
                 </span>
               </div>

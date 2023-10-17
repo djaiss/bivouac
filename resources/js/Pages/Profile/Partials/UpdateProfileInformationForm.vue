@@ -63,27 +63,14 @@ const update = () => {
             <div class="mr-4 w-full">
               <InputLabel for="first_name" :value="$t('First name')" />
 
-              <TextInput
-                id="first_name"
-                type="text"
-                class="mt-1 block w-full"
-                v-model="form.first_name"
-                required
-                autofocus
-                autocomplete="first_name" />
+              <TextInput id="first_name" type="text" class="mt-1 block w-full" v-model="form.first_name" required autofocus autocomplete="first_name" />
             </div>
 
             <!-- last name -->
             <div class="w-full">
               <InputLabel for="last_name" :value="$t('Last name')" />
 
-              <TextInput
-                id="last_name"
-                type="text"
-                class="mt-1 block w-full"
-                v-model="form.last_name"
-                required
-                autocomplete="last_name" />
+              <TextInput id="last_name" type="text" class="mt-1 block w-full" v-model="form.last_name" required autocomplete="last_name" />
             </div>
           </div>
 
@@ -91,16 +78,9 @@ const update = () => {
           <div>
             <InputLabel for="email" :value="$t('Email')" />
 
-            <TextInput
-              id="email"
-              type="email"
-              class="mt-1 block w-full"
-              v-model="form.email"
-              required
-              autocomplete="email" />
+            <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autocomplete="email" />
 
-            <HelpInput
-              :value="$t('We will send you a verification email to confirm that you own the email address.')" />
+            <HelpInput :value="$t('We will send you a verification email to confirm that you own the email address.')" />
           </div>
 
           <PrimaryButton :loading="loadingState" :disabled="loadingState">{{ $t('Save') }}</PrimaryButton>

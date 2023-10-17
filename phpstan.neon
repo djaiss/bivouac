@@ -13,12 +13,15 @@ parameters:
         - '#\s.+?\sno value type specified in iterable type array\.#'
         - '#Using nullsafe property access on non-nullable type\s.+?\s.#'
 
+
 #
     excludePaths:
         - app/Http/Controllers/Auth/VerifyEmailController.php
         - app/Http/Controllers/Projects/ProjectViewModel.php
         - app/Services/UpdateUserInformation.php
         - app/Http/Middleware/CheckProject.php
+        - app/Http/Controllers/Projects/Files/FileViewModel.php
+        - app/Services/UpdateTeamType.php
 #        - ./*/*/FileToBeExcluded.php
 #
 #    checkMissingIterableValueType: false

@@ -71,6 +71,7 @@ class Kernel extends HttpKernel
         'project' => \App\Http\Middleware\CheckProject::class,
         'message' => \App\Http\Middleware\CheckMessage::class,
         'taskList' => \App\Http\Middleware\CheckTaskList::class,
+        'media' => \App\Http\Middleware\CheckMedia::class,
         'last_activity' => \App\Http\Middleware\UpdateLastActivityDate::class,
     ];
 }

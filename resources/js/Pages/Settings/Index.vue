@@ -33,9 +33,7 @@ defineProps({
             <ul>
               <li class="flex items-center border-b border-gray-200 px-4 py-2 hover:rounded-t-lg hover:bg-slate-50">
                 <span class="mr-4 rounded border border-yellow-400 bg-yellow-100 px-1">👥</span>
-                <Link
-                  :href="data.url.users"
-                  class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                <Link :href="data.url.users" class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                   {{ $t('Add or remove users') }}
                 </Link>
               </li>
@@ -53,9 +51,7 @@ defineProps({
               </li>
               <li class="flex items-center border-b border-gray-200 px-4 py-2 hover:bg-slate-50">
                 <span class="mr-4 rounded border border-yellow-400 bg-yellow-100 px-1">🏢</span>
-                <Link
-                  :href="data.url.offices"
-                  class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                <Link :href="data.url.offices" class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                   {{ $t('Manage offices') }}
                 </Link>
               </li>
@@ -63,9 +59,7 @@ defineProps({
                 <div class="mr-3 rounded-lg bg-blue-300 p-2">
                   <UserGroupIcon class="h-5 w-5" />
                 </div>
-                <Link
-                  :href="data.url.team_types"
-                  class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                <Link :href="data.url.team_types" class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                   {{ $t('Manage team types') }}
                 </Link>
               </li>
@@ -75,13 +69,9 @@ defineProps({
                   {{ $t('Manage genders and pronouns') }}
                 </Link>
               </li>
-              <li
-                v-if="data.upgradable"
-                class="flex items-center border-b border-gray-200 px-4 py-2 hover:rounded-t-lg hover:bg-slate-50">
+              <li v-if="data.upgradable" class="flex items-center border-b border-gray-200 px-4 py-2 hover:rounded-t-lg hover:bg-slate-50">
                 <span class="mr-4 rounded border border-yellow-400 bg-yellow-100 px-1">🤑</span>
-                <Link
-                  :href="data.url.upgrade"
-                  class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                <Link :href="data.url.upgrade" class="text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                   {{ $t('Unlock account') }}
                 </Link>
               </li>

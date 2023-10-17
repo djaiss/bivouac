@@ -99,12 +99,13 @@ class MessageViewModelTest extends TestCase
         ]);
         $array = MessageViewModel::show($message);
 
-        $this->assertCount(6, $array);
+        $this->assertCount(7, $array);
         $this->assertArrayHasKey('project', $array);
         $this->assertArrayHasKey('message', $array);
         $this->assertArrayHasKey('reactions', $array);
         $this->assertArrayHasKey('comments', $array);
         $this->assertArrayHasKey('task_list', $array);
+        $this->assertArrayHasKey('files', $array);
         $this->assertArrayHasKey('url', $array);
         $this->assertEquals(
             [
@@ -134,6 +135,8 @@ class MessageViewModelTest extends TestCase
         );
         $this->assertEquals(
             [
+                'upload' => env('APP_URL') . '/projects/' . $project->id . '/messages/' . $message->id . '/upload',
+                'files_index' => env('APP_URL') . '/projects/' . $project->id . '/messages/' . $message->id . '/media',
                 'preview' => env('APP_URL') . '/preview',
                 'store' => env('APP_URL') . '/projects/' . $project->id . '/messages/' . $message->id . '/comments',
                 'store_reaction' => env('APP_URL') . '/projects/' . $project->id . '/messages/' . $message->id . '/reactions',

@@ -77,9 +77,7 @@ const submit = () => {
           <ol class="inline-flex items-center space-x-1 md:space-x-3">
             <li>
               <div class="flex items-center">
-                <Link
-                  :href="data.url.breadcrumb.projects"
-                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                <Link :href="data.url.breadcrumb.projects" class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                   {{ $t('Projects') }}
                 </Link>
               </div>
@@ -87,9 +85,7 @@ const submit = () => {
             <li>
               <div class="flex items-center">
                 <ChevronRightIcon class="mr-2 h-4 w-4 text-gray-400" />
-                <Link
-                  :href="data.url.breadcrumb.project"
-                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                <Link :href="data.url.breadcrumb.project" class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                   {{ data.project.name }}
                 </Link>
               </div>
@@ -97,9 +93,7 @@ const submit = () => {
             <li>
               <div class="flex items-center">
                 <ChevronRightIcon class="mr-2 h-4 w-4 text-gray-400" />
-                <Link
-                  :href="data.url.breadcrumb.messages"
-                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                <Link :href="data.url.breadcrumb.messages" class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                   {{ $t('Messages') }}
                 </Link>
               </div>
@@ -107,9 +101,7 @@ const submit = () => {
             <li>
               <div class="flex items-center">
                 <ChevronRightIcon class="mr-2 h-4 w-4 text-gray-400" />
-                <Link
-                  :href="data.message.url.show"
-                  class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                <Link :href="data.message.url.show" class="text-sm text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                   {{ data.message.title }}
                 </Link>
               </div>
@@ -141,16 +133,10 @@ const submit = () => {
               <!-- Description -->
               <div class="mb-4">
                 <ul v-if="form.body" class="mb-5 inline-block text-sm">
-                  <li
-                    @click="showWriteTab"
-                    class="inline cursor-pointer rounded-l-md border px-3 py-1 pr-2"
-                    :class="{ 'border-blue-600 text-blue-600': activeTab === 'write' }">
+                  <li @click="showWriteTab" class="inline cursor-pointer rounded-l-md border px-3 py-1 pr-2" :class="{ 'border-blue-600 text-blue-600': activeTab === 'write' }">
                     {{ $t('Write') }}
                   </li>
-                  <li
-                    @click="showPreviewTab"
-                    class="inline cursor-pointer rounded-r-md border-b border-r border-t px-3 py-1"
-                    :class="{ 'border-l border-blue-600 text-blue-600': activeTab === 'preview' }">
+                  <li @click="showPreviewTab" class="inline cursor-pointer rounded-r-md border-b border-r border-t px-3 py-1" :class="{ 'border-l border-blue-600 text-blue-600': activeTab === 'preview' }">
                     {{ $t('Preview') }}
                   </li>
                 </ul>
@@ -174,9 +160,7 @@ const submit = () => {
           <div>
             <div class="rounded-lg shadow">
               <div class="flex items-center justify-between rounded-t-lg border-b bg-white px-6 py-4">
-                <Link
-                  :href="data.message.url.show"
-                  class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+                <Link :href="data.message.url.show" class="text-sm font-medium text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
                   {{ $t('Back') }}
                 </Link>
 

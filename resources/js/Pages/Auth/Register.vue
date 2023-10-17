@@ -41,14 +41,7 @@ const submit = () => {
         <div class="mr-4">
           <InputLabel for="name" value="Your first name" />
 
-          <TextInput
-            id="name"
-            type="text"
-            class="mt-1 block w-full"
-            v-model="form.first_name"
-            required
-            autofocus
-            autocomplete="first_name" />
+          <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.first_name" required autofocus autocomplete="first_name" />
 
           <InputError class="mt-2" :message="form.errors.first_name" />
         </div>
@@ -56,13 +49,7 @@ const submit = () => {
         <div>
           <InputLabel for="last_name" value="Your last name" />
 
-          <TextInput
-            id="last_name"
-            type="text"
-            class="mt-1 block w-full"
-            v-model="form.last_name"
-            required
-            autocomplete="last_name" />
+          <TextInput id="last_name" type="text" class="mt-1 block w-full" v-model="form.last_name" required autocomplete="last_name" />
 
           <InputError class="mt-2" :message="form.errors.last_name" />
         </div>
@@ -71,13 +58,7 @@ const submit = () => {
       <div class="mt-4">
         <InputLabel for="email" value="Your valid email address" />
 
-        <TextInput
-          id="email"
-          type="email"
-          class="mt-1 block w-full"
-          v-model="form.email"
-          required
-          autocomplete="username" />
+        <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autocomplete="username" />
 
         <HelpInput value="We will send you a verification email, and won't spam you." />
 
@@ -87,13 +68,7 @@ const submit = () => {
       <div class="mt-4">
         <InputLabel for="password" value="Choose a strong password" />
 
-        <TextInput
-          id="password"
-          type="password"
-          class="mt-1 block w-full"
-          v-model="form.password"
-          required
-          autocomplete="new-password" />
+        <TextInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="new-password" />
 
         <HelpInput value="Minimum 8 characters." />
 
@@ -109,19 +84,9 @@ const submit = () => {
       </div>
 
       <div class="mt-4 flex items-center justify-end">
-        <Link
-          :href="route('login')"
-          class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-          Already registered?
-        </Link>
+        <Link :href="route('login')" class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Already registered?</Link>
 
-        <PrimaryButton
-          class="ml-4"
-          :class="{ 'opacity-25': form.processing }"
-          :loading="form.processing"
-          :disabled="form.processing">
-          Register
-        </PrimaryButton>
+        <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :loading="form.processing" :disabled="form.processing">Register</PrimaryButton>
       </div>
     </form>
   </GuestLayout>

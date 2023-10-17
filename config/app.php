@@ -203,4 +203,14 @@ return [
         'product_id' => env('LEMON_SQUEEZY_PRODUCT_ID', null),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Default account upload limit in MB
+    |--------------------------------------------------------------------------
+    |
+    | Accounts can have a limit on the total size of combined documents they
+    | can upload in their accounts.
+    |
+    */
+    'default_account_upload_limit' => env('DEFAULT_ACCOUNT_UPLOAD_LIMIT', 100),
 ];
