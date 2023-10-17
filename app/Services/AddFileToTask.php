@@ -11,8 +11,6 @@ class AddFileToTask extends BaseService
 {
     private Media $media;
     private Task $task;
-    private Project $project;
-    private User $user;
     private array $data;
 
     public function rules(): array
