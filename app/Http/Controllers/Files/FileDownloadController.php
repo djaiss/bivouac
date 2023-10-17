@@ -7,7 +7,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class FileDownloadController extends Controller
 {
-    public function show(Media $media)
+    public function show(Media $media): Media
     {
         return $media;
     }
