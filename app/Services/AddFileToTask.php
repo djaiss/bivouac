@@ -35,8 +35,6 @@ class AddFileToTask extends BaseService
     {
         $this->validateRules($this->data);
 
-        $this->user = User::findOrFail($this->data['user_id']);
-
         $this->task = Task::findOrFail($this->data['task_id']);
     }
 
