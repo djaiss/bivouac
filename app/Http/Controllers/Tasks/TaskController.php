@@ -41,8 +41,8 @@ class TaskController extends Controller
     public function show(Request $request, Project $project, Task $task): Response
     {
         return Inertia::render('Projects/Tasks/Show', [
-            'data' => TaskViewModel::show($task),
             'menu' => ProjectViewModel::menu($project),
+            'data' => TaskViewModel::show($task),
         ]);
     }
 

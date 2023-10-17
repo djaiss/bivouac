@@ -58,7 +58,7 @@ class TaskViewModelTest extends TestCase
 
         $array = TaskViewModel::dto($task);
 
-        $this->assertCount(9, $array);
+        $this->assertCount(10, $array);
         $this->assertArrayHasKey('id', $array);
         $this->assertArrayHasKey('title', $array);
         $this->assertArrayHasKey('description', $array);
@@ -66,6 +66,7 @@ class TaskViewModelTest extends TestCase
         $this->assertArrayHasKey('assignees', $array);
         $this->assertArrayHasKey('reactions', $array);
         $this->assertArrayHasKey('comments', $array);
+        $this->assertArrayHasKey('files', $array);
         $this->assertArrayHasKey('url', $array);
 
         $this->assertEquals(
@@ -108,6 +109,8 @@ class TaskViewModelTest extends TestCase
         );
         $this->assertEquals(
             [
+                'upload' => env('APP_URL') . '/projects/' . $task->taskList->project_id . '/tasks/' . $task->id . '/upload',
+                'files_index' => env('APP_URL') . '/projects/' . $task->taskList->project_id . '/tasks/' . $task->id . '/media',
                 'preview' => env('APP_URL') . '/preview',
                 'search_users' => env('APP_URL') . '/projects/' . $task->taskList->project_id . '/tasks/' . $task->id . '/search/users',
                 'show' => env('APP_URL') . '/projects/' . $task->taskList->project_id . '/tasks/' . $task->id,

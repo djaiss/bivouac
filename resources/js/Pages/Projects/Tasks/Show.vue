@@ -5,6 +5,7 @@ import { trans } from 'laravel-vue-i18n';
 import debounce from 'lodash.debounce';
 import { computed, reactive, ref } from 'vue';
 
+import FileList from '@/Components/FileList.vue';
 import Avatar from '@/Components/Avatar.vue';
 import Checkbox from '@/Components/Checkbox.vue';
 import Comments from '@/Components/Comments.vue';
@@ -252,8 +253,13 @@ const cancelSearch = () => {
             </div>
 
             <!-- message footer -->
-            <div class="rounded-b-lg bg-gray-50 p-3">
+            <div class="border-b bg-gray-50 p-3">
               <Reactions :reactions="task.reactions" :url="task.url" />
+            </div>
+
+            <!-- files -->
+            <div class="rounded-b-lg bg-gray-50 p-3">
+              <FileList :files="task.files" :url-index="task.url.files_index" :url-upload="task.url.upload" />
             </div>
           </div>
 

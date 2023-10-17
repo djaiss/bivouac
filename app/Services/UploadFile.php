@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\File;
 use Illuminate\Support\Facades\Storage;
 
 class UploadFile extends BaseService

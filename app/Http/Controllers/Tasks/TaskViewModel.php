@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Tasks;
 
 use App\Helpers\StringHelper;
+use App\Http\Controllers\Projects\Files\FileViewModel;
 use App\Http\Controllers\Reactions\ReactionViewModel;
 use App\Models\Comment;
 use App\Models\Reaction;
@@ -55,6 +56,9 @@ class TaskViewModel
             ->get()
             ->map(fn (Comment $comment) => self::dtoComment($task, $comment));
 
+        $files = $task->getMedia('*')
+            ->map(fn ($file) => FileViewModel::dto($file));
+
         return [
             'id' => $task->id,
             'title' => $task->title,
@@ -64,7 +68,16 @@ class TaskViewModel
             'assignees' => $assignees,
             'reactions' => $reactions,
             'comments' => $comments,
+            'files' => $files,
             'url' => [
+                'upload' => route('tasks.files.store', [
+                    'project' => $task->taskList->project_id,
+                    'task' => $task->id,
+                ]),
+                'files_index' => route('tasks.files.index', [
+                    'project' => $task->taskList->project_id,
+                    'task' => $task->id,
+                ]),
                 'preview' => route('preview.store'),
                 'search_users' => route('tasks.search.user.index', [
                     'project' => $task->taskList->project_id,
