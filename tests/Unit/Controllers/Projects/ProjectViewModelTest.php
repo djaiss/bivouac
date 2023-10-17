@@ -81,10 +81,11 @@ class ProjectViewModelTest extends TestCase
         ]);
         $array = ProjectViewModel::show($project);
 
-        $this->assertCount(3, $array);
+        $this->assertCount(4, $array);
         $this->assertArrayHasKey('project', $array);
         $this->assertArrayHasKey('resources', $array);
         $this->assertArrayHasKey('updates', $array);
+        $this->assertArrayHasKey('key_people', $array);
     }
 
     /** @test */
@@ -157,9 +158,11 @@ class ProjectViewModelTest extends TestCase
         $this->assertEquals(
             [
                 'show' => env('APP_URL') . '/projects/' . $project->id,
+                'search_users' => env('APP_URL') . '/search/users',
                 'preview' => env('APP_URL') . '/preview',
                 'store_resource' => env('APP_URL') . '/projects/' . $project->id . '/resources',
                 'store_update' => env('APP_URL') . '/projects/' . $project->id . '/updates',
+                'store_key_people' => env('APP_URL') . '/projects/' . $project->id . '/keyPeople',
                 'edit' => env('APP_URL') . '/projects/' . $project->id . '/edit',
             ],
             $array['url']

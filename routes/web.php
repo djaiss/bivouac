@@ -16,6 +16,7 @@ use App\Http\Controllers\Projects\Messages\MessageCommentController;
 use App\Http\Controllers\Projects\Messages\MessageController;
 use App\Http\Controllers\Projects\Messages\MessageReactionController;
 use App\Http\Controllers\Projects\ProjectController;
+use App\Http\Controllers\Projects\Summary\ProjectKeyPeopleController;
 use App\Http\Controllers\Projects\Summary\ProjectResourceController;
 use App\Http\Controllers\Projects\Summary\ProjectUpdateController;
 use App\Http\Controllers\Projects\Tasks\ProjectAssignTaskController;
@@ -32,6 +33,7 @@ use App\Http\Controllers\Settings\Personalize\PersonalizeUserController;
 use App\Http\Controllers\Tasks\TaskController;
 use App\Http\Controllers\Tasks\TaskListController;
 use App\Http\Controllers\Tasks\TaskSearchUserController;
+use App\Http\Controllers\Users\UserSearchController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -57,6 +59,7 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
     Route::get('search', [SearchController::class, 'index'])->name('search.index');
     Route::post('search', [SearchController::class, 'show'])->name('search.show');
 
+    // profile
     Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('profile/avatar', [ProfileAvatarController::class, 'update'])->name('profile.avatar.update');
@@ -80,6 +83,9 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
     Route::post('tasks', [TaskController::class, 'store'])->name('tasks.store');
     Route::put('tasks/{task}', [TaskController::class, 'update'])->name('tasks.update');
     Route::delete('tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
+
+    // search users
+    Route::post('search/users', [UserSearchController::class, 'index'])->name('user.search.index');
 
     // reaction to comments
     Route::post('comments/{comment}/reactions', [CommentReactionController::class, 'store'])->name('comments.reactions.store');
@@ -127,6 +133,10 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
         Route::post('projects/{project}/updates', [ProjectUpdateController::class, 'store'])->name('project_updates.store');
         Route::put('projects/{project}/updates/{update}', [ProjectUpdateController::class, 'update'])->name('project_updates.update');
         Route::delete('projects/{project}/updates/{update}', [ProjectUpdateController::class, 'destroy'])->name('project_updates.destroy');
+
+        // key people
+        Route::post('projects/{project}/keyPeople', [ProjectKeyPeopleController::class, 'store'])->name('key_people.store');
+        Route::delete('projects/{project}/keyPeople/{people}', [ProjectKeyPeopleController::class, 'destroy'])->name('key_people.destroy');
 
         // tasklists
         Route::get('projects/{project}/taskLists', [ProjectTaskListController::class, 'index'])->name('tasks.index');

@@ -185,7 +185,7 @@ const destroy = (projectResource) => {
 
         <!-- right -->
         <div class="mb-6">
-          <KeyPeople />
+          <KeyPeople :data="data" />
         </div>
       </div>
     </div>

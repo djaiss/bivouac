@@ -311,7 +311,7 @@ const cancelSearch = () => {
 
                 <!-- search results -->
                 <div v-if="searchResults.length > 0" class="mt-3 rounded-lg border">
-                  <div v-for="result in searchResults" :key="result.id" class="item-list flex items-center border-b border-gray-200 px-5 py-2 hover:bg-slate-50">
+                  <div v-for="result in searchResults" :key="result.id" class="item-list flex items-center justify-between border-b border-gray-200 px-5 py-2 hover:bg-slate-50">
                     <Avatar v-tooltip="result.name" :data="result.avatar" class="mr-2 h-6 w-6 cursor-pointer rounded-full" />
 
                     <span @click="assign(result)" class="flex cursor-pointer rounded-md border border-gray-300 bg-gray-100 px-3 py-1 font-semibold text-gray-700 hover:border-solid hover:border-gray-500 hover:bg-gray-200">
