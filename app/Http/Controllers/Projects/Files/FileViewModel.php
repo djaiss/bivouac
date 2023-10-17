@@ -13,7 +13,6 @@ class FileViewModel
         return [
             'id' => $file->id,
             'name' => $file->name,
-            'url' => $file->getFullUrl(),
             'size' => $file->human_readable_size,
             'extension' => $extension,
             'uploaded_at' => $file->created_at->format('Y-m-d'),
