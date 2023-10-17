@@ -8,12 +8,18 @@ import FileUpload from '@/Components/FileUpload.vue';
 import axios from 'axios';
 
 const props = defineProps({
-  data: {
+  files: {
     type: Array,
+  },
+  urlIndex: {
+    type: String,
+  },
+  urlUpload: {
+    type: String,
   },
 });
 
-const localFiles = ref(props.data.files);
+const localFiles = ref(props.files);
 
 const download = (file) => {
   window.open(file.url.download, '_blank');
@@ -22,7 +28,7 @@ const download = (file) => {
 const refresh = () => {
   flash(trans('The file has been uploaded'));
 
-  axios.get(props.data.url.files_index).then((response) => {
+  axios.get(props.urlIndex).then((response) => {
     localFiles.value = response.data.data;
   });
 };
@@ -40,7 +46,7 @@ const destroy = (file) => {
 
 <template>
   <div>
-    <FileUpload :url="data.url.upload" @file-uploaded="refresh()" />
+    <FileUpload :url="urlUpload" @file-uploaded="refresh()" />
 
     <ul v-if="localFiles.length > 0" class="mt-3">
       <li v-for="file in localFiles" :key="file.id" class="flex items-center justify-between border-b px-3 py-2 last:border-0 hover:bg-slate-100">

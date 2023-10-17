@@ -9,6 +9,7 @@ use App\Http\Controllers\Profile\ProfileBirthdateController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Projects\CommentReactionController;
 use App\Http\Controllers\Projects\Files\MessageFileController;
+use App\Http\Controllers\Projects\Files\TaskFileController;
 use App\Http\Controllers\Projects\Members\MemberController;
 use App\Http\Controllers\Projects\Members\MemberUserController;
 use App\Http\Controllers\Projects\Messages\MessageCommentController;
@@ -141,6 +142,8 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
 
         // tasks
         Route::get('projects/{project}/tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
+        Route::get('projects/{project}/tasks/{task}/media', [TaskFileController::class, 'index'])->name('tasks.files.index');
+        Route::post('projects/{project}/tasks/{task}/upload', [TaskFileController::class, 'store'])->name('tasks.files.store');
 
         // members
         Route::get('projects/{project}/members', [MemberController::class, 'index'])->name('members.index');

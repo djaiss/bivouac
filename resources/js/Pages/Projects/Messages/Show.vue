@@ -67,7 +67,7 @@ const destroy = () => {
 
               <!-- files -->
               <div class="rounded-b-lg bg-gray-50 p-3">
-                <FileList :data="data" />
+                <FileList :files="data.files" :url-index="data.url.files_index" :url-upload="data.url.upload" />
               </div>
             </div>
 
