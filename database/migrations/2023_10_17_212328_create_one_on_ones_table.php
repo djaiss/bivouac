@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('one_on_ones', function (Blueprint $table) {
+        Schema::create('one_on_ones', function (Blueprint $table): void {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('other_user_id');
@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('other_user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
-        Schema::create('one_on_one_entries', function (Blueprint $table) {
+        Schema::create('one_on_one_entries', function (Blueprint $table): void {
             $table->id();
             $table->unsignedBigInteger('one_on_one_id');
             $table->string('body');
