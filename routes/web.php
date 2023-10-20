@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\ValidateInvitationController;
 use App\Http\Controllers\Files\FileController;
 use App\Http\Controllers\Files\FileDownloadController;
+use App\Http\Controllers\OneOnOnes\OneOnOneController;
 use App\Http\Controllers\PreviewController;
 use App\Http\Controllers\Profile\ProfileAvatarController;
 use App\Http\Controllers\Profile\ProfileBirthdateController;
@@ -93,6 +94,14 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
     // task lists and tasks
     Route::middleware(['taskList'])->group(function (): void {
         Route::put('taskLists/{taskList}/toggle', [TaskListController::class, 'toggle'])->name('task_lists.toggle');
+    });
+
+    // one on ones
+    Route::get('oneonones', [OneOnOneController::class, 'index'])->name('oneonones.index');
+    Route::get('oneonones/create', [OneOnOneController::class, 'create'])->name('oneonones.create');
+    Route::post('oneonones', [OneOnOneController::class, 'store'])->name('oneonones.store');
+    Route::middleware(['oneOnOne'])->group(function (): void {
+        Route::get('oneonones/{oneOnOne}', [OneOnOneController::class, 'show'])->name('oneonones.show');
     });
 
     // projects

@@ -13,7 +13,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['inter', ...defaultTheme.fontFamily.sans],
+        sans: [defaultTheme.fontFamily.sans],
       },
     },
   },

@@ -1,5 +1,5 @@
 <script setup>
-import { BellIcon, BuildingOffice2Icon, HomeIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/solid';
+import { BellIcon, ChatBubbleLeftRightIcon, HomeIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/solid';
 import { BriefcaseIcon, Cog8ToothIcon, QuestionMarkCircleIcon } from '@heroicons/vue/24/solid';
 import { ArrowLeftOnRectangleIcon, ComputerDesktopIcon } from '@heroicons/vue/24/solid';
 import { Link, usePage } from '@inertiajs/vue3';
@@ -61,17 +61,18 @@ onMounted(() => {
               <span class="ml-2">{{ $t('Home') }}</span>
             </li>
 
-            <!-- company -->
-            <li class="group flex items-center px-4 py-2 hover:bg-slate-900 hover:text-white">
-              <BuildingOffice2Icon class="h-4 w-4 transition ease-in-out group-hover:fill-current group-hover:text-blue-500" />
-              <span class="ml-2">Basecamp</span>
-            </li>
-
             <!-- projects -->
             <li class="group flex items-center px-4 py-2 hover:bg-slate-900 hover:text-white">
               <BriefcaseIcon class="h-4 w-4 transition ease-in-out group-hover:fill-current group-hover:text-blue-500" />
               <span class="ml-2">
                 <Link :href="page.props.url.projects">{{ $t('Projects') }}</Link>
+              </span>
+            </li>
+            <!-- one on ones -->
+            <li class="group flex items-center px-4 py-2 hover:bg-slate-900 hover:text-white">
+              <ChatBubbleLeftRightIcon class="h-4 w-4 transition ease-in-out group-hover:fill-current group-hover:text-blue-500" />
+              <span class="ml-2">
+                <Link :href="page.props.url.one_on_ones">{{ $t('1:1s') }}</Link>
               </span>
             </li>
 
