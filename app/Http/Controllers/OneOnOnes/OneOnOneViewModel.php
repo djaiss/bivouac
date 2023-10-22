@@ -36,6 +36,9 @@ class OneOnOneViewModel
                 'name' => $oneOnOne->otherUser->name,
                 'avatar' => $oneOnOne->otherUser->avatar,
             ],
+            'url' => [
+                'show' => route('oneonones.show', $oneOnOne),
+            ],
         ];
     }
 
@@ -64,6 +67,19 @@ class OneOnOneViewModel
             'users' => $users,
             'url' => [
                 'store' => route('oneonones.store'),
+                'breadcrumb' => [
+                    'oneonones' => route('oneonones.index'),
+                ],
+            ],
+        ];
+    }
+
+    public static function show(OneOnOne $oneOnOne): array
+    {
+        return [
+            'one_on_one' => self::dtoOneOnOne($oneOnOne),
+            'url' => [
+                'index' => route('oneonones.index'),
                 'breadcrumb' => [
                     'oneonones' => route('oneonones.index'),
                 ],

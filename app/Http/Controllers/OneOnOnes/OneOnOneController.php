@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\OneOnOnes;
 
 use App\Http\Controllers\Controller;
+use App\Models\OneOnOne;
 use App\Services\CreateOneOnOne;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -37,5 +38,12 @@ class OneOnOneController extends Controller
         return response()->json([
             'data' => route('oneonones.show', $oneOnOne),
         ], 201);
+    }
+
+    public function show(Request $request, OneOnOne $oneOnOne): Response
+    {
+        return Inertia::render('OneOnOnes/Show', [
+            'data' => OneOnOneViewModel::show($request->oneOnOne),
+        ]);
     }
 }

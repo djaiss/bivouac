@@ -87,7 +87,7 @@ class OneOnOneViewModelTest extends TestCase
         ]);
         $array = OneOnOneViewModel::dtoOneOnOne($oneOnOne);
 
-        $this->assertCount(3, $array);
+        $this->assertCount(4, $array);
         $this->assertEquals(
             [
                 'id' => $oneOnOne->id,
@@ -100,6 +100,9 @@ class OneOnOneViewModelTest extends TestCase
                     'id' => $otherUser->id,
                     'name' => $otherUser->name,
                     'avatar' => $otherUser->avatar,
+                ],
+                'url' => [
+                    'show' => env('APP_URL') . '/oneonones/' . $oneOnOne->id,
                 ],
             ],
             $array

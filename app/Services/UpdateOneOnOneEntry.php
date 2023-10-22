@@ -9,7 +9,6 @@ use App\Models\User;
 class UpdateOneOnOneEntry extends BaseService
 {
     private User $user;
-    private OneOnOne $oneOnOne;
     private OneOnOneEntry $oneOnOneEntry;
     private array $data;
 
@@ -39,7 +38,7 @@ class UpdateOneOnOneEntry extends BaseService
 
         $this->oneOnOneEntry = OneOnOneEntry::findOrFail($this->data['one_on_one_entry_id']);
 
-        $this->oneOnOne = OneOnOne::where('user_id', $this->user->id)
+        OneOnOne::where('user_id', $this->user->id)
             ->orWhere('other_user_id', $this->user->id)
             ->findOrFail($this->oneOnOneEntry->oneOnOne->id);
     }
