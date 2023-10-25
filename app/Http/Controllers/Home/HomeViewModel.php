@@ -35,6 +35,21 @@ class HomeViewModel
                     'id' => $task->taskList->id,
                     'name' => $task->taskList->name,
                 ],
+                'project' => [
+                    'id' => $task->taskList->project_id,
+                    'name' => $task->taskList->project->name,
+                    'url' => [
+                        'show' => route('projects.show', $task->taskList->project_id),
+                    ]
+                ],
+                'assignees' => $task->users()
+                    ->get()
+                    ->map(fn (User $user) => [
+                        'id' => $user->id,
+                        'name' => $user->name,
+                        'avatar' => $user->avatar,
+                        'url' => route('users.show', $user),
+                    ]),
                 'url' => [
                     'show' => route('tasks.show', [
                         'project' => $task->taskList->project_id,
