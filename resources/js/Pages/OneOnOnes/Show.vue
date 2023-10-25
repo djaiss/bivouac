@@ -158,7 +158,7 @@ const destroy = (entry) => {
 
               <!-- information -->
               <div class="flex items-center">
-                <Avatar :data="data.one_on_one.other_user.avatar" class="mr-2 w-4" />
+                <Avatar :data="entry.user.avatar" class="mr-2 w-4" />
 
                 <span class="mr-2 text-xs text-gray-500">{{ entry.written_at }}</span>
 
@@ -237,7 +237,7 @@ const destroy = (entry) => {
 
         <div class="flex items-center">
           <p class="mr-3">{{ entry.body }}</p>
-          <Avatar :data="data.one_on_one.other_user.avatar" class="mr-2 w-4" />
+          <Avatar :data="entry.user.avatar" class="mr-2 w-4" />
 
           <span class="mr-2 text-xs text-gray-500">{{ entry.written_at }}</span>
         </div>
