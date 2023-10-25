@@ -4,6 +4,7 @@ namespace Tests\Unit\Models;
 
 use App\Models\Organization;
 use App\Models\Project;
+use App\Models\ProjectVisit;
 use App\Models\Task;
 use App\Models\User;
 use Carbon\Carbon;
@@ -54,6 +55,17 @@ class UserTest extends TestCase
         $user->tasks()->attach($task);
 
         $this->assertTrue($user->tasks()->exists());
+    }
+
+    /** @test */
+    public function it_belongs_to_many_project_visits(): void
+    {
+        $user = User::factory()->create();
+        ProjectVisit::factory()->create([
+            'user_id' => $user->id,
+        ]);
+
+        $this->assertTrue($user->projectVisits()->exists());
     }
 
     /** @test */

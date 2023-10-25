@@ -58,7 +58,9 @@ onMounted(() => {
             <!-- dashboard -->
             <li class="group flex items-center px-4 py-2 hover:bg-slate-900 hover:text-white">
               <HomeIcon class="h-4 w-4 transition ease-in-out group-hover:fill-current group-hover:text-blue-500" />
-              <span class="ml-2">{{ $t('Home') }}</span>
+              <span class="ml-2">
+                <Link :href="page.props.url.home">{{ $t('Home') }}</Link>
+              </span>
             </li>
 
             <!-- projects -->

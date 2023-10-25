@@ -41,6 +41,7 @@ class HandleInertiaRequests extends Middleware
             ],
             'url' => [
                 'search' => route('search.index'),
+                'home' => route('home.index'),
                 'projects' => route('projects.index'),
                 'one_on_ones' => route('oneonones.index'),
                 'profile' => route('profile.edit'),

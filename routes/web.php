@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\ValidateInvitationController;
 use App\Http\Controllers\Files\FileController;
 use App\Http\Controllers\Files\FileDownloadController;
+use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\OneOnOnes\OneOnOneController;
 use App\Http\Controllers\OneOnOnes\OneOnOneEntryController;
 use App\Http\Controllers\PreviewController;
@@ -61,6 +62,9 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
     // universal search
     Route::get('search', [SearchController::class, 'index'])->name('search.index');
     Route::post('search', [SearchController::class, 'show'])->name('search.show');
+
+    // home
+    Route::get('home', [HomeController::class, 'index'])->name('home.index');
 
     // profile
     Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');

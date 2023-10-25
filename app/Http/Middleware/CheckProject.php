@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Jobs\RecordVisit;
 use App\Models\Project;
 use Closure;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -30,6 +31,8 @@ class CheckProject
             if ($project->users()->where('user_id', $request->user()->id)->doesntExist() && ! $project->is_public) {
                 throw new ModelNotFoundException;
             }
+
+            RecordVisit::dispatch($project, auth()->user());
 
             $request->attributes->add(['project' => $project]);
 
