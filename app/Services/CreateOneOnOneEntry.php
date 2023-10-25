@@ -45,7 +45,8 @@ class CreateOneOnOneEntry extends BaseService
     private function create(): void
     {
         $this->oneOnOneEntry = OneOnOneEntry::create([
-            'one_on_one_id' => $this->oneOnOne->id,
+            'one_on_one_id' => $this->data['one_on_one_id'],
+            'user_id' => $this->user->id,
             'body' => $this->data['body'],
         ]);
     }

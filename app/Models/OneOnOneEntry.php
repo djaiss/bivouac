@@ -14,6 +14,7 @@ class OneOnOneEntry extends Model
 
     protected $fillable = [
         'one_on_one_id',
+        'user_id',
         'body',
         'checked_at',
     ];
@@ -21,6 +22,11 @@ class OneOnOneEntry extends Model
     protected $casts = [
         'checked_at' => 'datetime',
     ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function oneOnOne(): BelongsTo
     {

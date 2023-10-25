@@ -93,7 +93,9 @@ class OneOnOneViewModel
             'inactive_points_of_discussion' => $inactivePointsOfDiscussion,
             'url' => [
                 'index' => route('oneonones.index'),
-                'store' => route('oneonones.entries.store', $oneOnOne),
+                'store' => route('oneonones.entries.store', [
+                    'oneOnOne' => $oneOnOne->id,
+                ]),
                 'breadcrumb' => [
                     'oneonones' => route('oneonones.index'),
                 ],
@@ -108,6 +110,11 @@ class OneOnOneViewModel
             'body' => $entry->body,
             'written_at' => $entry->created_at->format('Y-m-d'),
             'checked' => (bool) $entry->checked_at,
+            'user' => [
+                'id' => $entry->user->id,
+                'name' => $entry->user->name,
+                'avatar' => $entry->user->avatar,
+            ],
             'url' => [
                 'update' => route('oneonones.entries.update', [
                     'oneOnOne' => $entry->one_on_one_id,

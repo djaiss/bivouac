@@ -158,7 +158,7 @@ class OneOnOneViewModelTest extends TestCase
 
         $array = OneOnOneViewModel::dtoEntry($oneOnOneEntry);
 
-        $this->assertCount(5, $array);
+        $this->assertCount(6, $array);
 
         $this->assertEquals(
             [
@@ -166,6 +166,11 @@ class OneOnOneViewModelTest extends TestCase
                 'body' => 'Ross',
                 'written_at' => '2018-01-01',
                 'checked' => false,
+                'user' => [
+                    'id' => $oneOnOneEntry->user->id,
+                    'name' => $oneOnOneEntry->user->name,
+                    'avatar' => $oneOnOneEntry->user->avatar,
+                ],
                 'url' => [
                     'update' => env('APP_URL') . '/oneonones/' . $oneOnOneEntry->one_on_one_id . '/entries/' . $oneOnOneEntry->id,
                     'toggle' => env('APP_URL') . '/oneonones/' . $oneOnOneEntry->one_on_one_id . '/entries/' . $oneOnOneEntry->id . '/toggle',

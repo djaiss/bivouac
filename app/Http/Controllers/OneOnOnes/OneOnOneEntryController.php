@@ -14,11 +14,11 @@ use Illuminate\Http\Request;
 
 class OneOnOneEntryController extends Controller
 {
-    public function store(Request $request): JsonResponse
+    public function store(Request $request, OneOnOne $oneOnOne): JsonResponse
     {
         $oneOnOneEntry = (new CreateOneOnOneEntry)->execute([
             'user_id' => auth()->user()->id,
-            'one_on_one_id' => $request->oneOnOne,
+            'one_on_one_id' => $oneOnOne->id,
             'body' => $request->input('body'),
         ]);
 

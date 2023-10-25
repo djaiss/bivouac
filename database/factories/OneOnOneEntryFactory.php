@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\OneOnOne;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,6 +20,7 @@ class OneOnOneEntryFactory extends Factory
     {
         return [
             'one_on_one_id' => OneOnOne::factory(),
+            'user_id' => User::factory(),
             'body' => $this->faker->sentence,
         ];
     }

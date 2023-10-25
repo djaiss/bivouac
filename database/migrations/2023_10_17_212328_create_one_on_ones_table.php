@@ -20,10 +20,12 @@ return new class extends Migration
         Schema::create('one_on_one_entries', function (Blueprint $table): void {
             $table->id();
             $table->unsignedBigInteger('one_on_one_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('body');
             $table->datetime('checked_at')->nullable();
             $table->timestamps();
             $table->foreign('one_on_one_id')->references('id')->on('one_on_ones')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 };
