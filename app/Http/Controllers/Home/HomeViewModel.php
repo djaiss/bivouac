@@ -40,7 +40,7 @@ class HomeViewModel
                     'name' => $task->taskList->project->name,
                     'url' => [
                         'show' => route('projects.show', $task->taskList->project_id),
-                    ]
+                    ],
                 ],
                 'assignees' => $task->users()
                     ->get()
