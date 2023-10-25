@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\OneOnOnes;
 
 use App\Models\OneOnOne;
+use App\Models\OneOnOneEntry;
 use App\Models\User;
 
 class OneOnOneViewModel
@@ -76,13 +77,50 @@ class OneOnOneViewModel
 
     public static function show(OneOnOne $oneOnOne): array
     {
+        $activePointsOfDiscussion = $oneOnOne->oneOnOneEntries()
+            ->whereNull('checked_at')
+            ->get()
+            ->map(fn (OneOnOneEntry $entry) => self::dtoEntry($entry));
+
+        $inactivePointsOfDiscussion = $oneOnOne->oneOnOneEntries()
+            ->whereNotNull('checked_at')
+            ->get()
+            ->map(fn (OneOnOneEntry $entry) => self::dtoEntry($entry));
+
         return [
             'one_on_one' => self::dtoOneOnOne($oneOnOne),
+            'active_points_of_discussion' => $activePointsOfDiscussion,
+            'inactive_points_of_discussion' => $inactivePointsOfDiscussion,
             'url' => [
                 'index' => route('oneonones.index'),
+                'store' => route('oneonones.entries.store', $oneOnOne),
                 'breadcrumb' => [
                     'oneonones' => route('oneonones.index'),
                 ],
+            ],
+        ];
+    }
+
+    public static function dtoEntry(OneOnOneEntry $entry): array
+    {
+        return [
+            'id' => $entry->id,
+            'body' => $entry->body,
+            'written_at' => $entry->created_at->format('Y-m-d'),
+            'checked' => (bool) $entry->checked_at,
+            'url' => [
+                'update' => route('oneonones.entries.update', [
+                    'oneOnOne' => $entry->one_on_one_id,
+                    'entry' => $entry->id,
+                ]),
+                'toggle' => route('oneonones.entries.toggle', [
+                    'oneOnOne' => $entry->one_on_one_id,
+                    'entry' => $entry->id,
+                ]),
+                'destroy' => route('oneonones.entries.destroy', [
+                    'oneOnOne' => $entry->one_on_one_id,
+                    'entry' => $entry->id,
+                ]),
             ],
         ];
     }

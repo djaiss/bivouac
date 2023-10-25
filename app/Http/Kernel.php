@@ -73,6 +73,7 @@ class Kernel extends HttpKernel
         'taskList' => \App\Http\Middleware\CheckTaskList::class,
         'media' => \App\Http\Middleware\CheckMedia::class,
         'oneOnOne' => \App\Http\Middleware\CheckOneOnOne::class,
+        'oneOnOneEntry' => \App\Http\Middleware\CheckOneOnOneEntry::class,
         'last_activity' => \App\Http\Middleware\UpdateLastActivityDate::class,
     ];
 }

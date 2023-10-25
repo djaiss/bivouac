@@ -20,6 +20,8 @@ const emit = defineEmits(['esc-key-pressed', 'update:modelValue']);
 
 const input = ref(null);
 
+defineExpose({ focus: () => input.value.focus() });
+
 onMounted(() => {
   input.value.style.height = props.rows;
 

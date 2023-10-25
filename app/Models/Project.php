@@ -84,6 +84,11 @@ class Project extends Model
         return $this->hasMany(KeyPeople::class);
     }
 
+    public function files(): HasMany
+    {
+        return $this->hasMany(File::class);
+    }
+
     /**
      * @return Attribute<string,never>
      */

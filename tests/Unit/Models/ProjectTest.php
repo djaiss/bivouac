@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Models;
 
+use App\Models\File;
 use App\Models\KeyPeople;
 use App\Models\Message;
 use App\Models\Project;
@@ -88,6 +89,15 @@ class ProjectTest extends TestCase
         KeyPeople::factory()->create(['project_id' => $project->id]);
 
         $this->assertTrue($project->keyPeople()->exists());
+    }
+
+    /** @test */
+    public function it_has_many_files(): void
+    {
+        $project = Project::factory()->create();
+        File::factory()->create(['project_id' => $project->id]);
+
+        $this->assertTrue($project->files()->exists());
     }
 
     /** @test */

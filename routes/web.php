@@ -4,12 +4,14 @@ use App\Http\Controllers\Auth\ValidateInvitationController;
 use App\Http\Controllers\Files\FileController;
 use App\Http\Controllers\Files\FileDownloadController;
 use App\Http\Controllers\OneOnOnes\OneOnOneController;
+use App\Http\Controllers\OneOnOnes\OneOnOneEntryController;
 use App\Http\Controllers\PreviewController;
 use App\Http\Controllers\Profile\ProfileAvatarController;
 use App\Http\Controllers\Profile\ProfileBirthdateController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Projects\CommentReactionController;
 use App\Http\Controllers\Projects\Files\MessageFileController;
+use App\Http\Controllers\Projects\Files\ProjectFileController;
 use App\Http\Controllers\Projects\Files\TaskFileController;
 use App\Http\Controllers\Projects\Members\MemberController;
 use App\Http\Controllers\Projects\Members\MemberUserController;
@@ -102,6 +104,13 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
     Route::post('oneonones', [OneOnOneController::class, 'store'])->name('oneonones.store');
     Route::middleware(['oneOnOne'])->group(function (): void {
         Route::get('oneonones/{oneOnOne}', [OneOnOneController::class, 'show'])->name('oneonones.show');
+        Route::post('oneonones/{oneOnOne}/entries', [OneOnOneEntryController::class, 'store'])->name('oneonones.entries.store');
+
+        Route::middleware(['oneOnOneEntry'])->group(function (): void {
+            Route::put('oneonones/{oneOnOne}/entries/{entry}/toggle', [OneOnOneEntryController::class, 'toggle'])->name('oneonones.entries.toggle');
+            Route::put('oneonones/{oneOnOne}/entries/{entry}', [OneOnOneEntryController::class, 'update'])->name('oneonones.entries.update');
+            Route::delete('oneonones/{oneOnOne}/entries/{entry}', [OneOnOneEntryController::class, 'destroy'])->name('oneonones.entries.destroy');
+        });
     });
 
     // projects
@@ -137,6 +146,9 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
             Route::put('projects/{project}/messages/{message}/comments/{comment}', [MessageCommentController::class, 'update'])->name('messages.comments.update');
             Route::delete('projects/{project}/messages/{message}/comments/{comment}', [MessageCommentController::class, 'destroy'])->name('messages.comments.destroy');
         });
+
+        // files
+        Route::get('projects/{project}/files', [ProjectFileController::class, 'index'])->name('files.index');
 
         // project updates
         Route::post('projects/{project}/updates', [ProjectUpdateController::class, 'store'])->name('project_updates.store');

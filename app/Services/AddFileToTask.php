@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Models\File;
 use App\Models\Task;
+use App\Models\User;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class AddFileToTask extends BaseService
@@ -10,6 +12,7 @@ class AddFileToTask extends BaseService
     private Media $media;
     private Task $task;
     private array $data;
+    private User $user;
 
     public function rules(): array
     {
@@ -26,6 +29,7 @@ class AddFileToTask extends BaseService
 
         $this->validate();
         $this->move();
+        $this->createFile();
 
         return $this->media;
     }
@@ -33,6 +37,8 @@ class AddFileToTask extends BaseService
     private function validate(): void
     {
         $this->validateRules($this->data);
+
+        $this->user = User::findOrFail($this->data['user_id']);
 
         $this->task = Task::findOrFail($this->data['task_id']);
     }
@@ -42,5 +48,19 @@ class AddFileToTask extends BaseService
         $this->media = $this->task
             ->addMedia($this->data['file_path'])
             ->toMediaCollection('files');
+    }
+
+    /**
+     * The Spatie media library package, which we use to store the files, doesn't
+     * let us store the project id or the organization id. We need to have
+     * an intermediate table that will store those information for us.
+     */
+    private function createFile(): void
+    {
+        File::create([
+            'organization_id' => $this->user->organization_id,
+            'project_id' => $this->task->taskList->project_id,
+            'media_id' => $this->media->id,
+        ]);
     }
 }

@@ -96,7 +96,7 @@ const submit = () => {
               <InputLabel for="title" :value="$t('Who should this one-on-one be with?')" class="mb-1" />
 
               <!-- list of users -->
-              <ul v-if="!chosenUser" class="overflow-auto rounded-lg border bg-white dark:bg-gray-900" :class="data.users.length > 0 ? 'h-80' : ''">
+              <ul v-if="!chosenUser" class="overflow-auto rounded-lg border bg-white dark:bg-gray-900" :class="data.users.length > 0 ? 'max-h-80' : ''">
                 <li v-for="user in data.users" :key="user.id" class="flex cursor-pointer items-center justify-between border-b border-gray-200 px-3 py-2 last:border-0 hover:bg-slate-50 dark:border-gray-700 dark:bg-slate-900 hover:dark:bg-slate-800">
                   <div class="flex items-center">
                     <Avatar :data="user.avatar" :url="user.url" class="mr-2 w-5" />
@@ -133,7 +133,7 @@ const submit = () => {
               {{ $t('Back') }}
             </Link>
 
-            <PrimaryButton class="ml-4" :loading="loadingState" :disabled="loadingState && !chosenUser">
+            <PrimaryButton class="ml-4" :loading="loadingState" :disabled="loadingState || !chosenUser">
               {{ $t('Save') }}
             </PrimaryButton>
           </div>
