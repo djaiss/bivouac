@@ -9,7 +9,6 @@ use App\Models\User;
 class CreateOneOnOneEntry extends BaseService
 {
     private User $user;
-    private OneOnOne $oneOnOne;
     private OneOnOneEntry $oneOnOneEntry;
     private array $data;
 
@@ -37,7 +36,7 @@ class CreateOneOnOneEntry extends BaseService
 
         $this->user = User::findOrFail($this->data['user_id']);
 
-        $this->oneOnOne = OneOnOne::where('user_id', $this->user->id)
+        OneOnOne::where('user_id', $this->user->id)
             ->orWhere('other_user_id', $this->user->id)
             ->findOrFail($this->data['one_on_one_id']);
     }
