@@ -246,6 +246,7 @@ class ProjectViewModelTest extends TestCase
                 'summary' => env('APP_URL') . '/projects/' . $project->id,
                 'messages' => env('APP_URL') . '/projects/' . $project->id . '/messages',
                 'tasks' => env('APP_URL') . '/projects/' . $project->id . '/taskLists',
+                'files' => env('APP_URL') . '/projects/' . $project->id . '/files',
                 'members' => env('APP_URL') . '/projects/' . $project->id . '/members',
                 'settings' => env('APP_URL') . '/projects/' . $project->id . '/edit',
             ],

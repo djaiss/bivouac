@@ -95,10 +95,3 @@ const props = defineProps({
     </div>
   </AuthenticatedLayout>
 </template>
-
-<style lang="scss" scoped>
-.more-members {
-  height: 32px;
-  top: 8px;
-}
-</style>

@@ -227,6 +227,9 @@ class ProjectViewModel
                 'tasks' => route('tasks.index', [
                     'project' => $project->id,
                 ]),
+                'files' => route('files.index', [
+                    'project' => $project->id,
+                ]),
                 'members' => route('members.index', [
                     'project' => $project->id,
                 ]),
