@@ -1,6 +1,6 @@
 <p align="center">
 
-![Bivouac's Logo](https://user-images.githubusercontent.com/61099/278423139-b8f05516-f8e5-40f1-9e88-5d039947fca7.png)
+![Bivouac's Logo](https://user-images.githubusercontent.com/61099/278448957-47901584-b976-4b39-80f0-421549309831.png)
 
 </p>
 

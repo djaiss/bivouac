@@ -4,11 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title inertia>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=song-myung:400&display=swap" rel="stylesheet" />
+    <title inertia>{{ config('app.name', 'Bivouac') }}</title>
 
     <!-- Scripts -->
     @routes

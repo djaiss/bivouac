@@ -132,9 +132,3 @@ onMounted(() => {
     <Toaster />
   </div>
 </template>
-
-<style lang="scss" scoped>
-.app-name {
-  font-family: 'Song Myung', serif;
-}
-</style>
