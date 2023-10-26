@@ -95,7 +95,10 @@ const destroy = (file) => {
         <!-- blank state -->
         <div v-else class="px-4 py-6 text-center">
           <h3 class="mb-2 text-lg font-medium text-gray-900">{{ $t('There are no files yet in this project.') }}</h3>
-          <img src="/img/messages.png" class="mx-auto block h-60 w-60" alt="" />
+          <p class="mb-5 text-gray-500">
+            {{ $t('Files can be added on messages and tasks.') }}
+          </p>
+          <img src="/img/files.png" class="mx-auto block h-60 w-60" alt="" />
         </div>
       </div>
     </div>

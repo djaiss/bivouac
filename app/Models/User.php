@@ -51,6 +51,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'last_active_at',
         'invitation_code',
+        'welcome_message_displayed',
     ];
 
     protected $hidden = [
@@ -63,6 +64,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'born_at' => 'datetime',
         'password' => 'hashed',
         'last_active_at' => 'datetime',
+        'welcome_message_displayed' => 'boolean',
     ];
 
     #[SearchUsingPrefix(['id', 'organization_id'])]
@@ -96,6 +98,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function tasks(): BelongsToMany
     {
         return $this->belongsToMany(Task::class);
+    }
+
+    public function projectVisits(): HasMany
+    {
+        return $this->hasMany(ProjectVisit::class);
     }
 
     /**

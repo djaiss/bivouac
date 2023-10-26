@@ -39,7 +39,7 @@ onMounted(() => {
           </div>
 
           <!-- search and notifications -->
-          <ul class="mb-4 border-b border-slate-700 pb-4 text-slate-400">
+          <!-- <ul class="mb-4 border-b border-slate-700 pb-4 text-slate-400">
             <li class="group flex items-center px-4 py-2 hover:bg-slate-900 hover:text-white">
               <MagnifyingGlassIcon class="h-4 w-4 transition ease-in-out group-hover:fill-current group-hover:text-blue-500" />
               <span class="ml-2">
@@ -51,14 +51,16 @@ onMounted(() => {
               <BellIcon class="h-4 w-4 transition ease-in-out group-hover:fill-current group-hover:text-blue-500" />
               <span class="ml-2">{{ $t('Notifications') }}</span>
             </li>
-          </ul>
+          </ul> -->
 
           <!-- general menu -->
           <ul class="mb-4 border-b border-slate-700 pb-4 text-slate-400">
             <!-- dashboard -->
             <li class="group flex items-center px-4 py-2 hover:bg-slate-900 hover:text-white">
               <HomeIcon class="h-4 w-4 transition ease-in-out group-hover:fill-current group-hover:text-blue-500" />
-              <span class="ml-2">{{ $t('Home') }}</span>
+              <span class="ml-2">
+                <Link :href="page.props.url.home">{{ $t('Home') }}</Link>
+              </span>
             </li>
 
             <!-- projects -->
@@ -77,10 +79,10 @@ onMounted(() => {
             </li>
 
             <!-- asset management -->
-            <li class="group flex items-center px-4 py-2 hover:bg-slate-900 hover:text-white">
+            <!-- <li class="group flex items-center px-4 py-2 hover:bg-slate-900 hover:text-white">
               <ComputerDesktopIcon class="h-4 w-4 transition ease-in-out group-hover:fill-current group-hover:text-blue-500" />
               <span class="ml-2">{{ $t('Asset management') }}</span>
-            </li>
+            </li> -->
 
             <!-- settings -->
             <li v-if="user.permissions !== 'user'" :class="{ 'bg-slate-900 text-white': $page.component.startsWith('Settings') }" class="group flex items-center px-4 py-2 hover:bg-slate-900 hover:text-white">
@@ -93,10 +95,10 @@ onMounted(() => {
 
           <!-- help and user -->
           <ul class="mb-4 border-b border-slate-700 pb-4 text-slate-400">
-            <li class="group flex items-center px-4 py-2 hover:bg-slate-900 hover:text-white">
+            <!-- <li class="group flex items-center px-4 py-2 hover:bg-slate-900 hover:text-white">
               <QuestionMarkCircleIcon class="h-4 w-4 transition ease-in-out group-hover:fill-current group-hover:text-blue-500" />
               <span class="ml-2">{{ $t('Help') }}</span>
-            </li>
+            </li> -->
 
             <li class="group flex items-center px-4 py-2 hover:bg-slate-900 hover:text-white">
               <ArrowLeftOnRectangleIcon class="h-4 w-4 transition ease-in-out group-hover:fill-current group-hover:text-blue-500" />
@@ -113,6 +115,13 @@ onMounted(() => {
               <span class="ml-2">
                 <Link :href="page.props.url.profile">{{ user.name }}</Link>
               </span>
+            </li>
+          </ul>
+
+          <ul class="list mb-4 px-4 py-2 text-center">
+            <li class="mr-2 inline">
+              <Link :href="page.props.url.locale.update_fr" class="mr-4 text-sm text-white hover:bg-transparent">{{ $t('French') }}</Link>
+              <Link :href="page.props.url.locale.update_en" class="text-sm text-white hover:bg-transparent">{{ $t('English') }}</Link>
             </li>
           </ul>
         </div>

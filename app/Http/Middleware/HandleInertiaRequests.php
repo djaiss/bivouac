@@ -41,11 +41,16 @@ class HandleInertiaRequests extends Middleware
             ],
             'url' => [
                 'search' => route('search.index'),
+                'home' => route('home.index'),
                 'projects' => route('projects.index'),
                 'one_on_ones' => route('oneonones.index'),
                 'profile' => route('profile.edit'),
                 'settings' => [
                     'index' => route('settings.index'),
+                ],
+                'locale' => [
+                    'update_fr' => route('locale.update', ['locale' => 'fr']),
+                    'update_en' => route('locale.update', ['locale' => 'en']),
                 ],
             ],
             'ziggy' => function () use ($request) {

@@ -228,7 +228,7 @@ const destroyList = () => {
               <!-- assignees -->
               <div v-if="task.assignees.length > 0">
                 <div class="flex -space-x-3">
-                  <Avatar v-for="assignee in task.assignees" :key="assignee.id" v-tooltip="assignee.name" :data="assignee.avatar" :url="assignee.url" class="h-6 w-6 cursor-pointer rounded-full border-2 border-white dark:border-gray-800" />
+                  <Avatar v-for="assignee in task.assignees" :key="assignee.id" v-tooltip="assignee.name" :data="assignee.avatar" class="h-6 w-6 cursor-pointer rounded-full border-2 border-white dark:border-gray-800" />
                 </div>
               </div>
 

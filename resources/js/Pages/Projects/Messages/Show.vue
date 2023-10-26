@@ -50,9 +50,9 @@ const destroy = () => {
                 <!-- avatar + name -->
                 <div class="mb-8 flex items-center justify-center text-sm">
                   <Avatar v-if="data.message.author.avatar" :data="data.message.author.avatar" :url="data.message.author.url" class="mr-2 w-5" />
-                  <Link :href="data.message.author.url" class="mr-4 text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
-                    {{ data.message.author.name }}
-                  </Link>
+                  <!-- <Link :href="data.message.author.url" class="mr-4 text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white"> -->
+                  <p class="mr-4">{{ data.message.author.name }}</p>
+                  <!-- </Link> -->
                   <p>{{ data.message.created_at }}</p>
                 </div>
 
