@@ -17,6 +17,7 @@ class PersonalizeViewModel
                 'offices' => route('settings.office.index'),
                 'team_types' => route('settings.team_type.index'),
                 'upgrade' => route('settings.upgrade.index'),
+                'organization' => route('settings.organization.delete'),
             ],
         ];
     }

@@ -60,9 +60,9 @@ const props = defineProps({
             <!-- blank state -->
             <div v-else>
               <div class="px-4 py-6 text-center">
-                <h3 class="mb-2 text-lg font-medium text-gray-900">{{ $t('1:1s are a great way to connect with each other and to follow up on what needs to be done.') }}</h3>
-                <p class="mb-10 text-gray-500">{{ $t('Get started by adding your first 1:1 with someone.') }}</p>
-                <img src="/img/projects.png" class="mx-auto block h-60 w-60" alt="projects" />
+                <h3 class="mb-2 text-lg font-medium text-gray-900">{{ $t('Get started by adding your first 1:1 with someone.') }}</h3>
+                <p class="mb-10 text-gray-500">{{ $t('1:1s are a great way to connect with each other and to follow up on what needs to be done.') }}</p>
+                <img src="/img/oneonone.png" class="mx-auto block h-60 w-60" alt="projects" />
               </div>
             </div>
           </div>

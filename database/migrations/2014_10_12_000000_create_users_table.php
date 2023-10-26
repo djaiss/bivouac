@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->string('invitation_code')->nullable();
             $table->datetime('last_active_at')->nullable();
+            $table->boolean('welcome_message_displayed')->default(true);
             $table->rememberToken();
             $table->timestamps();
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Http\Controllers\Projects\ProjectViewModel;
 use App\Models\ProjectVisit;
 use App\Models\Task;
 use App\Models\User;
@@ -15,12 +16,10 @@ class HomeViewModel
             ->orderByDesc('created_at')
             ->limit(5)
             ->get()
+            ->unique('project_id')
             ->map(fn (ProjectVisit $visit) => [
                 'id' => $visit->id,
-                'project' => [
-                    'id' => $visit->project->id,
-                    'name' => $visit->project->name,
-                ],
+                'project' => ProjectViewModel::dto($visit->project),
             ]);
 
         $assignedTasks = Task::where('is_completed', false)
@@ -61,6 +60,10 @@ class HomeViewModel
         return [
             'latest_visits' => $latestVisits,
             'tasks' => $assignedTasks,
+            'welcome_message_displayed' => $user->welcome_message_displayed,
+            'url' => [
+                'hide' => route('home.hide'),
+            ],
         ];
     }
 }

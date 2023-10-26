@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\ValidateInvitationController;
 use App\Http\Controllers\Files\FileController;
 use App\Http\Controllers\Files\FileDownloadController;
 use App\Http\Controllers\Home\HomeController;
+use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\OneOnOnes\OneOnOneController;
 use App\Http\Controllers\OneOnOnes\OneOnOneEntryController;
 use App\Http\Controllers\PreviewController;
@@ -34,6 +35,7 @@ use App\Http\Controllers\Settings\Personalize\PersonalizeOfficeController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeTeamTypeController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeUpgradeController;
 use App\Http\Controllers\Settings\Personalize\PersonalizeUserController;
+use App\Http\Controllers\Settings\Personalize\SettingsOrganizationController;
 use App\Http\Controllers\Tasks\TaskController;
 use App\Http\Controllers\Tasks\TaskListController;
 use App\Http\Controllers\Tasks\TaskSearchUserController;
@@ -65,6 +67,12 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
 
     // home
     Route::get('home', [HomeController::class, 'index'])->name('home.index');
+
+    // hide welcome message
+    Route::post('hide', [HomeController::class, 'hide'])->name('home.hide');
+
+    // language
+    Route::get('locale/{locale}', [LocaleController::class, 'update'])->name('locale.update');
 
     // profile
     Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -234,6 +242,9 @@ Route::middleware('auth', 'verified', 'last_activity')->group(function (): void 
         Route::middleware(['account_manager'])->group(function (): void {
             Route::get('settings/upgrade', [PersonalizeUpgradeController::class, 'index'])->name('settings.upgrade.index');
             Route::put('settings/upgrade', [PersonalizeUpgradeController::class, 'update'])->name('settings.upgrade.update');
+
+            Route::get('settings/delete', [SettingsOrganizationController::class, 'delete'])->name('settings.organization.delete');
+            Route::delete('settings', [SettingsOrganizationController::class, 'destroy'])->name('settings.organization.destroy');
         });
     });
 });

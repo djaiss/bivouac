@@ -23,7 +23,7 @@ class ValidateInvitationController extends Controller
         $user = User::where('invitation_code', $code)->firstOrFail();
 
         if ($user->email_verified_at) {
-            return redirect()->route('dashboard');
+            return redirect()->route('home');
         }
 
         return Inertia::render('Auth/ValidateInvitation', [
@@ -47,7 +47,7 @@ class ValidateInvitationController extends Controller
             $request->session()->regenerate();
 
             return response()->json([
-                'data' => route('dashboard'),
+                'data' => route('home'),
             ], 200);
         }
 

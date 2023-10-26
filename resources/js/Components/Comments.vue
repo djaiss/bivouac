@@ -113,9 +113,10 @@ const destroy = (comment) => {
               <div class="flex items-center">
                 <div class="mr-3 flex items-center">
                   <Avatar v-if="comment.author.avatar" :data="comment.author.avatar" :url="comment.author.url" class="mr-2 w-5" />
-                  <Link :href="comment.author.url" class="inline text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
-                    {{ comment.author.name }}
-                  </Link>
+                  <p>{{ comment.author.name }}</p>
+                  <!-- <Link :href="comment.author.url" class="inline text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white">
+
+                  </Link> -->
                 </div>
 
                 <time>{{ comment.created_at }}</time>

@@ -49,7 +49,7 @@ const removeList = (taskList) => {
           <p class="mb-5 text-gray-500">
             {{ $t('Create a task list to begin tracking your tasks and assign them to the appropriate people.') }}
           </p>
-          <img src="/img/messages.png" class="mx-auto block h-60 w-60" alt="" />
+          <img src="/img/tasks.png" class="mx-auto block h-60 w-60" alt="" />
         </div>
       </div>
 

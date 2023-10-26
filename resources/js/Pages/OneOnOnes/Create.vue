@@ -90,7 +90,7 @@ const submit = () => {
             </h3>
           </div>
 
-          <div class="relative px-6 py-4">
+          <div v-if="data.users.length > 0" class="relative px-6 py-4">
             <!-- Title -->
             <div>
               <InputLabel for="title" :value="$t('Who should this one-on-one be with?')" class="mb-1" />
@@ -125,6 +125,11 @@ const submit = () => {
             </div>
 
             <Error :errors="form.errors" />
+          </div>
+
+          <!-- not enough users yet in the account -->
+          <div v-else class="px-6 py-4">
+            <p>{{ $t('There is no other users yet in the account. Please invite other users to start using this feature.') }}</p>
           </div>
 
           <!-- action -->

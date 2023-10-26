@@ -48,6 +48,10 @@ class HandleInertiaRequests extends Middleware
                 'settings' => [
                     'index' => route('settings.index'),
                 ],
+                'locale' => [
+                    'update_fr' => route('locale.update', ['locale' => 'fr']),
+                    'update_en' => route('locale.update', ['locale' => 'en']),
+                ],
             ],
             'ziggy' => function () use ($request) {
                 return array_merge((new Ziggy)->toArray(), [
