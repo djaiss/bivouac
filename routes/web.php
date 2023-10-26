@@ -5,6 +5,7 @@ use App\Http\Controllers\Files\FileController;
 use App\Http\Controllers\Files\FileDownloadController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\LocaleController;
+use App\Http\Controllers\Marketing\MarketingController;
 use App\Http\Controllers\OneOnOnes\OneOnOneController;
 use App\Http\Controllers\OneOnOnes\OneOnOneEntryController;
 use App\Http\Controllers\PreviewController;
@@ -40,18 +41,11 @@ use App\Http\Controllers\Tasks\TaskController;
 use App\Http\Controllers\Tasks\TaskListController;
 use App\Http\Controllers\Tasks\TaskSearchUserController;
 use App\Http\Controllers\Users\UserSearchController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+// marketing
+Route::get('/', [MarketingController::class, 'index'])->name('marketing.index');
 
 Route::get('invitation/{code}', [ValidateInvitationController::class, 'show'])->name('invitation.validate.show');
 Route::put('invitation/{code}', [ValidateInvitationController::class, 'update'])->name('invitation.validate.update');
