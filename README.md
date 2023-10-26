@@ -16,6 +16,10 @@ Bivouac has the following features:
 
 The project is released as MIT license. You can host it yourself, or you can use our [own hosted version](https://bivouacfoundation.org).
 
+This is what the product looks like:
+
+![image](https://github.com/djaiss/bivouac/assets/61099/b706e3ea-0a94-4302-a12f-b6d6463d9840)
+
 ## Motivation
 
 The project management space is crowded with commercial offerings. We believe that we can offer a nice alternative for companies who value complete privacy and data ownership.
