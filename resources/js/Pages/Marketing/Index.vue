@@ -8,34 +8,39 @@ import { Head } from '@inertiajs/vue3';
   <div class="bg-white">
     <header class="absolute inset-x-0 top-0 z-50">
       <nav class="flex items-start justify-between p-6 lg:px-8">
-        <div class="flex lg:flex-1">
-        </div>
+        <div class="flex lg:flex-1"></div>
         <div class="flex flex-col items-center">
           <div class="mb-5">
             <img src="img/marketing-logo.svg" />
           </div>
         </div>
         <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="/login" class="text-sm font-semibold leading-6 text-gray-900">Log in <span aria-hidden="true">&rarr;</span></a>
+          <a href="/login" class="text-sm font-semibold leading-6 text-gray-900">
+            Log in
+            <span aria-hidden="true">&rarr;</span>
+          </a>
         </div>
       </nav>
     </header>
 
     <div class="relative isolate px-6 pt-72">
       <div class="mx-auto max-w-4xl">
-        <div class="text-center mb-14">
+        <div class="mb-14 text-center">
           <h1 class="text-4xl font-bold text-gray-900 sm:text-6xl">Simple project management and 1:1s software.</h1>
           <p class="mt-6 text-lg leading-8 text-gray-600">Bivouac is simple to use and doesn’t have all the complex features of all those expensive and closed softwares that you are used to.</p>
           <p class="mt-6 text-lg leading-8 text-gray-600">It’s also completely open and free to use if you choose to host it yourself. You can also use our own hosted version for a one-time, non recurring fee if you prefer.</p>
           <div class="mt-10 flex items-center justify-center gap-x-6">
             <a href="/register" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Get started</a>
-            <a href="https://github.com/djaiss/bivouac" class="text-sm font-semibold leading-6 text-gray-900">Learn more on Github <span aria-hidden="true">→</span></a>
+            <a href="https://github.com/djaiss/bivouac" class="text-sm font-semibold leading-6 text-gray-900">
+              Learn more on Github
+              <span aria-hidden="true">→</span>
+            </a>
           </div>
         </div>
 
         <div>
-          <p class="text-center mb-4">This is what it looks like.</p>
-          <img class="bg-gray-100 p-2 rounded" src="/img/marketing-message.png" />
+          <p class="mb-4 text-center">This is what it looks like.</p>
+          <img class="rounded bg-gray-100 p-2" src="/img/marketing-message.png" />
         </div>
 
         <div class="bg-white py-24 sm:py-32">
@@ -95,15 +100,18 @@ import { Head } from '@inertiajs/vue3';
             </div>
           </div>
         </div>
-
       </div>
     </div>
 
-    <div class="bg-white mb-10">
+    <div class="mb-10 bg-white">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-2xl sm:text-center">
           <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Simple pricing</h2>
-          <p class="mt-6 text-lg leading-8 text-gray-600">Bivouac is MIT-licensed, and can be installed for free. <a class="cursor-pointer text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white" href="https://github.com/djaiss/bivouac">Visit Github</a> to know more. We also offer a hosted version if your prefer.</p>
+          <p class="mt-6 text-lg leading-8 text-gray-600">
+            Bivouac is MIT-licensed, and can be installed for free.
+            <a class="cursor-pointer text-blue-700 underline hover:rounded-sm hover:bg-blue-700 hover:text-white" href="https://github.com/djaiss/bivouac">Visit Github</a>
+            to know more. We also offer a hosted version if your prefer.
+          </p>
         </div>
         <div class="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
           <div class="p-8 sm:p-10 lg:flex-auto">
@@ -157,12 +165,8 @@ import { Head } from '@inertiajs/vue3';
       </div>
     </div>
 
-    <div class="bg-white mb-20 text-center">
-      <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        2023. Bivouac.
-      </div>
+    <div class="mb-20 bg-white text-center">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">2023. Bivouac.</div>
     </div>
-
   </div>
-
 </template>
